@@ -26,7 +26,7 @@ Under own `DateTimeProvider` think custom class, which we will ask for the curre
 ```CSharp
 public class DateTimeProvider : IDisposable 
 {
-    private static AsyncLocal<DateTime?> _injectedDateTime = new AsyncLocal<DateTime?>; 
+    private static AsyncLocal<DateTime?> _injectedDateTime = new AsyncLocal<DateTime?>(); 
  
     private DateTimeProvider() 
     { 
