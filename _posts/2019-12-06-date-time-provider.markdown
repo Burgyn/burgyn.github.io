@@ -88,7 +88,7 @@ public class BankAccountShould
     { 
         var expectedDateTime = new DateTime(2016, 4, 6); 
  
-        using (var date = DateTimeProvider.InjectActualDateTime(expectedDateTime)) 
+        using (DateTimeProvider.InjectActualDateTime(expectedDateTime)) 
         { 
             var bankAccount = new BankAccount(); 
  
