@@ -69,7 +69,7 @@ private void MakeTransaction(Transaction transaction)
 }
 ```
 
-Class implements `IDisposable` and has the static factory method `InjectActualDateTime` by which it can you inject the fake date.
+The class implements `IDisposable` and has a static factory method `InjectActualDateTime` that you can use to insert a fake value.
 If the class has injected a fake date, `Now` property returns just this.
 The use own date in test:
 
