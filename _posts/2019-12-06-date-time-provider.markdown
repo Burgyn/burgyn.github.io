@@ -58,7 +58,7 @@ public class DateTimeProvider : IDisposable
 } 
 ```
 
-The normal used in the method is the same as when you use the `DateTime`.
+The common usage in the method is the same as when you use the `DateTime`.
 
  
 ```CSharp
