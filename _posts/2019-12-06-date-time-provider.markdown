@@ -73,7 +73,7 @@ Class implements `IDisposable` and has the static factory method `InjectActualDa
 If the class has injected a fake date, `Now` property returns just this.
 The use own date in test:
 
-```
+```CSharp
 [TestClass] 
 public class BankAccountShould 
 { 
