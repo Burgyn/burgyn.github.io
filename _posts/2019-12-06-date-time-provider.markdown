@@ -9,9 +9,8 @@ categories:
   - Unit tests
   - Patterns
 ---
-
-## Description
 When writing unit tests, you probably met with the question of how to test the method, the calculation of which is dependent on `DateTime.Now`. `DateTime.Now` always returns a new value according to the current time, so testing this method is not directly possible. 
+<!-- excerpt -->
 
 It is certainly a number of ways this problem can be solved. The most frequent recommendations are however two:
 
@@ -22,7 +21,7 @@ It is certainly a number of ways this problem can be solved. The most frequent r
 
 ## Custom DateTimeProvider
 
-Under own DateTimeProvider think custom class, which we will ask for the current date and time. And it will be possible inject the current date. An example of this class:
+Under own `DateTimeProvider` think custom class, which we will ask for the current date and time. And it will be possible inject the current date. An example of this class:
 
 ```CSharp
 public class DateTimeProvider : IDisposable 
@@ -64,10 +63,10 @@ public class DateTimeProvider : IDisposable
     } 
 } 
 ```
-The normal used in the method is the same as when you use the DateTime.
+
+The normal used in the method is the same as when you use the `DateTime`.
 
  
-
 ```CSharp
 private void MakeTransaction(Transaction transaction) 
 { 
@@ -75,9 +74,11 @@ private void MakeTransaction(Transaction transaction)
     _transactions.Add(transaction); 
 }
 ```
-Class implements IDisposable and has the static factory method InjectActualDateTime by which it can you inject the fake date.
+
+Class implements `IDisposable` and has the static factory method `InjectActualDateTime` by which it can you inject the fake date.
 If the class has injected a fake date, Now property returns just this.
 The use own date in test:
+
 ```
 [TestClass] 
 public class BankAccountShould 
@@ -100,3 +101,5 @@ public class BankAccountShould
     } 
 } 
 ```
+
+See [demo project.](https://github.com/Burgyn/Sample.DateTimeProvider)
