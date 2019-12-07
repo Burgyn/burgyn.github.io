@@ -8,7 +8,10 @@ categories:
   - .NET Core
   - Unit tests
   - Patterns
+tags: [C#,.NET,.NET Core,Unit tests,Patterns]
+author: Miňo Martiniak
 ---
+
 When writing unit tests, you probably met with the question of how to test the method, the calculation of which is dependent on `DateTime.Now`. `DateTime.Now` always returns a new value according to the current time, so testing this method is not directly possible. 
 <!-- excerpt -->
 

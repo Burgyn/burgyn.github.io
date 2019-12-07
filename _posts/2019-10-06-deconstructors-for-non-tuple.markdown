@@ -2,10 +2,8 @@
 layout: post
 title:  "Deconstructors for non tuple types in C# 7.0"
 date:   2019-10-06 09:00:00 +0100
-tags:
-  - C#
-  - .NET
-  - .NET Core
+tags: [C#,.NET,.NET Core]
+author: Miňo Martiniak
 ---
 
 O tupple a o tom ako ich rozložiť v C# 7.0 sa popísalo veľa. [Napríklad ...](https://visualstudiomagazine.com/articles/2017/01/01/tuples-csharp-7.aspx)
