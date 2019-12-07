@@ -1,0 +1,12 @@
+.highlighter-rouge  {
+    background-color: #f8f8f8;
+}
+
+pre > code {
+    background-color: #f8f8f8;    
+}
+
+pre {
+    background-color: #f8f8f8 !important;
+    border-radius: 0px !important;
+}
