@@ -43,6 +43,9 @@ kramdown:
   input: GFM
   auto_ids: true
   syntax_highlighter: rouge
+  
+# Google analytics
+google_analytics: UA-154408250-1
 
 # Exclude from processing.
 # The following items will not be processed, by default.
