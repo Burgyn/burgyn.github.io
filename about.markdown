@@ -9,7 +9,7 @@ I come from Skalite. It's small village in the north of Slovakia. Now I live and
 
 In 2010 I graduated from the Faculty of Management and Informatics of the University of Žilina in Applied Informatics.
 
-Since 2007 I'm .NET developer in KROS a.s. In the past I have been developing desktop aplication (WinForms and WPF). Last few years I've been focusing on cloud development. (.NET Core, AZURE, ...) Nowadays I'm working as a software & cloud architect.
+Since 2007 I'm .NET developer in KROS a.s. In the past I have been developing desktop aplication (WinForms and WPF). Last few years I've been focusing on cloud development. (ASP.NET Core, AZURE, ...) Nowadays I'm working as a software & cloud architect.
 
 I'm co-autor of an open source project [KORM](https://github.com/Kros-sk/Kros.KORM). And autor/founder of an open source project [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot). I actively take care of both of these projects.
 
