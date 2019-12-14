@@ -3,7 +3,7 @@ layout: page
 title: Milan Martiniak
 permalink: /about/
 ---
-![avatar](https://avatars0.githubusercontent.com/u/5930822?s=460&v=4){:style="float: right;margin-right: 7px;margin-top: 7px;"}
+![avatar](https://avatars0.githubusercontent.com/u/5930822?s=460&v=4){:style="float: left;margin-right: 20px;margin-top: 0px; max-width:170px; border-radius: 4px; border: 1px solid #ddd; padding:5px"}
 Hello, my name is Milan Martiniak. I'm husband, father, son and dotnet developer.
 I come from Skalite. It's small village in the north of Slovakia. Now I live and work in Žilina.
 
