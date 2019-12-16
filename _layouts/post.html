@@ -13,7 +13,7 @@ layout: default
             {%- if page.author -%} | <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author | escape }}</span></span>
             {%- endif -%}
             {% if page.tags %}
-            <span class="fa fa-tags" aria-label="Tags"> | Tagged: </span>
+            <span class="fa fa-tags" aria-label="Tags"> | 🏷️ </span>
             {% for tag in page.tags %}
             <span>
                 <!-- <a href="/tags/{{ tag }}">{{ tag }}</a> -->
