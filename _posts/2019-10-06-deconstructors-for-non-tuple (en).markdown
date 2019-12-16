@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Deconstructors for non tuple types in C# 7.0"
-date: 2019-12-15 09:00:00 +0100
+date: 2019-10-06 09:00:00 +0100
 tags: [C#, .NET, .NET Core]
 author: Miňo Martiniak
 ---
