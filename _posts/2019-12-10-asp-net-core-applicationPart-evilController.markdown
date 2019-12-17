@@ -46,7 +46,7 @@ _AspNet Core build tooling_ discovers dependencies that reference MVC features _
 
 Do not use suspicious packages! 😊
 
-Okay, but what if I don't want to detail study the external library and want to use it anyway?
+Okay, but what if I don't want to study the external library in detail and still want to use it?
 
 In this case, you can remove external application parts from your application. For example:
 
