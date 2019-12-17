@@ -24,7 +24,7 @@ public class EvilController : ControllerBase
 }
 ```
 
-If autor (attacker) calls `your-site-url/evil`, than can get the following result:
+If author (attacker) calls `your-site-url/evil`, than can get the following result:
 
 ![](https://gist.github.com/Burgyn/1fafbffcb737b4a73341ae2f7dd1626b/raw/ec45967614cb362c41aa4acd23afed8221e03d2a/EvilOutput.png)
 
@@ -34,13 +34,12 @@ Do not believe? Try this [demo](https://github.com/Burgyn/Sample.EvilControllers
 
 ## Surprising?
 
-At a first glance, yes. Documentation and blog posts say that if we want to add controllers from external assemblies, we need to add `ApplicationPart` by calling `mvcBuilder.AddApplicationPart(assembly);`.
+At first glance, yes. Documentation and blog posts say that if we want to add controllers from external assemblies, we need to add `ApplicationPart` by calling `mvcBuilder.AddApplicationPart(assembly);`.
 But we do not call anything like this. So why is external `EvilController` discovered?
 
 Answer is [AspNet Core build tooling](https://github.com/aspnet/AspNetCore-Tooling/pull/598) and [ApplicationPartAttribute](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartattribute?view=aspnetcore-3.0).
 
-_AspNet Core build tooling_ discovers dependencies that reference MVC features _(in dependencies tree)_ and add them as `ApplicationPartAttribute` to your assembly _(in build time)_. When _ASP.NET Core_ application starts, it use the [ApplicationPartManger](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ApplicationParts/ApplicationPartManager.cs) for adding external assembly as `ApplicationParts`. By default, `ApplicationPartManager` searches for `ApplicationPartAttribute`. That's why the package with `EvilController` is added as an `ApplicationPart` to your application.
-
+_AspNet Core build tooling_ discovers dependencies that reference MVC features _(in dependencies tree)_ and add them as `ApplicationPartAttribute` to your assembly _(during build time)_. When _ASP.NET Core_ application starts, it use the [ApplicationPartManger](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ApplicationParts/ApplicationPartManager.cs) for adding external assembly as `ApplicationParts`. By default, `ApplicationPartManager` searches for `ApplicationPartAttribute`. That's why the package with `EvilController` is added as an `ApplicationPart` to your application.
 
 ## How to avoid it?
 
@@ -56,9 +55,8 @@ public void ConfigureServices(IServiceCollection services)
     services.AddControllers()
         .ConfigureApplicationPartManager(o =>
         {
-            var entryAssembly = Assembly.GetEntryAssembly();
             o.ApplicationParts.Clear();
-            o.ApplicationParts.Add(new AssemblyPart(entryAssembly));
+            o.ApplicationParts.Add(new AssemblyPart(typeof(Startup).Assembly);
         });
 }
 ```
