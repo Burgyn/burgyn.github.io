@@ -6,7 +6,7 @@ tags: [VS Online, VS Code, Environment]
 author: Miňo Martiniak
 ---
 
-Áno, naozaj som sa nepomýlil a mám na mysli Visual Studio Online. Nie akuálne DevOps, ktoré sa ešte nedávno presne rovnako menovalo (s rovnakou doménou). *Asi mal Microsoft ešte stále zaplatenú doménu a tak sa ju rozhodol využiť pre novú službu "Cloudové IDE" 😊.*
+Áno, naozaj som sa nepomýlil a mám na mysli Visual Studio Online. Nie akuálne DevOps, ktoré sa ešte nedávno presne rovnako menovalo *(s rovnakou doménou)*. *Asi mal Microsoft ešte stále zaplatenú doménu a tak sa ju rozhodol využiť pre novú službu "Cloudové IDE" 😊.*
 
 Som vlastníkom Surface Go. Čo je veľmi šikovný malý Windows 10 tablet. Doma som si zvykol používať ho na väčšinu veci. Bežný notebook zapínam len keď idem niečo spraviť do pár opensource projektov o ktoré sa starám. Či už je to vývoj nových vecí, prototypovanie či review zložitejšieho PR, ktorý chcem vidieť vo VS a nestačí mi GitHub portál. Na také niečo je už ten môj Surface slabý a ani ho nechcem "zašpiniť" takýmito vecami. Preto som začal pokukovať po [VS Online](https://online.visualstudio.com).
 
@@ -16,7 +16,7 @@ VS Online je cloudové developerské prostredie dostupné odkiaľkoveľvek. Mát
 
 ## Ako na to?
 
-Je to jednoduché. Stačí navštíviť priamo portál https://online.visualstudio.com. Prihlásiť sa pomocou Microsoft konta, ku ktorému je priradený AZURE Subscription. *(Pokiaľ také nemáte, môžte vyskúšať [free prístup na 12 mesiacov](https://azure.microsoft.com/en-us/free/)).*
+Je to jednoduché. Stačí navštíviť priamo portál [https://online.visualstudio.com](https://online.visualstudio.com). Prihlásiť sa pomocou Microsoft konta, ku ktorému je priradený AZURE Subscription. *(Pokiaľ také nemáte, môžte vyskúšať [free prístup na 12 mesiacov](https://azure.microsoft.com/en-us/free/)).*
 
 Skôr ako začneme vytvárať prostredia, musíme si vytvoriť plán.
 ![Billing plan](/assets/images/vsonline/BillingPlan.png)
