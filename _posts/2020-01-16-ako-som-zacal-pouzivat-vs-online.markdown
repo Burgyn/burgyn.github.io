@@ -12,20 +12,20 @@ Som vlastníkom Surface Go. Čo je veľmi šikovný malý Windows 10 tablet. Dom
 
 ## Visual Studio Online
 
-VS Online je cloudové developerské prostredie dostupné odkiaľkoveľvek. Máte slabý počítač, nechce sa vám kvôli nejakému prototypovaniu "špiniť" svoj počítač? Jednoducho si vytvoríte pomocou VS Online developerské prostredie na AZURE a vyvíjate tam. Žiadne RDP a pripájanie sa na virtuálnu mašinu. Pekne cez browser, alebo lokálne nainštalované VS Code s extension. (Je podpora aj pre VS, ale netestoval som to)
+VS Online je cloudové developerské prostredie dostupné odkiaľkoveľvek. Máte slabý počítač, nechce sa vám kvôli nejakému prototypovaniu "špiniť" svoj počítač? Jednoducho si vytvoríte pomocou VS Online developerské prostredie na AZURE a vyvíjate tam. Žiadne RDP a pripájanie sa na virtuálnu mašinu. Pekne cez browser, alebo lokálne nainštalované VS Code s extension. *(Je podpora aj pre VS, ale netestoval som to)*
 
 ## Ako na to?
 
 Je to jednoduché. Stačí navštíviť priamo portál https://online.visualstudio.com. Prihlásiť sa pomocou Microsoft konta, ku ktorému je priradený AZURE Subscription. *(Pokiaľ také nemáte, môžte vyskúšať [free prístup na 12 mesiacov](https://azure.microsoft.com/en-us/free/)).*
 
 Skôr ako začneme vytvárať prostredia, musíme si vytvoriť plán.
-![Billing plan](https://prnt.sc/qplw5f)
+![Billing plan](/assets/images/vsonline/BillingPlan.png)
 
 Na AZURE sa Vám vytvorí Resource Groupa a Visual Studio Online Plan.
-![AZURE Plan](https://prnt.sc/qplzxd)
+![AZURE Plan](/assets/images/vsonline/Azure.png)
 
 Konečne si môžme vytvoriť svoj prvý cloud environment.
-![Creating environment](https://prnt.sc/qpm0f8)
+![Creating environment](/assets/images/vsonline/CreateEnvironment.png)
 
 Na výber máme z dvoch konfigurácií:
 
@@ -44,7 +44,7 @@ Otvorí sa nám webová verzia Visual Studio Code.
 
 V našom prostredí už máme predinštalovaný `dotnet core`, takže môžme rovno napríklad vyskúšať vytvoriť mvc aplikáciu. Otvoríme terminál `CTLR+SHIFT+C` a napíšeme `dotnet new mvc`.
 
-![Visual Studio Code](https://prnt.sc/qpm363)
+![Visual Studio Code](/assets/images/vsonline/VisualStudioCode.png)
 
 Na plnohodnotnú prácu s `dotnet core` odporúčam nainštalovať extension [OmniSharp](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp). Potom stačí v debug okne aplikáciu spustiť.
 
@@ -52,22 +52,22 @@ Po spustení aplikácie Visual Studio Online automaticky vytvorí port forwardin
 
 ## VS Online
 
-Práca cez browser je cool, ale povedzme si pravdu, je to fajn tak na malé úpravy. Nie na dlhodobú prácu. Omnoho pohodlnejšie to bude cez Visual Studio Code. *(Pravdepodobne aj cez "veľké" Visual Studio 2019, ale to som ešte neskúšal.)* Do VS Code je potrebné doinštalovať jedinú extension [Visual Studio Online](https://marketplace.visualstudio.com/items?itemName=ms-VS Online.VS Online) a pripojiť si svoje prostredie.
+Práca cez browser je cool, ale povedzme si pravdu, je to fajn tak na malé úpravy. Nie na dlhodobú prácu. Omnoho pohodlnejšie to bude cez Visual Studio Code. *(Pravdepodobne aj cez "veľké" Visual Studio 2019, ale to som ešte neskúšal.)* Do VS Code je potrebné doinštalovať jedinú extension [Visual Studio Online](https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline) a pripojiť si svoje prostredie.
 
-[Select plan](https://prnt.sc/qpv5sm)
+![Select plan](/assets/images/vsonline/SelectPlan.png)
 
-[Select environment](https://prnt.sc/qpv6ms)
+![Select environment](/assets/images/vsonline/SelectEnvironment.png)
 
-[Forward port](https://prnt.sc/qpvah5)
+![Forward port](/assets/images/vsonline/Ports.png)
 
 ## Zhrnutie
 
-Je super odkiaľkovek sa pripojiť a mať tam všetko pripravená tak ako keď ste to použili naposledy. Nech sa pripojíte odkiaľkovek (pracovný notebook, domáci notebook, tablet na cestách, ...) nájdete svojú rozbrobenú prácu presne tak ako ste ju nechali.
+Je super odkiaľkovek sa pripojiť a mať tam všetko pripravená tak ako keď ste to použili naposledy. Nech sa pripojíte odkiaľkovek *(pracovný notebook, domáci notebook, tablet na cestách, ...)* nájdete svojú rozrobenú prácu presne tak ako ste ju nechali.
 
-Microsoft tvrdí, že je to vhodné na malé veci ako úprava PR, drobné zmeny ale aj na dlhodbé veľké projekty. Stále je to ale označované ako "preview" a predpokladám, že ich ešte čaká veľa práce. (Za pár týždňov používania som však narazil len na drobné výpadky intellisense-u). Či to v budúcnosti plnohodnotne nahradí developerské pracovné stanice neviem. Každopádne však tomuto projektu fandím a so záujmom budem sledovať ako sa bude vyvíjať.
+Microsoft tvrdí, že je to vhodné na malé veci ako úprava PR, drobné zmeny ale aj na dlhodbé veľké projekty. Stále je to ale označované ako "preview" a predpokladám, že ich ešte čaká veľa práce. *(Za pár týždňov používania som však narazil len na drobné výpadky intellisense-u.)* Či to v budúcnosti plnohodnotne nahradí developerské pracovné stanice neviem. Každopádne však tomuto projektu fandím a so záujmom budem sledovať ako sa bude vyvíjať.
 
 ## Odkazy
 
 - [Announcing Visual Studio Online Public Preview](https://devblogs.microsoft.com/visualstudio/announcing-visual-studio-online-public-preview/?WT.mc_id=-blog-scottha)
 - [Visual Studio Online](https://visualstudio.microsoft.com/cs/services/visual-studio-online/?rr=https%3A%2F%2Fwww.google.com%2F)
-- [VSCode extension](https://marketplace.visualstudio.com/items?itemName=ms-VS Online.VS Online)
+- [VSCode extension](https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline)
