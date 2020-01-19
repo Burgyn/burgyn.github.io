@@ -62,9 +62,9 @@ Práca cez browser je cool, ale povedzme si pravdu, je to fajn tak na malé úpr
 
 ## Zhrnutie
 
-Je super odkiaľkovek sa pripojiť a mať tam všetko pripravená tak ako keď ste to použili naposledy. Nech sa pripojíte odkiaľkovek *(pracovný notebook, domáci notebook, tablet na cestách, ...)* nájdete svojú rozrobenú prácu presne tak ako ste ju nechali.
+Je super odkiaľkovek sa pripojiť a mať tam všetko pripravená tak, ako keď ste to použili naposledy. Nech sa pripojíte odkiaľkovek *(pracovný notebook, domáci notebook, tablet na cestách, ...)* nájdete svojú rozrobenú prácu presne tak, ako ste ju nechali.
 
-Microsoft tvrdí, že je to vhodné na malé veci ako úprava PR, drobné zmeny ale aj na dlhodbé veľké projekty. Stále je to ale označované ako "preview" a predpokladám, že ich ešte čaká veľa práce. *(Za pár týždňov používania som však narazil len na drobné výpadky intellisense-u.)* Či to v budúcnosti plnohodnotne nahradí developerské pracovné stanice neviem. Každopádne však tomuto projektu fandím a so záujmom budem sledovať ako sa bude vyvíjať.
+Microsoft tvrdí, že je to vhodné na malé veci ako úprava PR, drobné zmeny, ale aj na dlhodbé veľké projekty. Stále je to ale označované ako "preview" a predpokladám, že ich ešte čaká veľa práce. *(Za pár týždňov používania som však narazil len na drobné výpadky intellisense-u.)* Či to v budúcnosti plnohodnotne nahradí developerské pracovné stanice neviem. Každopádne však tomuto projektu fandím a so záujmom budem sledovať ako sa bude vyvíjať.
 
 ## Odkazy
 
