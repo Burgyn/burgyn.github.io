@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/burgyn
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://blog.burgyn.online
+  * I am burgyn (https://keybase.io/burgyn) on keybase.
+  * I have a public key ASDK7S0x-ThHeQNhl8j7YWNaRBdLuGPxd-0ZzZ68VJ3jCAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012083f8815508a9caa922006b2fe7694fa33da9540ca31012fb709c6c911d857e440a",
+      "host": "keybase.io",
+      "kid": "0120caed2d31f9384779036197c8fb61635a44174bb863f177ed19cd9ebc549de3080a",
+      "uid": "45fbb17be85a36c06cded106109ea019",
+      "username": "burgyn"
+    },
+    "merkle_root": {
+      "ctime": 1581169610,
+      "hash": "074a7f334abb6138b7584c4e6b649953ceedd7b6bc25d28f08d87bce3816e458e2b04a5ed3def6e1314ef12529e647314428411e38d316fefd303ee14f726938",
+      "hash_meta": "35317ed7728862fc444e8361f1f057641d7fe51f591d666c9abaa22294d0c777",
+      "seqno": 14534482
+    },
+    "service": {
+      "entropy": "ARh/c7y6czCyQA4EtC7bQorc",
+      "hostname": "blog.burgyn.online",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.2.0"
+  },
+  "ctime": 1581169665,
+  "expire_in": 504576000,
+  "prev": "c7dbce8fdbd2cb0ce5c4209a3a4eebec3f7b54c2939e8837919aec18a06bf8c9",
+  "seqno": 13,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgyu0tMfk4R3kDYZfI+2FjWkQXS7hj8XftGc2evFSd4wgKp3BheWxvYWTESpcCDcQgx9vOj9vSywzlxCCaOk7r7D97VMKTnog3kZrsGKBr+MnEIOWXunK5nXG4uz8GtN/74NRIF7e83EXty1jv+qnPyeRKAgHCo3NpZ8RAI7qE8RR0ViUop4n5eYnUiEJj7uWXRcUM0NAJVMdeV6Wj2jFvCmNm4PzPkl7C/VprNa9JvOYuvOr9tI7ENXXMAqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIKvgB0t8ew7eWfptnVQl4T/28p1YWUUzBawaRCqSOPJFo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/burgyn
+
+==================================================================
