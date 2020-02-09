@@ -47,6 +47,13 @@ kramdown:
 # Google analytics
 google_analytics: UA-154408250-1
 
+jekyll_compose:
+  auto_open: true
+  default_front_matter:
+    drafts:
+      tags: []
+      author: Miňo Martiniak
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
