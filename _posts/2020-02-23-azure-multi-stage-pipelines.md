@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Azure Multi-Stage Pipelines
+date: 2020-02-23 17:00:00 +0100
+title: Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)
 tags: [Azure, DevOps, CI/CD, .NET Core, ASP.NET Core]
 author: Miňo Martiniak
 ---
@@ -187,19 +188,7 @@ Pipeline-a, ktorú ideme vytvárať bude vyzerať nasledovne:
 
 > Je možné vytvoriť akokoľvek komplexné a sofistikované pipeline-y. Všetko záleží od vašich procesov. Táto je relatívne jednoduchá, ale pokúsim sa na nej ukázať všetky podstatné veci.
 
-### Vytvorenie Azure prostredia
-
-Ak si chcete tento príklad vyskúšať reálne nasadiť, tak si musíte pod svojím Azure kontom vytvoriť potrebné prostredie.
-Aby ste to celé nemuseli robiť ručne, pripravil som pre vás [ARM šablónu](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview) popisujúcu toto prostredie. Šablónu nájdete v súbore xxxx.
-
-Parametre ktoré je potrebné nastaviť:
- - parameter 1
- - parameter dva
- -
-
-Návod ako použiť ARM šablónu nájdete [sem](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/quickstart-create-templates-use-the-portal#edit-and-deploy-the-template).
-
-### Vytvorenie kostry release pipeline-y
+### Vytvorenie kostry deployment pipeline-y
 
 Môžme pokračovať v pôvodnom yaml súbore v ktorom sme definovali build. Z viacerých dôvodov je ale vhodné rozdeliť proces zostavenia produktu a jeho deployment. *(Napríklad chcete jednu konkrétnu verziu build-u použiť vo viacerých deployment pipeline-nách, alebo naopak chcete jednu deployment pipelinu použiť viackrát s rôznymi verziami build-u.)*
 
@@ -264,7 +253,7 @@ resources:
 
 V našom prípade pridávame odkaz na `build-demo-ci`. Pomenujeme ju `ToDosDemoServices` *(na tento názov sa budeme ďalej odkazovať)* a nastavíme ju ako trigger, ktorý bude spúšťať našu deployment pipeline-u `trigger: true`.
 
-Pomocou `stages` rozdelíme našu pipeline-u na dve časti `- stage: 'Tests'` a `- stage: 'Production'`. Pomocou `displayName:` im môžme dať ľudský popis, ktorý sa bude zobrazovať vo vizualizácií procesu. Štandardne jednotlivé stages sa vykonávajú v poradí ako sú definované. Ak toto chceme zmeniť, alebo chceme docieliť zložitejší proces ako napríklad [fan-out fan-in](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml#specify-dependencies), tak môžeme použiť nastavenie `dependsOn:`.
+Pomocou `stages` rozdelíme našu pipeline-u na dve časti `- stage: 'Tests'` a `- stage: 'Production'`. `displayName:` nám dá ľudský popis, ktorý sa bude zobrazovať vo vizualizácií procesu. Štandardne jednotlivé stages sa vykonávajú v poradí ako sú definované. Ak toto chceme zmeniť, alebo chceme docieliť zložitejší proces ako napríklad [fan-out fan-in](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml#specify-dependencies), tak môžeme použiť nastavenie `dependsOn:`.
 
 V časti venovanej buildu sme nespomínali takzvané job-y. Pretože v našom prípade sa tam používal jeden implicitný job. Jednotlivé kroky môžme rozdeľovať do [viacerých job-ov](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml). Pokiaľ máme v definovanom pool-e viacerých voľných agentov, tak tieto job-y môžu vykonávať definované kroky na týchto agentoch paralelne. *(Každý agent v danom čase môže vykonávať kroky z jedného job-u.)*
 
@@ -295,7 +284,7 @@ Pokiaľ chceme pomocou Azure DevOps Pipelines nasadzovať do Azure služieb, mus
 
 ![add azure connection](/assets/images/multi-stage-pipelines/addAzureSubscription1.png)
 
-V nastaveniach projektu zvolíme **Service connection** kde pridáme nové [**Azure Resource Manager**](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml#sep-azure-resource-manager) spojenie. Ideálne ak máte jedno konto pre Azure aj Azure DevOps, v tom prípade zvoľte (Automatic) v opačnom prípade (manula).
+V nastaveniach projektu zvolíme **Service connection**, kde pridáme nové [**Azure Resource Manager**](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml#sep-azure-resource-manager) spojenie. Ideálne ak máte jedno konto pre Azure aj Azure DevOps, v tom prípade zvoľte (Automatic) v opačnom prípade (manula).
 
 ![add azure connection](/assets/images/multi-stage-pipelines/addAzureSubscription2.png)
 
@@ -307,12 +296,11 @@ Princíp nasadzovania si ukážeme na jednej zo služieb. Napríklad `ToDos`.
 variables:
   AzureSubscriptionName: 'Demo Azure Subscription'
   ResourceGoupName: 'mino-demo-rsg'
+  SlotName: 'Testing'
 
 stages:
 - stage: 'Tests'
   displayName: 'Testing'
-  variables:
-    SlotName: 'Testing'
   jobs:
   - deployment: Services
     pool:
@@ -337,61 +325,307 @@ stages:
               slotName: $(SlotName)
 ```
 
-Na nasadenie našej služby do Azure WebApps môžeme použiť task [AzureWebApp@1](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-rm-web-app?view=azure-devops). Ktorému musíme nastaviť `azureSubscription`. Túto hodnotu nastavíme na názov nášho spojenia s Azure. Ďalej `appName` čo je názov vašej Azure WebApps služby kam chcete nasadiť aplikáciu, ktorú daný task hľadá na mieste, ktoré definujete pomocou `package` parametra. využívame tu premennú `$(Pipeline.Workspace)` kde máme stiahnuté naše artefakty. Artefakty z pipeline-y `ToDosDemoServices` sa stiahli do príslušného podadresára. Tieto tri nastavenia stačia pri štandardnom nasadzovaní.
+Na nasadenie našej služby do Azure WebApps môžeme použiť task [AzureWebApp@1](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-rm-web-app?view=azure-devops). Ktorému musíme nastaviť `azureSubscription`. Túto hodnotu nastavíme na názov nášho spojenia s Azure. Ďalej `appName` čo je názov vašej Azure WebApps služby kam chcete nasadiť aplikáciu, ktorú daný task hľadá na mieste, ktoré definujete pomocou `package` parametra. Využívame tu premennú `$(Pipeline.Workspace)` kde máme stiahnuté naše artefakty. Artefakty z pipeline-y `ToDosDemoServices` sa stiahli do príslušného podadresára. Tieto tri nastavenia stačia pri štandardnom nasadzovaní.
 
 My však chceme využiť možnosti [slotov v Azure WebApps](https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots), čo nám umožní pomocou swap-ovania dostiahnuť bezodstávkové nasadzovanie. Preto musíme nastaviť parameter `deployToSlotOrASE: true`, názov resource group-y v ktorej sa nachádza naša služba `resourceGroupName: $(ResourceGoupName)` a názov slotu do ktorého nasadzujeme `slotName: $(SlotName)`.
 
-Miest toho aby sme tieto hodnoty zadávali priamo, definujeme si ich ako premenné. Bude sa nám to ľahšie spravovať a môžme ich používať na viacerých miestach s tým, že definované ich máme len na jednom mieste. Premenné `AzureSubscriptionName` a `ResourceGoupName` si definujeme na úrovni celej pipeline-y. Ale `SlotName` v rámci daného stage, pretože v každom stage potrebujeme inú hodnotu. Premenné je ešte možné extrahovať do šablónu alebo použiť [priamo z DevOps](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml).
+Miesto toho aby sme tieto hodnoty zadávali priamo, definujeme si ich ako premenné. Bude sa nám to ľahšie spravovať a môžme ich používať na viacerých miestach s tým, že definované ich máme len na jednom mieste. Premenné `AzureSubscriptionName`, `ResourceGoupName` a `SlotName` si definujeme na úrovni celej pipeline-y. Premenné je ešte možné definovať na úrovni stage-u, extrahovať do šablóny, alebo použiť [priamo z DevOps](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&tabs=yaml).
 
+Pokiaľ sme sa nikde nepomýlili, tak po potvrdení zmien by sa nám prva služba mala úspešne nasadiť.
 
+### Refaktor a nasadenie všetkých služieb
 
-  - [ ] Task nasadenie. Daj link na zoznam taskov, poprípade aj marketplace.
-  - [ ] Ako pridať názov subscriptions
-  - [ ] Daj tu transformáciu. Ale upozorni, že to nie je najlepší spôsob. Daj odkaz na Azure KeyVault
-  - [ ] Info o tom ako si u seba vytvoria prostredie.
+Pre nasadzovanie ostatných služieb môžme pridávať rovnakým spôsobom ďalšie kroky. Dá sa to ale aj elegantnejšie. Azure Pipelines podporujú viaceré [expressions](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops). Jednou z nich je aj ["Each" Template Expresion](https://github.com/microsoft/azure-pipelines-yaml/blob/master/design/each-expression.md), ktorá sa dá použiť podobne ako bežný `foreach` v ostatých jazykoch.
+Samotné nasadenie služieb extrahujeme do šablóny s názvom `deploy-microservice.yml`.
 
-### Refaktor, aby sme mohli jednoducho nasadiť všetky služby
+{% raw %}
+
+```yml
+parameters:
+  microservices: []
+
+steps:
+- ${{ each microservice in parameters.microservices }}: # Each microservice
+  - task: AzureWebApp@1
+    displayName: 'Microservice Deploy: ${{microservice}}'
+    inputs:
+      azureSubscription: $(AzureSubscriptionName)
+      appName: 'mino-demo-${{microservice}}-api'
+      package: '$(Pipeline.Workspace)/ToDosDemoServices/drop/Kros.${{microservice}}.Api.zip'
+      deployToSlotOrASE: true
+      resourceGroupName: $(ResourceGoupName)
+      slotName: $(SlotName)
+```
+
+{% endraw %}
+Vstupným parametrom pre túto šablónu je zoznam názov jednotlivých mikroslužieb `microservices: []`.
+
+> Pri takejto automatizácií ná vedia veľmi pomôcť konvencie názvoslovia. Pokiaľ máme nejaký vzor pre nazývanie služieb, artefaktov, ..., tak si môžme takýmto spôsobom zjednodušiť život.
+
+Pomocou konštrukcie {% raw %} `${{ each microservice in parameters.microservices }}` {% endraw %} rozkopírujeme dané kroky *(v našom prípade jeden)* pre každý názov mikroslužby. Na názov konkrétnej služby sa referencujeme pomocou konštrukcie {% raw %} `${{microservice}}` {% endraw %}.
+
+Šablónu použijeme v našej pipeline nasledovne:
+
+```yml
+variables:
+  AzureSubscriptionName: 'Demo Azure Subscription'
+  ResourceGoupName: 'mino-demo-rsg'
+
+stages:
+- stage: 'Tests'
+  displayName: 'Testing'
+  variables:
+    SlotName: 'Testing'
+  jobs:
+  - deployment: Services
+    pool:
+      vmImage: ubuntu-latest
+    environment: Testing
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: ToDosDemoServices
+            artifact: drop
+            displayName: 'Download artifacts'
+
+          - template: deploy-microservice.yml
+            parameters:
+              microservices: ['ToDos', 'Authorization', 'Organizations', 'ApiGateway']
+```
+
+> Premenné ako napríklad `$(AzureSubscriptionName)` si v našom prípade môžme dovoliť nechať takto. Preprocessing, ktorý spracováva túto pipelinu rozbaľuje jednotlivé šablóny a inplace-suje ich priamo do pipeline-y. Pokiaľ však túto šablóny chceme mať všeobecnú a použiteľnú aj v iných pipeline-ach / projektoch *(čo asi chceme)*, tak by sme z nich mali spraviť premenné. *(Poprípade poriadne zdokumentovať aké premenné majú byť nastavené pre fungovanie danej šablóny.)*
+
+Takýmto spôsobom sme nasadili všetky potrebné služby. Backend máme nasadený do testovacieho prostredia. Teraz by malo nasledovať spustenie integračných testov. Niekedy v ďalšom článku si ukážeme ako spustiť postman testy.
 
 ### Nasadenie Angular aplikácie
 
-### Nasadenie do testovacieho prostredia
+Teraz je načase nasadiť klienta. Tak ako sme spomínali na začiatku, tak Angular aplikáciu budeme nasadzovať do Azure Storage Static Websites. Čo v jednoduchosti znamená pomocou [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?view=azure-cli-latest) nakopírovať súbory na blob storage.
 
-### Nasadenie do Staging prostredia
+Nasadenie klienta máme definované v šablóne `deploy-client.yml`.
 
-- vysvetliť Environments a approvals
+{% raw %}
+
+```yml
+parameters:
+  storageAccount: string
+
+steps:
+  - download: ToDosDemoClient
+    artifact: app
+    displayName: 'Download client app artifacts'
+
+  - task: AzureCLI@1
+    displayName: 'Delete files from storage'
+    inputs:
+      azureSubscription: '$(AzureSubscriptionName)'
+      scriptLocation: inlineScript
+      inlineScript: 'az storage blob delete-batch -s $web --account-name ${{parameters.storageAccount}} --pattern /*'
+
+  - task: AzureCLI@1
+    displayName: 'Upload files to storage'
+    inputs:
+      azureSubscription: '$(AzureSubscriptionName)'
+      scriptLocation: inlineScript
+      inlineScript: |
+        az storage blob upload-batch -d $web --account-name ${{parameters.storageAccount}} -s $(Pipeline.Workspace)/ToDosDemoClient/app/Kros.Angular.BestPractices
+```
+
+{% endraw %}
+
+V prvom kroku samozrejme musíme stiahnúť artefakty. V tomto prípade z pipeline-y, ktorú si pridáme neskôr a pomenujeme ju `ToDosDemoClient`. Angular generuje súborom náhodne znaky, preto skôr ako upload-neme novú verziu, musíme vymazať starú.
+
+Na volanie Azure CLI príkazov použijeme [`AzureCLI@1`](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops) task. Ktorému nastavíme `azureSubscription` nad ktorou sa príkazy budú spúšťať. Pomocou `scriptLocation` označíme, že script budeme písať priamo v tejto šablóne *(Ak chceme mať script v samostatnom súbore tak to nastavíme na `scriptPath`)*.
+
+Príkazom [`az storage blob delete-batch`](https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-delete-batch) vymažeme všetky súbory `--pattern /*` z kontajnera `$web` v Storage Account-e {% raw %}`--account-name ${{parameters.storageAccount}}`. {% endraw %}
+
+Rovnakým spôsobom upload-neme aj nové súbory z artefaktov umiestnených v `$(Pipeline.Workspace)/ToDosDemoClient/app/Kros.Angular.BestPractices`. Na upload súborov do Blob Storage je možné použiť aj [`AzureFileCopy@3`](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-file-copy?view=azure-devops) task, bohužiaľ tento neakceptuje nastavenú sytémovu proxy a preto na on-premise serveroch s tým býva problém.
+
+Šablónu použijeme v našej pipeline.
+
+```yml
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: ToDosDemoServices
+    source: Build - Demo - CI
+    trigger: true
+
+  - pipeline: ToDosDemoClient
+    source: Build - Angular - CI
+    trigger: true
+
+variables:
+  AzureSubscriptionName: 'Demo Azure Subscription'
+  ResourceGoupName: 'mino-demo-rsg'
+
+stages:
+- stage: 'Tests'
+  displayName: 'Testing'
+  variables:
+    SlotName: 'Testing'
+  jobs:
+  - deployment: Services
+    pool:
+      vmImage: ubuntu-latest
+    environment: Testing
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: ToDosDemoServices
+            artifact: drop
+            displayName: 'Download artifacts'
+
+          - template: deploy-microservice.yml
+            parameters:
+              microservices: ['ToDos', 'Authorization', 'Organizations', 'ApiGateway']
+
+  - deployment: Client
+    pool:
+      vmImage: ubuntu-latest
+    environment: Testing
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: deploy-client.yml
+            parameters:
+              storageAccount: 'minodemostorage'
+```
+
+Definujeme si odkaz na pipeline-u, ktorá build-uje našu Angular aplikáciu:
+
+```yml
+- pipeline: ToDosDemoClient
+  source: Build - Angular - CI
+  trigger: true
+```
+
+Nasadenie klienta môžme vykonať paralelne s nasadzovaním backend-u, preto pridáme ďalší job `- deployment: Client`. Pokiaľ máme dostatok voľných agentov tak sa nám backend a frontend nasadia súčasne.
+
+Takto pripravená pipeline-a nám nasadi celú našu aplikáciu. Po nasadení nám však aplikácia ešte nebude fungovať, pretože nie je nakonfigurovaná. *(Napríklad chýba connection string na databázu.)* To ako riešiť konfiguráciu systému v Azure prostredí je mimo záber tohto článku. Budem sa tomu venovať neskôr.
+
+V tomto kroku by sa patrilo ešte spustiť UI testy. My na to využívame [cypress](https://www.cypress.io/). V ďalšom článku si ukážeme ako spustiť postman aj cypress testy.
 
 ### Swap do produkcie
 
-### Zapnúť CD
+Po otestovaní aplikácie v testovacom prostredí by sme chceli aplikáciu nasadiť do produkcie. V tejto časti si ukážeme ako na to využiť swapovanie. Swap-ovanie nám umožní využiť to, že naša aplikácia je v teste už "zahriata" a tým sa vyhneme studenému štartu. Taktiež nám to umožní spraviť bezodstávkové nasadzovanie.
+
+Swap-nutie si definujeme v šablone `deploy-swap.yml`.
+{% raw %}
+
+```yml
+parameters:
+  microservices: []
+
+steps:
+- ${{ each microservice in parameters.microservices }}: # Each microservice
+  - task: AzureAppServiceManage@0
+    displayName: 'Swap Slots: mino-demo-${{microservice}}-api'
+    inputs:
+      azureSubscription: $(AzureSubscriptionName)
+      WebAppName: 'mino-demo-${{microservice}}-api'
+      ResourceGroupName: '$(ResourceGoupName)'
+      SourceSlot: $(SlotName)
+```
+
+{% endraw %}
+
+Pomocou task-u [AzureAppServiceManage@0](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-app-service-manage?view=azure-devops) dokážeme menežovať Azure Web Apps. To čo s danou službou chceme urobiť určíme nastavením vlastnosti `action`. V našom prípade ju ale neuvádzame, pretože default hodnota je práve `Swap Slots`, čo chceme.
+
+Celá deploy pipeline-a môže vyzerať nasledovne:
+{% raw %}
+
+```yml
+trigger: none
+
+resources:
+  pipelines:
+  - pipeline: ToDosDemoServices
+    source: Build - Demo - CI
+    trigger: true
+
+  - pipeline: ToDosDemoClient
+    source: Build - Angular - CI
+    trigger: true
+
+variables:
+  AzureSubscriptionName: 'Demo Azure Subscription'
+  ResourceGoupName: 'mino-demo-rsg'
+
+stages:
+- stage: 'Tests'
+  displayName: 'Testing'
+  variables:
+    SlotName: 'Testing'
+  jobs:
+  - deployment: Services
+    pool:
+      vmImage: ubuntu-latest
+    environment: Testing
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: ToDosDemoServices
+            artifact: drop
+            displayName: 'Download artifacts'
+
+          - template: deploy-microservice.yml
+            parameters:
+              microservices: ['ToDos', 'Authorization', 'Organizations', 'ApiGateway']
+
+  - deployment: Client
+    pool:
+      vmImage: ubuntu-latest
+    environment: Testing
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: deploy-client.yml
+            parameters:
+              storageAccount: 'minodemostorage'
+
+- stage: 'Production'
+  displayName: 'Production'
+  jobs:
+  - deployment: Services
+    pool:
+      vmImage: ubuntu-latest
+    environment: Production
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: deploy-swap.yml
+            parameters:
+              microservices: ['ToDos', 'Authorization', 'Organizations', 'ApiGateway']
+```
+
+{% endraw %}
+
+Máme hotovú pipelinu-u, ktorá nám nasadí naše služby do testu a následne hneď do produkcie. Málokto z nás má celý proces nasadzovania a automatických testov dotiahnutý tak ďaleko, aby po commit-e do master vetvy mohol nechať automaticky zbehnuť nasadenie až do produkcie. Väčšinou chceme pred nasadením do produkcie nejaký proces schvaľovania. Pri Azure Multi Stage Pipelines na to môžeme využiť [Environments approvals](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/approvals?view=azure-devops&tabs=check-pass). Pri každom stage-y sme definovali vlastnosť `environment:` buďto ako `Testing`, alebo `Production`. Azure DevOps robí audit nad týmtito prostrediami a všetko čo sa nasadzuje potom môžme vidieť pekne prehľadne po jednolivých prostrediach.
+
+![environment](/assets/images/multi-stage-pipelines/environments.png)
+
+Nad daným prostredím vieme vynúťiť schvaľovanie. Daný stage sa potom začne vykonávať až po schválení definovanými osobami.
+
+![approvals](/assets/images/multi-stage-pipelines/approvals1.png)
+
+Pomocou ďalších možností ako napríklad Azure Functions / REST API / ... vieme docieliť aj komplikovanejšie / automatizovanejšie scenáre. Napríklad overíte či vo vašom issue tracker-y nie je evidovaná nejaká chyba, ktorá by mohla brániť nasadeniu.
 
 ### Sumár
 
+Na rozdiel od klasickému (UI) definovania CI / CD procesu nám Azure Multi Stages Pipelines umožňujú definovať tento proces ako kód a starať sa o neho ako o kód. To nám dáva výhodu verzionovania / proces schvaľovania pomocou Pull Request-ov / prehľadnosť / ... Dokážeme pomocou toho jednoducho spraviť proces nasadzovania jednoduchých aplikácií, ale aj zložité scenáre, ktoré si vyžadujú komplexné systémy.
+
+Azure Multi Stages pipelines sú síce ešte ako preview, ale už v súčasnosti sa dajú plnohodnotne používať na väčšinu scenárov. Microsoft do toho investje nemalé úsilie, čo je vidieť aj z [Azure DevOps Roadmap-y](https://docs.microsoft.com/en-us/azure/devops/release-notes/features-timeline) pre najbližšie obdobje.
+
 ### Čo ďalej?
 
-    - asynchrónne nasadzovanie
-    - podmienky
-    - premenné
+V najbližej dobe by som sa s Vami chcel ešte podeliť o nasnedovné témy v danej oblasti:
 
-### Odkazy
-
-Poznámky:
-
-- [x] čo to je a prečo nie release. Výhody
-- [ ] Predstavnie demo príkladu
-    - [ ] Upratať demo
-    - [ ] Vysvetliť ako si vytvoria prostredie
-- [ ] Spraviť build. Jednoducho. Dať odkaz na nejaký blog. Veď o tomto je ich dosť.
-- [ ] Začať robiť deploy
-    - [ ] vysveliť teda tie stage.
-    - [ ] DEV - STAGING - PRODUCTION
-    - [ ] vysvetliť Fun in fun out, ...
-    - [ ] vysvetliť deploy job
-    - [ ] Nasadiť jednu službu
-    - [ ] Vysvetliť premenné
-    - [ ] použiť powershell script
-    - [ ] celé to nasadiť z templaty
-    - [ ] pridať ďalší job na clienta
-- [ ] Ukázať a vysvetliť environments
-    - [ ] spraviť approvals
-- [ ] nasadiť do STAGING
-- [ ] swap do produkcie
+1. Asynchrónne nasadzovanie služieb
+2. Spúšťanie "post deploy" testov
