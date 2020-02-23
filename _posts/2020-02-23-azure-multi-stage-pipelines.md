@@ -611,7 +611,7 @@ Máme hotovú pipelinu-u, ktorá nám nasadí naše služby do testu a následne
 
 ![environment](/assets/images/multi-stage-pipelines/environments.png)
 
-Nad daným prostredím vieme vynúťiť schvaľovanie. Daný stage sa potom začne vykonávať až po schválení definovanými osobami.
+Nad daným prostredím vieme vynútiť schvaľovanie. Daný stage sa potom začne vykonávať až po schválení definovanými osobami.
 
 ![approvals](/assets/images/multi-stage-pipelines/approvals1.png)
 
@@ -621,7 +621,7 @@ Pomocou ďalších možností ako napríklad Azure Functions / REST API / ... vi
 
 Na rozdiel od klasickému (UI) definovania CI / CD procesu nám Azure Multi Stages Pipelines umožňujú definovať tento proces ako kód a starať sa o neho ako o kód. To nám dáva výhodu verzionovania / proces schvaľovania pomocou Pull Request-ov / prehľadnosť / ... Dokážeme pomocou toho jednoducho spraviť proces nasadzovania jednoduchých aplikácií, ale aj zložité scenáre, ktoré si vyžadujú komplexné systémy.
 
-Azure Multi Stages pipelines sú síce ešte ako preview, ale už v súčasnosti sa dajú plnohodnotne používať na väčšinu scenárov. Microsoft do toho investje nemalé úsilie, čo je vidieť aj z [Azure DevOps Roadmap-y](https://docs.microsoft.com/en-us/azure/devops/release-notes/features-timeline) pre najbližšie obdobje.
+Azure Multi Stages pipelines sú síce ešte ako preview, ale už v súčasnosti sa dajú plnohodnotne používať na väčšinu scenárov. Microsoft do toho investuje nemalé úsilie, čo je vidieť aj z [Azure DevOps Roadmap-y](https://docs.microsoft.com/en-us/azure/devops/release-notes/features-timeline) pre najbližšie obdobje.
 
 ### Čo ďalej?
 
