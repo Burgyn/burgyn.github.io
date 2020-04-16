@@ -73,6 +73,24 @@ Projekt [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelo
 services.AddSwaggerForOcelot(Configuration);
 ```
 
+Sekcia `SwaggerEndPoints` obsahuje konfigurácie potrebné na získanie dokomentácií jednotlivých mikroslužieb. Property `Key` sa používa na párovanie s `ReRoute` konfiguráciou. `Name` sa zobrazuje v combobox-e. `Url` je adresa k dokumentácií danej mikroslužby. Pokiaľ máte viac verzií vášho api, tak v sekcii `Config` to môžete zohľadniť. Napríklad:
+
+```json
+"Key": "orders",
+"Config": [
+  {
+    "Name": "Orders API",
+    "Version": "v1",
+    "Url": "http://localhost:5200/swagger/v1/swagger.json"
+  },
+  {
+    "Name": "Orders API",
+    "Version": "v2",
+    "Url": "http://localhost:5200/swagger/v2/swagger.json"
+  }
+]
+```
+
 Následne máte swagger dokumentáciu pre váš systém dostupnú na adrese `http://ocelotserviceurl/swagger`.
 
 ![swagger](/assets/images/swagger-for-ocelot/swagger.png)
