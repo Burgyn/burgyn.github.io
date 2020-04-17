@@ -68,7 +68,12 @@ Projekt [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelo
 }
 ```
 
-4. V metóde `ConfigureServices` triedy `Startup.cs`, registrujte *MMLib.SwaggerForOcelot* generátor.
+4. V metóde `ConfigureServices` triedy `Startup.cs` registrujte *MMLib.SwaggerForOcelot* generátor.
+```CSharp
+services.AddSwaggerForOcelot(Configuration);
+```
+
+5. V metóde `Configure` triedy `Startup.cs` registrujte middleware, ktorý sprístupní dokumentáciu.
 ```CSharp
 services.AddSwaggerForOcelot(Configuration);
 ```
