@@ -27,9 +27,19 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: minomartiniak
 github_username:  burgyn
 
+author:
+  name: Miňo Martiniak
+  email: mino.martiniak@gmail.com
+
 # Build settings
-theme: minima
+remote_theme: chesterhow/tale
+
+permalink:    /:year/:month/:day/:title
+paginate:     5
+
 plugins:
+  - jekyll-paginate
+  - jekyll-remote-theme
   - jekyll-feed
   - jekyll-time-to-read
 
@@ -44,7 +54,7 @@ kramdown:
   input: GFM
   auto_ids: true
   syntax_highlighter: rouge
-  
+
 # Google analytics
 google_analytics: UA-154408250-1
 
@@ -54,6 +64,9 @@ jekyll_compose:
     drafts:
       tags: []
       author: Miňo Martiniak
+      comments: true
+
+disqus: blog-burgyn-online
 
 # Exclude from processing.
 # The following items will not be processed, by default.

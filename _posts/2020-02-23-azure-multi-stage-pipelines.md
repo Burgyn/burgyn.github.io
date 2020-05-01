@@ -4,6 +4,7 @@ date: 2020-02-23 17:00:00 +0100
 title: Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)
 tags: [Azure, DevOps, CI/CD, YAML]
 author: Miňo Martiniak
+comments: true
 ---
 
 Azure DevOps umožňuje dva spôsoby, ako vytvoriť Continuous Deployment. Môžme použiť *classic* UI editor, alebo nový spôsob pomocou YAML súboru, kde jednotlivé kroky, job-y, stage verziujeme ako kód priamo v source control-e. Tento druhý spôsob sa nazýva [Multi-Stage Pipelines](https://devblogs.microsoft.com/devops/whats-new-with-azure-pipelines/). Pomocou Multi-Stage Pipelines dokážete vytvoriť proces nasadzovania od build-u, spustenia testov, nasadenia do rôznych prostredí *(napríklad, Development, Staging, Production, ...)* rozdelením na takzvané stages. Práve tento spôsob si ukážeme v tomto poste.
