@@ -4,6 +4,7 @@ title: "Ako som začal používať Visual Studio Online (Cloud IDE)"
 date: 2020-01-16 09:00:00 +0100
 tags: [VS Online, VS Code, Environment]
 author: Miňo Martiniak
+comments: true
 ---
 
 Áno, naozaj som sa nepomýlil a mám na mysli Visual Studio Online. Nie akuálne DevOps, ktoré sa ešte nedávno presne rovnako menovalo *(s rovnakou doménou)*. *Asi mal Microsoft ešte stále zaplatenú doménu a tak sa ju rozhodol využiť pre novú službu "Cloudové IDE" 😊.*

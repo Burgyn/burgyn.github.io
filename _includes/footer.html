@@ -1,0 +1,15 @@
+<footer>
+    <span>
+      &copy; <time datetime="{{ site.time }}">{{ site.time | date: '%Y' }}</time> {{ site.author.name | escaper }}
+      <a rel="me" href="https://github.com/{{ site.github_username | cgi_escape | escape }}"
+        title="{{ site.github_username | escape }}">
+        <span class="fa fa-github" aria-label="GitHub"></span>
+      </a>
+      <a rel="me" href="https://twitter.com/{{ site.twitter_username | cgi_escape | escape }}" title="{{ site.twitter_username | escape }}">
+        <span class="fa fa-twitter" aria-label="Twitter"></span>
+      </a>
+    </span>
+    <div class="footer-col">
+      <p>{{ site.description | escape }}</p>
+    </div>
+</footer>

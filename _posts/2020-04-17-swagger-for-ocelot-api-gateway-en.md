@@ -4,6 +4,7 @@ title: Swagger for Ocelot API Gateway
 tags: [microservices,C#,.NET Core,ASP.NET Core]
 author: Miňo Martiniak
 date: 2020-04-17 17:00:00 +0100
+comments: true
 ---
 
 If you're developing microservices, you're definitely using some form of API Gateway. And if you're developing in a .NET Core ecosystem, it's maybe to be [Ocelot](https://github.com/ThreeMammals/Ocelot).

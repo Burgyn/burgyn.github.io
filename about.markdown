@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: Milan Martiniak
 permalink: /about/
 ---

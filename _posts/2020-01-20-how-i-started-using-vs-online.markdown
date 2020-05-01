@@ -4,6 +4,7 @@ title: "How I started using the Visual Studio Online (Cloud IDE)"
 date: 2020-01-20 19:00:00 +0100
 tags: [VS Online, VS Code, Environment]
 author: Miňo Martiniak
+comments: true
 ---
 
 Yes, I really  mean Visual Studio Online. Not the DevOps, which until recently had exactly the same name *(with the same domain)*. *Maybe Microsoft still had a paid domain, so he decided to use it for the new "Cloud IDE" service. 😃*

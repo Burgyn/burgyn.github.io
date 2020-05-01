@@ -4,6 +4,7 @@ title: "Deconstructors for non tuple types in C# 7.0"
 date: 2019-10-06 09:00:00 +0100
 tags: [C#, .NET, .NET Core]
 author: Miňo Martiniak
+comments: true
 ---
 
 There are a lot of articles about tupple and how to deconstruct them. [See example](https://visualstudiomagazine.com/articles/2017/01/01/tuples-csharp-7.aspx)

@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<html lang="{{ page.lang | default: site.lang | default: " en " }}">
 
-    <head>
-        <!-- head stuff-->
+<head>
+    <!-- head stuff-->
 
-        <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/main.css"> <!-- IMPORTANT -->
-    </head>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/main.css">
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+</head>
 
-  {%- include head.html -%}
+{%- include head.html -%}
 
-  <body>
+<body>
 
-    {%- include header.html -%}
+    {% include navigation.html %}
 
     <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
+        <div class="wrapper">
+            {{ content }}
+        </div>
     </main>
 
     {%- include footer.html -%}
 
-  </body>
+</body>
 
 </html>
