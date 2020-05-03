@@ -13,7 +13,7 @@ Táto funkčnosť je super. Málokto však vie, že je možné rozkladať aj št
 
 Nasledujúci príklad ukazuje ako triedu `Person` rozložiť do premenných `firstName` a `lastName`.
 
-```CSharp
+```csharp
 public class Person
 {
     public int Id { get; set; }
@@ -32,7 +32,7 @@ public class Person
 
 Následne už môžete rozložiť vašu triedu do premenných.
 
-```CSharp
+```csharp
 var person = new Person()
 {
     FirstName = "Janko",
@@ -52,7 +52,7 @@ Môžeme mať koľkokoľvek parametrov. Taktiež môžeme mať niekoľko preťa�
 
 Napríklad:
 
-```CSharp
+```csharp
 public class Person
 {
     public int Id { get; set; }
@@ -78,7 +78,7 @@ public class Person
 
 Tá istá inštancia triedy `Person` môže byť rozložená oboma spôsobmi podľa kontextu.
 
-```CSharp
+```csharp
 var (firstName, lastName) = person;
 (string firstName, string lastName, var age) = person;
 ```
@@ -104,7 +104,7 @@ Nasledujúci príklad ukáže, ako rozložiť inštanciu triedy `Point` do preme
 
 Zadeklarujme si extension metódu.
 
-```CSharp
+```csharp
 public static class PointExtensions
 {
     public static void Deconstruct(this Point point, out int x, out int y)
@@ -117,7 +117,7 @@ public static class PointExtensions
 
 A následne už môžeme rozkladať.
 
-```CSharp
+```csharp
 Point point = new Point(45, 85);
 
 var (x, y) = point;
