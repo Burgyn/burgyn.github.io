@@ -27,7 +27,7 @@ It is certainly a number of ways this problem can be solved. The most frequent r
 
 Under own `DateTimeProvider` think custom class, which we will ask for the current date and time. And it will be possible inject the current date. An example of this class:
 
-```CSharp
+```csharp
 public class DateTimeProvider : IDisposable 
 {
     private static AsyncLocal<DateTime?> _injectedDateTime = new AsyncLocal<DateTime?>(); 
@@ -65,7 +65,7 @@ public class DateTimeProvider : IDisposable
 The common usage in the method is the same as when you use the `DateTime`.
 
  
-```CSharp
+```csharp
 private void MakeTransaction(Transaction transaction) 
 { 
     transaction.TransactionDate = DateTimeProvider.Now; 
@@ -77,7 +77,7 @@ The class implements `IDisposable` and has a static factory method `InjectActual
 If the class has injected a fake date, `Now` property returns just this.
 The use own date in test:
 
-```CSharp
+```csharp
 [TestClass] 
 public class BankAccountShould 
 { 
