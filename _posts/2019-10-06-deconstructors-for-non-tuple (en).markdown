@@ -13,7 +13,7 @@ This funcionality is great. However, only a few knows that even class can be dec
 
 This example shows how class `Person` can be deconstructed into `firstName` and `lastName` variables.
 
-```CSharp
+```csharp
 public class Person
 {
     public int Id { get; set; }
@@ -32,7 +32,7 @@ public class Person
 
 You can then deconstruct your class into variables.
 
-```CSharp
+```csharp
 var person = new Person()
 {
     FirstName = "Janko",
@@ -52,7 +52,7 @@ You can have as many parameters as you wish and also overloads too.
 
 Example:
 
-```CSharp
+```csharp
 public class Person
 {
     public int Id { get; set; }
@@ -78,7 +78,7 @@ public class Person
 
 The same instance of the `Person` class can be deconstructed both ways based on the context.
 
-```CSharp
+```csharp
 var (firstName, lastName) = person;
 (string firstName, string lastName, var age) = person;
 ```
@@ -102,7 +102,7 @@ Following example shows how to deconstruct instance of the class `Point` into va
 
 Let's declare extension method.
 
-```CSharp
+```csharp
 public static class PointExtensions
 {
     public static void Deconstruct(this Point point, out int x, out int y)
@@ -115,7 +115,7 @@ public static class PointExtensions
 
 Now we can deconstruct.
 
-```CSharp
+```csharp
 Point point = new Point(45, 85);
 
 var (x, y) = point;
