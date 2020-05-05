@@ -68,12 +68,12 @@ The [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot) p
 ```
 
 4. In the `ConfigureServices` method of `Startup.cs` register the SwaggerForOcelot generator.
-```CSharp
+```c#
 services.AddSwaggerForOcelot(Configuration);
 ```
 
 5. In `Configure` method insert the `SwaggerForOcelot` middleware to expose interactive documentation.
-```CSharp
+```c#
 app.UseSwaggerForOcelotUI(Configuration)
 ```
 

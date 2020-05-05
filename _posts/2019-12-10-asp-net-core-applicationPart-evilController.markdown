@@ -10,7 +10,7 @@ comments: true
 Do you blindly trust third-party libraries?
 What if this package contains e.g. following code and you reference it in your ASP.NET Core project?
 
-```Csharp
+```csharp
 [ApiController]
 [Route("[controller]")]
 public class EvilController : ControllerBase
@@ -50,7 +50,7 @@ Okay, but what if I don't want to study the external library in detail and still
 
 In this case, you can remove external application parts from your application. For example:
 
-```CSharp
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddControllers()
