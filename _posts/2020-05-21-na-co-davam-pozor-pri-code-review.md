@@ -94,6 +94,6 @@ Always leave the code you are editing a little better than you found it. *- Robe
 
 ## Zhrnutie
 
-Code Review považujem za veľmi dôležitý nástroj pri vývojí akéhokoľvek projektu. Za pravdu mi dáva aj to, že v súčasnsti sa to už považuje za štandard. Bobiť Code Review vôbec nie je jednoduché. Zaberá dosť času a stojí dosť síl. Týchto pár bodov mi pomáha pristupovať k CR zodpovedne, systematicky tak aby prinášalo očakávaný osoh, ale zas aby mi nezaberalo všetok pracovný čas.
+Code Review považujem za veľmi dôležitý nástroj pri vývojí akéhokoľvek projektu. Za pravdu mi dáva aj to, že v súčasnsti sa to už považuje za štandard. Robiť Code Review vôbec nie je jednoduché. Zaberá dosť času a stojí dosť síl. Týchto pár bodov mi pomáha pristupovať k CR zodpovedne, systematicky tak aby prinášalo očakávaný osoh, ale zas aby mi nezaberalo všetok pracovný čas.
 
 A čo vy? Máte svoj zoznam? Ak áno podelte sa.
