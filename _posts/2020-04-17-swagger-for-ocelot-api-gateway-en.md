@@ -25,7 +25,7 @@ The [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot) p
 3. Configure SwaggerForOcelot in `ocelot.json`.
 ```json
  {
-  "ReRoutes": [
+  "Routes": [
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "UpstreamPathTemplate": "/api/contacts/{everything}",

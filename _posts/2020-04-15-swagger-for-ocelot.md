@@ -27,7 +27,7 @@ Projekt [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelo
 3. Nakonfiguruj *MMLib.SwaggerForOcelot* v `ocelot.json`
 ```json
  {
-  "ReRoutes": [
+  "Routes": [
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "UpstreamPathTemplate": "/api/contacts/{everything}",
@@ -76,7 +76,7 @@ services.AddSwaggerForOcelot(Configuration);
 
 5. V metóde `Configure` triedy `Startup.cs` registrujte middleware, ktorý sprístupní dokumentáciu.
 ```csharp
-services.AddSwaggerForOcelot(Configuration);
+services.UseSwaggerForOcelotUI(Configuration);
 ```
 
 Sekcia `SwaggerEndPoints` obsahuje konfigurácie potrebné na získanie dokomentácií jednotlivých mikroslužieb. Property `Key` sa používa na párovanie s `ReRoute` konfiguráciou. `Name` sa zobrazuje v combobox-e. `Url` je adresa k dokumentácií danej mikroslužby. Pokiaľ máte viac verzií vášho api, tak v sekcii `Config` to môžete zohľadniť. Napríklad:
