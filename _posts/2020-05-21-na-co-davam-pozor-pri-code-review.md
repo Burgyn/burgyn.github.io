@@ -7,13 +7,13 @@ comments: true
 date: 2020-05-21 17:00:00 +0100
 ---
 
-O tom prečo je dôležité Code Review na projekte sa popísalo veľa článkov. Napríklad [tento](https://www.atlassian.com/agile/software-development/code-reviews).
+O tom prečo je na projekte dôležité Code Review sa popísalo veľa článkov. Napríklad [tento](https://www.atlassian.com/agile/software-development/code-reviews).
 
 Na projektoch na ktorých pracujem využívame Code Review už niekoľko rokov. Chcem sa preto podeliť s tým na čo si pri CR dávam pozor ja, čo sledujem, aké otázky si kladiem.
 
 ## Popis
 
-Je PR dobre popísaný? Je z popisu jasné aké zmeny boli vykonané a hlavne prečo? Akých bol dôvod? Keby sa pozriem na tento PR o mesiac, musím študovať zmeny, alebo aj na základe popisu viem určiť aké zmeny prináša?
+Je PR dobre popísaný? Je z popisu jasné aké zmeny boli vykonané a hlavne prečo? Aký bol dôvod? Keby sa pozriem na tento PR o mesiac, musím študovať zmeny, alebo aj na základe popisu viem určiť aké zmeny prináša?
 
 Dobrý popis výrazne ušetrí čas reviewerovi, ale aj pri budúcom skúmaní, prečo sa dané zmeny vykonali.
 
@@ -94,6 +94,6 @@ Always leave the code you are editing a little better than you found it. *- Robe
 
 ## Zhrnutie
 
-Code Review považujem za veľmi dôležitý nástroj pri vývojí akéhokoľvek projektu. Za pravdu mi dáva aj to, že v súčasnsti sa to už považuje za štandard. Bobiť Code Review vôbec nie je jednoduché. Zaberá dosť času a stojí dosť síl. Týchto pár bodov mi pomáha pristupovať k CR zodpovedne, systematicky tak aby prinášalo očakávaný osoh, ale zas aby mi nezaberalo všetok pracovný čas.
+Code Review považujem za veľmi dôležitý nástroj pri vývojí akéhokoľvek projektu. Za pravdu mi dáva aj to, že v súčasnsti sa to už považuje za štandard. Robiť Code Review vôbec nie je jednoduché. Zaberá dosť času a stojí dosť síl. Týchto pár bodov mi pomáha pristupovať k CR zodpovedne, systematicky tak aby prinášalo očakávaný osoh, ale zas aby mi nezaberalo všetok pracovný čas.
 
 A čo vy? Máte svoj zoznam? Ak áno podelte sa.
