@@ -71,7 +71,7 @@ Testujú sa očakávané scenáre a hraničné hodnoty?
 
 Pri knižniciach podmienka. Pokiaľ neviem napísať test, tak pravdepodobne mám zle navrhnutý kód. Pre doménové veci sú tiež Unit testy potrebné. Pre infraštruktúrne (controllery, ...) radšej Postman testy.
 
-Pri testoch taktiež dodržujeme pravidlá na kvaltu kódu. Sú tam ale možné výnimky napr: Opakovanie kódu môže byť chcené (radšej nech sa v testo opakuje ten istný kód, ale mám istotu, že sa nič neovplyvňuje)
+Pri testoch taktiež dodržujeme pravidlá na kvalitu kódu. Sú tam ale možné výnimky napr: Opakovanie kódu môže byť chcené (radšej nech sa v testo opakuje ten istý kód, ale mám istotu, že sa nič neovplyvňuje)
 
 ### Postman testy
 
