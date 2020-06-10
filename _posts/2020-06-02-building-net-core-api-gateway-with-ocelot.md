@@ -12,3 +12,8 @@ date: 2020-06-02 17:00:00 +0100
 Pri návrhu mikroslužieb narážame na nové otázky, ktoré sme pri "monolite" nemali. Jednou z nich je aj *"Ako ma klient komunikovať s takým množstvom služieb?"* Odpoveďou môže byť API Gateway pattern.
 
 Na [**#26 .NET Bratislava Meetup**-e](https://www.meetup.com/en-AU/NET-Bratislava-Meetup/events/270813007/) sa pokúsim ukázať ako pomocou framewroku [Ocelot](https://github.com/ThreeMammals/Ocelot) takýto API Gateway vytvoriť. A pomocou knižnice [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot) zjednotíme dokumentáciu celého systému.
+
+## Materiály
+
+- [prezentácia](https://gitpitch.com/burgyn/presentations?p=ApiGatewayOcelot#/)
+- [demo príklad](https://github.com/Burgyn/Sample.ApiGatewayOcelot)
