@@ -9,7 +9,7 @@ date: 2020-06-02 17:00:00 +0100
 
 # Zrušené.
 
-Bohužiaľ kvôli zdravotným komplikáciam bol tento meetup presunutý. Keď bude známy nový termín, dám vedieť.
+Bohužiaľ kvôli zdravotným komplikáciam bol tento meetup presunutý. Náhradný termín je predbežne 8.7.
 
 ![logo](https://secure.meetupstatic.com/photos/event/7/c/d/c/highres_490531964.jpeg)
 
