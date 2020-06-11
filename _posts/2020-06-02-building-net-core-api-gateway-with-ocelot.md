@@ -7,6 +7,10 @@ comments: true
 date: 2020-06-02 17:00:00 +0100
 ---
 
+# Zrušené.
+
+Bohužiaľ kvôli zdravotným komplikáciam bol tento meetup presunutý. Keď bude známy nový termín, dám vedieť.
+
 ![logo](https://secure.meetupstatic.com/photos/event/7/c/d/c/highres_490531964.jpeg)
 
 Pri návrhu mikroslužieb narážame na nové otázky, ktoré sme pri "monolite" nemali. Jednou z nich je aj *"Ako ma klient komunikovať s takým množstvom služieb?"* Odpoveďou môže byť API Gateway pattern.
