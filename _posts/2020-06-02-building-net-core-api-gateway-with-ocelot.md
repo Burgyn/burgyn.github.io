@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Building .NET Core API Gateway with Ocelot & MMLib.SwaggerForOcelot (.NET Bratislava Meetup)
+title: Building .NET Core API Gateway with Ocelot & MMLib.SwaggerForOcelot (.NET Bratislava Meetup) - ⚠️ presunuté
 tags: [Meetups, Presentations]
 author: Miňo Martiniak
 comments: true
