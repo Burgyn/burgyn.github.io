@@ -7,7 +7,7 @@ comments: true
 date: 2020-05-13 17:00:00 +0100
 ---
 
-V nedávno som písal o tom [ako som začal používať VS Online]({% post_url 2020-01-16-ako-som-zacal-pouzivat-vs-online %}). V úvode som si robil srandu, že Microsoft mal zaplatenú doménu ešte z doby keď pod rovnakým názvom prevádzkoval terajšie Azure DevOps. No a zjavne táto doména expirovala, pretože sa rozhodol službu Visual Studio Online premenovať na [Visual Studio Codespaces](https://visualstudio.microsoft.com/services/visual-studio-codespaces/) 😁.
+Nedávno som písal o tom [ako som začal používať VS Online]({% post_url 2020-01-16-ako-som-zacal-pouzivat-vs-online %}). V úvode som si robil srandu, že Microsoft mal zaplatenú doménu ešte z doby keď pod rovnakým názvom prevádzkoval terajšie Azure DevOps. No a zjavne táto doména expirovala, pretože sa rozhodol službu Visual Studio Online premenovať na [Visual Studio Codespaces](https://visualstudio.microsoft.com/services/visual-studio-codespaces/) 😁.
 
 Vybrať správny názov služby je dôležité a je pravda, že pôvodný názov bol mätúci. Aj ja som sa stretol s tým, že to ľudia v mojom okolí považovali "len" za Visual Studio Code v prehliadači.
 
