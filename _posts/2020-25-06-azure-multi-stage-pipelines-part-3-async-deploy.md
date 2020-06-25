@@ -3,6 +3,7 @@ layout: post
 title: Azure Multi-Stage Pipelines (časť 3. - Asynchrónne nasadenie viacerých služieb)
 tags: [Azure, DevOps, CI/CD, YAML, PowerShell]
 author: Miňo Martiniak
+date: 2020-06-25 17:00:00 +0100
 ---
 
 Pri väčšom projekte s veľkou pravdepodobnosťou nasadzujete viaceré služby. *(hlavne pokiaľ vyvíjate mikroslužby)* V tomto článku si ukážeme, ako môžme výrazne skrátiť čas nasadzovania celého riešenia do AZURE Web Apps.
@@ -19,6 +20,8 @@ Namiesto klasického task-u `AzureWebApp@1` na sadenie služby použijeme radše
 >💡 V našom prípade môžme ťažiť z toho, že máme pattern pre nazývanie služieb v AZURE aj pre názvy projektov. Preto stačí ako parameter poslať zoznam názvov služieb.
 
 PowerShell nám umožňuje pomocou príkazu `Start-Job` spustiť paralelne viacero job-ov v rámci ktorých spustíme deploy `az webapp deployment source config-zip`. Stačí mu nastaviť `--resource-group` v ktorej sa nachádza vaša Web App, ďalej názvo služby kam nasadzujeme `--name` a nakoniec cestu k ZIP súboru, ktorý ideme nasadzovať `--src`. Spustené joby si odložíme do premennej `$jobs` aby sme mohli počkať na ich dokončenie `Wait-Job -Job $jobs`.
+
+{% raw %}
 
 ```pwsh
 param (
@@ -50,10 +53,12 @@ foreach ($job in $jobs) {
 }
 
 if ($failed -eq $true) {
-   Write-Host 
+   Write-Host
    Write-Error "Microservices deploy failed."
 }
 ```
+
+{% endraw %}
 
 Keď máme script dokončený, môžme ho použiť v deployment pipeline `deploy-cd.yml`.
 
@@ -68,9 +73,23 @@ Keď máme script dokončený, môžme ho použiť v deployment pipeline `deploy
     arguments: -microservices 'ToDos', 'Authorization', 'Organizations', 'ApiGateway' -artifactPath '$(Pipeline.Workspace)\ToDosDemoServices\drop\'
 ```
 
-### Kros.XXX task
+### Azure Parallel Deploy task
 
-Používanie PowerShell scriptu je fajn, ale je to trošku nepraktické pokiaľ máte viac projektov, kde ho chcete použiť. V takom prípade musíte nejakým spôsobom zabezpečiť jeho nakopírovanie k artefaktom. Jednoduchšie by bolo keby existoval v DevOps task, ktorý to dokáže spraviť. Priamo v rámci DevOps taký nie je, ale spolu s kolegom sme jeden taký pripravili. XXXX
+Používanie PowerShell scriptu je fajn, ale je to trošku nepraktické pokiaľ máte viac projektov, kde ho chcete použiť. V takom prípade musíte nejakým spôsobom zabezpečiť jeho kopírovanie k artefaktom. Jednoduchšie by bolo keby existoval v DevOps task, ktorý to dokáže spraviť. Priamo v rámci DevOps taký nie je, ale kolega jeden taký pripravili. [Azure Parallel Deploy](https://marketplace.visualstudio.com/items?itemName=stano-petko.azure-parallel-deploy)
+
+S ním to môže vyzerať nasledovne:
+
+```yaml
+steps:
+- task: AzureParallelDeploy@1
+  displayName: Deploy microservices
+  inputs:
+    ConnectedServiceName: $(azureSubscriptionName)
+    ResourceGroup: 'kros-demo-rsg'
+    Services: 'ToDos, Authorization, Organizations, ApiGateway'
+    AppNameFormat: '{0}-api'
+    AppSourceFormat: 'Kros.{0}.zip'
+````
 
 ### Sumár
 

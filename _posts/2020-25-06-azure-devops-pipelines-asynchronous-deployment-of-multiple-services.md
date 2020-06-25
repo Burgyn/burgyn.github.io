@@ -3,6 +3,7 @@ layout: post
 title: Azure DevOps Pipelines - Asynchronous deployment of multiple services
 tags: [Azure, DevOps, CI/CD, YAML, PowerShell]
 author: Miňo Martiniak
+date: 2020-06-25 17:00:00 +0100
 ---
 
 If you have a larger project, you probably deploying more services. *(especially if you are developing microservices)* In this article, we will show you how to deploy all services in parallel into the AZURE WebApp and thus significantly reduce deployment time.
@@ -62,9 +63,23 @@ Once the script is complete, we can use it in the deployment pipeline `deploy-cd
     arguments: -microservices 'ToDos', 'Authorization', 'Organizations', 'ApiGateway' -artifactPath '$(Pipeline.Workspace)\ToDosDemoServices\drop\'
 ```
 
-### Kros.XXX task
+### Azure Parallel Deploy task
 
-Using the PowerShell script is fine, but it's a bit impractical if you have multiple projects where you want to use it. In this case, you must somehow ensure that it is copied to the artifacts. It would be easier if it existed task that can do it. Does not exist directly in the DevOps, but together with my colleague we have prepared one. XXXX
+Using the PowerShell script is fine, but it's a bit impractical if you have multiple projects where you want to use it. In this case, you must somehow ensure that it is copied to the artifacts. It would be easier if it existed task that can do it. Does not exist directly in the DevOps, but my colleague prepared one. [Azure Parallel Deploy](https://marketplace.visualstudio.com/items?itemName=stano-petko.azure-parallel-deploy)
+
+With him, it can look like this:
+
+```yaml
+steps:
+- task: AzureParallelDeploy@1
+  displayName: Deploy microservices
+  inputs:
+    ConnectedServiceName: $(azureSubscriptionName)
+    ResourceGroup: 'kros-demo-rsg'
+    Services: 'ToDos, Authorization, Organizations, ApiGateway'
+    AppNameFormat: '{0}-api'
+    AppSourceFormat: 'Kros.{0}.zip'
+````
 
 ### Summary
 
