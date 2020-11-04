@@ -11,7 +11,7 @@
         {
             "label": "Run",
             "type": "shell",
-            "command": "bundle exec jekyll serve --draft",
+            "command": "bundle exec jekyll serve --livereload --draft",
             "group": {
                 "kind": "build",
                 "isDefault": true
