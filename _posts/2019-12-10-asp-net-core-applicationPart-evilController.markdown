@@ -57,7 +57,7 @@ public void ConfigureServices(IServiceCollection services)
         .ConfigureApplicationPartManager(o =>
         {
             o.ApplicationParts.Clear();
-            o.ApplicationParts.Add(new AssemblyPart(typeof(Startup).Assembly);
+            o.ApplicationParts.Add(new AssemblyPart(typeof(Startup).Assembly));
         });
 }
 ```
