@@ -31,7 +31,7 @@ Konfigurácia prebehne na základe nastavení connection stringu v konfiguráci�
 }
 ```
 
-Otázka nastáva ako to celé použiť v prípade, že máme viacero databáz, ku ktorým potrebujeme v rámci jednej služby pristupovať. V taktomto prípade potrebujeme rozdielné connection stringy, rozdielne konfigurácie a taktiež rozdielne migračné scripty. Toto všetko KORM podporuje.
+Otázka nastáva ako to celé použiť v prípade, že máme viacero databáz, ku ktorým potrebujeme v rámci jednej služby pristupovať. V takomto prípade potrebujeme rozdielne connection stringy, rozdielne konfigurácie a taktiež rozdielne migračné scripty. Toto všetko KORM podporuje.
 
 Connection string sa definuje štandardným spôsobom, kde ich je možné zadať viacero a pomenovať.
 
@@ -98,7 +98,7 @@ public interface ITenantDatabaseFactory
 ```
 
 S implementáciou to je už o trochu zložitejšie. Potrebujete zabezpečiť aby sa spustili potrebné migrácie a vytvorila správne nakonfigurovaná `IDatabase`.
-Vychádzajme zo scenára, že máme jednú master databázu a pre každý tenant je samostatná databáza, ale so zhodnou štruktúrou a konfiguráciou. Názov tenantu je zhodný s názvom databázy a tento názov sa nachádza v ceste `scheme://host/api/{tenant}/path`.
+Vychádzajme zo scenára, že máme jednu master databázu a pre každý tenant je samostatná databáza, ale so zhodnou štruktúrou a konfiguráciou. Názov tenantu je zhodný s názvom databázy a tento názov sa nachádza v ceste `scheme://host/api/{tenant}/path`.
 
 Impelemtácia potom môže vyzerať nasledovne:
 
