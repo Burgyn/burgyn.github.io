@@ -17,7 +17,7 @@ If you use these aggregations, you would probably want to have these endpoints i
 
 In `ConfigureServices` allow `GenerateDocsForAggregates` option.
 
-```CSharp
+```csharp
 services.AddSwaggerForOcelot(Configuration,
   (o) =>
   {
@@ -71,7 +71,7 @@ Property `ParametersMap` is map, where `key` *(first parameter)* is the name of 
 
 The response documentation is generated according to the rules that Ocelot uses to compose the response from the aggregate. If you use your custom `IDefinedAggregator`, your result may be different. In this case you can use `AggregateResponseAttibute`.
 
-```CSharp
+```csharp
 [AggregateResponse("Basket with buyer and busket items.", typeof(CustomResponse))]
 public class BasketAggregator : IDefinedAggregator
 {
@@ -86,7 +86,7 @@ public class BasketAggregator : IDefinedAggregator
 
 If you do not like the final documentation, you can modify it by defining your custom postprocessor.
 
-```CSharp
+```csharp
 services.AddSwaggerForOcelot(Configuration,
   (o) =>
   {
@@ -114,7 +114,7 @@ In these scenarios, you can also add documentation.
 
 1. Allow `GenerateDocsForGatewayItSelf` option in configuration section.
    
-```CSharp
+```csharp
 services.AddSwaggerForOcelot(Configuration,
   (o) =>
   {
