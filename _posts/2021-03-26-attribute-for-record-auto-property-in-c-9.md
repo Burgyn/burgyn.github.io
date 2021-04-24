@@ -3,6 +3,7 @@ layout: post
 title: Attributes for record auto-property in C#9
 tags: [C#,.NET]
 author: Miňo Martiniak
+date: 2021-03-26 30:00:00 +0100
 comments: true
 ---
 
