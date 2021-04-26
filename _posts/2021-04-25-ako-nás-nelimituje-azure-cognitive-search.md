@@ -9,7 +9,7 @@ comments: true
 
 V naších systémoch sme sa rozhodli využiť [Azure Cognitive Search (ACS)](https://azure.microsoft.com/en-us/services/search) na fulltextové vyhľadávanie a zložitejšie fitrovanie v dátach. Nejedná sa o statické dáta, ale o štandardné aplikačné dáta ekonomických systémov *(faktúry, predfaktúry, cenové ponuky, skladové karty, ...)*. Očakávame, že ACS bude dokumenty indexovať takmer v reálnom čase. 
 
-Indexér, ktorý môžete pridať k vašemu indexu má minimálny schedule time 5 minút, čo nám nevyhovuje. Preto sme sa rozhodli, že využijeme AZURE Function naplánovanú na každú sekundu. Táto funkcia vytiahne všetky zmenené dáta v danej databáze a tie pošle v dávke zaindexovať do ACS.
+Indexér, ktorý môžete pridať k Vášmu indexu má minimálny schedule time 5 minút, čo nám nevyhovuje. Preto sme sa rozhodli, že využijeme AZURE Function naplánovanú na každú sekundu. Táto funkcia vytiahne všetky zmenené dáta v danej databáze a tie pošle v dávke zaindexovať do ACS.
 
 Vzniká tu otázka, bude to ACS stíhať? Dokáže indexovať dokumenty v požadovanom čase? Nepotrebujeme naozaj realtime, ale očakávame, že dokumenty budú pre používateľa dostupné v jednotkách sekúnd.
 
