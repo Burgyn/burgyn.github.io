@@ -33,7 +33,7 @@ V rámci jednej iterácie vygenerujem od 20 do 300 dokumentov a tie pošlem ako 
 
 Po tejto sekunde zistím aktuálny počet dokumentov v ACS ([pomocou tohto Api](https://docs.microsoft.com/lv-lv/rest/api/searchservice/count-documents)).
 
-Celkový počet íterácií je 1 000.
+Celkový počet iterácií je 1 000.
 
 ### Výsledky
 
