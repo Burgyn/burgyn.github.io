@@ -1,7 +1,7 @@
 ---
 layout: post
 title: C# Source Generators - prvý pokus
-tags: []
+tags: [C#,Generators,Roslyn,.NET]
 author: Miňo Martiniak
 comments: true
 date: 2021-05-13 19:00:00 +0100
