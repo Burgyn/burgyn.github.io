@@ -53,3 +53,15 @@ builder.Services.AddSwaggerGen(c =>
 ```
 
 ![minimalapi2](/assets/images/minimalapi/minimalapi2.png)
+
+## UPDATED 2.1. 2021
+
+New `.WithTags ("Catalogs")` extension method have been added in version `6.0.0` (not RC).
+
+So just call
+
+```csharp
+app.MapGet("/api/catalogs/{id}", () => "Hello world").WithTags("Catalogs");
+```
+
+Thanks to [@captainsafia](https://github.com/captainsafia). [PR 2210](https://github.com/domaindrivendev/Swashbuckle.AspNetCore/pull/2210)
