@@ -17,7 +17,7 @@ Stretneme sa 28. apríla 2022 na CODECON v Starej tržnici.
 
 <!-- 📑 Materiály:
 
-- [Sample.Meetup.Generators](https://github.com/Burgyn/Sample.Meetup.Generators)
+- [Sample.CodeCon](https://github.com/Burgyn/Sample.CodeCon)
 - [Sample.Meetup.SwaggerDtoGenerator](https://github.com/Burgyn/Sample.Meetup.SwaggerDtoGenerator)
 - [MMLib.MediatR.Generators](https://github.com/Burgyn/MMLib.MediatR.Generators)
 - [Kros.Generators.Flattening](https://github.com/Kros-sk/Kros.Generators.Flattening)
