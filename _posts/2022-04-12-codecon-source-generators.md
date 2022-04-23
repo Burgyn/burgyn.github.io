@@ -15,13 +15,13 @@ Rád vás všetkých uvidím na najväčšom stretnutí vývojárskej IT komunit
 
 Stretneme sa 28. apríla 2022 na CODECON v Starej tržnici.
 
-<!-- 📑 Materiály:
+📑 Materiály:
 
 - [Sample.CodeCon](https://github.com/Burgyn/Sample.CodeCon)
 - [Sample.Meetup.SwaggerDtoGenerator](https://github.com/Burgyn/Sample.Meetup.SwaggerDtoGenerator)
 - [MMLib.MediatR.Generators](https://github.com/Burgyn/MMLib.MediatR.Generators)
 - [Kros.Generators.Flattening](https://github.com/Kros-sk/Kros.Generators.Flattening)
 - [Source Generators Cookbook](https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md)
-- [C# Source Generators list](https://github.com/amis92/csharp-source-generators) -->
+- [C# Source Generators list](https://github.com/amis92/csharp-source-generators)
 
 ![meetup](/assets/images/meetups/Linkedin_1200x627.png)
