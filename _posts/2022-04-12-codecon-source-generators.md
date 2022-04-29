@@ -23,5 +23,6 @@ Stretneme sa 28. apríla 2022 na CODECON v Starej tržnici.
 - [Kros.Generators.Flattening](https://github.com/Kros-sk/Kros.Generators.Flattening)
 - [Source Generators Cookbook](https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md)
 - [C# Source Generators list](https://github.com/amis92/csharp-source-generators)
+- [Prezentácia](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2FBurgyn%2Fburgyn.github.io%2Fmaster%2Fassets%2Fpresentation%2FC%2523%2520SOURCE%2520GENERATORS.pptx&wdOrigin=BROWSELINK)
 
 ![meetup](/assets/images/meetups/Linkedin_1200x627.png)
