@@ -65,3 +65,7 @@ public void ConfigureServices(IServiceCollection services)
 ## References
 
 - [More info about ApplicationPart](https://docs.microsoft.com/en-us/aspnet/core/mvc/advanced/app-parts?view=aspnetcore-3.1)
+
+---
+
+If you liked this article, let me know about it at this [voting poll](https://app.swallowpoll.com/NYBznJrhGr).
