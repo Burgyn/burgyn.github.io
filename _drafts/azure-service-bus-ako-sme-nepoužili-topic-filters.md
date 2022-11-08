@@ -18,7 +18,7 @@ Prišlo však jedno ale! A to v podobe throttlingu. My využívame Azure Service
 
 Na začiatok tohto časového obdobia (aktuálne jedna sekunda) pridelí Azure určitý počet kreditov *(aktuálne `1000`. Teda `1000 credits per second`).* Ak sa kredity minú, tak ďalšie operácie v danom časovom intervale budú throttled až do ďalšieho časového obdobia. Kredity sú doplnené po uplynutí časového obdobia.
 
-Základné dátové operácie (`Send`, `Receive`, `Peek` a ich `async` verzie) sú spoplatnené jedným reditom.
+Základné dátové operácie (`Send`, `Receive`, `Peek` a ich `async` verzie) sú spoplatnené jedným kreditom.
 
 Plus je v dokumentácií jedna dôležitá poznámka:
 
