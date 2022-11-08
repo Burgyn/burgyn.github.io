@@ -37,7 +37,7 @@ No a tu prichádza naša matematika. Pre daný topic sme mali 56 subscriberov a 
 
 Premium tier je na dedikovaných zdrojoch a throttling tu nie je aplikovaný. Bohužiaľ je tu veľký rozdiel v cene. Pri aktuálnom Standard tier platíme mesačne zhruba 11€ / mesiac, pri Premium tier by to bolo cez 700€ / mesiac.
 
-Nehovorím, že na Premium tier neprejdeme, ale aktuálne je to navýšenie ceny príliš vyskoné voči tomu čo od toho potrebujeme.
+Nehovorím, že na Premium tier neprejdeme, ale aktuálne je to navýšenie ceny príliš vysoké voči tomu čo od toho potrebujeme.
 
 ### Samostatný topic pre každú entity
 
