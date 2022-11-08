@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Azure Service Bus - Ako sme nepoužili Topic filters
-tags: []
+date: 2022-11-07 06:00:00 +0100
+tags: [AZURE]
 author: Miňo Martiniak
 comments: true
 ---
@@ -47,9 +48,9 @@ Nevýhoda, publisher sa musí rozhodovať, do ktorého topicu má danú správu 
 
 ### Jeden topic jedna subscription
 
-Odosielať sa bude bude do jedného topic. Bude jeden subscriber, ktorý sa v tele metódy bude musieť rozhodovať čo s danou správou vykoná.
+Odosielať sa bude do jedného topic. Bude jeden subscriber, ktorý sa v tele metódy bude musieť rozhodovať čo s danou správou vykoná.
 
-Výsledna spotreba kreditov by bola 40 kreditov `20 (odoslanie) + 20 (prijatie) = 40` .
+Výsledná spotreba kreditov by bola 40 kreditov `20 (odoslanie) + 20 (prijatie) = 40` .
 
 Nevýhoda, subscriber sa musí rozhodovať čo má s danou správou spraviť.
 
