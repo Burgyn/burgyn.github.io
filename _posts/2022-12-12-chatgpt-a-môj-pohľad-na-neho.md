@@ -5,6 +5,7 @@ tags: [AI]
 author: Miňo Martiniak
 comments: true
 date: 2022-12-12 18:00:00 +0100
+image: /assets/images/ChatGPT_Cover.png
 ---
 
 ![Blue & Black Futuristic Technology Facebook Cover.png](/assets/images/ChatGPT_Cover.png)

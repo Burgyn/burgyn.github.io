@@ -43,6 +43,7 @@ plugins:
   - jekyll-feed
   - jekyll-time-to-read
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 url: "https://blog.burgyn.online"
 
