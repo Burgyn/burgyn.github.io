@@ -66,7 +66,7 @@ internal class ValidationFilter<T> : IEndpointFilter
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
         // 👇 this can be more complicated
-        if (context.Arguments.First(a => a is T) is not T model)
+        if (context.Arguments.FirstOrDefault(a => a is T) is not T model)
         {
             throw new InvalidOperationException("Model is null");
         }
