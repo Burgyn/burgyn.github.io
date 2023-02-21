@@ -31,7 +31,7 @@ COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 ```
 
-Problém nastáva akonáhle máme väčšie solution, zložitejšie vsťahy medzi projektami prípadne používame `Directory.Packages.props` alebo `NuGet.config`, ktoré sú v inom adresári ako je `Dockerfile`.
+Problém nastáva akonáhle máme väčšie solution, zložitejšie vzťahy medzi projektami prípadne používame `Directory.Packages.props` alebo `NuGet.config`, ktoré sú v inom adresári ako je `Dockerfile`.
 
 Chalani v Microsofte sa to rozhodli riešiť a pridali podporu pre build-in kontajnerizáciu priamo do .NET 7 SDK. Miesto toho aby sme museli vytvárať vlastný `Dockerfile`, špecifikovať všetky závislosti a vytvárať kontajner, je to teraz zahrnuté v publish procese dotnet-u. Napríklad `dotnet publish --os linux --arch x64 -c Release -p:PublishProfile=DefaultContainer` vygeneruje image, ktorý je pripravený na spustenie.
 
