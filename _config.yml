@@ -60,7 +60,7 @@ kramdown:
   syntax_highlighter: rouge
 
 # Google analytics
-google_analytics: UA-154408250-1
+google_analytics: G-FYN9BGS01R
 
 jekyll_compose:
   auto_open: true
