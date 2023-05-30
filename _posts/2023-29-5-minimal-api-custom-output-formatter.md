@@ -99,6 +99,6 @@ app.MapGet("/products", () => Results.Extensions.NJson(new Product[]
 
 ## 🖇️ Odkazy
 
-Dokumentácia - ****[How to create responses in Minimal API apps](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/responses?view=aspnetcore-8.0)****
+Dokumentácia - **[How to create responses in Minimal API apps](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/responses?view=aspnetcore-8.0)**
 
 Demo - [Burgyn/Samples.MinimalApiCustomFormatters (github.com)](https://github.com/Burgyn/Samples.MinimalApiCustomFormatters)
