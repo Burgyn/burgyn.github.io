@@ -9,7 +9,8 @@ layout: default
             <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
                 {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
                 {{ page.date | date: date_format }}
-            </time> {%- if page.author -%}<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | {{ page.author | escape }}</span></span>
+            </time> {%- if page.author -%}<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span
+                    class="p-author h-card" itemprop="name"> | {{ page.author | escape }}</span></span>
             {%- endif -%} {% if page.tags %}
             | <span class="fa fa-tags" aria-label="Tags"> </span> {% for tag in page.tags %}
             <span>
@@ -23,8 +24,18 @@ layout: default
         {{ content }}
     </div>
 
+    <div class="carousel">
+        {% if page.carousel_images %}
+        {% for image in page.carousel_images %}
+        <div>
+            <img src="{{ image.path }}" alt="{{ image.alt }}">
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
     {% if page.comments %}
-        {% include disqus_comments.html %}
+    {% include disqus_comments.html %}
     {% endif %}
 
     <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
