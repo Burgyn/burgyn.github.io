@@ -43,3 +43,8 @@ pre {
     opacity: 1; /* Zabezpečenie, že šípka nie je polopriehľadná */
     color: black; /* Zmena farby ikony šípky */
 }
+
+.cover {
+    margin-top: 20px;
+    border-radius: 15px;
+}
