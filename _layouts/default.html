@@ -4,8 +4,6 @@
 <head>
     <!-- head stuff-->
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/main.css">
     <!-- Pridanie Slick Carousel CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
@@ -13,8 +11,14 @@
         href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <!-- Pridanie jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
     <!-- Pridanie Slick Carousel JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/main.css">
 
     <!-- IMPORTANT -->
     <script src="https://use.fontawesome.com/ee196462b9.js"></script>
@@ -40,12 +44,20 @@
                 infinite: true,
                 speed: 300,
                 slidesToShow: 1,
-                centerMode: true,
+                centerMode: false,
                 focusOnSelect: true,
                 infinite: false,
                 adaptiveHeight: true
             });
         });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
     </script>
 </body>
 
