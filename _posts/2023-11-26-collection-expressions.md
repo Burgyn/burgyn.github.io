@@ -4,7 +4,7 @@ title: C# 12 - Collection expressions
 tags: [C#, dotnet]
 author: Miňo Martiniak
 comments: true
-date: 2023-11-26 18:00:00.000000000 +01:00
+date: 2023-11-26 19:00:00.000000000 +01:00
 carousel_images:
   - path: "/assets/images/collectionexpressions/1.png"
     alt: "Collection expressions"
