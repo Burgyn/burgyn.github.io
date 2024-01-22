@@ -21,30 +21,44 @@ pre {
     max-width: 16px;
 }
 
-.post-header{
+.post-header {
     font-size: 14px;
 }
 
 /* Pridanie vlastných štýlov pre šípky */
-.slick-prev, .slick-next {
-    color: black; /* Zmena farby šípky */
-    background: rgba(255, 255, 255, 0.5); /* Pridanie polopriehľadného bielého pozadia */
+.slick-prev,
+.slick-next {
+    color: black;
+    /* Zmena farby šípky */
+    background: rgba(255, 255, 255, 0.5);
+    /* Pridanie polopriehľadného bielého pozadia */
 }
 
 /* Zmena štýlu pri najetí myšou (hover) */
-.slick-prev:hover, .slick-next:hover {
-    background: white; /* Zmena pozadia na menej priehľadné alebo inú farbu pri najetí */
-    color: black; /* Zmena farby šípky pri najetí */
+.slick-prev:hover,
+.slick-next:hover {
+    background: white;
+    /* Zmena pozadia na menej priehľadné alebo inú farbu pri najetí */
+    color: black;
+    /* Zmena farby šípky pri najetí */
 }
 
 /* Špecifické štýly pre predchádzajúcu (prev) a nasledujúcu (next) šípku */
-.slick-prev:before, .slick-next:before {
-    font-size: 20px; /* Zväčšenie šípky */
-    opacity: 1; /* Zabezpečenie, že šípka nie je polopriehľadná */
-    color: black; /* Zmena farby ikony šípky */
+.slick-prev:before,
+.slick-next:before {
+    font-size: 20px;
+    /* Zväčšenie šípky */
+    opacity: 1;
+    /* Zabezpečenie, že šípka nie je polopriehľadná */
+    color: black;
+    /* Zmena farby ikony šípky */
 }
 
 .cover {
     margin-top: 20px;
     border-radius: 5px;
+}
+
+.carousel {
+    margin-top: 20px;
 }
