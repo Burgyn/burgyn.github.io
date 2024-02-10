@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Travel in time with TimeProvider
+title: Time travel with TimeProvider
 tags: [csharp, dotnet, unittests]
 author: Miňo Martiniak
 comments: true
@@ -30,7 +30,7 @@ public class Basket(TimeProvider timeProvider, LoyaltyLevel loyaltyLevel)
 }
 ```
 
-`TimeProvider.System` is available for standard usa cases. Inject it where you need it.
+`TimeProvider.System` is available for standard use cases. Inject it where you need it.
 
 ```csharp
 // 👇 Use System time provider in your code
