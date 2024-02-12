@@ -15,5 +15,7 @@ jobs:
 
       - name: Push empty commit to trigger deployment
         run: |
+          git config --global user.email "automat@github.com"
+          git config --global user.name "Github Actions Bot"
           git commit --allow-empty -m "Trigger deployment - scheduled job"
           git push
