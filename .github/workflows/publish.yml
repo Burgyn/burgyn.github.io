@@ -1,0 +1,19 @@
+name: Scheduled Trigger for Blog Posts
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+    - cron: '0 20 * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Push empty commit to trigger deployment
+        run: |
+          git commit --allow-empty -m "Trigger deployment - scheduled job"
+          git push
