@@ -11,10 +11,24 @@
         {
             "label": "Run",
             "type": "shell",
-            "command": "bundle exec jekyll serve --draft",
+            "command": "bundle exec jekyll serve --draft --future",
             "group": {
                 "kind": "build",
                 "isDefault": true
+            }
+        },
+        {
+            "label": "Move Draft to Posts",
+            "type": "shell",
+            "command": "/bin/bash",
+            "args": [
+                "${workspaceFolder}/.vscode/move_draft_to_posts.sh",
+                "${input:fileName}"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "focus": true
             }
         }
     ],
@@ -24,5 +38,10 @@
             "description": "Post name:",
             "type": "promptString"
         },
+        {
+            "id": "fileName",
+            "type": "promptString",
+            "description": "Enter the name of the draft file to move:"
+        }
     ]
 }
