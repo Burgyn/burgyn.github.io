@@ -23,6 +23,11 @@
     <!-- IMPORTANT -->
     <script src="https://use.fontawesome.com/ee196462b9.js"></script>
 
+    <!-- keywoards -->
+    {% if page.keywords %}
+        <meta name="keywords" content="{{ page.keywords | join: ', ' | escape }}">
+    {% endif %}
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
     <script>
