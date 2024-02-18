@@ -77,7 +77,8 @@ jekyll_compose:
       tags: []
       author: Miňo Martiniak
       comments: true
-      description:
+      description: ""
+      linkedin_post_text: ""
       date: 2055-02-18 18:00:00 +01:00
       keywords:
         - NetArchTest .NET

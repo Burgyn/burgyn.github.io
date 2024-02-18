@@ -30,6 +30,18 @@
                 "reveal": "always",
                 "focus": true
             }
+        },
+        {
+            "label": "Generate Blog Metadata",
+            "type": "shell",
+            "command": "${workspaceFolder}/.vscode/generate_blog_metadata.sh",
+            "args": [
+                "${file}"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            }
         }
     ],
     "inputs": [
