@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Milan Martiniak
 permalink: /about/
 description: "Milan Martiniak - Software & Cloud Architect"
