@@ -1,43 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: " en " }}">
-
-<head>
-    <!-- head stuff-->
-
-    <!-- Pridanie Slick Carousel CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-    <!-- Pridanie jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Pridanie Lightbox CSS a JS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
-    <!-- Pridanie Slick Carousel JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/main.css">
-
-    <!-- IMPORTANT -->
-    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
-
-    <!-- keywoards -->
-    {% if page.keywords %}
-        <meta name="keywords" content="{{ page.keywords | join: ', ' | escape }}">
-    {% endif %}
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', '{{ site.google_analytics }}');
-    </script>    
-</head>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
 {%- include head.html -%}
 

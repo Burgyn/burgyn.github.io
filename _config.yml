@@ -30,6 +30,7 @@ github_username:  burgyn
 author:
   name: Miňo Martiniak
   email: mino.martiniak@gmail.com
+  url: https://burgyn.bio.link/
 
 # Build settings
 remote_theme: chesterhow/tale
@@ -51,6 +52,7 @@ show_excerpts: true
 
 social:
   name: Miňo Martiniak
+  url: https://burgyn.bio.link/
   links:
     - https://www.threads.net/@mino.martiniak
     - https://www.linkedin.com/in/milanmartiniak/
