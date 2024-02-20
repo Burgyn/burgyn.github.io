@@ -2,7 +2,6 @@
 layout: post
 title: Visual Studio ~~Online~~ Codespaces
 tags: [VS Online, VS Codespaces, VS Code, Environment]
-author: Miňo Martiniak
 comments: true
 date: 2020-05-13 17:00:00 +0100
 ---

@@ -2,7 +2,6 @@
 layout: post
 title: ChatGPT a môj pohľad na neho
 tags: [AI]
-author: Miňo Martiniak
 comments: true
 date: 2022-12-12 18:00:00 +0100
 image: /assets/images/ChatGPT_Cover.png

@@ -2,7 +2,6 @@
 layout: post
 title: ASP.NET CORE Minimal API - Filters & Validation
 tags: [C#,.NET, ASP.NET CORE, Minimal API]
-author: Miňo Martiniak
 comments: true
 image: /assets/images/asp-net-core-minimal-api-filters/cover.png
 date: 2023-01-16 22:00:00 +0100

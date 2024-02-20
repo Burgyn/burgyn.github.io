@@ -2,7 +2,6 @@
 layout: post
 title: Swagger documentation of Ocelot aggregates
 tags: [microservices,C#,.NET Core,ASP.NET Core]
-author: Miňo Martiniak
 date: 2021-02-04 19:00:00 +0100
 comments: true
 ---

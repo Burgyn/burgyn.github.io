@@ -2,7 +2,6 @@
 layout: post
 title: Na čo dávam pozor pri Code Review
 tags: [clean code]
-author: Miňo Martiniak
 comments: true
 date: 2020-05-21 17:00:00 +0100
 ---

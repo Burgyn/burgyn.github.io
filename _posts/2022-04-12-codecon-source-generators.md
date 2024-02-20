@@ -2,7 +2,6 @@
 layout: post
 title: CodeCon 2022 - C# Source Generators
 tags: [Meetups]
-author: Miňo Martiniak
 comments: true
 date: 2022-04-12 08:00:00 +0100
 ---

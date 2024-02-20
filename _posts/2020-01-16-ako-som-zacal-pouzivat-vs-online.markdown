@@ -3,7 +3,6 @@ layout: post
 title: "Ako som začal používať Visual Studio Online (Cloud IDE)"
 date: 2020-01-16 09:00:00 +0100
 tags: [VS Online, VS Code, Environment]
-author: Miňo Martiniak
 comments: true
 ---
 

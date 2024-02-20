@@ -2,9 +2,9 @@
 layout: post
 title: Simplify tuple types using aliases
 tags: [csharp, dotnet]
-author: Miňo Martiniak
 comments: true
 date: 2024-02-18 18:00:00.000000000 +01:00 
+image: /assets/images/cover.png
 ---
 
 Are you a fan of functional programming, or do you just like using tuple types? 

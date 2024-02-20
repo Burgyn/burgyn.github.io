@@ -2,7 +2,6 @@
 layout: post
 title: Techband Meetups .NET Talks
 tags: ["Conference", "Speaking"]
-author: Miňo Martiniak
 comments: true
 date: 2022-09-14 06:00:00 +0100
 ---

@@ -3,7 +3,6 @@ layout: post
 title:  "ASP.NET Core ApplicationPart & EvilController 😱"
 date:   2019-12-16 20:40:00 +0100
 tags: [C#,.NET Core,ASP.NET Core]
-author: Miňo Martiniak
 comments: true
 ---
 

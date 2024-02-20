@@ -9,7 +9,6 @@ categories:
   - Unit tests
   - Patterns
 tags: [C#,.NET,.NET Core,Unit tests,Patterns]
-author: Miňo Martiniak
 comments: true
 ---
 

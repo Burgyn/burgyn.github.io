@@ -2,7 +2,6 @@
 layout: post
 title: Flattening generator
 tags: [C#,Generators,Roslyn,.NET]
-author: Miňo Martiniak
 comments: true
 date: 2021-06-27 19:00:00 +0100
 ---

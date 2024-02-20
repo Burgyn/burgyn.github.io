@@ -29,8 +29,8 @@ github_username:  burgyn
 
 author:
   name: Miňo Martiniak
-  email: mino.martiniak@gmail.com
   url: https://burgyn.bio.link/
+  email: mino.martiniak@gmail.com
 
 # Build settings
 remote_theme: chesterhow/tale
@@ -77,11 +77,11 @@ jekyll_compose:
   default_front_matter:
     drafts:
       tags: []
-      author: Miňo Martiniak
       comments: true
       description: ""
       linkedin_post_text: ""
       date: 2055-02-18 18:00:00 +01:00
+      image: /assets/images/cover.png
       keywords:
         - NetArchTest .NET
 

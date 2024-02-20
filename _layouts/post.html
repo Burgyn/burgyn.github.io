@@ -9,8 +9,8 @@ layout: default
             <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
                 {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
                 {{ page.date | date: date_format }}
-            </time> {%- if page.author -%}<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span
-                    class="p-author h-card" itemprop="name"> | {{ page.author | escape }}</span></span>
+            </time> {%- if site.author.name -%}<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span
+                    class="p-author h-card" itemprop="name"> | {{ site.author.name | escape }}</span></span>
             {%- endif -%} {% if page.tags %}
             | <span class="fa fa-tags" aria-label="Tags"> </span> {% for tag in page.tags %}
             <span>

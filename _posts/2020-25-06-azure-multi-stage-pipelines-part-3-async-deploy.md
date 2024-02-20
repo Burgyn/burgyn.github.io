@@ -2,7 +2,6 @@
 layout: post
 title: Azure Multi-Stage Pipelines (časť 3. - Asynchrónne nasadenie viacerých služieb)
 tags: [Azure, DevOps, CI/CD, YAML, PowerShell]
-author: Miňo Martiniak
 date: 2020-06-25 17:00:00 +0100
 ---
 

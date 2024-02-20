@@ -2,7 +2,6 @@
 layout: post
 title: ".NET 7 SDK - build-in container support"
 tags: [dotnet, C#, docker]
-author: Miňo Martiniak
 comments: true
 image: /assets/images/net7-docker-build-in/NET 7 SDK - build-in container support.png
 date: 2023-01-23 22:00:00 +0100

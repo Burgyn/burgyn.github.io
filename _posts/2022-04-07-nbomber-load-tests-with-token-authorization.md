@@ -2,7 +2,6 @@
 layout: post
 title: NBomber load tests with token authentication
 tags: [C#, .NET, Load test]
-author: Miňo Martiniak
 comments: true
 date: 2022-04-07 18:30:00 +0100
 ---

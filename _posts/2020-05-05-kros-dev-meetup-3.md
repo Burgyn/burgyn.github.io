@@ -2,7 +2,6 @@
 layout: post
 title: KROS Dev Meetup ‎#3
 tags: [Meetups]
-author: Miňo Martiniak
 comments: true
 date: 2020-05-05 17:00:00 +0100
 ---

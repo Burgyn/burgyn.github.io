@@ -2,8 +2,6 @@
 layout: post
 title: C# Source Generator
 tags: [C#,Generators,Roslyn,.NET]
-author: Miňo Martiniak
-comments: true
 date: 2022-10-10 07:00:00 +0100
 comments: true
 ---

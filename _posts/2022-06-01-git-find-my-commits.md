@@ -2,7 +2,6 @@
 layout: post
 title: Git find my commits
 tags: []
-author: Miňo Martiniak
 comments: true
 ---
 

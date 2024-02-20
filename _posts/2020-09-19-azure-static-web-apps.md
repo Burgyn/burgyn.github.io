@@ -3,7 +3,6 @@ layout: post
 title: Azure Static Web Apps
 tags: [Azure, DevOps, GitHub, SPA, Angular]
 date: 2020-09-17 19:00:00 +0000
-author: Miňo Martiniak
 comments: true
 ---
 

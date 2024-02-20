@@ -2,7 +2,6 @@
 layout: post
 title: My troubles with the new JSON source generator in the ASP.NET API
 tags: [C#,Generators,ASP.NET,.NET]
-author: Miňo Martiniak
 comments: true
 date: 2022-01-25 21:00:00 +0100
 ---

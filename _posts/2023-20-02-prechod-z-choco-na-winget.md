@@ -2,7 +2,6 @@
 layout: post
 title: Prechod z Choco na Winget
 tags: [Windows]
-author: Miňo Martiniak
 comments: true
 image: /assets/images/winget/Winget.png
 date: 2023-02-20 22:00:00 +0100

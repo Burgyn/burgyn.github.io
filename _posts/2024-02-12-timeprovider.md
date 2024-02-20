@@ -2,9 +2,9 @@
 layout: post
 title: Time travel with TimeProvider
 tags: [csharp, dotnet, unittests]
-author: Miňo Martiniak
 comments: true
 date: 2024-02-10 18:00:00.000000000 +01:00
+image: /assets/images/cover.png
 ---
 
 If you write unit tests you know that using `DateTime.Now` directly is not a good idea 🤔. 

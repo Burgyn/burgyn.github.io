@@ -2,7 +2,6 @@
 layout: post
 title: Multi-Tenant Output Cache Policy
 tags: [aspnetcore, outputcache, redis, caching, dotnet, multi-tenant]
-author: Miňo Martiniak
 comments: true
 date: 2024-01-22 08:00:00.000000000 +01:00
 carousel_images:

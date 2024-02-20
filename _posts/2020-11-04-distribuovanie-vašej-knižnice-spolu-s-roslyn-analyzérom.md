@@ -3,7 +3,6 @@ layout: post
 title: Distribuovanie vašej knižnice spolu s Roslyn analyzérom
 tags: [Roslyn, C#, .NET Core, NuGet]
 date: 2020-11-04 09:00:00 +0100
-author: Miňo Martiniak
 comments: true
 ---
 

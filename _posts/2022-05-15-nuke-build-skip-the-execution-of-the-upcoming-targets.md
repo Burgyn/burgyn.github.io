@@ -2,7 +2,6 @@
 layout: post
 title: "NUKE.Build skip the execution of the upcoming targets"
 tags: [C#,.NET,NUKE]
-author: Miňo Martiniak
 comments: true
 date: 2022-05-15 18:00:00 +0100
 ---

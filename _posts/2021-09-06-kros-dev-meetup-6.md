@@ -2,7 +2,6 @@
 layout: post
 title: KROS Dev Meetup ‎#6
 tags: [Meetups]
-author: Miňo Martiniak
 comments: true
 date: 2021-09-06 08:00:00 +0100
 ---

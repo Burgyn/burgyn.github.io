@@ -3,7 +3,6 @@ layout: post
 date: 2020-02-23 17:00:00 +0100
 title: Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)
 tags: [Azure, DevOps, CI/CD, YAML]
-author: Miňo Martiniak
 comments: true
 ---
 

@@ -3,7 +3,6 @@ layout: post
 title: Azure Service Bus - Ako sme nepoužili Topic filters
 date: 2022-11-07 06:00:00 +0100
 tags: [AZURE]
-author: Miňo Martiniak
 comments: true
 ---
 

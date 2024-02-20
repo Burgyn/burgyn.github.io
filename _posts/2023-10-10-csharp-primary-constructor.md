@@ -2,7 +2,6 @@
 layout: post
 title: C# 12 - Primary constructor
 tags: []
-author: Miňo Martiniak
 comments: true
 date: 2023-10-10 18:00:00 +0100
 carousel_images:

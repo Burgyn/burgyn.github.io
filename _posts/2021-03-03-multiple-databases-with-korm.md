@@ -2,7 +2,6 @@
 layout: post
 title: Multiple databases with KORM
 tags: [C#,.NET Core,ASP.NET Core, KORM]
-author: Miňo Martiniak
 comments: true
 date: 2021-03-02 19:00:00 +0100
 ---

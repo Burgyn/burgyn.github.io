@@ -2,7 +2,6 @@
 layout: post
 title: ASP.NET Core - IExceptionHandler
 tags: [aspnetcore, dotnet]
-author: Miňo Martiniak
 comments: true
 date: 2023-11-29 18:00:00.000000000 +01:00
 carousel_images:

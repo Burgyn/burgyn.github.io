@@ -2,7 +2,6 @@
 layout: post
 title: ASP.NET Core Short-circuit
 tags: [aspnetcore, dotnet]
-author: Miňo Martiniak
 comments: true
 date: 2023-12-11 15:00:00.000000000 +01:00
 carousel_images:

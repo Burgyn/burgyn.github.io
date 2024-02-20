@@ -2,7 +2,6 @@
 layout: post
 title: Ako nás (ne)limituje Azure Cognitive Search
 tags: [Azure, Load tests, Experiment]
-author: Miňo Martiniak
 date: 2021-04-25 19:00:00 +0100
 comments: true
 ---

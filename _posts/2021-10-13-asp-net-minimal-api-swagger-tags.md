@@ -2,7 +2,6 @@
 layout: post
 title: ASP.NET Core Minimal API Swagger tags
 tags: [C#,.NET Core, .NET,ASP.NET Core, MinimalApi, Swagger]
-author: Miňo Martiniak
 comments: true
 date: 2021-10-13 20:30:00 +0100
 ---

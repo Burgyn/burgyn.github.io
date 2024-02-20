@@ -2,7 +2,6 @@
 layout: post
 title: Azure DevOps Pipelines - Asynchronous deployment of multiple services
 tags: [Azure, DevOps, CI/CD, YAML, PowerShell]
-author: Miňo Martiniak
 date: 2020-06-25 17:00:00 +0100
 ---
 

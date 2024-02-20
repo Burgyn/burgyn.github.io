@@ -2,7 +2,6 @@
 layout: post
 title: "Minimal API - Custom output formatter"
 tags: [dotnet, C#, asp.net core, minimal api]
-author: Miňo Martiniak
 comments: true
 image: /assets/images/net7-docker-build-in/NET 7 SDK - build-in container support.png
 date: 2023-05-29 22:00:00 +0100

@@ -2,7 +2,6 @@
 layout: post
 title: Microservices ‎#1 - Api Gateway pattern
 tags: [microservices,C#,.NET Core,ASP.NET Core]
-author: Miňo Martiniak
 comments: true
 ---
 
