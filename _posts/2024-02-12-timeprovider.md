@@ -14,7 +14,7 @@ You probably have something like `IDateTimeProvider` or something similar in you
 We can have this one injected where we need it and use it. 
 In the project we then configure the usage on `TimeProvider.System`.
 
-🧪 In tests, we can use the `FakeTimeProvider` class from the `Microsoft.Extensions.Time.Testing` library. 
+🧪 In tests, we can use the `FakeTimeProvider` class from the `Microsoft.Extensions.TimeProvider.Testing` library. 
 This class will allow us to travel in time to test our scenarios.
 
 Use the new `TimeProvider` instead of the original `DateTime.Now` or `DateTime.UtcNow`.
