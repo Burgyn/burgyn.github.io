@@ -81,7 +81,7 @@ jekyll_compose:
       description: ""
       linkedin_post_text: ""
       date: 2055-02-18 18:00:00 +01:00
-      image: /assets/images/cover.png
+      image: /assets/images/blog-post-base-cover.png
       keywords:
         - NetArchTest .NET
 

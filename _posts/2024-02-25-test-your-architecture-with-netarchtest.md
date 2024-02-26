@@ -5,7 +5,7 @@ tags: [dotnet, unit tests, architecture, csharp]
 description: "Discover how NetArchTest enhances architectural compliance in .NET projects. Learn to create unit tests for architecture integrity."
 comments: true
 date: 2024-02-25 18:00:00.000000000 +01:00 
-image: /assets/images/cover.png
+image: /assets/images/blog-post-base-cover.png
 keywords:
   - NetArchTest .NET
   - .NET architecture testing
