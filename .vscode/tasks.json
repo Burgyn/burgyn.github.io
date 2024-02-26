@@ -42,6 +42,18 @@
                 "reveal": "always",
                 "focus": true
             }
+        },
+        {
+            "label": "Generate Code Images",
+            "type": "shell",
+            "command": "${workspaceFolder}/.vscode/generate_code_images.sh",
+            "args": [
+                "${file}"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
         }
     ],
     "inputs": [
