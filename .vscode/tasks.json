@@ -23,7 +23,7 @@
             "command": "/bin/bash",
             "args": [
                 "${workspaceFolder}/.vscode/move_draft_to_posts.sh",
-                "${input:fileName}"
+                "${file}"
             ],
             "problemMatcher": [],
             "presentation": {
@@ -49,11 +49,6 @@
             "id": "draftName",
             "description": "Post name:",
             "type": "promptString"
-        },
-        {
-            "id": "fileName",
-            "type": "promptString",
-            "description": "Enter the name of the draft file to move:"
         }
     ]
 }

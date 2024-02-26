@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Assuming the draft to move is passed as the first argument
+file_path="$1"
+draft_file="${file_path##*/}"
+
+echo "$draft_file"
+
 # Prompt for the date
 echo "Enter the date (format YYYY-MM-DD):"
 read date
@@ -11,13 +17,11 @@ formatted_date="${date} 18:00:00.000000000 +01:00"
 drafts_dir="_drafts"
 posts_dir="_posts" # Adjust according to your structure
 
-# Assuming the draft to move is passed as the first argument
-draft_file="$1"
-
 # Construct the new file name based on the date and original file name
-filename=$(basename -- "$draft_file")
-extension="${filename##*.}"
-new_filename="${date}-${filename}"
+extension="${draft_file##*.}"
+new_filename="${date}-${draft_file}"
+
+echo "New filename: $new_filename"
 
 # Move the draft to the posts directory and rename it
 mv "$drafts_dir/$draft_file" "$posts_dir/$new_filename"
