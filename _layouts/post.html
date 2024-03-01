@@ -20,6 +20,11 @@ layout: default
         </p>
     </header>
 
+    <div class="post-thumbnail">
+        {% if page.thumbnail %}
+        <img src="{{ page.thumbnail }}" alt="{{ page.title }}" itemprop="image">
+        {% endif %}
+
     <div class="post-content e-content" itemprop="articleBody">
         {{ content }}
     </div>
