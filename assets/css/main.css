@@ -62,3 +62,11 @@ pre {
 .carousel {
     margin-top: 20px;
 }
+
+.post-thumbnail {
+    margin-bottom: 20px;
+}
+
+.post-thumbnail img {
+    border-radius: 5px;
+}

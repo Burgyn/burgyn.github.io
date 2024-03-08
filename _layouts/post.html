@@ -9,8 +9,9 @@ layout: default
             <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
                 {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
                 {{ page.date | date: date_format }}
-            </time> {%- if site.author.name -%}<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span
-                    class="p-author h-card" itemprop="name"> | {{ site.author.name | escape }}</span></span>
+            </time> {%- if site.author.name -%}<span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | {{ site.author.name
+                    | escape }}</span></span>
             {%- endif -%} {% if page.tags %}
             | <span class="fa fa-tags" aria-label="Tags"> </span> {% for tag in page.tags %}
             <span>
@@ -20,16 +21,19 @@ layout: default
         </p>
     </header>
 
+    {% if page.thumbnail %}
     <div class="post-thumbnail">
-        {% if page.thumbnail %}
         <img src="{{ page.thumbnail }}" alt="{{ page.title }}" itemprop="image">
-        {% endif %}
+    </div>
+    {% endif %}
 
     <div class="post-content e-content" itemprop="articleBody">
         {{ content }}
     </div>
 
-    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="minomartiniak" data-color="#5F7FFF" data-emoji="☕"  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button"
+        data-slug="minomartiniak" data-color="#5F7FFF" data-emoji="☕" data-font="Cookie" data-text="Buy me a coffee"
+        data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
 
     <div class="carousel">
         {% if page.carousel_images %}
