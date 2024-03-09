@@ -38,6 +38,31 @@
 
     {% seo %}
 
+    {% if page.about %}
+    <!-- About -->
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Person",
+            "name": "{{ site.author.name }}",
+            "alternateName": "{{ site.author.alternative_name }}",
+            "nationality": "{{ site.author.national }}",
+            "jobTitle": "{{ site.author.job_title }}",
+            "url": "{{ site.url }}",
+            "image": "{{ site.url }}{{ site.author.image }}",
+            "email": "{{ site.author.email }}",
+            "description": "{{ site.author.description }}",
+            "gender": "male",
+            "sameAs": [
+                {% for social in site.social.links -%}
+                "{{ social }}"{% unless forloop.last %},{% endunless %}
+                {% endfor -%}
+            ]
+        }
+    </script>
+    {% endif %}
+
+
     <!-- CSS -->
     <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">

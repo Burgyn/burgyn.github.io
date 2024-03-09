@@ -28,9 +28,14 @@ twitter_username: minomartiniak
 github_username:  burgyn
 
 author:
-  name: Miňo Martiniak
+  name: Milan Martiniak
   url: https://burgyn.bio.link/
   email: mino.martiniak@gmail.com
+  alternative_name: Miňo Martiniak
+  nationality: Slovak
+  job_title: Software architect
+  image: /assets/images/me.jpg
+  description: "I'm husband, father, son and dotnet developer."
 
 # Build settings
 remote_theme: chesterhow/tale
