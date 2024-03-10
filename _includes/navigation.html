@@ -1,8 +1,11 @@
 <nav class="nav">
   <div class="nav-container">
     <a href="{{ site.baseurl }}/">
-      <h2 class="nav-title">{{ site.title }}</h2>
-    </a>
+      <div class="site-name">
+        <img src="{{ site.baseurl }}/assets/favicon-32x32.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">{{ site.title }}</h2>
+      </div>
+    </a>    
     <ul>
       <li><a href="{{ site.baseurl }}/">Posts</a></li>
       <li><a href="{{ '/about' | prepend: site.baseurl }}">About me</a></li>
