@@ -31,10 +31,6 @@ layout: default
         {{ content }}
     </div>
 
-    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button"
-        data-slug="minomartiniak" data-color="#5F7FFF" data-emoji="☕" data-font="Cookie" data-text="Buy me a coffee"
-        data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00"></script>
-
     <div class="carousel">
         {% if page.carousel_images %}
         {% for image in page.carousel_images %}
@@ -47,10 +43,6 @@ layout: default
         {% endfor %}
         {% endif %}
     </div>
-
-    {% if page.comments %}
-    {% include disqus_comments.html %}
-    {% endif %}
 
     <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 

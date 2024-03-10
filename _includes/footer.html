@@ -2,18 +2,18 @@
   <span>
     &copy; <time datetime="{{ site.time }}">{{ site.time | date: '%Y' }}</time> {{ site.author.name | escaper }}
     <a rel="me" href="https://github.com/{{ site.github_username | cgi_escape | escape }}"
-      title="{{ site.github_username | escape }}">
+      title="GitHub - {{ site.github_username | escape }}">
       <span class="fa fa-github" aria-label="GitHub"></span>
     </a>
     <a rel="me" href="https://twitter.com/{{ site.twitter_username | cgi_escape | escape }}"
-      title="{{ site.twitter_username | escape }}">
+      title="Twitter - {{ site.twitter_username | escape }}">
       <span class="fa fa-twitter" aria-label="Twitter"></span>
     </a>
-    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="Milan Martiniak">
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
       <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
     </a>
 
-    <a rel="me" href="{{site.url}}/feed.xml" title="RSS">
+    <a rel="me" href="{{site.url}}/feed.xml" title="RSS feed">
       <span class="fa fa-rss" aria-label="RSS"></span>
     </a>
   </span>
