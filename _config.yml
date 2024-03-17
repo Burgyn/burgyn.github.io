@@ -50,6 +50,7 @@ plugins:
   - jekyll-time-to-read
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-minifier
 
 url: "https://blog.burgyn.online"
 
