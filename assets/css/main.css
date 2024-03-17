@@ -65,6 +65,9 @@ html.entities {
     --bloquote-background-color: var(--brand-primary-background-color-2);
     --bloquote-color: var(--brand-primary-text-color-1);
     --sotial-icon-hover-color: var(--brand-secondary-background-color-2);
+    --pagination-button-background-color: var(--brand-secondary-background-color-1);
+    --pagination-button-hover-background-color: var(--brand-primary-background-color-2);
+    --pagination-button-hover-text-color: var(--brand-primary-text-color-1);
 }
 
 html.code-style {
@@ -185,7 +188,7 @@ h6 {
     .nav-logo {
         border-radius: 50%;
         height: auto;
-        width: 32px;
+        width: 36px;
         margin: 0;
     }
 
@@ -340,16 +343,69 @@ code,
     margin-left: 20px !important;
     margin-right: 20px !important;
     position: unset !important;
+    background-color: var(--pagination-button-background-color) !important;
+    padding: 10px 15px;
+    width: 90px;
+    display: inline-block;
+    transition: clip-path 0.3s ease;
 }
 
-/* Zmena štýlu pri najetí myšou (hover) */
+.arrow:hover {
+    background-color: var(--pagination-button-hover-background-color) !important;
+    color: var(--pagination-button-hover-text-color) !important;
+    opacity: 1 !important;
+}
+
+.left.arrow {
+    clip-path: polygon(
+        0% 50%, 
+        20% 0%, 
+        100% 0%, 
+        90% 50%, 
+        100% 100%, 
+        20% 100%
+    );
+}
+
+.left.arrow:hover {
+    clip-path: polygon(
+        0% 50%, 
+        25% 0%, 
+        100% 0%, 
+        85% 50%, 
+        100% 100%, 
+        25% 100%
+    );
+}
+
+.right.arrow {
+    clip-path: polygon(
+        0% 0%,
+        80% 0%,
+        100% 50%,
+        80% 100%,
+        0% 100%,
+        10% 50%
+    );
+}
+
+.right.arrow:hover {
+    clip-path: polygon(
+        0% 0%,
+        75% 0%,
+        100% 50%,
+        75% 100%,
+        0% 100%,
+        15% 50%
+    );
+}
+
 .slick-prev:hover,
 .slick-next:hover {
     background: transparent;
     color: var(--slick-arrow-hover-color)
 }
 
-/* Špecifické štýly pre predchádzajúcu (prev) a nasledujúcu (next) šípku */
 .slick-prev:before,
 .slick-next:before {
     font-size: 20px;
