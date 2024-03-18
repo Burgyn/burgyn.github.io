@@ -31,7 +31,7 @@ There were a few small things left that didn't make it into separate articles.
 
 ## Experimental attribute
 
-In C# 12 we added a new `Experimental` attribute. We can use this attribute to indicate classes, methods, properties that are in experimental stage. 
+In C# 12 was added a new `Experimental` attribute. We can use this attribute to indicate classes, methods, properties that are in experimental stage. 
 It allows us to indicate that a given piece of code is in the experimental stage and may change or disappear completely.
 
 ```csharp
