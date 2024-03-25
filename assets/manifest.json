@@ -27,12 +27,32 @@
         {
             "src": "/assets/android-chrome-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"        
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/assets/pwa-screenshots/1.jpg",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "label": "Home Screen - Insights from the .NET world."
+        },
+        {
+            "src": "/assets/pwa-screenshots/2.jpg",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "label": "Blog Post Preview - Discover tips, tricks, and best practices."
+        },
+        {
+            "src": "/assets/pwa-screenshots/3.jpg",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "label": "About Me - Passion for code."
         }
     ],
     "display": "standalone",
     "background_color": "#2C394B",
-    "theme_color" : "#2C394B",
+    "theme_color": "#2C394B",
     "start_url": "/",
     "lang": "en"
-  }
+}
