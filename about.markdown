@@ -23,7 +23,7 @@ keywords:
 
 # Milan Martiniak
 
-![Milan Martiniak, software & cloud architect](/assets/images/me.jpg){:style="float: left;margin-right: 20px;margin-top: 0px; max-width:300px; border-radius: 4px; border: 1px solid #ddd; padding:5px"}
+![Milan Martiniak, software & cloud architect](/assets/images/me.jpg){:style="float: left;margin-right: 20px;margin-top: 0px; max-width:300px; border-radius: 4px; padding:5px"}
 Hello, my name is Milan Martiniak. I'm husband, father, son and dotnet developer.
 I come from Skalite. It's small village in the north of Slovakia. Now I live and work in Žilina.
 
