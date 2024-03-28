@@ -12,6 +12,7 @@ self.addEventListener('install', evt => {
                 '/assets/css/main.css',
                 '/assets/main.css',
                 '/assets/images/cover.gif',
+                '/assets/android-chrome-192x192.png'
             ]);
         })
     );
