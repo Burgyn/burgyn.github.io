@@ -50,6 +50,7 @@ html.entities {
     --separator-gradient: linear-gradient(89deg, var(--brand-primary-background-color-2) 0%, var(--brand-secondary-background-color-2) 49.13%, var(--brand-primary-background-color-2) 100%);
     --main-text-color: var(--brand-primary-text-color-1);
     --code-background-color: var(--brand-secondary-background-color-1);
+    --code-diff-add-background-color: var(--green);
     --catalog-item-background-color: var(--brand-secondary-background-color-1);
     --catalog-item-text-color: var(--brand-primary-text-color-1);
     --catalog-item-description-color: var(--brand-secondary-text-color-1);
@@ -314,6 +315,10 @@ code,
     background-color: var(--code-background-color) !important;
     border-radius: 8px !important;
     color: var(--code-default-color) !important;
+}
+
+.highlight .gi {
+    background-color: var(--code-diff-add-background-color) !important;
 }
 
 .post-title {
