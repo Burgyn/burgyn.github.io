@@ -38,4 +38,4 @@ My friend [Andrej Kollárik](https://www.linkedin.com/in/andrej-kollarik/) and I
 With friends from work we are starting to organize public meetups in Žilina called [KROS Dev Meetup](https://www.meetup.com/KROS-Dev-Meetup/) dedicated to software development.
 Sometimes I talk about software development at the University of Žilina.
 
-I am very pleased to be able to contribute to the organization of the [CODECON Žilina](https://www.codecon.sk/zilina/) conference.
+I am very pleased to be able to contribute to the organization of the [CODECON](https://www.codecon.sk/) conference.
