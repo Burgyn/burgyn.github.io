@@ -5,7 +5,7 @@ tags: [csharp, tools, dotnet, basics]
 comments: true
 description: "Understand the difference between 'throw' and 'throw ex' in C# and how they affect stack traces during exception handling."
 linkedin_post_text: "🔍 Get back to basics with C#! Learn how to use 'throw' & 'throw ex' and their impact on stack traces during exceptions. Understand how they aid in problem identification. Don't miss the details! 🚀 👨‍💻 [Link to blog post]"
-date: 2024-04-14 18:00:00.000000000 +01:00
+date: 2024-04-14 18:00:00.000000000 +01:00 2055-02-18 18:00:00.000000000 +01:00
 image: "/assets/images/code_images/throw-vs-throw-ex-back-to-the-basics/cover.png"
 thumbnail: "/assets/images/code_images/throw-vs-throw-ex-back-to-the-basics/cover.png"
 keywords:
