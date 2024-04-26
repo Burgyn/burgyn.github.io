@@ -26,8 +26,8 @@ while IFS= read -r line; do
   if [[ $line == \`\`\`* ]]; then
     # Remove three backticks to detect the language
     readLanguage=${line/\`\`\`/}
-    # Default to plaintext if no language is specified
-    language=${readLanguage:-plaintext}
+    # Default to csharp if no language is specified
+    language=${readLanguage:-csharp}
     echo "Generating image for code block in $language"
     # Start reading the code until another ``` is found
     codeBlock=""
@@ -48,7 +48,7 @@ while IFS= read -r line; do
             print lines[i];
     }' temp_code_file > temp_code_file_processed
     # Here, we use the -l option to specify the language and -h for headless mode to avoid opening the browser
-    carbon-now temp_code_file_processed --save-as "$outputDir/$counter"
+    carbon-now temp_code_file_processed --save-as "$outputDir/$counter" -l "$language"
     let counter++
   fi
 done < "$markdownFile"
