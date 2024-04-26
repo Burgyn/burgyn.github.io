@@ -5,7 +5,7 @@ tags: [csharp, dotnet, architecture, ASP.NET Core]
 comments: true
 description: "Learn how to run periodic tasks in the background of ASP.NET Core services by implementing your own hosted service using the IHostedService interface."
 linkedin_post_text: "Looking to run periodic tasks in the background of your ASP.NET Core services? 🕒 My latest blog post explains how you can do this by implementing your own hosted service using the IHostedService interface. Explore more on [Link to blog post] 👷‍♀️ #ASP.NETCore #BackgroundTasks #coding"
-date: 2024-04-29 18:00:00.000000000 +01:00 
+date: 2024-04-28 18:00:00.000000000 +01:00 
 image: "/assets/images/code_images/asp-net-core-periodic-background-task/cover.png"
 thumbnail: "/assets/images/code_images/asp-net-core-periodic-background-task/cover.png"
 keywords:
