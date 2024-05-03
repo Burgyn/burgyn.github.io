@@ -281,8 +281,6 @@ Po použití nuget balíku s generátorom, si môžeš vygenerované súbory poz
 
 ![https://blog.burgyn.online/assets/images/generators/generators.png](https://blog.burgyn.online/assets/images/generators/generators.png)
 
-🙏Zaujata ťa táto téma? [Daj mi o tom prosím vedieť a zahlasuj.](https://app.swallowpoll.com/TfLgePJIDf)
-
 ## 🔗 Užitočné odkazy
 
 ### Demo projekt

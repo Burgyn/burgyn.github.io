@@ -99,5 +99,3 @@ Show your microservices interactive documentation `http://ocelotserviceurl/swagg
 ![swagger](/assets/images/swagger-for-ocelot/swagger.png)
 
 Learn more in the repository [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot).
-
-If you liked this article, let me know about it at this [voting poll](https://app.swallowpoll.com/NYBznJrhGr).
