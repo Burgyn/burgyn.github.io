@@ -141,4 +141,4 @@ app.MapPost("/orders", async (
 
 In this way, we have created a simple job queue that processes jobs in the background. This solution is suitable for simple scenarios. For more complex scenarios, for example, you need to persist the jobs so that you can process them in case of an outage. You can use solutions such as Redis, AZURE Storage Account Queues, or a database to store the jobs.
 
-If even this is not enough, try solutions like [Hangfire](https://www.hangfire.io/).
+If even this is not enough (potrebujete ukladať správy kvôli možným výpadkom), try solutions like [Hangfire](https://www.hangfire.io/), or cloud platform services like AZURE Service Bus + AZURE Functions.
