@@ -124,7 +124,7 @@ builder.Services.AddHostedService<AppInitializerHandler>();
 
 This way we can elegantly initialize our application before it starts answering queries.
 
-> ⚠️ Nezabudni, že inicializácia by mala byť rýchla.
+> ⚠️ Remember that initialization should be fast.
 
 To simplify registration to the DI container, we can create an extension:
 
