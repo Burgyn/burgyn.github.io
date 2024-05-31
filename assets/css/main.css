@@ -78,6 +78,8 @@ html.code-style {
     --code-types-color: #bed5e5;
     --code-parentheses-color: #9fb2bf;
     --code-default-color: var(--white);
+    --code-error-color: var(--white);
+    --code-error-background: transparent;
 }
 
 html,
@@ -470,6 +472,15 @@ code,
 
     .p {
         color: var(--code-parentheses-color) !important;
+    }
+
+    .s2 {
+        color: var(--code-string-color) !important;
+    }
+
+    .err {
+        color: var(--code-error) !important;
+        background-color: var(--code-error-background) !important;
     }
 }
 
