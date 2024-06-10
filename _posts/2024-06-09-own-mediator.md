@@ -65,7 +65,7 @@ public interface IEventPublisherStrategy
 }
 ```
 
-## Implementácia
+## Implementation
 
 Publisher can look like this:
 
@@ -169,7 +169,7 @@ public static IServiceCollection AddDomainEventHandler<TEvent, THandler>(
 > This is because I wanted to avoid reflection. If reflection doesn't bother you, a simplified call to `services.AddDomainEventHandler<YourHandler>();`. 
 > But I'll leave that up to you 😉.
 
-## Použitie
+## Usage
 
 Finally, we'll show you how to use our own Mediator.
 
