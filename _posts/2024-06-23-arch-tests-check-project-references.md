@@ -20,7 +20,6 @@ keywords:
 In our company we have a large solution which contains more than 100 projects (not including test projects). Within that solution are WebAPI projects, libraries and AZURE functions. 
 A couple of times it happened to us that our WebAPI projects referenced each other. Which is fundamentally wrong. They should be independent of each other and only reference other libraries.
 *(we missed it during code review)*
-*** Translated with www.DeepL.com/Translator (free version) ***
 
 > It is bad not only in principle, but also because MSBuild still has a problem and if you reference WebAPI projects in this way, it can non-deterministically give you `json` files in the output of one of the projects that are from another project. We have had this happen to us quite often.
 
