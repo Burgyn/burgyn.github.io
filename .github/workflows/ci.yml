@@ -3,11 +3,11 @@ name: Jekyll site CI
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
-  workflow_dispatch:  # This allows manual triggering
+      - master
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,12 +19,12 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7 # Specify the Ruby version you are using
+    - name: Install bundler 2.4.22
+      run: gem install bundler -v 2.4.22
     - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install
+      run: bundle _2.4.22_ install
     - name: Build the site
-      run: bundle exec jekyll build
+      run: bundle _2.4.22_ exec jekyll build
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
