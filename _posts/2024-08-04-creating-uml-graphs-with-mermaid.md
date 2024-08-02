@@ -5,7 +5,7 @@ tags: [tools, architecture]
 comments: true
 description: "The blog outlines how to leverage tools like PlantUML, Mermaid for diagram creation in markdown, storage, and sharing."
 linkedin_post_text: ""
-date: 2024-08-04 18:00:00.000000000 +01:00
+date: 2024-08-02 18:00:00.000000000 +01:00
 image: "/assets/images/code_images/creating-uml-graphs-with-mermaid/cover.png"
 thumbnail: "/assets/images/code_images/creating-uml-graphs-with-mermaid/cover.png"
 keywords:
