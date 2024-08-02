@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+    <meta name="keywords" content="ASP.NET Core Minimal API, Content Negotiation, IResult, ASP.NET Core, JSON, XML, serialization, IResponseNegotiator, ContentNegotiationProvider">
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>ASP.NET CORE Minimal API - Content Negotiation | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="ASP.NET CORE Minimal API - Content Negotiation" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A guide to creating your own support for Content Negotiation in ASP.NET Core Minimal API by developing a custom ‘IResult’ implementation." />
+<meta property="og:description" content="A guide to creating your own support for Content Negotiation in ASP.NET Core Minimal API by developing a custom ‘IResult’ implementation." />
+<link rel="canonical" href="https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation" />
+<meta property="og:url" content="https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:image" content="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-05-19T17:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" />
+<meta property="twitter:title" content="ASP.NET CORE Minimal API - Content Negotiation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2024-05-19T17:00:00+00:00","datePublished":"2024-05-19T17:00:00+00:00","description":"A guide to creating your own support for Content Negotiation in ASP.NET Core Minimal API by developing a custom ‘IResult’ implementation.","headline":"ASP.NET CORE Minimal API - Content Negotiation","image":"https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation"},"url":"https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>ASP.NET CORE Minimal API - Content Negotiation</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2024-05-19T17:00:00+00:00" itemprop="datePublished">May 19, 2024
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/csharp">csharp</a> -->
+                csharp, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/asp.net core">asp.net core</a> -->
+                asp.net core
+            </span>  
+        </p>
+    </header>
+
+    
+    <div class="post-thumbnail">
+        <img src="/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" alt="ASP.NET CORE Minimal API - Content Negotiation" itemprop="image">
+    </div>
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>The primary goal of <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-8.0">ASP.NET Core Minimal API</a> is to deliver a straightforward, simple, and most importantly, very powerful framework for creating APIs. Rather than delivering features to cover every possible usage scenario <em>(unlike <a href="https://learn.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui?view=aspnetcore-8.0">MVC</a>)</em> it is designed with certain specific patterns in mind. One of these cases is that the Minimal API consumes and produces only the <code class="highlighter-rouge">JSON</code> format <em>(Thus, it does not support <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation">Content Negotiation</a> which is handled by <a href="https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/formatting?view=aspnetcore-8.0#content-negotiation">Output formatters</a> in the case of MVC)</em>.
+However, there are situations where you really need either a different type of output <em>(for example, standard <code class="highlighter-rouge">XML</code>)</em>, or you need to be more in control of the serialization process, and you want to take advantage of the simplicity and power of the Minimal API. In this article, I will try to show how you can create your own support for Content Negotiation in the Minimal API.</p>
+
+<blockquote>
+  <p>⚠️ This is a functional implementation, but it doesn’t cover all scenarios and is just a basic example of what such support could look like.</p>
+</blockquote>
+
+<p>The whole solution is based on a custom implementation for <code class="highlighter-rouge">IResult</code>. <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/responses?view=aspnetcore-8.0">More info in the documentation</a>.</p>
+
+<h2 id="iresponsenegotiator"><code class="highlighter-rouge">IResponseNegotiator</code></h2>
+
+<p>Let’s first define the interface whose implementation will be responsible for serializing the response.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IResponseNegotiator</span>
+<span class="p">{</span>
+    <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">);</span>
+
+    <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="implementation-for-json">Implementation for JSON</h2>
+
+<p>For JSON, we can directly use <code class="highlighter-rouge">Ok&lt;TResult&gt;</code> result, which is part of the Minimal API.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">JsonNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">=&gt;</span> <span class="n">MediaTypeNames</span><span class="p">.</span><span class="n">Application</span><span class="p">.</span><span class="n">Json</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="n">accept</span><span class="p">.</span><span class="n">MediaType</span> <span class="p">==</span> <span class="n">ContentType</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Use original Ok&lt;TResult&gt; type for JSON serialization</span>
+        <span class="k">return</span> <span class="n">TypedResults</span><span class="p">.</span><span class="nf">Ok</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">httpContext</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="implementation-for-xml">Implementation for XML</h2>
+
+<p>For XML, we can create a custom implementation that uses, for example, <code class="highlighter-rouge">DataContractSerializer</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">XmlNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">=&gt;</span> <span class="n">MediaTypeNames</span><span class="p">.</span><span class="n">Application</span><span class="p">.</span><span class="n">Xml</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="n">accept</span><span class="p">.</span><span class="n">MediaType</span> <span class="p">==</span> <span class="n">ContentType</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="n">ContentType</span><span class="p">;</span>
+
+        <span class="c1">// 👇 Use DataContractSerializer for XML serialization</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">stream</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">FileBufferingWriteStream</span><span class="p">();</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">streamWriter</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">serializer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DataContractSerializer</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="nf">GetType</span><span class="p">());</span>
+
+        <span class="n">serializer</span><span class="p">.</span><span class="nf">WriteObject</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+
+        <span class="k">await</span> <span class="n">stream</span><span class="p">.</span><span class="nf">DrainBufferAsync</span><span class="p">(</span><span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Body</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="registration">Registration</h2>
+
+<p>Unfortunately, due to the way <code class="highlighter-rouge">IEndpointMetadataProvider</code> works and the way serialization works directly in the Minimal API, I couldn’t find an elegant way to use the DI container <em>(there would be a few inelegant ones 😊).</em> So I resorted to a custom registrar for negotiators.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">ContentNegotiationProvider</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">IResponseNegotiator</span><span class="p">&gt;</span> <span class="n">_negotiators</span> <span class="p">=</span> <span class="p">[];</span>
+
+    <span class="c1">// 👇 Internal list of negotiators</span>
+    <span class="k">internal</span> <span class="k">static</span> <span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">IResponseNegotiator</span><span class="p">&gt;</span> <span class="n">Negotiators</span> <span class="p">=&gt;</span> <span class="n">_negotiators</span><span class="p">;</span>
+
+    <span class="c1">// 👇 Add negotiator to the list</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">TNegotiator</span><span class="p">&gt;()</span>
+        <span class="k">where</span> <span class="n">TNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span><span class="p">,</span> <span class="k">new</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_negotiators</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">TNegotiator</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We register the negotiators in <code class="highlighter-rouge">Program.cs</code> or <code class="highlighter-rouge">Startup.cs</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">JsonNegotiator</span><span class="p">&gt;();</span>
+<span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">XmlNegotiator</span><span class="p">&gt;();</span>
+</code></pre></div></div>
+
+<h2 id="contentnegotiationresulttresult"><code class="highlighter-rouge">ContentNegotiationResult&lt;TResult&gt;</code></h2>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">TResult</span> <span class="n">result</span><span class="p">)</span>
+    <span class="p">:</span> <span class="n">IResult</span><span class="p">,</span> <span class="n">IEndpointMetadataProvider</span><span class="p">,</span> <span class="n">IStatusCodeHttpResult</span><span class="p">,</span> <span class="n">IValueHttpResult</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">TResult</span> <span class="n">_result</span> <span class="p">=</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_result</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status204NoContent</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 👇 Get negotiator based on Accept header</span>
+        <span class="kt">var</span> <span class="n">negotiator</span> <span class="p">=</span> <span class="nf">GetNegotiator</span><span class="p">(</span><span class="n">httpContext</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">negotiator</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status406NotAcceptable</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 👇 Set status code</span>
+        <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCode</span><span class="p">;</span>
+
+        <span class="c1">// 👇 Handle the result</span>
+        <span class="k">return</span> <span class="n">negotiator</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="n">httpContext</span><span class="p">,</span> <span class="n">_result</span><span class="p">,</span> <span class="n">httpContext</span><span class="p">.</span><span class="n">RequestAborted</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">static</span> <span class="n">IResponseNegotiator</span><span class="p">?</span> <span class="nf">GetNegotiator</span><span class="p">(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">accept</span> <span class="p">=</span> <span class="n">httpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="nf">GetTypedHeaders</span><span class="p">().</span><span class="n">Accept</span><span class="p">;</span>
+        <span class="c1">// 👇 Get negotiator based on Accept header (use ContentNegotiationProvider)</span>
+        <span class="k">return</span> <span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">Negotiators</span><span class="p">.</span><span class="nf">FirstOrDefault</span><span class="p">(</span><span class="n">n</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">accept</span><span class="p">.</span><span class="nf">Any</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">n</span><span class="p">.</span><span class="nf">CanHandle</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="c1">//...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To make the documentation nicely generated and contain information about possible formats, we can implement <code class="highlighter-rouge">IEndpointMetadataProvider</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">void</span> <span class="n">IEndpointMetadataProvider</span><span class="p">.</span><span class="nf">PopulateMetadata</span><span class="p">(</span><span class="n">MethodInfo</span> <span class="n">method</span><span class="p">,</span> <span class="n">EndpointBuilder</span> <span class="n">builder</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 Add produces response type metadata</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">Metadata</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">ProducesResponseTypeMetadata</span><span class="p">(</span><span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status200OK</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TResult</span><span class="p">),</span>
+        <span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">Negotiators</span><span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">n</span> <span class="p">=&gt;</span> <span class="n">n</span><span class="p">.</span><span class="n">ContentType</span><span class="p">).</span><span class="nf">ToArray</span><span class="p">()));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="helper-method">Helper method</h2>
+
+<p>Let’s create a static helper for ease of use.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Negotiation</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">Negotiate</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">result</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="k">new</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="usage">Usage</h2>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapGet</span><span class="p">(</span><span class="s">"/products"</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 Use Negotiation</span>
+    <span class="k">return</span> <span class="n">Negotiation</span><span class="p">.</span><span class="nf">Negotiate</span><span class="p">(</span><span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="k">new</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">"Product 1"</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span> <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="n">app</span><span class="p">.</span><span class="nf">MapGet</span><span class="p">(</span><span class="s">"/products/{id}"</span><span class="p">,</span> <span class="n">GetProduct</span><span class="p">);</span>
+
+<span class="k">static</span> <span class="n">Results</span><span class="p">&lt;</span><span class="n">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;,</span> <span class="n">NotFound</span><span class="p">&gt;</span> <span class="nf">GetProduct</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">id</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Use Negotiation</span>
+        <span class="k">return</span> <span class="n">Negotiation</span><span class="p">.</span><span class="nf">Negotiate</span><span class="p">(</span><span class="k">new</span> <span class="nf">Product</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">"Product 1"</span><span class="p">,</span> <span class="m">100</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">TypedResults</span><span class="p">.</span><span class="nf">NotFound</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>That’s it ✅.</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">### GET products as XML
+GET http://localhost:5210/product/
+Accept: application/xml
+
+### Response
+&lt;ArrayOfProduct xmlns="http://schemas.datacontract.org/2004/07/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;Product&gt;
+    &lt;Id&gt;1&lt;/Id&gt;
+    &lt;Name&gt;Product 1&lt;/Name&gt;
+    &lt;Price&gt;100&lt;/Price&gt;
+  &lt;/Product&gt;
+&lt;/ArrayOfProduct&gt;
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>⚠️ This solution is just a basic suggestion and does not cover all possible scenarios. 
+For example, the way it is done you can only use it for <code class="highlighter-rouge">200 OK</code> answers (but it can be extended).</p>
+</blockquote>
+
+<p>The full example is on <a href="https://github.com/Burgyn/Samples.ContentNegotion">GitHub</a>.</p>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2024/05/19/asp-net-core-minimal-api-content-negotiation" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

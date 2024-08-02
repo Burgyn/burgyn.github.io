@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>How I started using the Visual Studio Online (Cloud IDE) | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="How I started using the Visual Studio Online (Cloud IDE)" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Yes, I really mean Visual Studio Online. Not the DevOps, which until recently had exactly the same name (with the same domain). Maybe Microsoft still had a paid domain, so he decided to use it for the new “Cloud IDE” service. 😃" />
+<meta property="og:description" content="Yes, I really mean Visual Studio Online. Not the DevOps, which until recently had exactly the same name (with the same domain). Maybe Microsoft still had a paid domain, so he decided to use it for the new “Cloud IDE” service. 😃" />
+<link rel="canonical" href="https://blog.burgyn.online/2020/01/20/how-i-started-using-vs-online" />
+<meta property="og:url" content="https://blog.burgyn.online/2020/01/20/how-i-started-using-vs-online" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-20T18:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How I started using the Visual Studio Online (Cloud IDE)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2020-01-20T18:00:00+00:00","datePublished":"2020-01-20T18:00:00+00:00","description":"Yes, I really mean Visual Studio Online. Not the DevOps, which until recently had exactly the same name (with the same domain). Maybe Microsoft still had a paid domain, so he decided to use it for the new “Cloud IDE” service. 😃","headline":"How I started using the Visual Studio Online (Cloud IDE)","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2020/01/20/how-i-started-using-vs-online"},"url":"https://blog.burgyn.online/2020/01/20/how-i-started-using-vs-online"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>How I started using the Visual Studio Online (Cloud IDE)</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2020-01-20T18:00:00+00:00" itemprop="datePublished">Jan 20, 2020
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/VS Online">VS Online</a> -->
+                VS Online, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/VS Code">VS Code</a> -->
+                VS Code, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/Environment">Environment</a> -->
+                Environment
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>Yes, I really  mean Visual Studio Online. Not the DevOps, which until recently had exactly the same name <em>(with the same domain)</em>. <em>Maybe Microsoft still had a paid domain, so he decided to use it for the new “Cloud IDE” service. 😃</em></p>
+
+<p>I’m the owner of Surface Go device. Which is a very handy little Windows 10 tablet. At home I use to use it for most things. I only turn on a regular laptop when I’m going to do something in a few opensource projects that I take care of. Whether it is the development of new things, prototyping or reviewing more complex PR that I want to see in the VS. For such stuff my Surface is already weak. That’s why I started testing <a href="https://online.visualstudio.com">VS Online</a>.</p>
+
+<h2 id="visual-studio-online">Visual Studio Online</h2>
+
+<p>VS Online is a cloud development environment accessible from anywhere. Do you have a weak computer? You simply create your development environment on AZURE using the VS Online. No RDP and connection to virtual machine. Through browser or locally installed VS Code with extension. <em>(Is there support for VS, but I haven’t tested it)</em></p>
+
+<h2 id="how-to-do-it">How to do it?</h2>
+
+<p>It is simple. Just visit the portal <a href="https://online.visualstudio.com">https://online.visualstudio.com</a>. Log in using the Microsoft account to which AZURE Subscription is assigned. <em>(If you don’t have one, you can try <a href="https://azure.microsoft.com/en-us/free/">free access for 12 month</a>).</em></p>
+
+<p>We need to create a plan before we can create environments.
+<img src="/assets/images/vsonline/BillingPlan.png" alt="Billing plan" /></p>
+
+<p>AZURE will create a Resource Group and Visual Studio Online Plan.
+<img src="/assets/images/vsonline/Azure.png" alt="AZURE Plan" /></p>
+
+<p>Finally, we can create our first cloud environment.
+<img src="/assets/images/vsonline/CreateEnvironment.png" alt="Creating environment" /></p>
+
+<p>There are two configurations to choose from:</p>
+
+<ol>
+  <li>4 cores with 8GB RAM</li>
+  <li>8 cores with 16GB RAM</li>
+</ol>
+
+<p>That’s not so much when you consider that it’s performance reserved for your development <em>(no Chrome / Spotify / no application running like Electron apps / …)</em>.</p>
+
+<p>Pricing plan is available on <a href="https://azure.microsoft.com/en-us/pricing/details/visual-studio-online/">azure.microsoft.com</a>.
+According to Microsoft calculations, this should be <strong>55 €</strong> per month for the second configuration and full time development.</p>
+
+<p>I changed suspend setting to 5 minutes <em>(the default is 30)</em> of inactivity to save my credit on Azure 😄.</p>
+
+<p>After less than a minute the environment is ready and I can connect to it through the browser.
+The web version of Visual Studio Code will open.</p>
+
+<p>We already have <code class="highlighter-rouge">dotnet core</code> pre-installed in our environment, so we can try to create an mvc application. Open the terminal <code class="highlighter-rouge">CTLR + SHIFT + C</code> and type <code class="highlighter-rouge">dotnet new mvc</code>.</p>
+
+<p><img src="/assets/images/vsonline/VisualStudioCode.png" alt="Visual Studio Code" /></p>
+
+<p>To better work with <code class="highlighter-rouge">dotnet core</code> I recommend installing an extension <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp">OmniSharp</a>. Then you can run the application.</p>
+
+<p>When you start app, Visual Studio Online automatically creates port forwarding and redirects you to your application.</p>
+
+<h2 id="vs-online">VS Online</h2>
+
+<p>Working through a browser is cool, but let’s just say the truth, it’s fine for a little bit of editing. Not for long-term work. It will be much more convenient through Visual Studio Code. <em>(Probably through Visual Studio 2019, but I haven’t tried it yet)</em>. You need to install a single extension in VSCode <a href="https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline">Visual Studio Online</a> and connect to environment.</p>
+
+<p><img src="/assets/images/vsonline/SelectPlan.png" alt="Select plan" /></p>
+
+<p><img src="/assets/images/vsonline/SelectEnvironment.png" alt="Select environment" /></p>
+
+<p><img src="/assets/images/vsonline/Ports.png" alt="Forward port" /></p>
+
+<h2 id="summary">Summary</h2>
+
+<p>It’s great to connect from anywhere and have everything there ready the way you used it the last time. Whether you connect from anywhere <em>(work laptop, home laptop, tablet on the go, …)</em> you will find your work exactly as you left it.</p>
+
+<p>Microsoft claims that this is suitable for small things like PR adjustments, minor changes, but also for long-term large projects. But it’s still marked as “preview” and I suppose they still have a lot of work to do. <em>(In a few weeks of use, however, I only encountered minor outages of intellisense.)</em> I don’t know if this will fully replace the development workstations in the future. However, I support this project and watch with interest as it develops.</p>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://devblogs.microsoft.com/visualstudio/announcing-visual-studio-online-public-preview/?WT.mc_id=-blog-scottha">Announcing Visual Studio Online Public Preview</a></li>
+  <li><a href="https://visualstudio.microsoft.com/cs/services/visual-studio-online/?rr=https%3A%2F%2Fwww.google.com%2F">Visual Studio Online</a></li>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline">VSCode extension</a></li>
+</ul>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2020/01/20/how-i-started-using-vs-online" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

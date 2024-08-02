@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Multiple databases with KORM | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Multiple databases with KORM" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="KORM je rýchly a ľahko použiteľný “micro”-ORM framework. To prečo vznikol, aké sú jeho výhody respektíve nevýhody snáď napíšem niekedy nabudúce. Teraz sa povenujem tomu ako ho použiť v prípade, že sa v službe pripájate k viacerím databázam, respektíve máte multitenant systém, kde každý tenant je v samostatnej databáze." />
+<meta property="og:description" content="KORM je rýchly a ľahko použiteľný “micro”-ORM framework. To prečo vznikol, aké sú jeho výhody respektíve nevýhody snáď napíšem niekedy nabudúce. Teraz sa povenujem tomu ako ho použiť v prípade, že sa v službe pripájate k viacerím databázam, respektíve máte multitenant systém, kde každý tenant je v samostatnej databáze." />
+<link rel="canonical" href="https://blog.burgyn.online/2021/03/02/multiple-databases-with-korm" />
+<meta property="og:url" content="https://blog.burgyn.online/2021/03/02/multiple-databases-with-korm" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-02T18:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Multiple databases with KORM" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2021-03-02T18:00:00+00:00","datePublished":"2021-03-02T18:00:00+00:00","description":"KORM je rýchly a ľahko použiteľný “micro”-ORM framework. To prečo vznikol, aké sú jeho výhody respektíve nevýhody snáď napíšem niekedy nabudúce. Teraz sa povenujem tomu ako ho použiť v prípade, že sa v službe pripájate k viacerím databázam, respektíve máte multitenant systém, kde každý tenant je v samostatnej databáze.","headline":"Multiple databases with KORM","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2021/03/02/multiple-databases-with-korm"},"url":"https://blog.burgyn.online/2021/03/02/multiple-databases-with-korm"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Multiple databases with KORM</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2021-03-02T18:00:00+00:00" itemprop="datePublished">Mar 2, 2021
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/C#">C#</a> -->
+                C#, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/.NET Core">.NET Core</a> -->
+                .NET Core, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/ASP.NET Core">ASP.NET Core</a> -->
+                ASP.NET Core, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/KORM">KORM</a> -->
+                KORM
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p><a href="https://github.com/Kros-sk/Kros.KORM">KORM</a> je rýchly a ľahko použiteľný “micro”-ORM framework. To prečo vznikol, aké sú jeho výhody respektíve nevýhody snáď napíšem niekedy nabudúce. Teraz sa povenujem tomu ako ho použiť v prípade, že sa v službe pripájate k viacerím databázam, respektíve máte multitenant systém, kde každý tenant je v samostatnej databáze.</p>
+
+<p>KORM je možné integrovať do <code class="highlighter-rouge">ASP.NET Core</code> projektu pomocou nuget balíčku <a href="https://github.com/Kros-sk/Kros.KORM.Extensions.Asp">Kros.KORM.Extensions.Asp</a>. Tento balíček vám umožní nakonfigurovať DI kontajner tak, aby ste mohli pohodlne injektovať <code class="highlighter-rouge">IDatabase</code> do vaších tried <code class="highlighter-rouge">services.AddKorm(Configuration)</code>. Rovnako vám umožní používať databázové migrácie:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">services</span><span class="p">.</span><span class="nf">AddKorm</span><span class="p">(</span><span class="n">Configuration</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">UseDatabaseConfiguration</span><span class="p">&lt;</span><span class="n">MasterDbConfiguration</span><span class="p">&gt;()</span>
+    <span class="p">.</span><span class="nf">AddKormMigrations</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">o</span><span class="p">.</span><span class="nf">AddAssemblyScriptsProvider</span><span class="p">(</span><span class="n">Assembly</span><span class="p">.</span><span class="nf">GetEntryAssembly</span><span class="p">(),</span> <span class="s">"Sample.KormMultipleDatabases.SqlScripts.MasterDb"</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nf">Migrate</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Viac o migráciach nájdete priamo v <a href="https://github.com/Kros-sk/Kros.KORM.Extensions.Asp#database-migrations">dokumentácií</a>.</p>
+
+<p>Konfigurácia prebehne na základe nastavení connection stringu v konfigurácií:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"ConnectionStrings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"DefaultConnection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server=ServerName</span><span class="se">\\</span><span class="s2">InstanceName; Initial Catalog=database; Integrated Security=true"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Otázka nastáva ako to celé použiť v prípade, že máme viacero databáz, ku ktorým potrebujeme v rámci jednej služby pristupovať. V takomto prípade potrebujeme rozdielne connection stringy, rozdielne konfigurácie a taktiež rozdielne migračné scripty. Toto všetko KORM podporuje.</p>
+
+<p>Connection string sa definuje štandardným spôsobom, kde ich je možné zadať viacero a pomenovať.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"ConnectionStrings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"FirstDatabase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server=localhost;Database=FirstDatabase;Trusted_Connection=True;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"SecondDatabase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server=localhost;Database=SecondDatabase;Trusted_Connection=True;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Extension metódu <code class="highlighter-rouge">AddKorm</code> je možné zavolať viackrát. Pre každú databázu zvlášť.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">services</span><span class="p">.</span><span class="nf">AddKorm</span><span class="p">(</span><span class="n">Configuration</span><span class="p">,</span> <span class="s">"FirstDatabase"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">UseDatabaseConfiguration</span><span class="p">&lt;</span><span class="n">FirstDbConfiguration</span><span class="p">&gt;()</span>
+    <span class="p">.</span><span class="nf">AddKormMigrations</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">o</span><span class="p">.</span><span class="nf">AddAssemblyScriptsProvider</span><span class="p">(</span><span class="n">Assembly</span><span class="p">.</span><span class="nf">GetEntryAssembly</span><span class="p">(),</span> <span class="s">"Sample.KormMultipleDatabases.SqlScripts.FirstDatabase"</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nf">Migrate</span><span class="p">();</span>
+
+<span class="n">services</span><span class="p">.</span><span class="nf">AddKorm</span><span class="p">(</span><span class="n">Configuration</span><span class="p">,</span> <span class="s">"SecondDatabase"</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">UseDatabaseConfiguration</span><span class="p">&lt;</span><span class="n">SecondDbConfiguration</span><span class="p">&gt;()</span>
+    <span class="p">.</span><span class="nf">AddKormMigrations</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">o</span><span class="p">.</span><span class="nf">AddAssemblyScriptsProvider</span><span class="p">(</span><span class="n">Assembly</span><span class="p">.</span><span class="nf">GetEntryAssembly</span><span class="p">(),</span> <span class="s">"Sample.KormMultipleDatabases.SqlScripts.SecondDatabase"</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nf">Migrate</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Pri takejto konfigurácií má každá databáza definovaný samostatný connection string, model builder a aj migračné scripty. Už ostáva len použiť KORM na prístup k databáze.
+Miesto injektovania <code class="highlighter-rouge">IDatabase</code> je potrebné injektnúť <code class="highlighter-rouge">IDatabaseFactory</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="nf">UsersController</span><span class="p">(</span><span class="n">IDatabaseFactory</span> <span class="n">databaseFactory</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">_databaseFactory</span> <span class="p">=</span> <span class="n">databaseFactory</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A následne vyžiadať <code class="highlighter-rouge">IDatabase</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span>
+<span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="nf">GetAll</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">using</span> <span class="nn">IDatabase</span> <span class="n">database</span> <span class="p">=</span> <span class="n">_databaseFactory</span><span class="p">.</span><span class="nf">GetDatabase</span><span class="p">(</span><span class="s">"FirstDatabase"</span><span class="p">)</span>
+    <span class="n">database</span><span class="p">.</span><span class="n">Query</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="multitenant-architektúra">Multitenant architektúra</h2>
+
+<p>Trochu komplikovanejšie je to pri multitenant architektúre, kde každý tenant je v samostatnej databáze a tieto tenanty vznikajú dynamicky.</p>
+
+<p>Tu je potrebné spraviť vlastnú podporu na strane vašej služby. Budete potrebovať spraviť vlastnú factory, ktorá vám poskytne potrebné <code class="highlighter-rouge">IDatabase</code>.
+Rozhranie môže byť veľmi jednoduché:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">ITenantDatabaseFactory</span>
+<span class="p">{</span>
+    <span class="n">IDatabase</span> <span class="nf">GetDatabase</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>S implementáciou to je už o trochu zložitejšie. Potrebujete zabezpečiť aby sa spustili potrebné migrácie a vytvorila správne nakonfigurovaná <code class="highlighter-rouge">IDatabase</code>.
+Vychádzajme zo scenára, že máme jednu master databázu a pre každý tenant je samostatná databáza, ale so zhodnou štruktúrou a konfiguráciou. Názov tenantu je zhodný s názvom databázy a tento názov sa nachádza v ceste <code class="highlighter-rouge">scheme://host/api/{tenant}/path</code>.</p>
+
+<p>Impelemtácia potom môže vyzerať nasledovne:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">TenantDatabaseFactory</span> <span class="p">:</span> <span class="n">ITenantDatabaseFactory</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">ConcurrentDictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Builder</span><span class="p">&gt;</span> <span class="n">_builders</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ConcurrentDictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">Builder</span><span class="p">&gt;();</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">KormConnectionSettings</span> <span class="n">_connectionSettings</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IServiceCollection</span> <span class="n">_services</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IHttpContextAccessor</span> <span class="n">_httpContextAccessor</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">TenantDatabaseFactory</span><span class="p">(</span>
+        <span class="n">KormConnectionSettings</span> <span class="n">connectionSettings</span><span class="p">,</span>
+        <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">,</span>
+        <span class="n">IHttpContextAccessor</span> <span class="n">httpContextAccessor</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_connectionSettings</span> <span class="p">=</span> <span class="n">connectionSettings</span><span class="p">;</span>
+        <span class="n">_services</span> <span class="p">=</span> <span class="n">services</span><span class="p">;</span>
+        <span class="n">_httpContextAccessor</span> <span class="p">=</span> <span class="n">httpContextAccessor</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">IDatabase</span> <span class="nf">GetDatabase</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kt">string</span> <span class="n">name</span> <span class="p">=</span> <span class="nf">GetTenantName</span><span class="p">();</span>
+        <span class="n">Builder</span> <span class="n">builder</span> <span class="p">=</span> <span class="n">_builders</span><span class="p">.</span><span class="nf">GetOrAdd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">Builder</span><span class="p">(</span><span class="n">_connectionSettings</span><span class="p">,</span> <span class="n">_services</span><span class="p">).</span><span class="nf">Migrate</span><span class="p">(</span><span class="n">name</span><span class="p">));</span>
+
+        <span class="k">return</span> <span class="n">builder</span><span class="p">.</span><span class="nf">Build</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="kt">string</span> <span class="nf">GetTenantName</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">route</span> <span class="p">=</span> <span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="nf">GetRouteData</span><span class="p">();</span>
+
+        <span class="k">return</span> <span class="n">route</span><span class="p">.</span><span class="n">Values</span><span class="p">.</span><span class="nf">GetValueOrDefault</span><span class="p">(</span><span class="s">"tenant"</span><span class="p">).</span><span class="nf">ToString</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">class</span> <span class="nc">Builder</span>
+    <span class="p">{</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">KormConnectionSettings</span> <span class="n">_connectionSettings</span><span class="p">;</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">IServiceCollection</span> <span class="n">_services</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="nf">Builder</span><span class="p">(</span><span class="n">KormConnectionSettings</span> <span class="n">connectionSettings</span><span class="p">,</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_connectionSettings</span> <span class="p">=</span> <span class="n">connectionSettings</span><span class="p">;</span>
+            <span class="n">_services</span> <span class="p">=</span> <span class="n">services</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">Builder</span> <span class="nf">Migrate</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">new</span> <span class="nf">KormBuilder</span><span class="p">(</span><span class="n">_services</span><span class="p">,</span> <span class="k">new</span> <span class="nf">KormConnectionSettings</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="n">ConnectionString</span> <span class="p">=</span> <span class="n">_connectionSettings</span><span class="p">.</span><span class="nf">GetConnectionString</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+                <span class="n">AutoMigrate</span> <span class="p">=</span> <span class="k">true</span>
+            <span class="p">}).</span><span class="nf">AddKormMigrations</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="n">o</span><span class="p">.</span><span class="nf">AddAssemblyScriptsProvider</span><span class="p">(</span><span class="n">Assembly</span><span class="p">.</span><span class="nf">GetEntryAssembly</span><span class="p">(),</span> <span class="s">"Sample.KormMultipleDatabases.SqlScripts.TenantDb"</span><span class="p">);</span>
+            <span class="p">})</span>
+            <span class="p">.</span><span class="nf">Migrate</span><span class="p">();</span>
+
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="n">IDatabase</span> <span class="nf">Build</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+            <span class="p">=&gt;</span> <span class="n">Database</span><span class="p">.</span><span class="n">Builder</span>
+            <span class="p">.</span><span class="n">UseDatabaseConfiguration</span><span class="p">&lt;</span><span class="n">TenantDbConfiguration</span><span class="p">&gt;()</span>
+            <span class="p">.</span><span class="nf">UseConnection</span><span class="p">(</span><span class="n">_connectionSettings</span><span class="p">.</span><span class="nf">GetConnectionString</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="p">.</span><span class="nf">Build</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">KormConnectionSettingsExtension</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">GetConnectionString</span><span class="p">(</span><span class="k">this</span> <span class="n">KormConnectionSettings</span> <span class="k">value</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="k">value</span><span class="p">.</span><span class="n">ConnectionString</span><span class="p">.</span><span class="nf">Format</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Názov tenantu získame z <code class="highlighter-rouge">HttpContext</code>-u.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">private</span> <span class="kt">string</span> <span class="nf">GetTenantName</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">route</span> <span class="p">=</span> <span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="nf">GetRouteData</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="n">route</span><span class="p">.</span><span class="n">Values</span><span class="p">.</span><span class="nf">GetValueOrDefault</span><span class="p">(</span><span class="s">"tenant"</span><span class="p">).</span><span class="nf">ToString</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Pre každý tenant si môžeme držať vlastný <code class="highlighter-rouge">Builder</code>, ktorý dostane upravený connection string. V prípade, že buidler neexistuje tak sa vytvorí a využije pôvodný <code class="highlighter-rouge">KormBuilder</code> aby spustil migráciu.
+Keď sa požiada o sprístupnenie <code class="highlighter-rouge">IDatabase</code> tak ho táto factory vytvorí prostredníctvom pôvodného buildera.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="n">IDatabase</span> <span class="nf">GetDatabase</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">string</span> <span class="n">name</span> <span class="p">=</span> <span class="nf">GetTenantName</span><span class="p">();</span>
+    <span class="n">Builder</span> <span class="n">builder</span> <span class="p">=</span> <span class="n">_builders</span><span class="p">.</span><span class="nf">GetOrAdd</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">Builder</span><span class="p">(</span><span class="n">_connectionSettings</span><span class="p">,</span> <span class="n">_services</span><span class="p">).</span><span class="nf">Migrate</span><span class="p">(</span><span class="n">name</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="n">builder</span><span class="p">.</span><span class="nf">Build</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">appsettings.json</code> v tomto prípade môže vyzerať nasledovne:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"ConnectionStrings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"DefaultConnection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server=localhost;Database=MashaDb;Trusted_Connection=True;"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"TenantDb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server=localhost;Database={0};Trusted_Connection=True;"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>Tento príklad využíva to, že jednotlivý tenanti majú rovnaký connection string s tým, že sa mení len názov databázy. V praxy to pravdepodobne budete mať ináč. Budete mať connection string uložený niekde v KeyVault-e, poprípade budete mať master databázu, kde budete mať viace informácií o tom ako sa pripojiť na správnu databázu. To všetko tu samozrejme môžete použiť.</p>
+</blockquote>
+
+<p>Konfgurácia DI kontajnera môže vyzerať nasledovne:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">services</span><span class="p">.</span><span class="nf">AddKorm</span><span class="p">(</span><span class="n">Configuration</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">UseDatabaseConfiguration</span><span class="p">&lt;</span><span class="n">MasterDbConfiguration</span><span class="p">&gt;()</span>
+    <span class="p">.</span><span class="nf">AddKormMigrations</span><span class="p">(</span><span class="n">o</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">o</span><span class="p">.</span><span class="nf">AddAssemblyScriptsProvider</span><span class="p">(</span><span class="n">Assembly</span><span class="p">.</span><span class="nf">GetEntryAssembly</span><span class="p">(),</span> <span class="s">"Sample.KormMultipleDatabases.SqlScripts.MasterDb"</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nf">Migrate</span><span class="p">();</span>
+
+<span class="n">services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">ITenantDatabaseFactory</span><span class="p">&gt;(</span><span class="n">f</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">TenantDatabaseFactory</span><span class="p">(</span>
+    <span class="n">Configuration</span><span class="p">.</span><span class="nf">GetKormConnectionString</span><span class="p">(</span><span class="s">"TenantDb"</span><span class="p">),</span>
+    <span class="n">services</span><span class="p">,</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">IHttpContextAccessor</span><span class="p">&gt;()));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Toto všetko nastavíte raz, následné použitie je už jednoduché.</p>
+
+<p>Napríklad:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nf">Route</span><span class="p">(</span><span class="s">"api/{tenant}/[controller]"</span><span class="p">)]</span>
+<span class="p">[</span><span class="n">ApiController</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">WorksController</span> <span class="p">:</span> <span class="n">ControllerBase</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ITenantDatabaseFactory</span> <span class="n">_databaseFactory</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">WorksController</span><span class="p">(</span><span class="n">ITenantDatabaseFactory</span> <span class="n">databaseFactory</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_databaseFactory</span> <span class="p">=</span> <span class="n">databaseFactory</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">HttpGet</span><span class="p">]</span>
+    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Work</span><span class="p">&gt;</span> <span class="nf">GetAll</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">using</span> <span class="nn">IDatabase</span> <span class="n">database</span> <span class="p">=</span> <span class="n">_databaseFactory</span><span class="p">.</span><span class="nf">GetDatabase</span><span class="p">();</span>
+
+        <span class="k">return</span> <span class="n">database</span><span class="p">.</span><span class="n">Query</span><span class="p">&lt;</span><span class="n">Work</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="odkazy">Odkazy</h2>
+
+<ul>
+  <li><a href="https://github.com/Burgyn/Sample.KORMMultipleDatabases">Demo projekt</a></li>
+  <li><a href="https://github.com/Kros-sk/Kros.KORM">KORM dokumentácia</a></li>
+  <li><a href="https://github.com/Kros-sk/Kros.KORM.Extensions.Asp">KORM ASP.NET Extension dokumentácia</a></li>
+</ul>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2021/03/02/multiple-databases-with-korm" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Azure Static Web Apps | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Azure Static Web Apps" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Microsoft v máji na Build-e predstavil novú službu Azure Static Web Apps. Ako už názov napovedá je určená na hostovanie statických aplikácií. Primárne na frondend-ové aplikácie vyvíjané pomocou frameworkov ako Angular, React, … a backend-u postavenom na serverless Azure funkciách (serverless api sa v tomto članku venovat nebudem)." />
+<meta property="og:description" content="Microsoft v máji na Build-e predstavil novú službu Azure Static Web Apps. Ako už názov napovedá je určená na hostovanie statických aplikácií. Primárne na frondend-ové aplikácie vyvíjané pomocou frameworkov ako Angular, React, … a backend-u postavenom na serverless Azure funkciách (serverless api sa v tomto članku venovat nebudem)." />
+<link rel="canonical" href="https://blog.burgyn.online/2020/09/17/azure-static-web-apps" />
+<meta property="og:url" content="https://blog.burgyn.online/2020/09/17/azure-static-web-apps" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-17T19:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Azure Static Web Apps" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2020-09-17T19:00:00+00:00","datePublished":"2020-09-17T19:00:00+00:00","description":"Microsoft v máji na Build-e predstavil novú službu Azure Static Web Apps. Ako už názov napovedá je určená na hostovanie statických aplikácií. Primárne na frondend-ové aplikácie vyvíjané pomocou frameworkov ako Angular, React, … a backend-u postavenom na serverless Azure funkciách (serverless api sa v tomto članku venovat nebudem).","headline":"Azure Static Web Apps","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2020/09/17/azure-static-web-apps"},"url":"https://blog.burgyn.online/2020/09/17/azure-static-web-apps"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Azure Static Web Apps</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2020-09-17T19:00:00+00:00" itemprop="datePublished">Sep 17, 2020
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/Azure">Azure</a> -->
+                Azure, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/DevOps">DevOps</a> -->
+                DevOps, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/GitHub">GitHub</a> -->
+                GitHub, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/SPA">SPA</a> -->
+                SPA, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/Angular">Angular</a> -->
+                Angular
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>Microsoft v máji na Build-e predstavil novú službu <a href="https://azure.microsoft.com/en-us/services/app-service/static/">Azure Static Web Apps</a>. Ako už názov napovedá je určená na hostovanie statických aplikácií. Primárne na frondend-ové aplikácie vyvíjané pomocou frameworkov ako Angular, React, … a backend-u postavenom na serverless Azure funkciách <em>(serverless api sa v tomto članku venovat nebudem)</em>.</p>
+
+<p>Veľkou výhoudou má byť silná <em>(ako marketingové informácie uvádzajú “natívna”)</em> podpora GitHub workflow. V princípe za pár sekúnd máte nastavený celý CI/CD proces vrátane automatického vytvárania a mazania staging prostredia pre pull requesty. <em>(Bohužial z nejaký dôvod je to naozaj dostupné len pre GitHub.)</em></p>
+
+<h2 id="hosting-pre-angular-aplikácie">Hosting pre Angular aplikácie</h2>
+
+<p>Pokiaľ ste sa snažili hostovať Angular aplikáciu v Azure prostredí, tak ste mali na výber niekoľko nie úplne ideálnych možností.</p>
+
+<ol>
+  <li>
+    <p>Virtuálna mašina</p>
+
+    <p>Komu by sa v dnešnej dobe chcelo kvôli statickým súborom spravovať virtuálnu mašinu? <em>(Samozrejme je to iné, keď už nejakú máte a staráte sa o ňu tak či tak.)</em></p>
+  </li>
+  <li>
+    <p>App service</p>
+
+    <p>Pre čisto statický obsah zbytočne drahé.</p>
+  </li>
+  <li>
+    <p>Static Web Site + CDN</p>
+
+    <p>Je možné použiť Static Web Site v Azure Storage Account-e. Ale v prípade Angularu je pred to potrebné postaviť nejakú CDN, alebo reverzné proxy na správny routing. <em>(pokiaľ nechcete používať #, alebo pokiaľ chcete mať viacero verzií vašej aplikácie)</em></p>
+  </li>
+</ol>
+
+<p>Tymto pribudla nová možnosť, ktorá sa javí na to ako stvorená <em>(až na to, že v súčasnosti tam aplikáciu nedostanete ináč ako z GitHub-u)</em>.</p>
+
+<h2 id="ako-na-to">Ako na to?</h2>
+
+<p>Samozrejme potrebujete Azure a GitHub konto. Ďalej repo s Angular aplikáciou. <a href="https://github.com/Burgyn/Sample.AngularOnAzureStaticWebApps">Napríklad toto.</a></p>
+
+<p>Potom už stačí len vytvoriť Azure Static Web App.</p>
+
+<p><img src="/assets/images/staticwebapp/createswa.png" alt="Vytvorenie static web app." /></p>
+
+<p>Väčšina parametrov je zrejmá. Pozastavím sa pri sekcií <em>Build Details</em>. Tu nastavujete spôsob akým sa bude buildiť vaša aplikácia. Môžete vychádzať z predpripravených presetov <em>(Angular, React, …)</em>. V mojom prípade vyberiem Angular.</p>
+
+<h3 id="app-location">App location</h3>
+
+<p>Cesta k umiestneniu, kde sa nachádza váš kód. <code class="highlighter-rouge">/</code> reprezentuje root. V mojom prípade nechávam <code class="highlighter-rouge">/</code>.</p>
+
+<h3 id="api-location">Api location</h3>
+
+<p>Cesta k umiestneniu, kde sa nachádzajú vaše Azure funkcie. <code class="highlighter-rouge">/</code> reprezentuje root. Ja nechávam bez zmeny. Žiadne AZ Funkcie nemám.</p>
+
+<h3 id="app-artifact-location">App artifact location</h3>
+
+<p>Cesta k umiestneniu, kde bude vybuildovaná vaša aplikácia. Prednastavený je <code class="highlighter-rouge">dist</code> adresár. Ale pozor, pokiaľ používate štandardný Angular build tak cesta by mala byť <code class="highlighter-rouge">dist/project-name</code>. V mojom prípade <code class="highlighter-rouge">dist/sample-angular-on-azure-static-web</code>.</p>
+
+<p>Po potvrdení sa vytvorí Azure resource, GitHub action <em>(do repozitára sa vám pridá adresár <code class="highlighter-rouge">.github/workflows</code> s <code class="highlighter-rouge">yml</code> súborom popisujúcim definíciu CI/CD procesu. <a href="https://github.com/Burgyn/Sample.AngularOnAzureStaticWebApps/blob/master/.github/workflows/azure-static-web-apps-zealous-beach-02c37fd03.yml">Napríklad takýto.</a>)</em> a spustí sa nasadenie. Priebeh nasadzovanie môžete sledovať v sekcii <a href="https://github.com/Burgyn/Sample.AngularOnAzureStaticWebApps/runs/1128581568?check_suite_focus=true">GitHub Actions</a>.</p>
+
+<p>Jednoduché. Nie?</p>
+
+<h3 id="produkčný-build">Produkčný build</h3>
+
+<p>Pokiaľ vytvoríme tento resource podľa spomínaného wizardu <em>(inú možnosť zatiaľ nemáme)</em>, tak tam chýba ešte jedna dôležitá vec. Aplikácia sa vybuilduje v developerskom režime. Na to aby bola v produkčnom, musíme zeditovať <code class="highlighter-rouge">yml</code> súbor s definíciou CI/CD procesu.
+Do stepu <code class="highlighter-rouge">Azure/static-web-apps-deploy@v0.0.1-preview</code> musíme pridať parameter <code class="highlighter-rouge">app_build_command: "npm run build -- --prod"</code>.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build_and_deploy_job</span><span class="pi">:</span>
+    <span class="na">if</span><span class="pi">:</span> <span class="s">github.event_name == 'push' || (github.event_name == 'pull_request' &amp;&amp; github.event.action != 'closed')</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Build and Deploy Job</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">submodules</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Build And Deploy</span>
+        <span class="na">id</span><span class="pi">:</span> <span class="s">builddeploy</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">Azure/static-web-apps-deploy@v0.0.1-preview</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">azure_static_web_apps_api_token</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">repo_token</span><span class="pi">:</span> <span class="s">$</span> <span class="c1"># Used for Github integrations (i.e. PR comments)</span>
+          <span class="na">action</span><span class="pi">:</span> <span class="s2">"</span><span class="s">upload"</span>
+          <span class="c1">###### Repository/Build Configurations - These values can be configured to match you app requirements. ######</span>
+          <span class="c1"># For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig</span>
+          <span class="na">app_location</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/"</span> <span class="c1"># App source code path</span>
+          <span class="na">api_location</span><span class="pi">:</span> <span class="s2">"</span><span class="s">api"</span> <span class="c1"># Api source code path - optional</span>
+          <span class="na">app_artifact_location</span><span class="pi">:</span> <span class="s2">"</span><span class="s">dist/sample-angular-on-azure-static-web"</span> <span class="c1"># Built app content directory - optional</span>
+          <span class="na">app_build_command</span><span class="pi">:</span> <span class="s2">"</span><span class="s">npm</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">build</span><span class="nv"> </span><span class="s">--</span><span class="nv"> </span><span class="s">--prod"</span>
+          <span class="c1">###### End of Repository/Build Configurations ######</span>
+</code></pre></div></div>
+
+<h3 id="falback-routes">Falback routes</h3>
+
+<p>Angular sa spolieha na client-side routing pre navigáciu v aplikácií. Tieto klient client-side routing pravidlá upravujú <code class="highlighter-rouge">windows.location</code> v prehliadači bez toho aby sa posielal request na server. Pokiaľ však spravíte refresh alebo zadáte priamo adresu, tak je potrebné server-side fallback pravidlo, ktoré vám poskytne html stránku aplikácie. Ak máte Angular aplikáciu na IIS tak použijete routing pravidlá v <code class="highlighter-rouge">web.config</code>. Tuto však <code class="highlighter-rouge">web.config</code> nemáme. Miesto toho môžme použiť <code class="highlighter-rouge">routes.json</code>. Ktorý v prípade Angular aplikácie musíme umiestniť do adresára <code class="highlighter-rouge">assets</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"routes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"route"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"serve"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/index.html"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="github-workflow">GitHub Workflow</h2>
+
+<p>Po akejkoľvek zmene pushnutej do master vetvy sa automaticky spustí nasadenie a o pár minút mate zmeny nasadené.
+V prípade, že vytvoríte PR tak sa vám zmeny z tohto PR nasadia do <em>staging</em> prostredia.</p>
+
+<p><img src="/assets/images/staticwebapp/pullrequest.png" alt="Pull request check." /></p>
+
+<p>Po nasadení do staging prostredia, vám to bot oznámi správou priamo v PR. V rámci tejto správy máte aj link na dané prostredie.</p>
+
+<p><img src="/assets/images/staticwebapp/bot.png" alt="Bot." /></p>
+
+<p>Aktuálne prostredia si môžete pozrieť na Azure portály v sekcii <code class="highlighter-rouge">Environments</code>.</p>
+
+<p><img src="/assets/images/staticwebapp/environments.png" alt="Bot." /></p>
+
+<blockquote>
+  <p>Vo free verzii môžete mať len jedno staging prostredie. Čo je limitujúce, ale pochopiteľné. Aktuálne je celá služba v <em>Preview</em> a nie je ešte známy cenník.</p>
+</blockquote>
+
+<h2 id="devops">DevOps</h2>
+
+<p>Nie každý má / chce mať svoj komerčný projekt na GitHub-e <em>(aj keď v privátnom repe)</em>. Asi nikto nebude kvôli tomuto migrovať existujúce projekty na GitHub. Bolo by super, keby bola možnosť nasadzovať do Azure Static Web App aj iným spôsobom ako z GitHub-u. Bohužiaľ zatiaľ nie je <em>(snáď časom príde)</em>. Snažil som sa zistiť akým spôsobom prebieha samotné nasadenie. Pokiaľ by za tým bolo nejaké CLI tak by som si vytvoril task pre naše DevOps. Po pátraní som však zistil, že deploy zabezpečuje docker image, ktorý sa nedá stiahnuť inde ako na GitHub-e.</p>
+
+<p>Napadla mi ešte jedna možnosť. Svoje zdrojáky necháme v existujúcich repozitároch, upravíme svoj build proces tak, aby výstupne artefakty posielal na privátne GitHub repo. No a tam upravíme danú GitHub action tak aby, tieto artefakty nasadila. Je to len myšlienka, ale verím, že ju v najbližšej dobe vyskúšam.</p>
+
+<h2 id="záver">Záver</h2>
+
+<p>Jednoduchý deploy, workflow podporujúci staging prostredie pre pull requesty, custom domény, automatické certifikáty, globálna distribúcia vášho statického obsahu, robia z tejto služby vhodného kandidáta na štandard čo sa hostovania javascriptových aplikácií týka. Škoda toho pevného previazania s GitHub-om. Neviem čo s tým Microsoft sleduje, ale verím, že je to len začiatok a čoskoro príde podpora napríklad pre Azure DevOps. Uvidíme aká bude nakoniec cena, ale verím že prijateľná a začneme to používať v produkcii.</p>
+
+<h2 id="zdroje">Zdroje</h2>
+
+<p><a href="https://docs.microsoft.com/en-us/azure/static-web-apps/">Dokumentácia</a></p>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2020/09/17/azure-static-web-apps" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

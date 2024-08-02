@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+    <meta name="keywords" content="Caching, ETag, Ocelot, API Gateway, Kros.Ocelot.ETagCaching, HTTP Caching, 304 Not Modified, Cache Invalidation, Redis">
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Ocelot ETag Caching | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Ocelot ETag Caching" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A blog post discussing the use of ETag caching with Kros.Ocelot.ETagCaching library and Ocelot API Gateway." />
+<meta property="og:description" content="A blog post discussing the use of ETag caching with Kros.Ocelot.ETagCaching library and Ocelot API Gateway." />
+<link rel="canonical" href="https://blog.burgyn.online/2024/06/02/ocelot-etag-caching" />
+<meta property="og:url" content="https://blog.burgyn.online/2024/06/02/ocelot-etag-caching" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:image" content="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-06-02T17:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" />
+<meta property="twitter:title" content="Ocelot ETag Caching" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2024-06-02T17:00:00+00:00","datePublished":"2024-06-02T17:00:00+00:00","description":"A blog post discussing the use of ETag caching with Kros.Ocelot.ETagCaching library and Ocelot API Gateway.","headline":"Ocelot ETag Caching","image":"https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2024/06/02/ocelot-etag-caching"},"url":"https://blog.burgyn.online/2024/06/02/ocelot-etag-caching"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Ocelot ETag Caching</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2024-06-02T17:00:00+00:00" itemprop="datePublished">Jun 2, 2024
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/csharp">csharp</a> -->
+                csharp, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/dotnet">dotnet</a> -->
+                dotnet, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/caching">caching</a> -->
+                caching, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/architecture">architecture</a> -->
+                architecture
+            </span>  
+        </p>
+    </header>
+
+    
+    <div class="post-thumbnail">
+        <img src="/assets/images/code_images/ocelot-etag-caching/cover.png" alt="Ocelot ETag Caching" itemprop="image">
+    </div>
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>The <code class="highlighter-rouge">Kros.Ocelot.ETagCaching</code> library brings ETag caching support to the Ocelot API Gateway. ETag caching is an HTTP caching mechanism that allows clients to verify if the cached data is still current without downloading the entire resource again. If the data hasn’t changed, the server responds with a <code class="highlighter-rouge">304 Not Modified</code> status, prompting the client to use the cached data, thereby saving bandwidth and reducing server load.</p>
+
+<h2 id="why-use-etag-caching">Why Use ETag Caching?</h2>
+
+<p>ETag caching is particularly useful in scenarios where data changes infrequently but is requested frequently. It optimizes network usage and improves response times by minimizing data transfer. By using ETags, clients can ensure they always have the most recent version of the data.</p>
+
+<h2 id="how-etag-caching-works">How ETag Caching Works</h2>
+
+<p>ETag caching involves the use of two HTTP headers:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">ETag</code>: A unique identifier for the data, typically a hash or a version number.</li>
+  <li><code class="highlighter-rouge">cache-control</code>: Instructs the client that the response can be cached. For ETag caching, this should be set to <code class="highlighter-rouge">private</code>.</li>
+</ul>
+
+<p>When a client receives a response with these headers, it caches the data and the ETag value. On subsequent requests, the client sends an <code class="highlighter-rouge">If-None-Match</code> header with the ETag value. The server then compares the ETag with the current version of the data. If they match, the server returns a <code class="highlighter-rouge">304 Not Modified</code> status, indicating the client should use the cached data.</p>
+
+<h2 id="implementation-in-ocelot">Implementation in Ocelot</h2>
+
+<p>The <code class="highlighter-rouge">Kros.Ocelot.ETagCaching</code> library integrates seamlessly with Ocelot’s middleware. It handles ETag generation, storage, and validation transparently. Here’s how to get started:</p>
+
+<h3 id="ocelot-configuration">Ocelot Configuration</h3>
+
+<p>Configure your routes in the <code class="highlighter-rouge">ocelot.json</code> file, specifying cache policies:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Routes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getAllProducts"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"CachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getAllProducts"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">👈</span><span class="w"> </span><span class="err">Cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getProduct"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"CachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getProduct"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">👈</span><span class="w"> </span><span class="err">Cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deleteProduct"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"InvalidateCachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidateProductCachePolicy"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="programcs-configuration">Program.cs Configuration</h3>
+
+<p>Set up the ETag caching policies in <code class="highlighter-rouge">Program.cs</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Define policies</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddOcelotETagCaching</span><span class="p">((</span><span class="n">c</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">//  👇 Simple policy with expiration and tag templates</span>
+    <span class="n">c</span><span class="p">.</span><span class="nf">AddPolicy</span><span class="p">(</span><span class="s">"getAllProducts"</span><span class="p">,</span> <span class="n">p</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">Expire</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromMinutes</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"products:{tenantId}"</span><span class="p">,</span> <span class="s">"all"</span><span class="p">,</span> <span class="s">"tenantAll:{tenantId}"</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 👇 Policy with custom cache key, ETag generator, and cache control</span>
+    <span class="n">c</span><span class="p">.</span><span class="nf">AddPolicy</span><span class="p">(</span><span class="s">"getProduct"</span><span class="p">,</span> <span class="n">p</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">Expire</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromMinutes</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"product:{tenantId}:{id}"</span><span class="p">,</span> <span class="s">"tenant:{tenantId}:all"</span><span class="p">,</span> <span class="s">"all"</span><span class="p">);</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">CacheKey</span><span class="p">(</span><span class="n">context</span> <span class="p">=&gt;</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="nf">GetValues</span><span class="p">(</span><span class="s">"id"</span><span class="p">).</span><span class="nf">FirstOrDefault</span><span class="p">());</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">ETag</span><span class="p">(</span><span class="n">context</span> <span class="p">=&gt;</span> <span class="k">new</span><span class="p">(</span><span class="s">$""</span><span class="p">{</span><span class="n">Guid</span><span class="p">.</span><span class="nf">NewGuid</span><span class="p">()}</span><span class="s">""</span><span class="p">));</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">CacheControl</span><span class="p">(</span><span class="k">new</span><span class="p">()</span> <span class="p">{</span> <span class="n">Public</span> <span class="p">=</span> <span class="k">false</span> <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Add the ETag caching middleware to the Ocelot pipeline:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app.UseOcelot(c =&gt;
+{
+    // 👇 Add ETag caching middleware
+    c.AddETagCaching();
+}).Wait();
+</code></pre></div></div>
+
+<h2 id="tag-templates-and-cache-invalidation">Tag Templates and Cache Invalidation</h2>
+
+<p>Tag templates are used to generate cache tags based on request parameters, making it easy to invalidate specific cache entries. For example, for the route <code class="highlighter-rouge">/api/{tenantId}/products/{id}</code> and the tag template <code class="highlighter-rouge">product:{tenantId}:{id}</code>, the tag will be <code class="highlighter-rouge">product:1:2</code>.</p>
+
+<h3 id="automatic-cache-invalidation">Automatic Cache Invalidation</h3>
+
+<p>Define invalidate cache policies in <code class="highlighter-rouge">ocelot.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deleteProduct"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"UpstreamHttpMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"Delete"</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"InvalidateCachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidateProductCachePolicy"</span><span class="w"> 
+    </span><span class="err">//</span><span class="w"> </span><span class="err">👆</span><span class="w"> </span><span class="err">Invalidate</span><span class="w"> </span><span class="err">cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And configure them in <code class="highlighter-rouge">Program.cs</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddOcelotETagCaching</span><span class="p">(</span><span class="n">conf</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 Define invalidate cache policy</span>
+    <span class="n">conf</span><span class="p">.</span><span class="nf">AddInvalidatePolicy</span><span class="p">(</span><span class="s">"invalidateProductCachePolicy"</span><span class="p">,</span> <span class="n">builder</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Define tag templates to invalidate</span>
+        <span class="n">builder</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"product:{tenantId}"</span><span class="p">,</span> <span class="s">"product:{tenantId}:{id}"</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="manual-cache-invalidation">Manual Cache Invalidation</h3>
+
+<p>Manually invalidate cache entries using the <code class="highlighter-rouge">IOutputCacheStore</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ProductsService</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IOutputCacheStore</span> <span class="n">_outputCacheStore</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">ProductsService</span><span class="p">(</span><span class="n">IOutputCacheStore</span> <span class="n">outputCacheStore</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_outputCacheStore</span> <span class="p">=</span> <span class="n">outputCacheStore</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">DeleteProduct</span><span class="p">(</span><span class="kt">int</span> <span class="n">tenantId</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">await</span> <span class="n">_outputCacheStore</span><span class="p">.</span><span class="nf">InvalidateAsync</span><span class="p">(</span>
+            <span class="s">$"product:</span><span class="p">{</span><span class="n">tenantId</span><span class="p">}</span><span class="s">"</span><span class="p">,</span> <span class="s">$"product:</span><span class="p">{</span><span class="n">tenantId</span><span class="p">}</span><span class="s">:</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+        <span class="c1">// 👆 Invalidate cache entries by tags            </span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="redis-integration">Redis Integration</h2>
+
+<p>By default, the library uses <code class="highlighter-rouge">InMemoryCacheStore</code>, but you can configure it to use Redis for distributed caching:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddStackExchangeRedisOutputCache</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">Configuration</span> 
+        <span class="p">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">Configuration</span><span class="p">.</span><span class="nf">GetConnectionString</span><span class="p">(</span><span class="s">"MyRedisConStr"</span><span class="p">);</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">InstanceName</span> <span class="p">=</span> <span class="s">"SampleInstance"</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+  <li><a href="https://github.com/Kros-sk/Kros.Ocelot.ETagCaching">Kros.Ocelot.ETagCaching GitHub Repository</a></li>
+  <li><a href="https://ocelot.readthedocs.io/en/latest/">Ocelot</a></li>
+</ul>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2024/06/02/ocelot-etag-caching" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

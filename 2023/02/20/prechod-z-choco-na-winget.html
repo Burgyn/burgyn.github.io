@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Prechod z Choco na Winget | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Prechod z Choco na Winget" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A blog about everything possible and impossible that dotnet developer face every day." />
+<meta property="og:description" content="A blog about everything possible and impossible that dotnet developer face every day." />
+<link rel="canonical" href="https://blog.burgyn.online/2023/02/20/prechod-z-choco-na-winget" />
+<meta property="og:url" content="https://blog.burgyn.online/2023/02/20/prechod-z-choco-na-winget" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:image" content="https://blog.burgyn.online/assets/images/winget/Winget.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-02-20T21:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://blog.burgyn.online/assets/images/winget/Winget.png" />
+<meta property="twitter:title" content="Prechod z Choco na Winget" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2023-02-20T21:00:00+00:00","datePublished":"2023-02-20T21:00:00+00:00","description":"A blog about everything possible and impossible that dotnet developer face every day.","headline":"Prechod z Choco na Winget","image":"https://blog.burgyn.online/assets/images/winget/Winget.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2023/02/20/prechod-z-choco-na-winget"},"url":"https://blog.burgyn.online/2023/02/20/prechod-z-choco-na-winget"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Prechod z Choco na Winget</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2023-02-20T21:00:00+00:00" itemprop="datePublished">Feb 20, 2023
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/Windows">Windows</a> -->
+                Windows
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p><img src="/assets/images/winget/Winget.png" alt="Winget" /></p>
+
+<p>Pre tých, ktorí nie sú zoznámení s balíčkovacími systémami, to sú nástroje, ktoré uľahčujú inštaláciu a aktualizáciu softvéru na vašom počítači. Inak povedané, ak potrebujete nainštalovať program, nemusíte hľadať súbor na stiahnutie z internetu, stiahnuť ho, nainštalovať a potom aktualizovať. Balíčkovací systém sa o to postará za vás. Stačí vám zadať príkaz a systém sa postará o zvyšok.</p>
+
+<p>Najväčšia výhoda takýchto systémov pre mňa je v tom, že dokážu vyexportovať zoznam aktuálne nainštalovaných aplikácií. Ten si môžete editovať, niekam napríklad na cloud archivovať a pri reinštalácií systému, prípadne pri inštalácií nového zariadenia si nemusíte zdĺhavo všetky vaše obľúbené aplikácie inštalovať. Zadáte jeden príkaz, odídete na kávičku a o chvíľu máte všetko nainštalované tak, ako v predchádzajúcom zariadení.</p>
+
+<p>Niekoľko rokov som na toto používal <a href="https://chocolatey.org/">Choco</a> <em>(celým názvom Chocolatey</em>). Robil presne to čo som od neho očakával. Vedel inštalovať, aktualizovať aplikácie. Dokázal vyexportovať zoznam a hlavne mal v katalógu takmer všetky aplikácie, ktoré používam.</p>
+
+<p>Microsoft pred pár rokmi predstavil svoj vlastný balíčkovací systém <a href="https://learn.microsoft.com/en-us/windows/package-manager/winget/">Winget</a>. Zo záujmu som si ho vtedy vyskúšal, ale práve z dôvodu, že neobsahoval potrebné aplikácie som ho nepoužíval.</p>
+
+<p>Tento mesiac som si kúpil nový notebook <em>(áno chválim sa 😎)</em> a samozrejme ako prvé som šiel použiť Choco, aby som si nainštaloval všetky potrebné aplikácie. Zastavil som sa však vtedy, keď mi už pri druhej aplikácií za sebou zahlásil, že nesedí checksum. Skúsil som teda Winget, že či tam nájdem aplikácie ktoré chcem, no a našiel som.</p>
+
+<p>Prvá vyhoda Winget-u. Nie je potrebné ho inštalovať. Pri Choco musíte najskôr nainštalovať Choco cez Powershell <em>(aj to nie je vždy jednoduché)</em>. Winget už máte nainštalovaný s Windowsom. Pri spúšťaní ani nemusíte byť správca.</p>
+
+<p>Druhá výhoda Winget-u je, že dokážete vyexportovať zoznam nainštalovaných aplikácií aj keď ste ich neinštalovali cez Winget. Pri Choco ste dokázali vytvoriť zoznam aplikácií len z tých, ktoré ste inštalovali cez neho. Tým, že Winget je integrovaný priamo vo Windows, dokáže prejsť všetky aplikácie, ktoré máte nainštalované, vyhľadá ich v svojich zdrojoch a ak nájde, tak pridá do výsledného zoznamu. Takže mne stačilo na starom notebooku zavolať príkaz</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>winget <span class="nb">export</span> <span class="nt">-o</span> list.json
+</code></pre></div></div>
+
+<p>A mal som pripravený zoznam svojich aplikácií <em>(ten mimochodom archivujem na svojom GitHub-e)</em></p>
+
+<p>Následne mi stačilo zavolať</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>winget import <span class="nt">-i</span> list.json <span class="nt">--accept-package-agreements</span> <span class="nt">--accept-source-agreements</span>
+</code></pre></div></div>
+
+<p>A o chvíľu <em>(ok, necelú hodinku to trvalo)</em> som mal notebook pripravený k používaniu.</p>
+
+<p>Ďalšou výhodou môže byť, že Winget umožňuje pridávať alternatívne zdroje <em>(sources / repositories)</em>, kde sa nachádzajú aplikácie. Toto som zatiaľ ale nemal potrebu vyskúšať.</p>
+
+<p>Pokiaľ si chceš overiť či tvoja obľúbená aplikácia sa tam nachádza, tak môžeš vyskúšať <a href="https://winget.run/">winget.run</a>.</p>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2023/02/20/prechod-z-choco-na-winget" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

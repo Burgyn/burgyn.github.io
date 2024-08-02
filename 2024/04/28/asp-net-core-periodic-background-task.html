@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+    <meta name="keywords" content="ASP.NET Core, background task, job scheduling, IHostedService, Hosted service, Periodic tasks, Service execution, BackgroundService, Hangfire, Quartz.NET, AWS Lambda, AZURE Functions">
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>ASP.NET Core - Periodic Background Task | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="ASP.NET Core - Periodic Background Task" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Learn how to run periodic tasks in the background of ASP.NET Core services by implementing your own hosted service using the IHostedService interface." />
+<meta property="og:description" content="Learn how to run periodic tasks in the background of ASP.NET Core services by implementing your own hosted service using the IHostedService interface." />
+<link rel="canonical" href="https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task" />
+<meta property="og:url" content="https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:image" content="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-04-28T17:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" />
+<meta property="twitter:title" content="ASP.NET Core - Periodic Background Task" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2024-04-28T17:00:00+00:00","datePublished":"2024-04-28T17:00:00+00:00","description":"Learn how to run periodic tasks in the background of ASP.NET Core services by implementing your own hosted service using the IHostedService interface.","headline":"ASP.NET Core - Periodic Background Task","image":"https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task"},"url":"https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>ASP.NET Core - Periodic Background Task</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2024-04-28T17:00:00+00:00" itemprop="datePublished">Apr 28, 2024
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/csharp">csharp</a> -->
+                csharp, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/dotnet">dotnet</a> -->
+                dotnet, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/architecture">architecture</a> -->
+                architecture, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/ASP.NET Core">ASP.NET Core</a> -->
+                ASP.NET Core
+            </span>  
+        </p>
+    </header>
+
+    
+    <div class="post-thumbnail">
+        <img src="/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" alt="ASP.NET Core - Periodic Background Task" itemprop="image">
+    </div>
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>You may have had a need in your services to run some task that will run periodically in the background <em>(cache updates, data synchronization, deleting old data, etc.)</em>. In new architectures, you might reach for something like AZURE Functions, AWS Lambda, or other serverless solutions. But it’s good to know that you can also do this directly in your <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0&amp;tabs=visual-studio">ASP.NET Core service</a>. Just implement your own hosted service using the <code class="highlighter-rouge">IHostedService</code> interface. 
+This interface defines two methods <code class="highlighter-rouge">StartAsync</code> and <code class="highlighter-rouge">StopAsync</code> that are called when the service starts and stops.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IHostedService</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="nf">StartAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
+
+    <span class="n">Task</span> <span class="nf">StopAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>But rather than creating your own implementation of <code class="highlighter-rouge">IHostedService</code>, you can inherit the <code class="highlighter-rouge">BackgroundService</code> abstract class to make your stuff easier. With this class, you can override the <code class="highlighter-rouge">StartAsync</code> and <code class="highlighter-rouge">StopAsync</code> methods and implement your logic in them. Or you can just implement the <code class="highlighter-rouge">ExecuteAsync</code> method and implement only what you want to be executed in it.</p>
+
+<p>The following example shows a simple implementation of <code class="highlighter-rouge">BackgroundService</code> that runs in the background and prints the current time every 5 seconds.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 This is a simple implementation of a hosted service that runs a background task</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PeriodicBackgroundTask</span><span class="p">(</span><span class="n">ILogger</span><span class="p">&lt;</span><span class="n">PeriodicBackgroundTask</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">,</span> <span class="n">TimeProvider</span> <span class="n">timeProvider</span><span class="p">)</span> 
+    <span class="p">:</span> <span class="n">BackgroundService</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">PeriodicBackgroundTask</span><span class="p">&gt;</span> <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">TimeProvider</span> <span class="n">_timeProvider</span> <span class="p">=</span> <span class="n">timeProvider</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">stoppingToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 In real-world scenarios, you should get the interval from configuration</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">timer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PeriodicTimer</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
+
+        <span class="c1">// 👇 This loop will run every 5 seconds</span>
+        <span class="k">while</span> <span class="p">(!</span><span class="n">stoppingToken</span><span class="p">.</span><span class="n">IsCancellationRequested</span>
+            <span class="p">&amp;&amp;</span> <span class="k">await</span> <span class="n">timer</span><span class="p">.</span><span class="nf">WaitForNextTickAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">_logger</span><span class="p">.</span><span class="nf">LogInformation</span><span class="p">(</span><span class="s">"Current time: {CurrentTime}"</span><span class="p">,</span> <span class="n">_timeProvider</span><span class="p">.</span><span class="nf">GetUtcNow</span><span class="p">().</span><span class="n">TimeOfDay</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The given background task needs to be arranged in the DI container as a hosted service using the <code class="highlighter-rouge">AddHostedService</code> method.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 👇 Register the hosted service in the DI container
+builder.Services.AddHostedService&lt;PeriodicBackgroundTask&gt;();
+</code></pre></div></div>
+
+<p>You can inject any services you need to execute into your background task. However, they must be registered as either singleton or transient services. Therefore, if you need to access scoped services, you must create a new scope using <code class="highlighter-rouge">IServiceProvider.CreateScope()</code> and get the dependencies from that scope.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Use scoped dependency injection</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ProductProcesSyncBackgroundTask</span><span class="p">(</span><span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">)</span> <span class="p">:</span> <span class="n">BackgroundService</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">stoppingToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">timer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PeriodicTimer</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromHours</span><span class="p">(</span><span class="m">2</span><span class="p">));</span>
+
+        <span class="k">while</span> <span class="p">(!</span><span class="n">stoppingToken</span><span class="p">.</span><span class="n">IsCancellationRequested</span>
+            <span class="p">&amp;&amp;</span> <span class="k">await</span> <span class="n">timer</span><span class="p">.</span><span class="nf">WaitForNextTickAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 Create a new scope to resolve scoped services</span>
+            <span class="k">using</span> <span class="nn">var</span> <span class="n">scope</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="nf">CreateScope</span><span class="p">();</span>
+            <span class="kt">var</span> <span class="n">service</span> <span class="p">=</span> <span class="n">scope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">IProductPricesSyncService</span><span class="p">&gt;();</span>
+
+            <span class="k">await</span> <span class="n">service</span><span class="p">.</span><span class="nf">SyncProductPricesAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>ℹ️ In the next article, I’ll show how to create your own background processing jobs that will be queued.</p>
+</blockquote>
+
+<p>If you need more complex job scheduling, you can use libraries such as <a href="https://www.hangfire.io/">Hangfire</a> or <a href="https://www.quartz-scheduler.net/">Quartz.NET</a>, which give you more options and configurations for job scheduling.</p>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2024/04/28/asp-net-core-periodic-background-task" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

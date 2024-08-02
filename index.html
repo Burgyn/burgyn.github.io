@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Burgyn’s blog | A blog about everything possible and impossible that dotnet developer face every day.</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Burgyn’s blog" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A blog about everything possible and impossible that dotnet developer face every day." />
+<meta property="og:description" content="A blog about everything possible and impossible that dotnet developer face every day." />
+<link rel="canonical" href="https://blog.burgyn.online/" />
+<meta property="og:url" content="https://blog.burgyn.online/" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="website" />
+<link rel="next" href="https://blog.burgyn.online/page2" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Burgyn’s blog" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"description":"A blog about everything possible and impossible that dotnet developer face every day.","headline":"Burgyn’s blog","name":"Miňo Martiniak","sameAs":["https://www.threads.net/@mino.martiniak","https://www.linkedin.com/in/milanmartiniak/","https://github.com/Burgyn","https://keybase.io/burgyn"],"url":"https://blog.burgyn.online/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <img src="/assets/images/cover.gif" alt="cover" class="cover" />
+
+<div class="catalogue">
+  
+    <!-- <a href="/2024/08/02/creating-uml-graphs-with-mermaid" class="catalogue-item">
+      <div>
+        <time datetime="2024-08-02 17:00:00 +0000" class="catalogue-time">August 02, 2024</time>
+        <h1 class="catalogue-title">Creating UML / Graphs with Mermaid
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          How do you draw UML diagrams or charts? Do you draw? Not really, but sometimes it comes in handy and it’s nice to have the some part of the system...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/08/02/creating-uml-graphs-with-mermaid" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">Creating UML / Graphs with Mermaid
+</h1>
+        <time datetime="2024-08-02 17:00:00 +0000" class="catalogue-time">August 02, 2024</time>
+        <p class="catalogue-description">
+          How do you draw UML diagrams or charts? Do you draw? Not really, but sometimes it comes in handy and it’s nice to have the some part of the system...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/07/01/application-insights-log-level" class="catalogue-item">
+      <div>
+        <time datetime="2024-07-01 17:00:00 +0000" class="catalogue-time">July 01, 2024</time>
+        <h1 class="catalogue-title">Application Insights - Log Level
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          🤦 I’ve been using ApplicationInsights for a few years now, but only now have I had a real need to look for my own custom logs there. It took me...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/07/01/application-insights-log-level" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">Application Insights - Log Level
+</h1>
+        <time datetime="2024-07-01 17:00:00 +0000" class="catalogue-time">July 01, 2024</time>
+        <p class="catalogue-description">
+          🤦 I’ve been using ApplicationInsights for a few years now, but only now have I had a real need to look for my own custom logs there. It took me...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/06/23/arch-tests-check-project-references" class="catalogue-item">
+      <div>
+        <time datetime="2024-06-23 17:00:00 +0000" class="catalogue-time">June 23, 2024</time>
+        <h1 class="catalogue-title">Arch tests - Check project references
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          In our company we have a large solution which contains more than 100 projects (not including test projects). Within that solution are WebAPI projects, libraries and AZURE functions. A couple...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/06/23/arch-tests-check-project-references" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">Arch tests - Check project references
+</h1>
+        <time datetime="2024-06-23 17:00:00 +0000" class="catalogue-time">June 23, 2024</time>
+        <p class="catalogue-description">
+          In our company we have a large solution which contains more than 100 projects (not including test projects). Within that solution are WebAPI projects, libraries and AZURE functions. A couple...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/06/09/own-mediator" class="catalogue-item">
+      <div>
+        <time datetime="2024-06-09 17:00:00 +0000" class="catalogue-time">June 09, 2024</time>
+        <h1 class="catalogue-title">Own mediator
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          Currently, the Mediator design pattern is often used. Its purpose is to separate the communication between objects from each other. Which will reduce dependencies between classes, make the code more...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/06/09/own-mediator" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">Own mediator
+</h1>
+        <time datetime="2024-06-09 17:00:00 +0000" class="catalogue-time">June 09, 2024</time>
+        <p class="catalogue-description">
+          Currently, the Mediator design pattern is often used. Its purpose is to separate the communication between objects from each other. Which will reduce dependencies between classes, make the code more...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/06/02/ocelot-etag-caching" class="catalogue-item">
+      <div>
+        <time datetime="2024-06-02 17:00:00 +0000" class="catalogue-time">June 02, 2024</time>
+        <h1 class="catalogue-title">Ocelot ETag Caching
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          The Kros.Ocelot.ETagCaching library brings ETag caching support to the Ocelot API Gateway. ETag caching is an HTTP caching mechanism that allows clients to verify if the cached data is still...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/06/02/ocelot-etag-caching" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">Ocelot ETag Caching
+</h1>
+        <time datetime="2024-06-02 17:00:00 +0000" class="catalogue-time">June 02, 2024</time>
+        <p class="catalogue-description">
+          The Kros.Ocelot.ETagCaching library brings ETag caching support to the Ocelot API Gateway. ETag caching is an HTTP caching mechanism that allows clients to verify if the cached data is still...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/05/19/asp-net-core-minimal-api-content-negotiation" class="catalogue-item">
+      <div>
+        <time datetime="2024-05-19 17:00:00 +0000" class="catalogue-time">May 19, 2024</time>
+        <h1 class="catalogue-title">ASP.NET CORE Minimal API - Content Negotiation
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          The primary goal of ASP.NET Core Minimal API is to deliver a straightforward, simple, and most importantly, very powerful framework for creating APIs. Rather than delivering features to cover every...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/05/19/asp-net-core-minimal-api-content-negotiation" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">ASP.NET CORE Minimal API - Content Negotiation
+</h1>
+        <time datetime="2024-05-19 17:00:00 +0000" class="catalogue-time">May 19, 2024</time>
+        <p class="catalogue-description">
+          The primary goal of ASP.NET Core Minimal API is to deliver a straightforward, simple, and most importantly, very powerful framework for creating APIs. Rather than delivering features to cover every...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/05/12/how-to-use-ihostedservice-to-initialize-an-application" class="catalogue-item">
+      <div>
+        <time datetime="2024-05-12 17:00:00 +0000" class="catalogue-time">May 12, 2024</time>
+        <h1 class="catalogue-title">How to use IHostedService to initialize an application
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          ℹ️ This is another article in a series showing how you can use IHostedService. ASP.NET Core - Periodic Background Task. ASP.NET Core - Queued hosted service. You may find that...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/05/12/how-to-use-ihostedservice-to-initialize-an-application" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">How to use IHostedService to initialize an application
+</h1>
+        <time datetime="2024-05-12 17:00:00 +0000" class="catalogue-time">May 12, 2024</time>
+        <p class="catalogue-description">
+          ℹ️ This is another article in a series showing how you can use IHostedService. ASP.NET Core - Periodic Background Task. ASP.NET Core - Queued hosted service. You may find that...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/05/05/asp-net-core-queued-hosted-service" class="catalogue-item">
+      <div>
+        <time datetime="2024-05-05 17:00:00 +0000" class="catalogue-time">May 05, 2024</time>
+        <h1 class="catalogue-title">ASP.NET Core - Queued hosted service
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          ℹ️ This is a follow-up to ASP.NET Core - Periodic Background Task. There are situations when you do not want to process a longer-running action directly during request processing, but...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/05/05/asp-net-core-queued-hosted-service" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">ASP.NET Core - Queued hosted service
+</h1>
+        <time datetime="2024-05-05 17:00:00 +0000" class="catalogue-time">May 05, 2024</time>
+        <p class="catalogue-description">
+          ℹ️ This is a follow-up to ASP.NET Core - Periodic Background Task. There are situations when you do not want to process a longer-running action directly during request processing, but...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/04/28/asp-net-core-periodic-background-task" class="catalogue-item">
+      <div>
+        <time datetime="2024-04-28 17:00:00 +0000" class="catalogue-time">April 28, 2024</time>
+        <h1 class="catalogue-title">ASP.NET Core - Periodic Background Task
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          You may have had a need in your services to run some task that will run periodically in the background (cache updates, data synchronization, deleting old data, etc.). In new...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/04/28/asp-net-core-periodic-background-task" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">ASP.NET Core - Periodic Background Task
+</h1>
+        <time datetime="2024-04-28 17:00:00 +0000" class="catalogue-time">April 28, 2024</time>
+        <p class="catalogue-description">
+          You may have had a need in your services to run some task that will run periodically in the background (cache updates, data synchronization, deleting old data, etc.). In new...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/04/21/httpcontext-request-features" class="catalogue-item">
+      <div>
+        <time datetime="2024-04-21 17:00:00 +0000" class="catalogue-time">April 21, 2024</time>
+        <h1 class="catalogue-title">HttpContext Request Features
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          In ASP.NET Core, we are used to working with dependency injection and we tend to pass most of the information through dependency injection to the classes where we need it....
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/04/21/httpcontext-request-features" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">HttpContext Request Features
+</h1>
+        <time datetime="2024-04-21 17:00:00 +0000" class="catalogue-time">April 21, 2024</time>
+        <p class="catalogue-description">
+          In ASP.NET Core, we are used to working with dependency injection and we tend to pass most of the information through dependency injection to the classes where we need it....
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/04/14/throw-vs-throw-ex-back-to-the-basics" class="catalogue-item">
+      <div>
+        <time datetime="2024-04-14 17:00:00 +0000" class="catalogue-time">April 14, 2024</time>
+        <h1 class="catalogue-title">Throw vs. Throw ex - Back to the basics
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          This is another article in the “Back to the basics” series. The first part covered Boxing and UnBoxing, today we’ll look at the difference between throw and throw ex. 💁...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/04/14/throw-vs-throw-ex-back-to-the-basics" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">Throw vs. Throw ex - Back to the basics
+</h1>
+        <time datetime="2024-04-14 17:00:00 +0000" class="catalogue-time">April 14, 2024</time>
+        <p class="catalogue-description">
+          This is another article in the “Back to the basics” series. The first part covered Boxing and UnBoxing, today we’ll look at the difference between throw and throw ex. 💁...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/04/07/public-api-generator" class="catalogue-item">
+      <div>
+        <time datetime="2024-04-07 17:00:00 +0000" class="catalogue-time">April 07, 2024</time>
+        <h1 class="catalogue-title">Approval test for your public API
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          Are you developing a .NET library and want to make sure that the public API of your library is always consistent and versioned correctly? How do you check that changes...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/04/07/public-api-generator" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">Approval test for your public API
+</h1>
+        <time datetime="2024-04-07 17:00:00 +0000" class="catalogue-time">April 07, 2024</time>
+        <p class="catalogue-description">
+          Are you developing a .NET library and want to make sure that the public API of your library is always consistent and versioned correctly? How do you check that changes...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/03/31/asp-net-core-rate-limiting" class="catalogue-item">
+      <div>
+        <time datetime="2024-03-31 17:00:00 +0000" class="catalogue-time">March 31, 2024</time>
+        <h1 class="catalogue-title">ASP.NET Core - Rate limiting
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          Rate limiting is a technique used mainly with APIs to control and limit the number of requests that clients can make to the API in a defined time. It belongs...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/03/31/asp-net-core-rate-limiting" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">ASP.NET Core - Rate limiting
+</h1>
+        <time datetime="2024-03-31 17:00:00 +0000" class="catalogue-time">March 31, 2024</time>
+        <p class="catalogue-description">
+          Rate limiting is a technique used mainly with APIs to control and limit the number of requests that clients can make to the API in a defined time. It belongs...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/03/24/azure-service-bus-how-we-did-not-use-topic-filters" class="catalogue-item">
+      <div>
+        <time datetime="2024-03-24 17:00:00 +0000" class="catalogue-time">March 24, 2024</time>
+        <h1 class="catalogue-title">AZURE Service Bus - How we didn’t use Topic filters
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          When developing microservices, you are likely to encounter the need for a message broker. A reliable system for sending messages between services. We at KROS a.s. have decided to use...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/03/24/azure-service-bus-how-we-did-not-use-topic-filters" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">AZURE Service Bus - How we didn’t use Topic filters
+</h1>
+        <time datetime="2024-03-24 17:00:00 +0000" class="catalogue-time">March 24, 2024</time>
+        <p class="catalogue-description">
+          When developing microservices, you are likely to encounter the need for a message broker. A reliable system for sending messages between services. We at KROS a.s. have decided to use...
+        </p>
+      </div>
+    </a>
+  
+    <!-- <a href="/2024/03/17/csharp-12-news-that-did-not-make-it-into-separate-articles" class="catalogue-item">
+      <div>
+        <time datetime="2024-03-17 17:00:00 +0000" class="catalogue-time">March 17, 2024</time>
+        <h1 class="catalogue-title">C# 12 news that didn’t make it into separate posts
+</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+          C# 12 has been released November 2023. I’ve written separate articles about each of the new features: C# 12 - Primary constructor C# 12 - Collection expressions Simplify tuple types...
+        </p>
+
+      </div>
+    </a> -->
+    <a href="/2024/03/17/csharp-12-news-that-did-not-make-it-into-separate-articles" class="catalogue-item">
+      <div>
+        <h1 class="catalogue-title">C# 12 news that didn’t make it into separate posts
+</h1>
+        <time datetime="2024-03-17 17:00:00 +0000" class="catalogue-time">March 17, 2024</time>
+        <p class="catalogue-description">
+          C# 12 has been released November 2023. I’ve written separate articles about each of the new features: C# 12 - Primary constructor C# 12 - Collection expressions Simplify tuple types...
+        </p>
+      </div>
+    </a>
+  
+</div>
+
+<div class="pagination">
+  
+  <a href="/">1</a>
+  
+    <a href="/page2" class="right arrow">next</a>
+  
+</div>
+
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

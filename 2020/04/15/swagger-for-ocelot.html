@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Swagger for Ocelot API Gateway (SK) | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Swagger for Ocelot API Gateway (SK)" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Ak vyvíjate mikroslužby, tak určite používate nejakú formu API Gateway. A ak vyvíjate v prostredí .NET Core, tak to bude s veľkou pravdepodobnosťou Ocelot." />
+<meta property="og:description" content="Ak vyvíjate mikroslužby, tak určite používate nejakú formu API Gateway. A ak vyvíjate v prostredí .NET Core, tak to bude s veľkou pravdepodobnosťou Ocelot." />
+<link rel="canonical" href="https://blog.burgyn.online/2020/04/15/swagger-for-ocelot" />
+<meta property="og:url" content="https://blog.burgyn.online/2020/04/15/swagger-for-ocelot" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-15T16:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Swagger for Ocelot API Gateway (SK)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2020-04-15T16:00:00+00:00","datePublished":"2020-04-15T16:00:00+00:00","description":"Ak vyvíjate mikroslužby, tak určite používate nejakú formu API Gateway. A ak vyvíjate v prostredí .NET Core, tak to bude s veľkou pravdepodobnosťou Ocelot.","headline":"Swagger for Ocelot API Gateway (SK)","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2020/04/15/swagger-for-ocelot"},"url":"https://blog.burgyn.online/2020/04/15/swagger-for-ocelot"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Swagger for Ocelot API Gateway (SK)</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2020-04-15T16:00:00+00:00" itemprop="datePublished">Apr 15, 2020
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/microservices">microservices</a> -->
+                microservices, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/C#">C#</a> -->
+                C#, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/.NET Core">.NET Core</a> -->
+                .NET Core, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/ASP.NET Core">ASP.NET Core</a> -->
+                ASP.NET Core
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>Ak vyvíjate mikroslužby, tak určite používate nejakú formu API Gateway. A ak vyvíjate v prostredí .NET Core, tak to bude s veľkou pravdepodobnosťou <a href="https://github.com/ThreeMammals/Ocelot">Ocelot</a>.</p>
+
+<!-- excerpt -->
+<p>Ocelot je skvelý projekt na vytvorenie vlastnej API Gateway. Bohužiaľ, ale neumožňuje jednu podľa mňa dôležitú vec a to integráciu swagger domentácií vaších mikroslužieb (viď <a href="https://ocelot.readthedocs.io/en/latest/introduction/notsupported.html">dokumentácia</a>).</p>
+
+<h2 id="mmlibswaggerforocelot">MMLib.SwaggerForOcelot</h2>
+
+<p>Projekt <a href="https://github.com/Burgyn/MMLib.SwaggerForOcelot">MMLib.SwaggerForOcelot</a> prináša možnosť, ako toto dosiahnuť. Umožňuje vám prezerať dokumentáciu mikroslužieb priamo cez Ocelot API Gateway. Na jednom mieste máte k dispozícií dokumentáciu celého vášho systému. <em>MMLib.SwaggerForOcelot</em> transformuje dokumentáciu mikroslužieb tak, aby bola správna z pohľadu API Gateway-a. Takže upraví adresy a odstráni endpointy, ktoré nie sú cez API Gateway routované von.</p>
+
+<h2 id="ako-na-to">Ako na to?</h2>
+
+<ol>
+  <li>Nakonfiguruj SwaggerGen vo vaších mikroslužbách.
+    <blockquote>
+      <p>Podľa <a href="https://github.com/domaindrivendev/Swashbuckle.AspNetCore#getting-started">SwashbuckleAspNetCore dokumentácie</a>.</p>
+    </blockquote>
+  </li>
+  <li>Nainštaluj <a href="https://www.nuget.org/packages/MMLib.SwaggerForOcelot/2.0.0-alpha.2">MMLib.SwaggerForOcelot</a> do vášho Ocelot projektu
+    <blockquote>
+      <p>dotnet add package MMLib.SwaggerForOcelot</p>
+    </blockquote>
+  </li>
+  <li>Nakonfiguruj <em>MMLib.SwaggerForOcelot</em> v <code class="highlighter-rouge">ocelot.json</code>
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"Routes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+ </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/{everything}"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/contacts/{everything}"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"ServiceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contacts"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"SwaggerKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contacts"</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/{everything}"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/orders/{everything}"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"ServiceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"SwaggerKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"SwaggerEndPoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+ </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"contacts"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"Config"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Contacts API"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"Url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:5100/swagger/v1/swagger.json"</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+ </span><span class="p">},</span><span class="w">
+ </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"Config"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Orders API"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"Url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:5200/swagger/v1/swagger.json"</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"GlobalConfiguration"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="nl">"BaseUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>V metóde <code class="highlighter-rouge">ConfigureServices</code> triedy <code class="highlighter-rouge">Startup.cs</code> registrujte <em>MMLib.SwaggerForOcelot</em> generátor.
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">services</span><span class="p">.</span><span class="nf">AddSwaggerForOcelot</span><span class="p">(</span><span class="n">Configuration</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>V metóde <code class="highlighter-rouge">Configure</code> triedy <code class="highlighter-rouge">Startup.cs</code> registrujte middleware, ktorý sprístupní dokumentáciu.
+    <div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">services</span><span class="p">.</span><span class="nf">UseSwaggerForOcelotUI</span><span class="p">(</span><span class="n">Configuration</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Sekcia <code class="highlighter-rouge">SwaggerEndPoints</code> obsahuje konfigurácie potrebné na získanie dokomentácií jednotlivých mikroslužieb. Property <code class="highlighter-rouge">Key</code> sa používa na párovanie s <code class="highlighter-rouge">ReRoute</code> konfiguráciou. <code class="highlighter-rouge">Name</code> sa zobrazuje v combobox-e. <code class="highlighter-rouge">Url</code> je adresa k dokumentácií danej mikroslužby. Pokiaľ máte viac verzií vášho api, tak v sekcii <code class="highlighter-rouge">Config</code> to môžete zohľadniť. Napríklad:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orders"</span><span class="err">,</span><span class="w">
+</span><span class="nl">"Config"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Orders API"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:5200/swagger/v1/swagger.json"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Orders API"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:5200/swagger/v2/swagger.json"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Následne máte swagger dokumentáciu pre váš systém dostupnú na adrese <code class="highlighter-rouge">http://ocelotserviceurl/swagger</code>.</p>
+
+<p><img src="/assets/images/swagger-for-ocelot/swagger.png" alt="swagger" /></p>
+
+<p>Viac info priamo v repe <a href="https://github.com/Burgyn/MMLib.SwaggerForOcelot">MMLib.SwaggerForOcelot</a>.</p>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2020/04/15/swagger-for-ocelot" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie) | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Azure DevOps umožňuje dva spôsoby, ako vytvoriť Continuous Deployment. Môžme použiť classic UI editor, alebo nový spôsob pomocou YAML súboru, kde jednotlivé kroky, job-y, stage verziujeme ako kód priamo v source control-e. Tento druhý spôsob sa nazýva Multi-Stage Pipelines. Pomocou Multi-Stage Pipelines dokážete vytvoriť proces nasadzovania od build-u, spustenia testov, nasadenia do rôznych prostredí (napríklad, Development, Staging, Production, …) rozdelením na takzvané stages. Práve tento spôsob si ukážeme v tomto poste." />
+<meta property="og:description" content="Azure DevOps umožňuje dva spôsoby, ako vytvoriť Continuous Deployment. Môžme použiť classic UI editor, alebo nový spôsob pomocou YAML súboru, kde jednotlivé kroky, job-y, stage verziujeme ako kód priamo v source control-e. Tento druhý spôsob sa nazýva Multi-Stage Pipelines. Pomocou Multi-Stage Pipelines dokážete vytvoriť proces nasadzovania od build-u, spustenia testov, nasadenia do rôznych prostredí (napríklad, Development, Staging, Production, …) rozdelením na takzvané stages. Práve tento spôsob si ukážeme v tomto poste." />
+<link rel="canonical" href="https://blog.burgyn.online/2020/02/23/azure-multi-stage-pipelines" />
+<meta property="og:url" content="https://blog.burgyn.online/2020/02/23/azure-multi-stage-pipelines" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-23T16:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2020-02-23T16:00:00+00:00","datePublished":"2020-02-23T16:00:00+00:00","description":"Azure DevOps umožňuje dva spôsoby, ako vytvoriť Continuous Deployment. Môžme použiť classic UI editor, alebo nový spôsob pomocou YAML súboru, kde jednotlivé kroky, job-y, stage verziujeme ako kód priamo v source control-e. Tento druhý spôsob sa nazýva Multi-Stage Pipelines. Pomocou Multi-Stage Pipelines dokážete vytvoriť proces nasadzovania od build-u, spustenia testov, nasadenia do rôznych prostredí (napríklad, Development, Staging, Production, …) rozdelením na takzvané stages. Práve tento spôsob si ukážeme v tomto poste.","headline":"Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2020/02/23/azure-multi-stage-pipelines"},"url":"https://blog.burgyn.online/2020/02/23/azure-multi-stage-pipelines"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2020-02-23T16:00:00+00:00" itemprop="datePublished">Feb 23, 2020
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/Azure">Azure</a> -->
+                Azure, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/DevOps">DevOps</a> -->
+                DevOps, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/CI/CD">CI/CD</a> -->
+                CI/CD, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/YAML">YAML</a> -->
+                YAML
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>Azure DevOps umožňuje dva spôsoby, ako vytvoriť Continuous Deployment. Môžme použiť <em>classic</em> UI editor, alebo nový spôsob pomocou YAML súboru, kde jednotlivé kroky, job-y, stage verziujeme ako kód priamo v source control-e. Tento druhý spôsob sa nazýva <a href="https://devblogs.microsoft.com/devops/whats-new-with-azure-pipelines/">Multi-Stage Pipelines</a>. Pomocou Multi-Stage Pipelines dokážete vytvoriť proces nasadzovania od build-u, spustenia testov, nasadenia do rôznych prostredí <em>(napríklad, Development, Staging, Production, …)</em> rozdelením na takzvané stages. Práve tento spôsob si ukážeme v tomto poste.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/stages.png" alt="stages" /></p>
+
+<h2 id="čo-potrebujeme">Čo potrebujeme</h2>
+
+<ul>
+  <li><a href="https://azure.microsoft.com/en-us/free/">Azure account</a></li>
+  <li><a href="https://azure.microsoft.com/en-us/services/devops/">Azure DevOps account</a></li>
+  <li>
+    <p>Zapnúť Public preview feature</p>
+
+    <p><em>Multi-Stage Pipelines sú v čase písania tohto článku ešte public preview a v DevOps portáli ich je potrebné zapnúť.</em></p>
+
+    <p><img src="/assets/images/multi-stage-pipelines/preview-feature.png" alt="preview feature" /></p>
+  </li>
+</ul>
+
+<h2 id="čo-budeme-nasadzovať">Čo budeme nasadzovať?</h2>
+
+<p>Vyskúšame nasadiť demo aplikáciu, ktorá pozostáva z mikroslužieb postavených na ASP.NET Core frameworku a Angular-ového klienta. Mikroslužby nasadíme do <a href="https://azure.microsoft.com/en-us/services/app-service/web/">Azure Web Apps</a> a klienta do <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website">static website v Azure Storage</a>.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/architecture.png" alt="architecture" /></p>
+
+<blockquote>
+  <p>Demo si môžete forknúť na GitHub-e. <a href="https://github.com/Kros-sk/Kros.AspNetCore.BestPractices">Mikroslužby</a>, <a href="https://github.com/Kros-sk/Kros.Angular.BestPractices">Angluar klient</a>.</p>
+</blockquote>
+
+<h2 id="časť-1---build">Časť 1. - Build</h2>
+
+<p><em>(Ak yaml build pipeline-u ovládate, môžete preskočiť rovno na časť nasadzovania <a href="#&#x10D;as&#x165;-2---nasadzovanie">Časť 2. - Nasadzovanie</a>.)</em></p>
+
+<p>V prvom kroku musíme naše projekty zbuildovať. Do projektu <code class="highlighter-rouge">Kros.AspNetCore.BestPractices</code> si pridáme yaml súbor s definíciou buildu. Pomenujeme ho napríklad <code class="highlighter-rouge">build-demo-ci.yml</code> <em>(ci - continuous integrations. Bude sa spúšťať po každom commit-e do master vetvy)</em>.</p>
+
+<blockquote>
+  <p>💡 Odporúčam umiestňovať yaml súbory do zvlášť adresára. Napríklad <code class="highlighter-rouge">pipelines</code>.</p>
+</blockquote>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger</span><span class="pi">:</span>
+  <span class="na">batch</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">branches</span><span class="pi">:</span>
+    <span class="na">include</span><span class="pi">:</span> <span class="pi">[</span> <span class="s1">'</span><span class="s">master'</span> <span class="pi">]</span>
+
+<span class="na">pool</span><span class="pi">:</span>
+  <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+
+<span class="na">workspace</span><span class="pi">:</span>
+  <span class="na">clean</span><span class="pi">:</span> <span class="s">outputs</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">template</span><span class="pi">:</span> <span class="s">build-steps-core.yml</span>
+  <span class="pi">-</span> <span class="na">template</span><span class="pi">:</span> <span class="s">build-steps-publish.yml</span>
+</code></pre></div></div>
+
+<p>Časť <code class="highlighter-rouge">trigger</code> definuje udalosti, ktoré spúšťajú daný build. V našom prípade máme podmienku na <code class="highlighter-rouge">master</code> vetvu a chceme aby sa nový build nespustil pokiaľ neskončil predchádzajúci <code class="highlighter-rouge">batch: true</code>. <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?view=azure-devops&amp;tabs=yaml">Viac info o triggroch</a>.</p>
+
+<p>Na buildovanie vášho kódu, alebo jeho nasadzovanie potrebujete jedného alebo viacerých agentov. V rámci DevOps konta máte automaticky jedného free <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=azure-devops&amp;tabs=browser#microsoft-hosted-agents">Microsoft-hosted agenta</a></p>
+
+<blockquote>
+  <p>⚠ Free agent má obmedzený počet hodín behu za mesiac. Na malý projekt to stačí. Ale pokiaľ spúšťate buildy / nasadzovanie niekoľkokrát denne, tak vám tento čas pravdepodobne dôjde.</p>
+</blockquote>
+
+<p>V našom prípade použijeme na buildovanie agenta z pripraveného Ubuntu obrazu <code class="highlighter-rouge">vmImage: ubuntu-latest</code>. Agentov je možné hostovať aj na svojích on-premise mašinách. <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=azure-devops&amp;tabs=browser#install">Self-hosted agents</a>.</p>
+
+<blockquote>
+  <p>💡 Pokiaľ máte Visual Studio Enterprise licenciu, tak na každú takúto licenciu máte jedného <a href="https://docs.microsoft.com/en-us/azure/devops/organizations/billing/buy-more-build-vs?view=azure-devops#self-hosted-private-projects">Self-hosted agenta zadarmo</a>.</p>
+</blockquote>
+
+<p>Celý proces build-ovacej pipeliny pozostáva z niekoľkých krokov. Napríklad: build, spustenie testov, exportovanie výsledkov testov pre budúce zobrazenie, publish projektu a publish <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/artifacts/artifacts-overview?view=azure-devops">artefaktov</a> pre nasadenie. Tieto kroky sa definujú v časti <code class="highlighter-rouge">steps</code> pomocou task-ov. K dispozícií je veľké množstvo preddefinovaných <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/?view=azure-devops">task-ov</a>, task-ov z <a href="https://marketplace.visualstudio.com/search?target=AzureDevOps&amp;category=Azure%20Pipelines&amp;sortBy=Installs">marketplace-u</a>, alebo si môžte vytvoriť <a href="https://www.parksq.co.uk/azure-dev-ops/custom-build-tasks">vlastný task</a>.</p>
+
+<p>Jednolitvé kroky / skupiny krokov môžme extrahovať do samostatných súborov a tieto súbory využívať v rôznych pipeline-ach <code class="highlighter-rouge">- template: build-steps-core.yml</code> <em>(je to jednoduchšie ako vytvárať custom task)</em>. Najjednoduchšie je, keď máte túto šablónu v rovnakom repe ako v našom prípade. Ale je možné všeobecné šablóny umiestňovať do samostatného repa.</p>
+
+<p>Napríklad:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">resources</span><span class="pi">:</span>
+  <span class="na">repositories</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">repository</span><span class="pi">:</span> <span class="s">templates</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">git</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">DevShared/Templates</span>
+</code></pre></div></div>
+
+<p>Kroky pre samotný build máme definované v súbore <code class="highlighter-rouge">pipelines/build-steps-core.yml</code>.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">parameters</span><span class="pi">:</span>
+  <span class="na">buildConfiguration</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Release'</span>
+  <span class="na">buildVerbosity</span><span class="pi">:</span> <span class="s1">'</span><span class="s">minimal'</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">DotNetCoreCLI@2</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s">Build</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">projects</span><span class="pi">:</span> <span class="s1">'</span><span class="s">**/*.csproj'</span>
+      <span class="na">arguments</span><span class="pi">:</span> <span class="s1">'</span><span class="s">--configuration</span><span class="nv"> </span><span class="s">${{</span><span class="nv"> </span><span class="s">parameters.buildConfiguration</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">--verbosity</span><span class="nv"> </span><span class="s">${{</span><span class="nv"> </span><span class="s">parameters.buildVerbosity</span><span class="nv"> </span><span class="s">}}'</span>
+
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">DotNetCoreCLI@2</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s">Test</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s1">'</span><span class="s">test'</span>
+      <span class="na">projects</span><span class="pi">:</span> <span class="s1">'</span><span class="s">**/*.csproj'</span>
+      <span class="na">arguments</span><span class="pi">:</span> <span class="s1">'</span><span class="s">--configuration</span><span class="nv"> </span><span class="s">${{</span><span class="nv"> </span><span class="s">parameters.buildConfiguration</span><span class="nv"> </span><span class="s">}}</span><span class="nv"> </span><span class="s">--verbosity</span><span class="nv"> </span><span class="s">${{</span><span class="nv"> </span><span class="s">parameters.buildVerbosity</span><span class="nv"> </span><span class="s">}}'</span>
+</code></pre></div></div>
+
+<p><a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/dotnet-core-cli?view=azure-devops">DotNetCoreCLI@2</a> je task pre využívanie <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x">dotnet core cli</a>. V tomto prípade ho využívame na build a spustenie testov.</p>
+
+<p>V ďalšom kroku si musíme vypublikovať artefakty <code class="highlighter-rouge">build-steps-publish.yml</code></p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">parameters</span><span class="pi">:</span>
+  <span class="na">buildConfiguration</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Release'</span>
+  <span class="na">buildVerbosity</span><span class="pi">:</span> <span class="s1">'</span><span class="s">minimal'</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">DotNetCoreCLI@2</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s">Publish</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">command</span><span class="pi">:</span> <span class="s">publish</span>
+      <span class="na">projects</span><span class="pi">:</span> <span class="s1">'</span><span class="s">**/*.csproj'</span>
+      <span class="na">arguments</span><span class="pi">:</span> <span class="s1">'</span><span class="s">--configuration</span><span class="nv"> </span><span class="s">$</span><span class="nv"> </span><span class="s">--verbosity</span><span class="nv"> </span><span class="s">$</span><span class="nv"> </span><span class="s">--output</span><span class="nv"> </span><span class="s">"$(Build.ArtifactStagingDirectory)"'</span>
+      <span class="na">publishWebProjects</span><span class="pi">:</span> <span class="no">false</span>
+      <span class="na">modifyOutputPath</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">zipAfterPublish</span><span class="pi">:</span> <span class="no">true</span>
+
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">CopyFiles@2</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Copy</span><span class="nv"> </span><span class="s">tests</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">/tests/PostDeployTests</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Artifacts'</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">SourceFolder</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(Build.SourcesDirectory)/tests/Services/PostDeployTests'</span>
+      <span class="na">Contents</span><span class="pi">:</span> <span class="s1">'</span><span class="s">**'</span>
+      <span class="na">TargetFolder</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(Build.ArtifactStagingDirectory)/PostDeployTests'</span>
+      <span class="na">OverWrite</span><span class="pi">:</span> <span class="no">true</span>
+
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">CopyFiles@2</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Copy</span><span class="nv"> </span><span class="s">templates</span><span class="nv"> </span><span class="s">definition</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">/pipelines</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">artifact</span><span class="nv"> </span><span class="s">pipelines'</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">SourceFolder</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(Build.SourcesDirectory)/pipelines'</span>
+      <span class="na">Contents</span><span class="pi">:</span> <span class="s1">'</span><span class="s">**'</span>
+      <span class="na">TargetFolder</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(Build.ArtifactStagingDirectory)/pipelines'</span>
+      <span class="na">OverWrite</span><span class="pi">:</span> <span class="no">true</span>
+
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">PublishBuildArtifacts@1</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Publish</span><span class="nv"> </span><span class="s">Artifacts'</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">PathtoPublish</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(Build.ArtifactStagingDirectory)'</span>
+</code></pre></div></div>
+
+<p>Skôr ako vypublikujeme artefakty do adresára definovaného <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&amp;tabs=yaml">premennou</a> <code class="highlighter-rouge">$(Build.ArtifactStagingDirectory)</code>, tak si ešte k artetaktom, pomocou task-u <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/copy-files?view=azure-devops&amp;tabs=yaml">CopyFiles@2</a>, nakopírujeme ďalšie súbory, ktoré neboli súčasťou buildu, ale chceme ich pre ďalšie použitie v release pipelnie. V našom prípade tam budeme kopírovať súbory z adresára <code class="highlighter-rouge">/tests/Services/PostDeployTests</code> a <code class="highlighter-rouge">pipelines</code>.</p>
+
+<p>Potvrdíme zmeny, push-neme ich na server <code class="highlighter-rouge">git add . | git commit -m "Creating build pipeline" | git push</code> a presunieme sa do <a href="https://dev.azure.com">DevOps portálu</a>.</p>
+
+<p>V DevOps musíme mať založený projekt. V projekte sa presunieme do sekcie Pipelines a ideme pridať novú pipeline-u definovanú v GitHub repe.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/newPipeline.png" alt="new pipeline" /></p>
+
+<p>Voči GitHub-u je potrebné sa autorizovať , aby ste mohli pridať build pre vaše repo.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/authorizeGitHub.png" alt="github authorization" /></p>
+
+<p>Po vybraní repa, v ktorom sa nachádza vaša nová pipeline-a musíme ešte zvoliť, že ideme použiť existujúci YAML súbor a nie vytvárať nový.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/existingYamlFile.png" alt="existing ymal file" /></p>
+
+<p>Ostáva už len uložiť a spustiť. Je možné, že pri prvom spustení budete musieť povoliť prístup k resourcom.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/permit.png" alt="permit" /></p>
+
+<p>Ak sme všetko spravili správne, tak by náš prvý build mal úspešne zbehnúť.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/successRun.png" alt="success run" /></p>
+
+<blockquote>
+  <p>💡 Takýto build vieme vyžadovať aj pri PR. To znamená, že pokiaľ nám neprejde build, alebo zlyhá nejaký test, tak automaticky nedovolíme schválenie PR. Odporúčam pre build, ktorý sa bude spúšťať v rámci PR vytvoriť samostatnú pipeline-u, kde nebudeme publikovať artefakty. Tie nie sú v tomto prípade potrebné a zrýchlime tak odozvu na náš PR.</p>
+</blockquote>
+
+<p>Build Angular projektu vytvoríme veľmi podobne, preto to tu nebudem rozpisovať. Príklad ako to môže vyzerať nájdete priamo v <a href="https://github.com/Kros-sk/Kros.Angular.BestPractices/blob/master/pipelines/build-angular-ci.yml">damom projekte</a>.</p>
+
+<p>Ešte typ na záver tejto časti. Azure DevOps nazval vašu pipeline-u podľa vášho projektu. Ak ju chcete premenovať urobíte to tak, že vyberiete danú pipeline-u a z menu zvolíte Rename / Move. <em>(už párkrát som to nevedel nájsť 😔)</em></p>
+
+<p><img src="/assets/images/multi-stage-pipelines/rename.png" alt="rename" /></p>
+
+<p>Môžme si ho pomenovať napríklad <code class="highlighter-rouge">Build - Demo - CI</code>. Na tento názov sa budeme odkazovať v release pipeline.</p>
+
+<h2 id="časť-2---nasadzovanie">Časť 2. - Nasadzovanie</h2>
+
+<p>Artefakty máme pripravené. Môžme začať nasadzovať. V tomto príklade budeme nasadzovať do dvoch prostredí. Testing a Production. Po nasadení do testovacieho prostredia spustíme UI a Postman testy a pokiaľ tieto testy prejdú a schválime nasadenie do produkcie, tak swap-neme jednotlivé služby do produkčného prostredia.</p>
+
+<p>Pipeline-a, ktorú ideme vytvárať bude vyzerať nasledovne:
+<img src="/assets/images/multi-stage-pipelines/pipeline.png" alt="pipeline" /></p>
+
+<blockquote>
+  <p>Je možné vytvoriť akokoľvek komplexné a sofistikované pipeline-y. Všetko záleží od vašich procesov. Táto je relatívne jednoduchá, ale pokúsim sa na nej ukázať všetky podstatné veci.</p>
+</blockquote>
+
+<h3 id="vytvorenie-kostry-deployment-pipeline-y">Vytvorenie kostry deployment pipeline-y</h3>
+
+<p>Môžme pokračovať v pôvodnom yaml súbore v ktorom sme definovali build. Z viacerých dôvodov je ale vhodné rozdeliť proces zostavenia produktu a jeho deployment. <em>(Napríklad chcete jednu konkrétnu verziu build-u použiť vo viacerých deployment pipeline-nách, alebo naopak chcete jednu deployment pipelinu použiť viackrát s rôznymi verziami build-u.)</em></p>
+
+<p>Do projektu <code class="highlighter-rouge">Kros.AspNetCore.BestPractices</code> si pridáme yaml súbor s definíciou deployment procesu. Pomenujeme ho napríklad <code class="highlighter-rouge">deploy-demo-cd.yml</code> <em>(cd - continuous deployment. Bude sa spúšťať po skončení build-u <code class="highlighter-rouge">Build - Demo- CI</code>)</em>.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger</span><span class="pi">:</span> <span class="s">none</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">pipeline</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Build - Demo - CI</span>
+    <span class="na">trigger</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">stage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Tests'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+  <span class="na">jobs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Services</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Testing</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">download</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+            <span class="na">artifact</span><span class="pi">:</span> <span class="s">drop</span>
+            <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Download</span><span class="nv"> </span><span class="s">artifacts'</span>
+
+          <span class="pi">-</span> <span class="na">powershell</span><span class="pi">:</span> <span class="s">echo Deploy to testing</span>
+
+<span class="pi">-</span> <span class="na">stage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Production'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Production'</span>
+  <span class="na">jobs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Services</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Production</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">download</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+            <span class="na">artifact</span><span class="pi">:</span> <span class="s">drop</span>
+            <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Download</span><span class="nv"> </span><span class="s">artifacts'</span>
+
+          <span class="pi">-</span> <span class="na">powershell</span><span class="pi">:</span> <span class="s">echo Deploy to production</span>
+</code></pre></div></div>
+
+<p>Štandardný trigger vypneme <code class="highlighter-rouge">trigger: none</code>, pretože nechceme aby sa spúšťala po commit-e do vetvy, ale chceme ju spúšťať po úspešnom skončení build pipeline-y.</p>
+
+<p>Pomocou sekcie <code class="highlighter-rouge">resources</code> vieme pridať odkaz na iné pipeline-y.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">resources</span><span class="pi">:</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">pipeline</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">build-demo-ci</span>
+    <span class="na">trigger</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<p>V našom prípade pridávame odkaz na <code class="highlighter-rouge">build-demo-ci</code>. Pomenujeme ju <code class="highlighter-rouge">ToDosDemoServices</code> <em>(na tento názov sa budeme ďalej odkazovať)</em> a nastavíme ju ako trigger, ktorý bude spúšťať našu deployment pipeline-u <code class="highlighter-rouge">trigger: true</code>.</p>
+
+<p>Pomocou <code class="highlighter-rouge">stages</code> rozdelíme našu pipeline-u na dve časti <code class="highlighter-rouge">- stage: 'Tests'</code> a <code class="highlighter-rouge">- stage: 'Production'</code>. <code class="highlighter-rouge">displayName:</code> nám dá ľudský popis, ktorý sa bude zobrazovať vo vizualizácií procesu. Štandardne jednotlivé stages sa vykonávajú v poradí ako sú definované. Ak toto chceme zmeniť, alebo chceme docieliť zložitejší proces ako napríklad <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/process/stages?view=azure-devops&amp;tabs=yaml#specify-dependencies">fan-out fan-in</a>, tak môžeme použiť nastavenie <code class="highlighter-rouge">dependsOn:</code>.</p>
+
+<p>V časti venovanej buildu sme nespomínali takzvané job-y. Pretože v našom prípade sa tam používal jeden implicitný job. Jednotlivé kroky môžme rozdeľovať do <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/process/phases?view=azure-devops&amp;tabs=yaml">viacerých job-ov</a>. Pokiaľ máme v definovanom pool-e viacerých voľných agentov, tak tieto job-y môžu vykonávať definované kroky na týchto agentoch paralelne. <em>(Každý agent v danom čase môže vykonávať kroky z jedného job-u.)</em></p>
+
+<p>Pre deployment proces sa odporúča použiť špeciálny <code class="highlighter-rouge">- deployment:</code> typ job-u. Tento typ job-u umožňuje viaceré stratégie deploymentu. Viac sa dočítate v <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/process/deployment-jobs?view=azure-devops">dokumentácii</a>.</p>
+
+<p>Keď máme definované stages, job-y a statégiu, môžme sa pustiť do definovania jednotlivých krokov.
+Ako prvý krok potrebujeme stiahnuť artefakty z nášho build-u. <em>(pokiaľ máme build a deployment v jednej yaml pipeline tak tento krok môžeme vynechať)</em></p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">download</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+  <span class="na">artifact</span><span class="pi">:</span> <span class="s">drop</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Download</span><span class="nv"> </span><span class="s">artifacts'</span>
+</code></pre></div></div>
+
+<p>Sťahujeme artefakty pomenované <code class="highlighter-rouge">drop</code> z pipeline-y <code class="highlighter-rouge">ToDosDemoServices</code>.</p>
+
+<p>Ďalšie kroky budeme definovať o chvíľu, zatiaľ si tam dajme len jednoduchý výpis <code class="highlighter-rouge">- powershell: echo Deploy to production</code>.</p>
+
+<p>Potvrdíme zmeny, push-neme ich na server <code class="highlighter-rouge">git add . | git commit -m "Creating deployment pipeline" | git push</code> a presunieme sa do <a href="https://dev.azure.com">DevOps portálu</a>, kde pridáme pipeline-u rovnako ako pri build pipeline.</p>
+
+<p>Pokiaľ ideme spustiť túto pipeline-u ručne, tak si môžme zvoliť ktoré stage chceme spustiť.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/selectStages.png" alt="select stages" /></p>
+
+<h3 id="azure-service-connection">Azure service connection</h3>
+
+<p>Pokiaľ chceme pomocou Azure DevOps Pipelines nasadzovať do Azure služieb, musíme si pridať spojenie na našu Azure Subscription.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/addAzureSubscription1.png" alt="add azure connection" /></p>
+
+<p>V nastaveniach projektu zvolíme <strong>Service connection</strong>, kde pridáme nové <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&amp;tabs=yaml#sep-azure-resource-manager"><strong>Azure Resource Manager</strong></a> spojenie. Ideálne ak máte jedno konto pre Azure aj Azure DevOps, v tom prípade zvoľte (Automatic) v opačnom prípade (manula).</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/addAzureSubscription2.png" alt="add azure connection" /></p>
+
+<h3 id="nasadenie-jednej-služby">Nasadenie jednej služby</h3>
+
+<p>Princíp nasadzovania si ukážeme na jednej zo služieb. Napríklad <code class="highlighter-rouge">ToDos</code>.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">variables</span><span class="pi">:</span>
+  <span class="na">AzureSubscriptionName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Demo</span><span class="nv"> </span><span class="s">Azure</span><span class="nv"> </span><span class="s">Subscription'</span>
+  <span class="na">ResourceGoupName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">mino-demo-rsg'</span>
+  <span class="na">SlotName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">stage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Tests'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+  <span class="na">jobs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Services</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Testing</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">download</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+            <span class="na">artifact</span><span class="pi">:</span> <span class="s">drop</span>
+            <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Download</span><span class="nv"> </span><span class="s">artifacts'</span>
+
+          <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">AzureWebApp@1</span>
+            <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Deploy:</span><span class="nv"> </span><span class="s">ToDos'</span>
+            <span class="na">inputs</span><span class="pi">:</span>
+              <span class="na">azureSubscription</span><span class="pi">:</span> <span class="s">$(AzureSubscriptionName)</span>
+              <span class="na">appName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">mino-demo-todos-api'</span>
+              <span class="na">package</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(Pipeline.Workspace)/ToDosDemoServices/drop/Kros.ToDos.Api.zip'</span>
+              <span class="na">deployToSlotOrASE</span><span class="pi">:</span> <span class="no">true</span>
+              <span class="na">resourceGroupName</span><span class="pi">:</span> <span class="s">$(ResourceGoupName)</span>
+              <span class="na">slotName</span><span class="pi">:</span> <span class="s">$(SlotName)</span>
+</code></pre></div></div>
+
+<p>Na nasadenie našej služby do Azure WebApps môžeme použiť task <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-rm-web-app?view=azure-devops">AzureWebApp@1</a>. Ktorému musíme nastaviť <code class="highlighter-rouge">azureSubscription</code>. Túto hodnotu nastavíme na názov nášho spojenia s Azure. Ďalej <code class="highlighter-rouge">appName</code> čo je názov vašej Azure WebApps služby kam chcete nasadiť aplikáciu, ktorú daný task hľadá na mieste, ktoré definujete pomocou <code class="highlighter-rouge">package</code> parametra. Využívame tu premennú <code class="highlighter-rouge">$(Pipeline.Workspace)</code> kde máme stiahnuté naše artefakty. Artefakty z pipeline-y <code class="highlighter-rouge">ToDosDemoServices</code> sa stiahli do príslušného podadresára. Tieto tri nastavenia stačia pri štandardnom nasadzovaní.</p>
+
+<p>My však chceme využiť možnosti <a href="https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots">slotov v Azure WebApps</a>, čo nám umožní pomocou swap-ovania dostiahnuť bezodstávkové nasadzovanie. Preto musíme nastaviť parameter <code class="highlighter-rouge">deployToSlotOrASE: true</code>, názov resource group-y v ktorej sa nachádza naša služba <code class="highlighter-rouge">resourceGroupName: $(ResourceGoupName)</code> a názov slotu do ktorého nasadzujeme <code class="highlighter-rouge">slotName: $(SlotName)</code>.</p>
+
+<p>Miesto toho aby sme tieto hodnoty zadávali priamo, definujeme si ich ako premenné. Bude sa nám to ľahšie spravovať a môžme ich používať na viacerých miestach s tým, že definované ich máme len na jednom mieste. Premenné <code class="highlighter-rouge">AzureSubscriptionName</code>, <code class="highlighter-rouge">ResourceGoupName</code> a <code class="highlighter-rouge">SlotName</code> si definujeme na úrovni celej pipeline-y. Premenné je ešte možné definovať na úrovni stage-u, extrahovať do šablóny, alebo použiť <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/library/variable-groups?view=azure-devops&amp;tabs=yaml">priamo z DevOps</a>.</p>
+
+<p>Pokiaľ sme sa nikde nepomýlili, tak po potvrdení zmien by sa nám prva služba mala úspešne nasadiť.</p>
+
+<h3 id="refaktor-a-nasadenie-všetkých-služieb">Refaktor a nasadenie všetkých služieb</h3>
+
+<p>Pre nasadzovanie ostatných služieb môžme pridávať rovnakým spôsobom ďalšie kroky. Dá sa to ale aj elegantnejšie. Azure Pipelines podporujú viaceré <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops">expressions</a>. Jednou z nich je aj <a href="https://github.com/microsoft/azure-pipelines-yaml/blob/master/design/each-expression.md">“Each” Template Expresion</a>, ktorá sa dá použiť podobne ako bežný <code class="highlighter-rouge">foreach</code> v ostatých jazykoch.
+Samotné nasadenie služieb extrahujeme do šablóny s názvom <code class="highlighter-rouge">deploy-microservice.yml</code>.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">parameters</span><span class="pi">:</span>
+  <span class="na">microservices</span><span class="pi">:</span> <span class="pi">[]</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">${{ each microservice in parameters.microservices }}</span><span class="err">:</span> <span class="c1"># Each microservice</span>
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">AzureWebApp@1</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Microservice</span><span class="nv"> </span><span class="s">Deploy:</span><span class="nv"> </span><span class="s">${{microservice}}'</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">azureSubscription</span><span class="pi">:</span> <span class="s">$(AzureSubscriptionName)</span>
+      <span class="na">appName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">mino-demo-${{microservice}}-api'</span>
+      <span class="na">package</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(Pipeline.Workspace)/ToDosDemoServices/drop/Kros.${{microservice}}.Api.zip'</span>
+      <span class="na">deployToSlotOrASE</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">resourceGroupName</span><span class="pi">:</span> <span class="s">$(ResourceGoupName)</span>
+      <span class="na">slotName</span><span class="pi">:</span> <span class="s">$(SlotName)</span>
+</code></pre></div></div>
+
+<p>Vstupným parametrom pre túto šablónu je zoznam názov jednotlivých mikroslužieb <code class="highlighter-rouge">microservices: []</code>.</p>
+
+<blockquote>
+  <p>Pri takejto automatizácií ná vedia veľmi pomôcť konvencie názvoslovia. Pokiaľ máme nejaký vzor pre nazývanie služieb, artefaktov, …, tak si môžme takýmto spôsobom zjednodušiť život.</p>
+</blockquote>
+
+<p>Pomocou konštrukcie  <code class="highlighter-rouge">${{ each microservice in parameters.microservices }}</code>  rozkopírujeme dané kroky <em>(v našom prípade jeden)</em> pre každý názov mikroslužby. Na názov konkrétnej služby sa referencujeme pomocou konštrukcie  <code class="highlighter-rouge">${{microservice}}</code> .</p>
+
+<p>Šablónu použijeme v našej pipeline nasledovne:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">variables</span><span class="pi">:</span>
+  <span class="na">AzureSubscriptionName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Demo</span><span class="nv"> </span><span class="s">Azure</span><span class="nv"> </span><span class="s">Subscription'</span>
+  <span class="na">ResourceGoupName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">mino-demo-rsg'</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">stage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Tests'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+  <span class="na">variables</span><span class="pi">:</span>
+    <span class="na">SlotName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+  <span class="na">jobs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Services</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Testing</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">download</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+            <span class="na">artifact</span><span class="pi">:</span> <span class="s">drop</span>
+            <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Download</span><span class="nv"> </span><span class="s">artifacts'</span>
+
+          <span class="pi">-</span> <span class="na">template</span><span class="pi">:</span> <span class="s">deploy-microservice.yml</span>
+            <span class="na">parameters</span><span class="pi">:</span>
+              <span class="na">microservices</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">ToDos'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">Authorization'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">Organizations'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">ApiGateway'</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Premenné ako napríklad <code class="highlighter-rouge">$(AzureSubscriptionName)</code> si v našom prípade môžme dovoliť nechať takto. Preprocessing, ktorý spracováva túto pipelinu rozbaľuje jednotlivé šablóny a inplace-suje ich priamo do pipeline-y. Pokiaľ však túto šablóny chceme mať všeobecnú a použiteľnú aj v iných pipeline-ach / projektoch <em>(čo asi chceme)</em>, tak by sme z nich mali spraviť premenné. <em>(Poprípade poriadne zdokumentovať aké premenné majú byť nastavené pre fungovanie danej šablóny.)</em></p>
+</blockquote>
+
+<p>Takýmto spôsobom sme nasadili všetky potrebné služby. Backend máme nasadený do testovacieho prostredia. Teraz by malo nasledovať spustenie integračných testov. Niekedy v ďalšom článku si ukážeme ako spustiť postman testy.</p>
+
+<h3 id="nasadenie-angular-aplikácie">Nasadenie Angular aplikácie</h3>
+
+<p>Teraz je načase nasadiť klienta. Tak ako sme spomínali na začiatku, tak Angular aplikáciu budeme nasadzovať do Azure Storage Static Websites. Čo v jednoduchosti znamená pomocou <a href="https://docs.microsoft.com/en-us/cli/azure/get-started-with-azure-cli?view=azure-cli-latest">Azure CLI</a> nakopírovať súbory na blob storage.</p>
+
+<p>Nasadenie klienta máme definované v šablóne <code class="highlighter-rouge">deploy-client.yml</code>.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">parameters</span><span class="pi">:</span>
+  <span class="na">storageAccount</span><span class="pi">:</span> <span class="s">string</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">download</span><span class="pi">:</span> <span class="s">ToDosDemoClient</span>
+    <span class="na">artifact</span><span class="pi">:</span> <span class="s">app</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Download</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">app</span><span class="nv"> </span><span class="s">artifacts'</span>
+
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">AzureCLI@1</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Delete</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">storage'</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">azureSubscription</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(AzureSubscriptionName)'</span>
+      <span class="na">scriptLocation</span><span class="pi">:</span> <span class="s">inlineScript</span>
+      <span class="na">inlineScript</span><span class="pi">:</span> <span class="s1">'</span><span class="s">az</span><span class="nv"> </span><span class="s">storage</span><span class="nv"> </span><span class="s">blob</span><span class="nv"> </span><span class="s">delete-batch</span><span class="nv"> </span><span class="s">-s</span><span class="nv"> </span><span class="s">$web</span><span class="nv"> </span><span class="s">--account-name</span><span class="nv"> </span><span class="s">${{parameters.storageAccount}}</span><span class="nv"> </span><span class="s">--pattern</span><span class="nv"> </span><span class="s">/*'</span>
+
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">AzureCLI@1</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Upload</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">storage'</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">azureSubscription</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(AzureSubscriptionName)'</span>
+      <span class="na">scriptLocation</span><span class="pi">:</span> <span class="s">inlineScript</span>
+      <span class="na">inlineScript</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">az storage blob upload-batch -d $web --account-name ${{parameters.storageAccount}} -s $(Pipeline.Workspace)/ToDosDemoClient/app/Kros.Angular.BestPractices</span>
+</code></pre></div></div>
+
+<p>V prvom kroku samozrejme musíme stiahnúť artefakty. V tomto prípade z pipeline-y, ktorú si pridáme neskôr a pomenujeme ju <code class="highlighter-rouge">ToDosDemoClient</code>. Angular generuje súborom náhodne znaky, preto skôr ako upload-neme novú verziu, musíme vymazať starú.</p>
+
+<p>Na volanie Azure CLI príkazov použijeme <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops"><code class="highlighter-rouge">AzureCLI@1</code></a> task. Ktorému nastavíme <code class="highlighter-rouge">azureSubscription</code> nad ktorou sa príkazy budú spúšťať. Pomocou <code class="highlighter-rouge">scriptLocation</code> označíme, že script budeme písať priamo v tejto šablóne <em>(Ak chceme mať script v samostatnom súbore tak to nastavíme na <code class="highlighter-rouge">scriptPath</code>)</em>.</p>
+
+<p>Príkazom <a href="https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-delete-batch"><code class="highlighter-rouge">az storage blob delete-batch</code></a> vymažeme všetky súbory <code class="highlighter-rouge">--pattern /*</code> z kontajnera <code class="highlighter-rouge">$web</code> v Storage Account-e <code class="highlighter-rouge">--account-name ${{parameters.storageAccount}}</code>.</p>
+
+<p>Rovnakým spôsobom upload-neme aj nové súbory z artefaktov umiestnených v <code class="highlighter-rouge">$(Pipeline.Workspace)/ToDosDemoClient/app/Kros.Angular.BestPractices</code>. Na upload súborov do Blob Storage je možné použiť aj <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-file-copy?view=azure-devops"><code class="highlighter-rouge">AzureFileCopy@3</code></a> task, bohužiaľ tento neakceptuje nastavenú sytémovu proxy a preto na on-premise serveroch s tým býva problém.</p>
+
+<p>Šablónu použijeme v našej pipeline.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger</span><span class="pi">:</span> <span class="s">none</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">pipeline</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Build - Demo - CI</span>
+    <span class="na">trigger</span><span class="pi">:</span> <span class="no">true</span>
+
+  <span class="pi">-</span> <span class="na">pipeline</span><span class="pi">:</span> <span class="s">ToDosDemoClient</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Build - Angular - CI</span>
+    <span class="na">trigger</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="na">variables</span><span class="pi">:</span>
+  <span class="na">AzureSubscriptionName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Demo</span><span class="nv"> </span><span class="s">Azure</span><span class="nv"> </span><span class="s">Subscription'</span>
+  <span class="na">ResourceGoupName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">mino-demo-rsg'</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">stage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Tests'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+  <span class="na">variables</span><span class="pi">:</span>
+    <span class="na">SlotName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+  <span class="na">jobs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Services</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Testing</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">download</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+            <span class="na">artifact</span><span class="pi">:</span> <span class="s">drop</span>
+            <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Download</span><span class="nv"> </span><span class="s">artifacts'</span>
+
+          <span class="pi">-</span> <span class="na">template</span><span class="pi">:</span> <span class="s">deploy-microservice.yml</span>
+            <span class="na">parameters</span><span class="pi">:</span>
+              <span class="na">microservices</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">ToDos'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">Authorization'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">Organizations'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">ApiGateway'</span><span class="pi">]</span>
+
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Client</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Testing</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">template</span><span class="pi">:</span> <span class="s">deploy-client.yml</span>
+            <span class="na">parameters</span><span class="pi">:</span>
+              <span class="na">storageAccount</span><span class="pi">:</span> <span class="s1">'</span><span class="s">minodemostorage'</span>
+</code></pre></div></div>
+
+<p>Definujeme si odkaz na pipeline-u, ktorá build-uje našu Angular aplikáciu:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">pipeline</span><span class="pi">:</span> <span class="s">ToDosDemoClient</span>
+  <span class="na">source</span><span class="pi">:</span> <span class="s">Build - Angular - CI</span>
+  <span class="na">trigger</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<p>Nasadenie klienta môžme vykonať paralelne s nasadzovaním backend-u, preto pridáme ďalší job <code class="highlighter-rouge">- deployment: Client</code>. Pokiaľ máme dostatok voľných agentov tak sa nám backend a frontend nasadia súčasne.</p>
+
+<p>Takto pripravená pipeline-a nám nasadi celú našu aplikáciu. Po nasadení nám však aplikácia ešte nebude fungovať, pretože nie je nakonfigurovaná. <em>(Napríklad chýba connection string na databázu.)</em> To ako riešiť konfiguráciu systému v Azure prostredí je mimo záber tohto článku. Budem sa tomu venovať neskôr.</p>
+
+<p>V tomto kroku by sa patrilo ešte spustiť UI testy. My na to využívame <a href="https://www.cypress.io/">cypress</a>. V ďalšom článku si ukážeme ako spustiť postman aj cypress testy.</p>
+
+<h3 id="swap-do-produkcie">Swap do produkcie</h3>
+
+<p>Po otestovaní aplikácie v testovacom prostredí by sme chceli aplikáciu nasadiť do produkcie. V tejto časti si ukážeme ako na to využiť swapovanie. Swap-ovanie nám umožní využiť to, že naša aplikácia je v teste už “zahriata” a tým sa vyhneme studenému štartu. Taktiež nám to umožní spraviť bezodstávkové nasadzovanie.</p>
+
+<p>Swap-nutie si definujeme v šablone <code class="highlighter-rouge">deploy-swap.yml</code>.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">parameters</span><span class="pi">:</span>
+  <span class="na">microservices</span><span class="pi">:</span> <span class="pi">[]</span>
+
+<span class="na">steps</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">${{ each microservice in parameters.microservices }}</span><span class="err">:</span> <span class="c1"># Each microservice</span>
+  <span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">AzureAppServiceManage@0</span>
+    <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Swap</span><span class="nv"> </span><span class="s">Slots:</span><span class="nv"> </span><span class="s">mino-demo-${{microservice}}-api'</span>
+    <span class="na">inputs</span><span class="pi">:</span>
+      <span class="na">azureSubscription</span><span class="pi">:</span> <span class="s">$(AzureSubscriptionName)</span>
+      <span class="na">WebAppName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">mino-demo-${{microservice}}-api'</span>
+      <span class="na">ResourceGroupName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(ResourceGoupName)'</span>
+      <span class="na">SourceSlot</span><span class="pi">:</span> <span class="s">$(SlotName)</span>
+</code></pre></div></div>
+
+<p>Pomocou task-u <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-app-service-manage?view=azure-devops">AzureAppServiceManage@0</a> dokážeme menežovať Azure Web Apps. To čo s danou službou chceme urobiť určíme nastavením vlastnosti <code class="highlighter-rouge">action</code>. V našom prípade ju ale neuvádzame, pretože default hodnota je práve <code class="highlighter-rouge">Swap Slots</code>, čo chceme.</p>
+
+<p>Celá deploy pipeline-a môže vyzerať nasledovne:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">trigger</span><span class="pi">:</span> <span class="s">none</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+  <span class="na">pipelines</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">pipeline</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Build - Demo - CI</span>
+    <span class="na">trigger</span><span class="pi">:</span> <span class="no">true</span>
+
+  <span class="pi">-</span> <span class="na">pipeline</span><span class="pi">:</span> <span class="s">ToDosDemoClient</span>
+    <span class="na">source</span><span class="pi">:</span> <span class="s">Build - Angular - CI</span>
+    <span class="na">trigger</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="na">variables</span><span class="pi">:</span>
+  <span class="na">AzureSubscriptionName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Demo</span><span class="nv"> </span><span class="s">Azure</span><span class="nv"> </span><span class="s">Subscription'</span>
+  <span class="na">ResourceGoupName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">mino-demo-rsg'</span>
+
+<span class="na">stages</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">stage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Tests'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+  <span class="na">variables</span><span class="pi">:</span>
+    <span class="na">SlotName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Testing'</span>
+  <span class="na">jobs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Services</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Testing</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">download</span><span class="pi">:</span> <span class="s">ToDosDemoServices</span>
+            <span class="na">artifact</span><span class="pi">:</span> <span class="s">drop</span>
+            <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Download</span><span class="nv"> </span><span class="s">artifacts'</span>
+
+          <span class="pi">-</span> <span class="na">template</span><span class="pi">:</span> <span class="s">deploy-microservice.yml</span>
+            <span class="na">parameters</span><span class="pi">:</span>
+              <span class="na">microservices</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">ToDos'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">Authorization'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">Organizations'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">ApiGateway'</span><span class="pi">]</span>
+
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Client</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Testing</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">template</span><span class="pi">:</span> <span class="s">deploy-client.yml</span>
+            <span class="na">parameters</span><span class="pi">:</span>
+              <span class="na">storageAccount</span><span class="pi">:</span> <span class="s1">'</span><span class="s">minodemostorage'</span>
+
+<span class="pi">-</span> <span class="na">stage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Production'</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Production'</span>
+  <span class="na">jobs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">deployment</span><span class="pi">:</span> <span class="s">Services</span>
+    <span class="na">pool</span><span class="pi">:</span>
+      <span class="na">vmImage</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="s">Production</span>
+    <span class="na">strategy</span><span class="pi">:</span>
+      <span class="na">runOnce</span><span class="pi">:</span>
+        <span class="na">deploy</span><span class="pi">:</span>
+          <span class="na">steps</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">template</span><span class="pi">:</span> <span class="s">deploy-swap.yml</span>
+            <span class="na">parameters</span><span class="pi">:</span>
+              <span class="na">microservices</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">ToDos'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">Authorization'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">Organizations'</span><span class="pi">,</span> <span class="s1">'</span><span class="s">ApiGateway'</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p>Máme hotovú pipelinu-u, ktorá nám nasadí naše služby do testu a následne hneď do produkcie. Málokto z nás má celý proces nasadzovania a automatických testov dotiahnutý tak ďaleko, aby po commit-e do master vetvy mohol nechať automaticky zbehnuť nasadenie až do produkcie. Väčšinou chceme pred nasadením do produkcie nejaký proces schvaľovania. Pri Azure Multi Stage Pipelines na to môžeme využiť <a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/process/approvals?view=azure-devops&amp;tabs=check-pass">Environments approvals</a>. Pri každom stage-y sme definovali vlastnosť <code class="highlighter-rouge">environment:</code> buďto ako <code class="highlighter-rouge">Testing</code>, alebo <code class="highlighter-rouge">Production</code>. Azure DevOps robí audit nad týmtito prostrediami a všetko čo sa nasadzuje potom môžme vidieť pekne prehľadne po jednolivých prostrediach.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/environments.png" alt="environment" /></p>
+
+<p>Nad daným prostredím vieme vynútiť schvaľovanie. Daný stage sa potom začne vykonávať až po schválení definovanými osobami.</p>
+
+<p><img src="/assets/images/multi-stage-pipelines/approvals1.png" alt="approvals" /></p>
+
+<p>Pomocou ďalších možností ako napríklad Azure Functions / REST API / … vieme docieliť aj komplikovanejšie / automatizovanejšie scenáre. Napríklad overíte či vo vašom issue tracker-y nie je evidovaná nejaká chyba, ktorá by mohla brániť nasadeniu.</p>
+
+<h3 id="sumár">Sumár</h3>
+
+<p>Na rozdiel od klasickému (UI) definovania CI / CD procesu nám Azure Multi Stages Pipelines umožňujú definovať tento proces ako kód a starať sa o neho ako o kód. To nám dáva výhodu verzionovania / proces schvaľovania pomocou Pull Request-ov / prehľadnosť / … Dokážeme pomocou toho jednoducho spraviť proces nasadzovania jednoduchých aplikácií, ale aj zložité scenáre, ktoré si vyžadujú komplexné systémy.</p>
+
+<p>Azure Multi Stages pipelines sú síce ešte ako preview, ale už v súčasnosti sa dajú plnohodnotne používať na väčšinu scenárov. Microsoft do toho investuje nemalé úsilie, čo je vidieť aj z <a href="https://docs.microsoft.com/en-us/azure/devops/release-notes/features-timeline">Azure DevOps Roadmap-y</a> pre najbližšie obdobje.</p>
+
+<h3 id="čo-ďalej">Čo ďalej?</h3>
+
+<p>V najbližej dobe by som sa s Vami chcel ešte podeliť o nasnedovné témy v danej oblasti:</p>
+
+<ol>
+  <li>Asynchrónne nasadzovanie služieb</li>
+  <li>Spúšťanie “post deploy” testov</li>
+</ol>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2020/02/23/azure-multi-stage-pipelines" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

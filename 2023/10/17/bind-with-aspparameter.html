@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>ASP.NET Core - Bind with asparameter | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="ASP.NET Core - Bind with asparameter" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="💡 #aspnetcore #tips - AsParameter binding" />
+<meta property="og:description" content="💡 #aspnetcore #tips - AsParameter binding" />
+<link rel="canonical" href="https://blog.burgyn.online/2023/10/17/bind-with-aspparameter" />
+<meta property="og:url" content="https://blog.burgyn.online/2023/10/17/bind-with-aspparameter" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-10-17T17:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="ASP.NET Core - Bind with asparameter" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2023-10-17T17:00:00+00:00","datePublished":"2023-10-17T17:00:00+00:00","description":"💡 #aspnetcore #tips - AsParameter binding","headline":"ASP.NET Core - Bind with asparameter","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2023/10/17/bind-with-aspparameter"},"url":"https://blog.burgyn.online/2023/10/17/bind-with-aspparameter"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>ASP.NET Core - Bind with asparameter</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2023-10-17T17:00:00+00:00" itemprop="datePublished">Oct 17, 2023
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/aspnet">aspnet</a> -->
+                aspnet, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/dotnet">dotnet</a> -->
+                dotnet, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/C#">C#</a> -->
+                C#
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>💡 #aspnetcore #tips - AsParameter binding</p>
+
+<p>Občas sa stane, že máme parametrov v endpointe viac, ako by sme chceli. To znižuje čitateľnosť zápisu handlera pre takýto endpoint. V takomto prípade môžeme jednotlivé parametre “upratať” do samostatnej triedy.</p>
+
+<p>Viac info 👇</p>
+
+    </div>
+
+    <div class="carousel">
+        
+        
+        <div>
+            <!-- <img src="/assets/images/asparameter/1.png" alt="ASP.NET Core - Bind with asparameter"> -->
+            <a href="/assets/images/asparameter/1.png" data-lightbox="gallery">
+                <img src="/assets/images/asparameter/1.png" alt="ASP.NET Core - Bind with asparameter">
+            </a>
+        </div>
+        
+        <div>
+            <!-- <img src="/assets/images/asparameter/2.png" alt="ASP.NET Core - Bind with asparameter"> -->
+            <a href="/assets/images/asparameter/2.png" data-lightbox="gallery">
+                <img src="/assets/images/asparameter/2.png" alt="ASP.NET Core - Bind with asparameter">
+            </a>
+        </div>
+        
+        <div>
+            <!-- <img src="/assets/images/asparameter/3.png" alt="ASP.NET Core - Bind with asparameter"> -->
+            <a href="/assets/images/asparameter/3.png" data-lightbox="gallery">
+                <img src="/assets/images/asparameter/3.png" alt="ASP.NET Core - Bind with asparameter">
+            </a>
+        </div>
+        
+        <div>
+            <!-- <img src="/assets/images/asparameter/4.png" alt="ASP.NET Core - Bind with asparameter"> -->
+            <a href="/assets/images/asparameter/4.png" data-lightbox="gallery">
+                <img src="/assets/images/asparameter/4.png" alt="ASP.NET Core - Bind with asparameter">
+            </a>
+        </div>
+        
+        <div>
+            <!-- <img src="/assets/images/asparameter/5.png" alt="ASP.NET Core - Bind with asparameter"> -->
+            <a href="/assets/images/asparameter/5.png" data-lightbox="gallery">
+                <img src="/assets/images/asparameter/5.png" alt="ASP.NET Core - Bind with asparameter">
+            </a>
+        </div>
+        
+        <div>
+            <!-- <img src="/assets/images/asparameter/6.png" alt="ASP.NET Core - Bind with asparameter"> -->
+            <a href="/assets/images/asparameter/6.png" data-lightbox="gallery">
+                <img src="/assets/images/asparameter/6.png" alt="ASP.NET Core - Bind with asparameter">
+            </a>
+        </div>
+        
+        
+    </div>
+
+    <a class="u-url" href="/2023/10/17/bind-with-aspparameter" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

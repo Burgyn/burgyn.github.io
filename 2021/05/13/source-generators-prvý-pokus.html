@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>C# Source Generators - prvý pokus | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="C# Source Generators - prvý pokus" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Po C# Source Generátoroch pokukujem odkedy boli predstavené spolu s .NET 5 a C# 9. Plánujem ich využiť na odbúranie učitých “boilerplate” v naších projektoch. Na zoznámenie mi to však prišlo celkom veľké sústo a tak som si vymyslel ToString generátor 😉." />
+<meta property="og:description" content="Po C# Source Generátoroch pokukujem odkedy boli predstavené spolu s .NET 5 a C# 9. Plánujem ich využiť na odbúranie učitých “boilerplate” v naších projektoch. Na zoznámenie mi to však prišlo celkom veľké sústo a tak som si vymyslel ToString generátor 😉." />
+<link rel="canonical" href="https://blog.burgyn.online/2021/05/13/source-generators-prv%C3%BD-pokus" />
+<meta property="og:url" content="https://blog.burgyn.online/2021/05/13/source-generators-prv%C3%BD-pokus" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-13T18:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="C# Source Generators - prvý pokus" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2021-05-13T18:00:00+00:00","datePublished":"2021-05-13T18:00:00+00:00","description":"Po C# Source Generátoroch pokukujem odkedy boli predstavené spolu s .NET 5 a C# 9. Plánujem ich využiť na odbúranie učitých “boilerplate” v naších projektoch. Na zoznámenie mi to však prišlo celkom veľké sústo a tak som si vymyslel ToString generátor 😉.","headline":"C# Source Generators - prvý pokus","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2021/05/13/source-generators-prv%C3%BD-pokus"},"url":"https://blog.burgyn.online/2021/05/13/source-generators-prv%C3%BD-pokus"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>C# Source Generators - prvý pokus</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2021-05-13T18:00:00+00:00" itemprop="datePublished">May 13, 2021
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/C#">C#</a> -->
+                C#, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/Generators">Generators</a> -->
+                Generators, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/Roslyn">Roslyn</a> -->
+                Roslyn, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/.NET">.NET</a> -->
+                .NET
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>Po C# Source Generátoroch pokukujem odkedy boli predstavené spolu s .NET 5 a C# 9. Plánujem ich využiť na odbúranie učitých “boilerplate” v naších projektoch. Na zoznámenie mi to však prišlo celkom veľké sústo a tak som si vymyslel <code class="highlighter-rouge">ToString</code> generátor 😉.</p>
+
+<h2 id="prečo-tostring">Prečo <code class="highlighter-rouge">ToString</code>?</h2>
+
+<p>Častokrát robievam pri zložitejšom debugovaní to, že si overridujem metódu <code class="highlighter-rouge">ToString</code>. (Kto z nás to niekedy neurobil? 🙄) Keď bol predstavený nový <code class="highlighter-rouge">record</code> type, tak sa mi páčilo, že má túto metódu implementovanú tak, že tam vidím všetko podstatné. Preto som si povedal, že Source Generators vyskúšam tak, že si spravím generátor, ktorý implementuje <code class="highlighter-rouge">ToString</code> za mňa.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="nf">ToString</span><span class="p">()]</span>
+<span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Person</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">Foo</span> <span class="n">Foo</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Foo</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">Id</span> <span class="p">=</span> <span class="m">1</span><span class="p">,</span>
+        <span class="n">Bar</span> <span class="p">=</span> <span class="s">"bar"</span><span class="p">,</span>
+        <span class="n">Created</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">,</span>
+        <span class="n">Name</span> <span class="p">=</span> <span class="s">"somebody"</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="p">[</span><span class="nf">ToString</span><span class="p">()]</span>
+<span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">Foo</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Bar</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">DateTime</span> <span class="n">Created</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">var</span> <span class="n">p</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Person</span><span class="p">()</span> <span class="p">{</span> <span class="n">Id</span> <span class="p">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">"Nobody"</span> <span class="p">};</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> 
+<span class="c1">//Output:</span>
+<span class="c1">//Person {Id = 1, Name = Nobody, Foo = Foo {Id = 1, Bar = bar, Name = somebody, Created = 24. 4. 2021 20:39:04}}</span>
+</code></pre></div></div>
+
+<h2 id="source-generators">Source Generators</h2>
+
+<p>V krátkosti. Source Generators sú súčasťou Roslyn kompilátora. Umožňujú vkladať kód do procesu kompilácie za účelom vygenerovania nových súborov (tried), ktoré budú kompilované súčasne s vaším kódom. <a href="https://devblogs.microsoft.com/dotnet/introducing-c-source-generators/">Viac info napríklad v tomto blogu</a>.</p>
+
+<blockquote>
+  <p>V aktuálnej verzii sa môžu generátory spúšťať už počas editovania vaších zdrojákov, bez nutnosti spustenia kompilácie. Tým pádom už pri zmene vaších zdrojových súborov sa vygeneruje nová verzia generovaných súborov.</p>
+</blockquote>
+
+<h2 id="ako-si-spraviť-vlastný-source-generator">Ako si spraviť vlastný Source Generator?</h2>
+
+<p>V prvom kroku si vytvoríme štandardný .NET Standard projekt.</p>
+
+<p><code class="highlighter-rouge">dotnet new classlib -f netstandard2.0</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;Project</span> <span class="na">Sdk=</span><span class="s">"Microsoft.NET.Sdk"</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;TargetFramework&gt;</span>netstandard2.0<span class="nt">&lt;/TargetFramework&gt;</span>
+    <span class="nt">&lt;LangVersion&gt;</span>preview<span class="nt">&lt;/LangVersion&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+
+  <span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;PackageReference</span> <span class="na">Include=</span><span class="s">"Microsoft.CodeAnalysis.CSharp.Workspaces"</span> <span class="na">Version=</span><span class="s">"3.8.0"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;PackageReference</span> <span class="na">Include=</span><span class="s">"Microsoft.CodeAnalysis.Analyzers"</span> <span class="na">Version=</span><span class="s">"3.3.1"</span> <span class="na">PrivateAssets=</span><span class="s">"all"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/ItemGroup&gt;</span>
+
+<span class="nt">&lt;/Project&gt;</span>
+</code></pre></div></div>
+
+<p>Následne si už môžeme do projektu pridať vlastný generátor:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">namespace</span> <span class="nn">MMLib.ToString.Generator</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">Generator</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ToStringGenerator</span> <span class="p">:</span> <span class="n">ISourceGenerator</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">SourceGeneratorContext</span> <span class="n">context</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Source generator</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Initialize</span><span class="p">(</span><span class="n">InitializationContext</span> <span class="n">context</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Some initialization</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Váš generátor musí byť odekorovaný atribútom <code class="highlighter-rouge">[Generator]</code> a implementovať interface <code class="highlighter-rouge">ISourceGenerator</code>. Tento interface je jednoduchý.</p>
+
+<p>Metóda <code class="highlighter-rouge">Initialize</code> je volaná raz a pomocou nej môžete inicializovať vaše pomocné štruktúry, analyzovať kód, nachystať si čo potrebujete. V mojom prípade registrujem vlastný <code class="highlighter-rouge">ToStringReceiver</code> pomocou ktorého identifikujem triedy označené mojim atribútom <code class="highlighter-rouge">[ToString]</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">ToStringReceiver</span><span class="p">:</span> <span class="n">ISyntaxReceiver</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="kt">string</span> <span class="n">_attributeShort</span> <span class="p">=</span> <span class="k">nameof</span><span class="p">(</span><span class="n">ToStringAttribute</span><span class="p">).</span><span class="nf">TrimEnd</span><span class="p">(</span><span class="s">"Attribute"</span><span class="p">);</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">ClassDeclarationSyntax</span><span class="p">&gt;</span> <span class="n">_candidates</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+
+    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">ClassDeclarationSyntax</span><span class="p">&gt;</span> <span class="n">Candidates</span> <span class="p">=&gt;</span> <span class="n">_candidates</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">OnVisitSyntaxNode</span><span class="p">(</span><span class="n">SyntaxNode</span> <span class="n">syntaxNode</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">syntaxNode</span> <span class="k">is</span> <span class="n">ClassDeclarationSyntax</span> <span class="n">classSyntax</span> <span class="p">&amp;&amp;</span> <span class="n">classSyntax</span><span class="p">.</span><span class="nf">HaveAttribute</span><span class="p">(</span><span class="n">_attributeShort</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">_candidates</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">classSyntax</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">HaveAttribute</code> je moja extension metóda na zistenie či trieda je odekorovaná daným atribútom:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="nf">HaveAttribute</span><span class="p">(</span><span class="k">this</span> <span class="n">ClassDeclarationSyntax</span> <span class="n">classDeclaration</span><span class="p">,</span> <span class="kt">string</span> <span class="n">attributeName</span><span class="p">)</span>
+    <span class="p">=&gt;</span> <span class="n">classDeclaration</span><span class="p">?.</span><span class="n">AttributeLists</span><span class="p">.</span><span class="n">Count</span> <span class="p">&gt;</span> <span class="m">0</span>
+        <span class="p">&amp;&amp;</span> <span class="n">classDeclaration</span>
+            <span class="p">.</span><span class="n">AttributeLists</span>
+                <span class="p">.</span><span class="nf">SelectMany</span><span class="p">(</span><span class="nf">SelectWithAttributes</span><span class="p">(</span><span class="n">attributeName</span><span class="p">))</span>
+                <span class="p">.</span><span class="nf">Any</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Takýto receiver môžete registrovať v metóde <code class="highlighter-rouge">Initialize</code> nasledovne:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">void</span> <span class="nf">Initialize</span><span class="p">(</span><span class="n">GeneratorInitializationContext</span> <span class="n">context</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">context</span><span class="p">.</span><span class="nf">RegisterForSyntaxNotifications</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ToStringReceiver</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Metóda <code class="highlighter-rouge">Execute</code> slúži na samotné generovanie. Najjednoduchšia implementácia môže vyzerať nasledovne:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">GeneratorExecutionContext</span> <span class="n">context</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">context</span><span class="p">.</span><span class="nf">AddSource</span><span class="p">(</span><span class="s">"myGeneratedFile.cs"</span><span class="p">,</span> <span class="n">SourceText</span><span class="p">.</span><span class="nf">From</span><span class="p">(</span><span class="s">@"
+namespace GeneratedNamespace
+{
+public class GeneratedClass
+{
+    public static void GeneratedMethod()
+    {
+        // generated code
+    }
+}
+}"</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Pomocou <code class="highlighter-rouge">context.AddSource</code> potrebujete pridať nový súbor s jeho názvom a obsahom. To ako vygenerujete váš obsah je čisto na vás.
+Stratégia, ktorá sa mi osvečila je v prvom kroku postaviť model toho čo idete generovať. V mojom prípade si zistiť veci ako, namespace, meno tiedy, modifikátor a zoznam properties. Na zistenie týchto vecí som si spravil extension metódy, ktoré sú v súbore <a href="https://github.com/Burgyn/MMLib.ToString/blob/main/src/MMLib.ToString.Generator/RoslynExtensions.cs"><code class="highlighter-rouge">RoslynExtensions.cs</code></a>.</p>
+
+<p>Keď máte model, tak vygenerovať obsah je už jednoduché. V mojom prípade by stačil aj <code class="highlighter-rouge">StringBuilder</code> a vyskladať si danú <code class="highlighter-rouge">partial class</code> ručne, ale keďže môj cieľ je vytvoriť kompexnejší generátor tak som sa rozhodol použiť <a href="https://github.com/scriban/scriban">Scriban</a> ako templejtovací “framework”.</p>
+
+<blockquote>
+  <p>⚠ Aktuálne source generátory neumožňujú upravovať existujúci kód. Umožňujú iba vytvárať nové súbory. Preto pokiaľ chcete pridať novú metódu existujúcej triede, tak ju musíte vytvoriť ako <code class="highlighter-rouge">partial</code>.</p>
+</blockquote>
+
+<p>Generovanie kódu s použitím Scriban-u môže vyzerať nasledovne:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">internal</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">SourceCodeGenerator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">Generate</span><span class="p">(</span><span class="n">ClassModel</span> <span class="n">model</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">template</span> <span class="p">=</span> <span class="n">Template</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="n">EmbeddedResource</span><span class="p">.</span><span class="nf">GetContent</span><span class="p">(</span><span class="s">"PartialClassTemplate.txt"</span><span class="p">));</span>
+
+        <span class="kt">string</span> <span class="n">output</span> <span class="p">=</span> <span class="n">template</span><span class="p">.</span><span class="nf">Render</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">member</span> <span class="p">=&gt;</span> <span class="n">member</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">output</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Šablóna <code class="highlighter-rouge">PartialClassTemplate.txt</code></p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//------------------------------------------------------------------------------</span>
+<span class="c1">// &lt;auto-generated&gt;</span>
+<span class="c1">//     This code was generated by a tool.</span>
+<span class="c1">// &lt;/auto-generated&gt;</span>
+<span class="c1">//------------------------------------------------------------------------------</span>
+<span class="p">{{</span>
+    <span class="n">count</span> <span class="p">=</span> <span class="n">Properties</span><span class="p">.</span><span class="n">size</span>
+    <span class="n">i</span> <span class="p">=</span> <span class="m">1</span>
+<span class="p">}}</span>
+
+<span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// Generated partial class for overriding ToString method.</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="k">namespace</span> <span class="err">{{</span><span class="nn">Namespace</span><span class="p">}}</span>
+<span class="p">{</span>
+    <span class="p">{{</span> <span class="n">Modifier</span> <span class="p">}}</span> <span class="k">class</span> <span class="err">{{</span> <span class="nc">Name</span> <span class="p">}}</span>
+    <span class="p">{</span>
+        <span class="c1">/// &lt;summary&gt;</span>
+        <span class="c1">/// Generated ToString override.</span>
+        <span class="c1">/// &lt;/summary&gt;</span>
+        <span class="k">public</span> <span class="k">override</span> <span class="kt">string</span> <span class="nf">ToString</span><span class="p">()</span>
+            <span class="p">=&gt;</span> <span class="s">$"</span><span class="p">{{</span> <span class="n">Name</span> <span class="p">}}</span><span class="s"> </span><span class="p">{%{{{}%}{{~</span> <span class="k">for</span> <span class="n">prop</span> <span class="k">in</span> <span class="n">Properties</span> <span class="p">~}}</span> <span class="p">{{</span><span class="n">prop</span><span class="p">}}</span> <span class="p">=</span> <span class="p">{</span> <span class="p">{{~</span> <span class="n">prop</span> <span class="p">-}}</span> <span class="p">}</span>
+            <span class="p">{{-</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">count</span>
+                    <span class="s">", "</span>
+                <span class="n">end</span>
+                <span class="n">i</span> <span class="p">=</span> <span class="n">i</span> <span class="p">+</span> <span class="m">1</span>
+            <span class="p">-}}</span>
+            <span class="p">{{-</span> <span class="n">end</span> <span class="p">-}}{%{}}}%}</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ok, s použitím <code class="highlighter-rouge">StringBuilder</code>-a by to v tomto prípade bolo jednoduchšie. Ale zámerne som si to chcel vyskúšať, keďže to budem chcieť použiť a tušil som problémy. A áno boli. Vysvetlím nižšie.</p>
+
+<p>Finálny <code class="highlighter-rouge">ToStringGenerator</code> vyzerá nasledovne:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">Microsoft.CodeAnalysis</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.CodeAnalysis.CSharp</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.CodeAnalysis.CSharp.Syntax</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.CodeAnalysis.Text</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Text</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MMLib.ToString.Generator</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">Generator</span><span class="p">]</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">ToStringGenerator</span> <span class="p">:</span> <span class="n">ISourceGenerator</span>
+    <span class="p">{</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Initialize</span><span class="p">(</span><span class="n">GeneratorInitializationContext</span> <span class="n">context</span><span class="p">)</span>
+        <span class="p">{</span>
+           <span class="n">context</span><span class="p">.</span><span class="nf">RegisterForSyntaxNotifications</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">ToStringReceiver</span><span class="p">());</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Execute</span><span class="p">(</span><span class="n">GeneratorExecutionContext</span> <span class="n">context</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">SyntaxReceiver</span> <span class="k">is</span> <span class="n">ToStringReceiver</span> <span class="n">actorSyntaxReciver</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">foreach</span> <span class="p">(</span><span class="n">ClassDeclarationSyntax</span> <span class="n">candidate</span> <span class="k">in</span> <span class="n">actorSyntaxReciver</span><span class="p">.</span><span class="n">Candidates</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="p">(</span><span class="kt">string</span> <span class="n">fileName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">sourceCode</span><span class="p">)</span> <span class="p">=</span> <span class="nf">GeneratePartialClass</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="n">context</span><span class="p">.</span><span class="n">Compilation</span><span class="p">);</span>
+
+                    <span class="n">context</span><span class="p">.</span><span class="nf">AddSource</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="n">SourceText</span><span class="p">.</span><span class="nf">From</span><span class="p">(</span><span class="n">sourceCode</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">));</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">private</span> <span class="k">static</span> <span class="p">(</span><span class="kt">string</span> <span class="n">fileName</span><span class="p">,</span> <span class="kt">string</span> <span class="n">sourceCode</span><span class="p">)</span> <span class="nf">GeneratePartialClass</span><span class="p">(</span>
+            <span class="n">ClassDeclarationSyntax</span> <span class="n">syntax</span><span class="p">,</span>
+            <span class="n">Compilation</span> <span class="n">compilation</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">CompilationUnitSyntax</span> <span class="n">root</span> <span class="p">=</span> <span class="n">syntax</span><span class="p">.</span><span class="nf">GetCompilationUnit</span><span class="p">();</span>
+            <span class="n">SemanticModel</span> <span class="n">classSemanticModel</span> <span class="p">=</span> <span class="n">compilation</span><span class="p">.</span><span class="nf">GetSemanticModel</span><span class="p">(</span><span class="n">syntax</span><span class="p">.</span><span class="n">SyntaxTree</span><span class="p">);</span>
+            <span class="kt">var</span> <span class="n">classSymbol</span> <span class="p">=</span> <span class="n">classSemanticModel</span><span class="p">.</span><span class="nf">GetDeclaredSymbol</span><span class="p">(</span><span class="n">syntax</span><span class="p">)</span> <span class="k">as</span> <span class="n">INamedTypeSymbol</span><span class="p">;</span>
+
+            <span class="kt">var</span> <span class="n">classModel</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ClassModel</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="nf">GetNamespace</span><span class="p">(),</span> <span class="n">syntax</span><span class="p">.</span><span class="nf">GetClassName</span><span class="p">(),</span>
+                <span class="n">syntax</span><span class="p">.</span><span class="nf">GetClassModifier</span><span class="p">(),</span> <span class="n">classSymbol</span><span class="p">.</span><span class="nf">GetProperties</span><span class="p">());</span>
+
+            <span class="kt">string</span> <span class="n">source</span> <span class="p">=</span> <span class="n">SourceCodeGenerator</span><span class="p">.</span><span class="nf">Generate</span><span class="p">(</span><span class="n">classModel</span><span class="p">);</span>
+
+            <span class="k">return</span> <span class="p">(</span><span class="s">$"</span><span class="p">{</span><span class="n">classModel</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span><span class="s">-ToString.cs"</span><span class="p">,</span> <span class="n">source</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Problém so <code class="highlighter-rouge">Scriban</code>-om, respektíve akoukoľvek knižnicou, ktorú chcete použiť je v tom, že Váš generátor nie je priamo súčasťou výslednej assembly Vášho projektu a pokiaľ to nezabezpečíte ináč, tak pri použití vášho generátora budete dostávať expcetion, že daná knižnica nebola nájdená. Musíte zabezpečiť aby sa daná knižnica dostala priamo do vašeho nuget balíčku.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ItemGroup&gt;</span>
+    <span class="nt">&lt;PackageReference</span> <span class="na">Include=</span><span class="s">"Scriban"</span> <span class="na">Version=</span><span class="s">"3.6.0"</span> <span class="na">PrivateAssets=</span><span class="s">"all"</span> <span class="na">GeneratePathProperty=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;None</span> <span class="na">Include=</span><span class="s">"$(PkgScriban)\lib\netstandard2.0\*.dll"</span> <span class="na">Pack=</span><span class="s">"true"</span> <span class="na">PackagePath=</span><span class="s">"analyzers/dotnet/cs"</span> <span class="na">Visible=</span><span class="s">"false"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/ItemGroup&gt;</span>
+</code></pre></div></div>
+
+<p>Bližšie vysvetlenie nájdete <a href="https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#use-functionality-from-nuget-packages">sem</a>.</p>
+
+<p>Po použití nuget balíku s generátorom, si môžete vygenerované súbory pozrieť priamo v Dependencies projektu.</p>
+
+<p><img src="/assets/images/generators/generators.png" alt="dependencies" /></p>
+
+<h2 id="odkazy">Odkazy</h2>
+
+<ul>
+  <li><a href="https://github.com/Burgyn/MMLib.ToString">Celý projekt</a></li>
+  <li><a href="https://github.com/amis92/csharp-source-generators">Sumár odkazov a zoznam verejných generátorov</a></li>
+</ul>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2021/05/13/source-generators-prv%C3%BD-pokus" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

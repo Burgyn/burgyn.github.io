@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Novinky v jazyku C# 11 | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Novinky v jazyku C# 11" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A blog about everything possible and impossible that dotnet developer face every day." />
+<meta property="og:description" content="A blog about everything possible and impossible that dotnet developer face every day." />
+<link rel="canonical" href="https://blog.burgyn.online/2022/11/15/csharp11" />
+<meta property="og:url" content="https://blog.burgyn.online/2022/11/15/csharp11" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-15T17:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Novinky v jazyku C# 11" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2022-11-15T17:00:00+00:00","datePublished":"2022-11-15T17:00:00+00:00","description":"A blog about everything possible and impossible that dotnet developer face every day.","headline":"Novinky v jazyku C# 11","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2022/11/15/csharp11"},"url":"https://blog.burgyn.online/2022/11/15/csharp11"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Novinky v jazyku C# 11</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2022-11-15T17:00:00+00:00" itemprop="datePublished">Nov 15, 2022
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/C#">C#</a> -->
+                C#, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/dotnet">dotnet</a> -->
+                dotnet
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p><img src="/assets/images/Top_11_features_of_C_11.png" alt="Top 11 features of C# 11.png" /></p>
+
+<h2 id="1️⃣-raw-string-literals">1️⃣ Raw String Literals</h2>
+
+<p>Novinka, na ktorú som osobne čakal asi najviac. Nová verziu C# umožňuje zadať ľubovoľný text bez nutnosti escapovania. Najčastejšie sa s tým stretávam keď potrebujem spraviť napríklad inplace <code class="highlighter-rouge">JSON</code>.</p>
+
+<p>Použiť je potrebné aspoň tri dvojité úvodzovky <code class="highlighter-rouge">""".."""</code>.</p>
+
+<blockquote>
+  <p>Ak máte text obsahujúci tri dvojité úvodzovky, musíte použiť štyri dvojité úvodzovky.</p>
+</blockquote>
+
+<p>V kombinácii s string interpoláciou počet <code class="highlighter-rouge">$</code> označuje, koľko po sebe idúcich zátvoriek začína a končí interpoláciu. V nižšie uvedenom príklade chcem použiť interpoláciu v <code class="highlighter-rouge">JSON</code> stringu, ktorý už obsahuje zložené zátvorky <code class="highlighter-rouge">{}</code>. To by bolo v rozpore s string interpolation, takže použijem dva <code class="highlighter-rouge">$$</code> na označenie, že dvojité zátvorky `` začínajú a končia interpoláciu.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">string</span> <span class="n">name</span> <span class="p">=</span> <span class="s">"Milan"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">string</span> <span class="n">lastName</span> <span class="p">=</span> <span class="s">"Martiniak"</span><span class="p">;</span>
+
+<span class="kt">string</span> <span class="n">json</span> <span class="p">=</span>
+<span class="err">$</span><span class="s">$"""
+</span><span class="p">{</span>
+    <span class="s">"Name"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span>
+    <span class="s">"LastName"</span><span class="p">:</span> <span class="s">""</span>
+<span class="p">}</span>
+<span class="s">""";
+</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Viac sa dočítate priamo v dokumentácií <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/strings/#raw-string-literals">Strings - C# Programming Guide</a>.</p>
+
+<h2 id="2️⃣-newlines-in-string-interpolation-expressions">2️⃣ Newlines in String Interpolation Expressions</h2>
+
+<p>So stringom pokračujeme. Ďalšou užitočnou novinkou je možnosť využívať riadkovanie v string interpolácií. Doteraz to nebolo možné. Teraz to umožní použiť akýkoľvek valídny C# kód medzi <code class="highlighter-rouge">{}</code>, vrátane nových riadkov. Výrazne sa vylepší čitatelnosť zápisov.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="n">DayOfWeek</span> <span class="n">day</span> <span class="p">=</span> <span class="n">DayOfWeek</span><span class="p">.</span><span class="n">Monday</span><span class="p">;</span>
+
+<span class="kt">string</span> <span class="n">dayInfo</span> <span class="p">=</span> <span class="s">$"Today is </span><span class="p">{</span><span class="n">day</span> <span class="k">switch</span>
+<span class="p">{</span>
+    <span class="n">DayOfWeek</span><span class="p">.</span><span class="n">Saturday</span> <span class="n">or</span> <span class="n">DayOfWeek</span><span class="p">.</span><span class="n">Sunday</span> <span class="p">=&gt;</span> <span class="s">"weekend"</span><span class="p">,</span>
+    <span class="n">_</span> <span class="p">=&gt;</span> <span class="s">"working day"</span>
+<span class="p">}}</span><span class="s">."</span><span class="p">;</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">dayInfo</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/new-line-in-interpolation">Interpolated string expression newline - C# 11.0 draft specifications</a></p>
+
+<h2 id="3️⃣-utf-8-string-literals">3️⃣ UTF-8 String Literals</h2>
+
+<p>C# 11 prináša UTF-8 string literals.</p>
+
+<p>Zjednoduší to zápis konverzie UTF-8 znakov na ich bytovú reprezentáciu. Konverzia sa vykonáva v čase kompilácie.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// C# 10</span>
+<span class="c1">//byte[] array = Encoding.UTF8.GetBytes("Hello UTF-8 String Literals");</span>
+
+<span class="c1">// C# 11</span>
+<span class="n">ReadOnlySpan</span><span class="p">&lt;</span><span class="kt">byte</span><span class="p">&gt;</span> <span class="n">span</span> <span class="p">=</span> <span class="s">"Hello UTF-8 String Literals"</span><span class="n">u8</span><span class="p">;</span>
+<span class="kt">byte</span><span class="p">[]</span> <span class="n">array</span> <span class="p">=</span> <span class="s">"Hello UTF-8 String Literals"</span><span class="n">u8</span><span class="p">.</span><span class="nf">ToArray</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="4️⃣-pattern-match-spanchar-on-a-constant-string">4️⃣ Pattern match <code class="highlighter-rouge">Span&lt;char&gt;</code> on a constant string</h2>
+
+<p>Odteraz môžete použiť pattern matching na overenie či <code class="highlighter-rouge">Span&lt;char&gt;</code> obsahuje konkrétny <code class="highlighter-rouge">string</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ReadOnlySpan</span><span class="p">&lt;</span><span class="kt">char</span><span class="p">&gt;</span> <span class="n">str</span> <span class="p">=</span> <span class="s">"World"</span><span class="p">.</span><span class="nf">AsSpan</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">str</span> <span class="k">is</span> <span class="s">"World"</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">"Hello world"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Dokumentácia <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/pattern-match-span-of-char-on-string">Pattern match Span«char» - C# 11.0 draft specifications</a></p>
+
+<h2 id="5️⃣-an-unsigned-right-shift-operator">5️⃣ An Unsigned Right-shift Operator</h2>
+
+<p>C# 11 prináša Right-shift Operator bez znamienka <code class="highlighter-rouge">&gt;&gt;&gt;</code>.</p>
+
+<p>Posúva bity doprava bez replikácie bitu vyššieho rádu pri každom posune.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="p">=</span> <span class="p">-</span><span class="m">32</span><span class="p">;</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"Before shift: bin = </span><span class="p">{</span><span class="n">Convert</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span><span class="m">32</span><span class="p">}</span><span class="s">, dec = </span><span class="p">{</span><span class="n">n</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="n">a</span> <span class="p">=</span> <span class="n">n</span> <span class="p">&gt;&gt;</span> <span class="m">2</span><span class="p">;</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"After     &gt;&gt;: bin = </span><span class="p">{</span><span class="n">Convert</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span><span class="m">32</span><span class="p">}</span><span class="s">, dec = </span><span class="p">{</span><span class="n">a</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="n">b</span> <span class="p">=</span> <span class="n">n</span> <span class="p">&gt;&gt;&gt;</span> <span class="m">2</span><span class="p">;</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"After    &gt;&gt;&gt;: bin = </span><span class="p">{</span><span class="n">Convert</span><span class="p">.</span><span class="nf">ToString</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span><span class="m">32</span><span class="p">}</span><span class="s">, dec = </span><span class="p">{</span><span class="n">b</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+
+<span class="c1">// Output:</span>
+<span class="c1">// Before shift: bin = 11111111111111111111111111100000, dec = -32</span>
+<span class="c1">// After     &gt;&gt;: bin = 11111111111111111111111111111000, dec = -8</span>
+<span class="c1">// After    &gt;&gt;&gt;: bin =   111111111111111111111111111000, dec = 1073741816</span>
+</code></pre></div></div>
+
+<p><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/bitwise-and-shift-operators#unsigned-right-shift-operator-">Bitwise and shift operators - C# reference</a></p>
+
+<h2 id="6️⃣-static-abstract-members-in-interfaces">6️⃣ Static Abstract Members in Interfaces</h2>
+
+<p>Do rozhraní môžete odteraz pridať statické abstraktné členy a definovať rozhrania, ktoré zahŕňajú preťažené operátory, iné statické členy a statické vlastnosti.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">void</span> <span class="n">NumberOfLegs</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">animal</span><span class="p">)</span> <span class="k">where</span> <span class="n">T</span><span class="p">:</span> <span class="n">IAnimal</span> <span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">T</span><span class="p">.</span><span class="n">NumberOfLegs</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nf">NumberOfLegs</span><span class="p">(</span><span class="k">new</span> <span class="nf">Dog</span><span class="p">());</span>
+<span class="nf">NumberOfLegs</span><span class="p">(</span><span class="k">new</span> <span class="nf">Snake</span><span class="p">());</span>
+
+<span class="k">public</span> <span class="n">record</span> <span class="n">Dog</span> <span class="p">:</span> <span class="n">IAnimal</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">NumberOfLegs</span> <span class="p">=&gt;</span> <span class="m">4</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="n">record</span> <span class="n">Snake</span> <span class="p">:</span> <span class="n">IAnimal</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">NumberOfLegs</span> <span class="p">=&gt;</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">interface</span> <span class="nc">IAnimal</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">abstract</span> <span class="kt">int</span> <span class="n">NumberOfLegs</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ok, viem toto nie je dobrý príklad 🙂, ale neodpustil som si. Reálnejšie použitie bude skôr na preťažovanie operátorov. Napríklad <code class="highlighter-rouge">static abstract T operator +(T a, T b);</code> a každý typ si potom definuje svoje správanie.</p>
+
+<p>Viac info <a href="https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members">Explore static virtual members in interfaces</a></p>
+
+<h2 id="7️⃣-extended-nameof-scope">7️⃣ Extended <code class="highlighter-rouge">nameof</code> Scope</h2>
+
+<p>Názov parametra metódy môžete zadať v atribúte pri deklarácii metódy alebo parametra.</p>
+
+<p>Toto je možné využiť napríkladpri pridávaní atribútov na analýzu kódu, alebo automatickom generovaní pomocou <a href="https://blog.burgyn.online/2022/10/10/csharp-source-generator">C# Source Generators</a>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">MyAttribute</span> <span class="p">:</span> <span class="n">Attribute</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="kt">string</span> <span class="n">_paramName</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nf">MyAttribute</span><span class="p">(</span><span class="kt">string</span> <span class="n">paramName</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_paramName</span> <span class="p">=</span> <span class="n">paramName</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MyClass</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="nf">My</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">param</span><span class="p">))]</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Method</span><span class="p">(</span><span class="kt">int</span> <span class="n">param</span><span class="p">,</span> <span class="p">[</span><span class="nf">My</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">param</span><span class="p">))]</span> <span class="kt">int</span> <span class="n">anotherParam</span><span class="p">)</span>
+    <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Detail návrhu <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/extended-nameof-scope">Extended nameof parameter scope - C# 11.0 draft specifications</a></p>
+
+<h2 id="8️⃣-required-members">8️⃣ Required Members</h2>
+
+<p>C# 11 prináša nový <code class="highlighter-rouge">required</code> modifikátor pre vlastnosti na vynútenie zadania pri inicializácií. Ak inicializujete objekt s chýbajúcou požadovanou vlastnosťou, zobrazí sa chyba kompilácie.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Person</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Guid</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="n">Guid</span><span class="p">.</span><span class="nf">NewGuid</span><span class="p">();</span>
+    <span class="k">public</span> <span class="n">required</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="n">required</span> <span class="kt">string</span> <span class="n">LastName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Initializations with required properties - valid</span>
+<span class="kt">var</span> <span class="n">p1</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Person</span> <span class="p">{</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">"Milan"</span><span class="p">,</span> <span class="n">LastName</span> <span class="p">=</span> <span class="s">"Martiniak"</span> <span class="p">};</span>
+<span class="n">Person</span> <span class="n">p2</span> <span class="p">=</span> <span class="k">new</span><span class="p">(</span><span class="s">"Milan"</span><span class="p">,</span> <span class="s">"Martiniak"</span><span class="p">);</span>
+
+<span class="c1">// Initializations with missing required properties - compilation error</span>
+<span class="kt">var</span> <span class="n">p3</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Person</span> <span class="p">{</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">"Milan"</span> <span class="p">};</span>
+<span class="n">Person</span> <span class="n">p4</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Ak máte niekoľko parametrických konštruktorov, mali by ste pridať atribút <code class="highlighter-rouge">SetsRequiredMembers</code> na konštruktor, ktorý inicializuje všetky požadované vlastnosti.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">Person</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nf">Person</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+
+    <span class="p">[</span><span class="n">SetsRequiredMembers</span><span class="p">]</span>
+    <span class="k">public</span> <span class="nf">Person</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="kt">string</span> <span class="n">lastName</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Name</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+        <span class="n">LastName</span> <span class="p">=</span> <span class="n">lastName</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">Guid</span> <span class="n">Id</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="n">Guid</span><span class="p">.</span><span class="nf">NewGuid</span><span class="p">();</span>
+    <span class="k">public</span> <span class="n">required</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="n">required</span> <span class="kt">string</span> <span class="n">LastName</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Dokumentácia <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/required">required modifier - C# Reference</a></p>
+
+<h2 id="9️⃣-auto-default-structs">9️⃣ Auto-default Structs</h2>
+
+<p>Ak ste pred C# 11 deklarovali štruktúru s konštruktorom, museli ste priradiť každú vlastnosť. V opačnom prípade ste dostali kompilačnú chybu.</p>
+
+<p><code class="highlighter-rouge">[CS0171] Field 'PersonStruct.Age' must be fully assigned before control is returned to the caller.</code></p>
+
+<p>V aktuálnej verzii kompilátor nastaví default hodnoty pre vynechané vlastnosti.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">PersonStruct</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nf">PersonStruct</span><span class="p">(</span><span class="kt">string</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Name</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Viac v špecifikácií <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/struct#struct-initialization-and-default-values">Structure types - C# reference</a></p>
+
+<h2 id="-list-patterns">🔟 List Patterns</h2>
+
+<p>C# 11 rozširuje aktuálny pattern matching o možnosť zisťovania zhody sekvencie elementov v poliach a listoch.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">numbers</span> <span class="p">=</span> <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span> <span class="p">};</span>
+
+<span class="c1">// List and constant patterns</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">numbers</span> <span class="k">is</span> <span class="p">[</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">]);</span> <span class="c1">// True</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">numbers</span> <span class="k">is</span> <span class="p">[</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">]);</span>    <span class="c1">// False</span>
+
+<span class="c1">// List and discard patterns</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">numbers</span> <span class="k">is</span> <span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="m">4</span><span class="p">]);</span> <span class="c1">// True</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">numbers</span> <span class="k">is</span> <span class="p">[..,</span> <span class="m">3</span><span class="p">,</span> <span class="n">_</span><span class="p">]);</span>   <span class="c1">// True</span>
+
+<span class="c1">// List and logical patterns</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">numbers</span> <span class="k">is</span> <span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="p">&gt;=</span> <span class="m">2</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">]);</span> <span class="c1">// True</span>
+</code></pre></div></div>
+
+<p>Dokumentácia: <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/patterns#list-patterns">Patterns - C# reference</a></p>
+
+<h2 id="1️⃣1️⃣-generic-attributes">1️⃣1️⃣ Generic Attributes</h2>
+
+<p>Pokiaľ ste potrebovali v staršej verzii C# do atribútu poslať typ, tak ste to museli spraviť pomocou konštruktora a následne využiť <code class="highlighter-rouge">typeof</code> expression.</p>
+
+<p>V C# 11 už môžete pekne vytvoriť generický atribút.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Before C# 11:</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">TypeAttribute</span> <span class="p">:</span> <span class="n">Attribute</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nf">TypeAttribute</span><span class="p">(</span><span class="n">Type</span> <span class="n">type</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">ParamType</span> <span class="p">=</span> <span class="n">type</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">Type</span> <span class="n">ParamType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">GenericAttribute</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="p">:</span> <span class="n">Attribute</span>
+<span class="p">{</span>
+<span class="p">}</span>
+
+<span class="c1">// After C#</span>
+<span class="p">[</span><span class="n">Generic</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">MyType</span>
+<span class="p">{</span>
+    <span class="p">[</span><span class="n">Generic</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;()]</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Method</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/generic-attributes">Generic Attributes</a></p>
+
+<h2 id="zdroje">Zdroje</h2>
+
+<p><a href="https://github.com/Burgyn/Sample.CSharp11">Repositár s príkladmi</a></p>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2022/11/15/csharp11" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

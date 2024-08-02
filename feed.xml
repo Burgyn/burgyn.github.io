@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2024-08-02T20:13:27+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">Creating UML / Graphs with Mermaid</title><link href="https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid" rel="alternate" type="text/html" title="Creating UML / Graphs with Mermaid" /><published>2024-08-02T17:00:00+00:00</published><updated>2024-08-02T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid</id><content type="html" xml:base="https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid"><![CDATA[<p>How do you draw UML diagrams or charts? Do you draw? Not really, but sometimes it comes in handy and it’s nice to have the some part of the system described with a sequence diagram, for example. 
+In the past I used <a href="https://draw.io">draw.io</a>. Cool tool, but there was a standard problem with it. How to store the diagrams? How to add them to the documentation? How to share them? And the biggest problem how to edit them afterwards 🤔? 
+I used <a href="https://plantuml.com/">PlantUML</a> a couple of times, which solved exactly this. I simply create the diagram using text directly in markdown, and the tool renders the outline for me at that point. For me it’s a great solution.</p>
+
+<p>However, I discovered <a href="https://mermaid.js.org/">Mermaid</a>. Same idea, but given where and how it’s integrated everywhere, it’s a significantly better choice for me.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sequenceDiagram
+    participant Author
+    participant Notion
+    participant Blog1 as blog.burgyn.online
+    participant Blog2 as blog.vyvojari.dev
+    participant Social as Social media
+
+    Author-&gt;&gt;Notion: Record ideas for articles
+    Author-&gt;&gt;Notion: Select an idea to write about
+    Author-&gt;&gt;Author: Write the basic structure of the article
+    Note right of Author: Drink lots of coffee!
+    Author-&gt;&gt;Author: Insert images and diagrams
+    Author-&gt;&gt;Author: Check grammar and style
+    Author-&gt;&gt;Blog1: Publish the article
+    Author-&gt;&gt;Blog2: Publish the article
+    Author-&gt;&gt;Author: Create graphic material
+    Author-&gt;&gt;Social: Share the article from blog.burgyn.online
+    Note right of Author: Wait for feedback!
+</code></pre></div></div>
+
+<script src=""></script>
+<div class="mermaid">
+sequenceDiagram
+    participant Author
+    participant Notion
+    participant Blog1 as blog.burgyn.online
+    participant Blog2 as blog.vyvojari.dev
+    participant Social as Social media
+
+    Author-&gt;&gt;Notion: Record ideas for articles
+    Author-&gt;&gt;Notion: Select an idea to write about
+    Author-&gt;&gt;Author: Write the basic structure of the article
+    Note right of Author: Drink lots of coffee!
+    Author-&gt;&gt;Author: Insert images and diagrams
+    Author-&gt;&gt;Author: Check grammar and style
+    Author-&gt;&gt;Blog1: Publish the article
+    Author-&gt;&gt;Blog2: Publish the article
+    Author-&gt;&gt;Author: Create graphic material
+    Author-&gt;&gt;Social: Share the article from blog.burgyn.online
+    Note right of Author: Wait for feedback!
+</div>
+
+<p>Benefits for me:</p>
+<ul>
+  <li>easy to use directly in markdown
+    <ul>
+      <li>so it’s part of the documentation</li>
+      <li>native git support (versioning, sharing, …)</li>
+      <li>post-editing</li>
+    </ul>
+  </li>
+  <li>possibility to create different types of diagrams (flowchart, sequence, class, state, …)</li>
+  <li>various integrations
+    <ul>
+      <li>Notion</li>
+      <li>GitHub</li>
+      <li>Jekyll (I used <a href="https://github.com/jasonbellamy/jekyll-mermaid">jekyll-mermaid</a>)</li>
+      <li>VsCode</li>
+      <li>AZURE DevOps (Wiki only for now)</li>
+      <li>ChatGPT 🤣</li>
+      <li>…</li>
+    </ul>
+  </li>
+</ul>
+
+<p><a href="https://docs.mermaidchart.com/plugins/mermaid-chart-gpt">Plugin for ChatGPT</a>. I created the diagram above with a simple prompt to ChatGPT:</p>
+
+<blockquote>
+  <p>I’m going to post an article just about Mermaid. Create me some interesting sequence diagram on how to write such a blog post. I’m writing the ideas in Notion, posting the post on blog.burgyn.online and blog.vyvojari.dev. I then do a social media post about it.</p>
+</blockquote>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="tools" /><category term="architecture" /><summary type="html"><![CDATA[The blog outlines how to leverage tools like PlantUML, Mermaid for diagram creation in markdown, storage, and sharing.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/creating-uml-graphs-with-mermaid/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/creating-uml-graphs-with-mermaid/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Application Insights - Log Level</title><link href="https://blog.burgyn.online/2024/07/01/application-insights-log-level" rel="alternate" type="text/html" title="Application Insights - Log Level" /><published>2024-07-01T17:00:00+00:00</published><updated>2024-07-01T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/07/01/application-insights-log-level</id><content type="html" xml:base="https://blog.burgyn.online/2024/07/01/application-insights-log-level"><![CDATA[<p>🤦 I’ve been using ApplicationInsights for a few years now, but only now have I had a real need to look for my own custom logs there. It took me a while to figure out why I can’t find them there.</p>
+
+<p>🤔 It’s not enough to set the generic “LogLeve:Default” to “Information” (Debug, Trace), because by default the ApplicationInsights provider only pushes logs with severity Warning and higher to AppInsights anyway.</p>
+
+<p>💡 In order to push them there you need to explicitly set “ApplicationInsights:LogLevel:Default:” to “Information” (Debug, Trace).</p>
+
+<p>🤞 Maybe this will help you sometime too.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Logging"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"LogLevel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Information"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">//</span><span class="w"> </span><span class="err">👇</span><span class="w"> </span><span class="err">This</span><span class="w"> </span><span class="err">section</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">important</span><span class="w">
+    </span><span class="nl">"ApplicationInsights"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"LogLevel"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Default"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Information"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"ApplicationInsights"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ConnectionString"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="AZURE" /><category term="csharp" /><category term="asp.net core" /><category term="logs" /><summary type="html"><![CDATA[Discover how to locate custom logs in Azure's ApplicationInsights and adjust settings so they're visible by default.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/blog-post-base-cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/blog-post-base-cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Arch tests - Check project references</title><link href="https://blog.burgyn.online/2024/06/23/arch-tests-check-project-references" rel="alternate" type="text/html" title="Arch tests - Check project references" /><published>2024-06-23T17:00:00+00:00</published><updated>2024-06-23T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/06/23/arch-tests-check-project-references</id><content type="html" xml:base="https://blog.burgyn.online/2024/06/23/arch-tests-check-project-references"><![CDATA[<p>In our company we have a large solution which contains more than 100 projects (not including test projects). Within that solution are WebAPI projects, libraries and AZURE functions. 
+A couple of times it happened to us that our WebAPI projects referenced each other. Which is fundamentally wrong. They should be independent of each other and only reference other libraries.
+<em>(we missed it during code review)</em></p>
+
+<blockquote>
+  <p>It is bad not only in principle, but also because MSBuild still has a problem and if you reference WebAPI projects in this way, it can non-deterministically give you <code class="highlighter-rouge">json</code> files in the output of one of the projects that are from another project. We have had this happen to us quite often.</p>
+</blockquote>
+
+<p>We decided to do a test on it. I don’t know if this is really the type of an architectural test, but let’s say it is 😊.</p>
+
+<p>I originally tried to use the <code class="highlighter-rouge">Microsoft.Build</code> and <code class="highlighter-rouge">Microsoft.Build.Locator</code> libraries. These libraries contain the <code class="highlighter-rouge">Project</code> and <code class="highlighter-rouge">ProjectCollection</code> classes, which can retrieve project properties and references. <em>(Microsoft uses this for MSBuild)</em> But the problem with this was that it was very slow and had its flies.</p>
+
+<p>Fortunately we didn’t need anything complicated from <code class="highlighter-rouge">csproj</code>, to be able to find out if it is a host project and its references.
+So we read the necessary information from the <code class="highlighter-rouge">csproj</code> files directly via <code class="highlighter-rouge">XDocument</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">internal</span> <span class="k">class</span> <span class="nc">ProjectFile</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">HashSet</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">_projectReferences</span> <span class="p">=</span> <span class="p">[];</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">DirectoryPath</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">FullPath</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">Sdk</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">OutputType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">AzureFunctionsVersion</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">private</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="n">IsWebProject</span>
+        <span class="p">=&gt;</span> <span class="n">OutputType</span><span class="p">.</span><span class="nf">Equals</span><span class="p">(</span><span class="s">"Exe"</span><span class="p">,</span> <span class="n">StringComparison</span><span class="p">.</span><span class="n">OrdinalIgnoreCase</span><span class="p">)</span>
+        <span class="p">||</span> <span class="n">Sdk</span><span class="p">.</span><span class="nf">Equals</span><span class="p">(</span><span class="s">"Microsoft.NET.Sdk.Web"</span><span class="p">,</span> <span class="n">StringComparison</span><span class="p">.</span><span class="n">OrdinalIgnoreCase</span><span class="p">)</span>
+        <span class="p">||</span> <span class="n">AzureFunctionsVersion</span><span class="p">.</span><span class="nf">StartsWith</span><span class="p">(</span><span class="s">"v"</span><span class="p">,</span> <span class="n">StringComparison</span><span class="p">.</span><span class="n">OrdinalIgnoreCase</span><span class="p">);</span>
+
+    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">ProjectsReferences</span> <span class="p">=&gt;</span> <span class="n">_projectReferences</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">ProjectFile</span><span class="p">&gt;</span> <span class="nf">LoadAsync</span><span class="p">(</span><span class="kt">string</span> <span class="n">projectFilePath</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">projectFile</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ProjectFile</span><span class="p">();</span>
+
+        <span class="n">projectFile</span><span class="p">.</span><span class="n">Name</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="nf">GetFileNameWithoutExtension</span><span class="p">(</span><span class="n">projectFilePath</span><span class="p">);</span>
+        <span class="n">projectFile</span><span class="p">.</span><span class="n">FullPath</span> <span class="p">=</span> <span class="n">projectFilePath</span><span class="p">;</span>
+        <span class="n">projectFile</span><span class="p">.</span><span class="n">DirectoryPath</span> <span class="p">=</span> <span class="n">Path</span><span class="p">.</span><span class="nf">GetDirectoryName</span><span class="p">(</span><span class="n">projectFilePath</span><span class="p">)</span> <span class="p">??</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">fileStream</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">FileStream</span><span class="p">(</span><span class="n">projectFilePath</span><span class="p">,</span> <span class="n">FileMode</span><span class="p">.</span><span class="n">Open</span><span class="p">,</span> <span class="n">FileAccess</span><span class="p">.</span><span class="n">Read</span><span class="p">);</span>
+
+        <span class="kt">var</span> <span class="n">doc</span> <span class="p">=</span> <span class="k">await</span> <span class="n">XDocument</span><span class="p">.</span><span class="nf">LoadAsync</span><span class="p">(</span><span class="n">fileStream</span><span class="p">,</span> <span class="n">LoadOptions</span><span class="p">.</span><span class="n">None</span><span class="p">,</span> <span class="k">default</span><span class="p">);</span>
+
+        <span class="kt">var</span> <span class="n">projectElement</span> <span class="p">=</span> <span class="n">doc</span><span class="p">.</span><span class="nf">Element</span><span class="p">(</span><span class="s">"Project"</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">projectElement</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">projectFile</span><span class="p">.</span><span class="n">Sdk</span> <span class="p">=</span> <span class="n">projectElement</span><span class="p">.</span><span class="nf">Attribute</span><span class="p">(</span><span class="s">"Sdk"</span><span class="p">)?.</span><span class="n">Value</span> <span class="p">??</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+
+            <span class="kt">var</span> <span class="n">propertyGroup</span> <span class="p">=</span> <span class="n">projectElement</span><span class="p">.</span><span class="nf">Element</span><span class="p">(</span><span class="s">"PropertyGroup"</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">propertyGroup</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">projectFile</span><span class="p">.</span><span class="n">OutputType</span> <span class="p">=</span> <span class="n">propertyGroup</span><span class="p">.</span><span class="nf">Element</span><span class="p">(</span><span class="s">"OutputType"</span><span class="p">)?.</span><span class="n">Value</span> <span class="p">??</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+                <span class="n">projectFile</span><span class="p">.</span><span class="n">AzureFunctionsVersion</span> <span class="p">=</span> <span class="n">propertyGroup</span><span class="p">.</span><span class="nf">Element</span><span class="p">(</span><span class="s">"AzureFunctionsVersion"</span><span class="p">)?.</span><span class="n">Value</span> <span class="p">??</span> <span class="kt">string</span><span class="p">.</span><span class="n">Empty</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="n">projectFile</span><span class="p">.</span><span class="n">_projectReferences</span> <span class="p">=</span> <span class="n">projectElement</span>
+                <span class="p">.</span><span class="nf">Elements</span><span class="p">(</span><span class="s">"ItemGroup"</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">Elements</span><span class="p">(</span><span class="s">"ProjectReference"</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">Attributes</span><span class="p">(</span><span class="s">"Include"</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">attr</span> <span class="p">=&gt;</span> <span class="n">attr</span><span class="p">.</span><span class="n">Value</span><span class="p">)</span>
+                <span class="p">.</span><span class="nf">ToHashSet</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">projectFile</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>be careful when using <code class="highlighter-rouge">Directory.Build.props</code>, then not all properties are directly in the <code class="highlighter-rouge">csproj</code> file.
+We didn’t mind, though, because the necessary ones were there.</p>
+</blockquote>
+
+<p>We used the SDK property for ASP.NET Core WebAPI projects to determine if it is a host project and the <code class="highlighter-rouge">AzureFunctionsVersion</code> property for Azure Functions.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="kt">bool</span> <span class="n">IsWebProject</span>
+    <span class="p">=&gt;</span> <span class="n">OutputType</span><span class="p">.</span><span class="nf">Equals</span><span class="p">(</span><span class="s">"Exe"</span><span class="p">,</span> <span class="n">StringComparison</span><span class="p">.</span><span class="n">OrdinalIgnoreCase</span><span class="p">)</span>
+    <span class="p">||</span> <span class="n">Sdk</span><span class="p">.</span><span class="nf">Equals</span><span class="p">(</span><span class="s">"Microsoft.NET.Sdk.Web"</span><span class="p">,</span> <span class="n">StringComparison</span><span class="p">.</span><span class="n">OrdinalIgnoreCase</span><span class="p">)</span>
+    <span class="p">||</span> <span class="n">AzureFunctionsVersion</span><span class="p">.</span><span class="nf">StartsWith</span><span class="p">(</span><span class="s">"v"</span><span class="p">,</span> <span class="n">StringComparison</span><span class="p">.</span><span class="n">OrdinalIgnoreCase</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>A <code class="highlighter-rouge">ProjectFileCollection</code> class that retrieves all the projects in the subdirectories and their references.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">internal</span> <span class="k">class</span> <span class="nc">ProjectFileCollection</span> <span class="p">:</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">ProjectFile</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">ProjectFile</span><span class="p">&gt;</span> <span class="n">_projects</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">async</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">ProjectFileCollection</span><span class="p">&gt;</span> <span class="nf">LoadSolution</span><span class="p">(</span><span class="kt">string</span> <span class="n">solutionDirectory</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">projectFileCollection</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ProjectFileCollection</span><span class="p">();</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">projectFile</span> <span class="k">in</span> <span class="n">Directory</span><span class="p">.</span><span class="nf">GetFiles</span><span class="p">(</span><span class="n">solutionDirectory</span><span class="p">,</span> <span class="s">"*.csproj"</span><span class="p">,</span> <span class="n">SearchOption</span><span class="p">.</span><span class="n">AllDirectories</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">project</span> <span class="p">=</span> <span class="k">await</span> <span class="n">ProjectFile</span><span class="p">.</span><span class="nf">LoadAsync</span><span class="p">(</span><span class="n">projectFile</span><span class="p">);</span>
+            <span class="n">projectFileCollection</span><span class="p">.</span><span class="n">_projects</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">FullPath</span><span class="p">,</span> <span class="n">project</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">projectFileCollection</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">ProjectFile</span> <span class="nf">GetProject</span><span class="p">(</span><span class="kt">string</span> <span class="n">projectPath</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="n">_projects</span><span class="p">[</span><span class="n">projectPath</span><span class="p">];</span>
+
+    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">ProjectFile</span><span class="p">&gt;</span> <span class="nf">GetProjectReferences</span><span class="p">(</span><span class="n">ProjectFile</span> <span class="n">project</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="n">project</span><span class="p">.</span><span class="n">ProjectsReferences</span>
+            <span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="nf">GetProject</span><span class="p">(</span><span class="nf">GetReferenceFullPath</span><span class="p">(</span><span class="n">project</span><span class="p">.</span><span class="n">DirectoryPath</span><span class="p">,</span> <span class="n">p</span><span class="p">)));</span>
+
+    <span class="k">private</span> <span class="k">static</span> <span class="kt">string</span> <span class="nf">GetReferenceFullPath</span><span class="p">(</span><span class="kt">string</span> <span class="n">projectDir</span><span class="p">,</span> <span class="kt">string</span> <span class="n">referencePath</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="nf">IsPathRooted</span><span class="p">(</span><span class="n">referencePath</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">referencePath</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">Path</span><span class="p">.</span><span class="nf">GetFullPath</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="nf">Combine</span><span class="p">(</span><span class="n">projectDir</span><span class="p">,</span> <span class="n">referencePath</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">IEnumerator</span><span class="p">&lt;</span><span class="n">ProjectFile</span><span class="p">&gt;</span> <span class="nf">GetEnumerator</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">_projects</span><span class="p">.</span><span class="n">Values</span><span class="p">.</span><span class="nf">GetEnumerator</span><span class="p">();</span>
+
+    <span class="n">IEnumerator</span> <span class="n">IEnumerable</span><span class="p">.</span><span class="nf">GetEnumerator</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="nf">GetEnumerator</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The test itself can then look like this:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">Fact</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">WebProjects_ShouldNotReferenceOtherWebProjects</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">string</span> <span class="n">solutionDirectory</span> <span class="p">=</span> <span class="nf">FindSolutionDirectory</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">projects</span> <span class="p">=</span> <span class="k">await</span> <span class="n">ProjectFileCollection</span><span class="p">.</span><span class="nf">LoadSolution</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="nf">Combine</span><span class="p">(</span><span class="n">solutionDirectory</span><span class="p">,</span> <span class="s">"src"</span><span class="p">));</span>
+
+    <span class="kt">var</span> <span class="n">webProjects</span> <span class="p">=</span> <span class="n">projects</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">IsWebProject</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">errorMessage</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">wrongRecerencesCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">webProject</span> <span class="k">in</span> <span class="n">webProjects</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">projectReferences</span> <span class="p">=</span> <span class="n">projects</span><span class="p">.</span><span class="nf">GetProjectReferences</span><span class="p">(</span><span class="n">webProject</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">webProjectReferences</span> <span class="p">=</span> <span class="n">projectReferences</span><span class="p">.</span><span class="nf">Where</span><span class="p">(</span><span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">IsWebProject</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">webProjectReferences</span><span class="p">.</span><span class="nf">Any</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">errorMessage</span><span class="p">.</span><span class="nf">AppendFormat</span><span class="p">(</span><span class="s">"&gt; {0}:"</span><span class="p">,</span> <span class="n">webProject</span><span class="p">.</span><span class="n">Name</span><span class="p">).</span><span class="nf">AppendLine</span><span class="p">();</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">reference</span> <span class="k">in</span> <span class="n">webProjectReferences</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">errorMessage</span><span class="p">.</span><span class="nf">AppendFormat</span><span class="p">(</span><span class="s">"\t- {0}"</span><span class="p">,</span> <span class="n">reference</span><span class="p">.</span><span class="n">Name</span><span class="p">).</span><span class="nf">AppendLine</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="n">wrongRecerencesCount</span><span class="p">++;</span>
+            <span class="n">errorMessage</span><span class="p">.</span><span class="nf">AppendLine</span><span class="p">(</span><span class="s">"----------------------------------------"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">wrongRecerencesCount</span><span class="p">.</span><span class="nf">Should</span><span class="p">()</span>
+        <span class="p">.</span><span class="nf">Be</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="s">"Web project should not reference other web project:\n"</span> <span class="p">+</span> <span class="n">errorMessage</span><span class="p">.</span><span class="nf">ToString</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The result may look like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Expected wrongRecerencesCount to be 0 because Web project should not reference other web project:
+&gt; Kros.Esw.ApiProjectA:
+	- Kros.Esw.ApiProjectB
+	- Kros.Esw.ApiProjectC
+	- Kros.Esw.ApiProjectD
+----------------------------------------
+, but found 1 (difference of 1).
+</code></pre></div></div>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="architecture" /><category term="unit tests" /><category term="AZURE" /><summary type="html"><![CDATA[The blog post discusses managing project references in WebAPI projects featuring C# codes to perform architectural tests and maintain project independence.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/arch-tests-check-project-references/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/arch-tests-check-project-references/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Own mediator</title><link href="https://blog.burgyn.online/2024/06/09/own-mediator" rel="alternate" type="text/html" title="Own mediator" /><published>2024-06-09T17:00:00+00:00</published><updated>2024-06-09T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/06/09/own-mediator</id><content type="html" xml:base="https://blog.burgyn.online/2024/06/09/own-mediator"><![CDATA[<p>Currently, the Mediator design pattern is often used. Its purpose is to separate the communication between objects from each other. Which will reduce dependencies between classes, make the code more transparent and simplify testing. 
+In a .NET environment, a developer often reaches for the cool library <a href="https://github.com/jbogard/MediatR">MediatR</a> by Jimmy Bogard. This library provides an easy way to implement the Mediator pattern into an application.</p>
+
+<p>However, there are situations where we can’t/don’t want to use a third party library. For example, you are writing some custom library/framework and you don’t want to introduce such dependencies into it.</p>
+
+<p>Something similar happened to us. Fortunately, we didn’t need the complete functionality that MediatR provides, but just a basic event dispatch and processing was enough.</p>
+
+<p>Therefore, I will now show how to easily create such an implementation of your own Mediator.</p>
+
+<p>Let’s start with defining the message interface. In our case it was a domain event, hence the name.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IDomainEvent</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>It’s just a pure markup interface. We could do without it, but it’s a good way to indicate that it’s an event.</p>
+</blockquote>
+
+<p>Then the event processing interface.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;</span> 
+    <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="nf">HandleAsync</span><span class="p">(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We need an interface for sending events.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IEventPublisher</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We could stop with the abstractions here and start implementing. However, we decided to add an abstraction for the processing strategy in there. For now, the sequential processing of events was enough, but we might need other strategies in the future.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IEventPublisherStrategy</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span>
+        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">,</span>
+        <span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span>
+        <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>Publisher can look like this:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">internal</span> <span class="k">class</span> <span class="nc">EventPublisher</span> <span class="p">:</span> <span class="n">IEventPublisher</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IServiceProvider</span> <span class="n">_serviceProvider</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IEventPublisherStrategy</span> <span class="n">_publisherStrategy</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IHttpContextAccessor</span> <span class="n">_httpContextAccessor</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">EventPublisher</span><span class="p">(</span>
+        <span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">,</span>
+        <span class="n">IHttpContextAccessor</span> <span class="n">httpContextAccessor</span><span class="p">,</span>
+        <span class="n">IEventPublisherStrategy</span> <span class="n">publisherStrategy</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_serviceProvider</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">;</span>
+        <span class="n">_publisherStrategy</span> <span class="p">=</span> <span class="n">publisherStrategy</span><span class="p">;</span>
+        <span class="n">_httpContextAccessor</span> <span class="p">=</span> <span class="n">httpContextAccessor</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+    <span class="p">{</span>
+        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span> <span class="k">is</span> <span class="n">not</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 if available, then find handlers in HttpContext services</span>
+            <span class="n">handlers</span> <span class="p">=</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">RequestServices</span><span class="p">);</span>
+            <span class="c1">// 👇 publish event to all handlers</span>
+            <span class="k">await</span> <span class="n">_publisherStrategy</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 if not, then create new scope</span>
+            <span class="k">using</span> <span class="nn">var</span> <span class="n">scope</span> <span class="p">=</span> <span class="n">_serviceProvider</span><span class="p">.</span><span class="nf">CreateScope</span><span class="p">();</span>
+            <span class="n">handlers</span> <span class="p">=</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">scope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">);</span>
+            <span class="c1">// 👇 publish event to all handlers</span>
+            <span class="k">await</span> <span class="n">_publisherStrategy</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+        <span class="p">=&gt;</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="n">GetServices</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Publisher takes care of getting the handlers from the container and then forwards them to publisher strategy, which decides how they will be processed.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">ForeachAwaitPublisherStrategy</span> <span class="p">:</span> <span class="n">IEventPublisherStrategy</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span>
+        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">,</span>
+        <span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span>
+        <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 publish event to all handlers</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">handler</span> <span class="k">in</span> <span class="n">handlers</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">await</span> <span class="n">handler</span><span class="p">.</span><span class="nf">HandleAsync</span><span class="p">(</span><span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Our <code class="highlighter-rouge">ForeachAwaitPublisherStrategy</code> handles events sequentially. It forwards the message to all handlers and waits for them to process it.</p>
+
+<h2 id="registration">Registration</h2>
+
+<p>In order to use the abstractions we create, we need to register them in the DI container.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="nf">AddEventPublisher</span><span class="p">(</span><span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="nf">AddHttpContextAccessor</span><span class="p">();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">TryAddSingleton</span><span class="p">&lt;</span><span class="n">IEventPublisher</span><span class="p">,</span> <span class="n">EventPublisher</span><span class="p">&gt;();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">TryAddSingleton</span><span class="p">&lt;</span><span class="n">IEventPublisherStrategy</span><span class="p">,</span> <span class="n">ForeachAwaitPublisherStrategy</span><span class="p">&gt;();</span>
+    <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can also create an extension for easy registration of handlers.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="n">AddDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">,</span> <span class="n">THandler</span><span class="p">&gt;(</span>
+    <span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">,</span>
+    <span class="n">ServiceLifetime</span> <span class="n">lifetime</span> <span class="p">=</span> <span class="n">ServiceLifetime</span><span class="p">.</span><span class="n">Transient</span><span class="p">)</span>
+    <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+    <span class="k">where</span> <span class="n">THandler</span> <span class="p">:</span> <span class="k">class</span><span class="err">,</span> <span class="nc">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">ServiceDescriptor</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;),</span> <span class="k">typeof</span><span class="p">(</span><span class="n">THandler</span><span class="p">),</span> <span class="n">lifetime</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Using this extension looks like this <code class="highlighter-rouge">services.AddDomainEventHandler&lt;YourEvent, YourHandler&gt;();</code>. 
+This is because I wanted to avoid reflection. If reflection doesn’t bother you, a simplified call to <code class="highlighter-rouge">services.AddDomainEventHandler&lt;YourHandler&gt;();</code>. 
+But I’ll leave that up to you 😉.</p>
+</blockquote>
+
+<h2 id="usage">Usage</h2>
+
+<p>Finally, we’ll show you how to use our own Mediator.</p>
+
+<p>Event and handler:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 The event that the product was created</span>
+<span class="k">public</span> <span class="n">record</span> <span class="nf">ProductCreated</span><span class="p">(</span><span class="kt">int</span> <span class="n">Id</span><span class="p">,</span> <span class="kt">string</span> <span class="n">Name</span><span class="p">,</span> <span class="kt">decimal</span> <span class="n">Price</span><span class="p">)</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
+
+<span class="c1">// 👇 The handler that will process the event</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ProductCreatedHandler</span> <span class="p">:</span> <span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">ProductCreated</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Task</span> <span class="nf">HandleAsync</span><span class="p">(</span><span class="n">ProductCreated</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Process the event</span>
+        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"Product created: </span><span class="p">{</span><span class="n">domainEvent</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The registration:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddEventPublisher</span><span class="p">();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddDomainEventHandler</span><span class="p">&lt;</span><span class="n">ProductCreated</span><span class="p">,</span> <span class="n">ProductCreatedHandler</span><span class="p">&gt;();</span>
+</code></pre></div></div>
+
+<p>Use in endpoint:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapPost</span><span class="p">(</span><span class="s">"/products"</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="n">Product</span> <span class="n">product</span><span class="p">,</span> <span class="n">IEventPublisher</span> <span class="n">publisher</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// Save the product</span>
+    <span class="c1">// 👇 Publish the event</span>
+    <span class="k">await</span> <span class="n">publisher</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="k">new</span> <span class="nf">ProductCreated</span><span class="p">(</span><span class="n">product</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">product</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">product</span><span class="p">.</span><span class="n">Price</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">product</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://github.com/Burgyn/MMLib.Sample.Mediator">Sample project</a></li>
+</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="unit tests" /><category term="architecture" /><summary type="html"><![CDATA[Discover how to build your own implementation of the Mediator design pattern in a .NET environment without third-party libraries.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ocelot ETag Caching</title><link href="https://blog.burgyn.online/2024/06/02/ocelot-etag-caching" rel="alternate" type="text/html" title="Ocelot ETag Caching" /><published>2024-06-02T17:00:00+00:00</published><updated>2024-06-02T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/06/02/ocelot-etag-caching</id><content type="html" xml:base="https://blog.burgyn.online/2024/06/02/ocelot-etag-caching"><![CDATA[<p>The <code class="highlighter-rouge">Kros.Ocelot.ETagCaching</code> library brings ETag caching support to the Ocelot API Gateway. ETag caching is an HTTP caching mechanism that allows clients to verify if the cached data is still current without downloading the entire resource again. If the data hasn’t changed, the server responds with a <code class="highlighter-rouge">304 Not Modified</code> status, prompting the client to use the cached data, thereby saving bandwidth and reducing server load.</p>
+
+<h2 id="why-use-etag-caching">Why Use ETag Caching?</h2>
+
+<p>ETag caching is particularly useful in scenarios where data changes infrequently but is requested frequently. It optimizes network usage and improves response times by minimizing data transfer. By using ETags, clients can ensure they always have the most recent version of the data.</p>
+
+<h2 id="how-etag-caching-works">How ETag Caching Works</h2>
+
+<p>ETag caching involves the use of two HTTP headers:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">ETag</code>: A unique identifier for the data, typically a hash or a version number.</li>
+  <li><code class="highlighter-rouge">cache-control</code>: Instructs the client that the response can be cached. For ETag caching, this should be set to <code class="highlighter-rouge">private</code>.</li>
+</ul>
+
+<p>When a client receives a response with these headers, it caches the data and the ETag value. On subsequent requests, the client sends an <code class="highlighter-rouge">If-None-Match</code> header with the ETag value. The server then compares the ETag with the current version of the data. If they match, the server returns a <code class="highlighter-rouge">304 Not Modified</code> status, indicating the client should use the cached data.</p>
+
+<h2 id="implementation-in-ocelot">Implementation in Ocelot</h2>
+
+<p>The <code class="highlighter-rouge">Kros.Ocelot.ETagCaching</code> library integrates seamlessly with Ocelot’s middleware. It handles ETag generation, storage, and validation transparently. Here’s how to get started:</p>
+
+<h3 id="ocelot-configuration">Ocelot Configuration</h3>
+
+<p>Configure your routes in the <code class="highlighter-rouge">ocelot.json</code> file, specifying cache policies:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Routes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getAllProducts"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"CachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getAllProducts"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">👈</span><span class="w"> </span><span class="err">Cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getProduct"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"CachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getProduct"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">👈</span><span class="w"> </span><span class="err">Cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deleteProduct"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"InvalidateCachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidateProductCachePolicy"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="programcs-configuration">Program.cs Configuration</h3>
+
+<p>Set up the ETag caching policies in <code class="highlighter-rouge">Program.cs</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Define policies</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddOcelotETagCaching</span><span class="p">((</span><span class="n">c</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">//  👇 Simple policy with expiration and tag templates</span>
+    <span class="n">c</span><span class="p">.</span><span class="nf">AddPolicy</span><span class="p">(</span><span class="s">"getAllProducts"</span><span class="p">,</span> <span class="n">p</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">Expire</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromMinutes</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"products:{tenantId}"</span><span class="p">,</span> <span class="s">"all"</span><span class="p">,</span> <span class="s">"tenantAll:{tenantId}"</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 👇 Policy with custom cache key, ETag generator, and cache control</span>
+    <span class="n">c</span><span class="p">.</span><span class="nf">AddPolicy</span><span class="p">(</span><span class="s">"getProduct"</span><span class="p">,</span> <span class="n">p</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">Expire</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromMinutes</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"product:{tenantId}:{id}"</span><span class="p">,</span> <span class="s">"tenant:{tenantId}:all"</span><span class="p">,</span> <span class="s">"all"</span><span class="p">);</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">CacheKey</span><span class="p">(</span><span class="n">context</span> <span class="p">=&gt;</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="nf">GetValues</span><span class="p">(</span><span class="s">"id"</span><span class="p">).</span><span class="nf">FirstOrDefault</span><span class="p">());</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">ETag</span><span class="p">(</span><span class="n">context</span> <span class="p">=&gt;</span> <span class="k">new</span><span class="p">(</span><span class="s">$""</span><span class="p">{</span><span class="n">Guid</span><span class="p">.</span><span class="nf">NewGuid</span><span class="p">()}</span><span class="s">""</span><span class="p">));</span>
+        <span class="n">p</span><span class="p">.</span><span class="nf">CacheControl</span><span class="p">(</span><span class="k">new</span><span class="p">()</span> <span class="p">{</span> <span class="n">Public</span> <span class="p">=</span> <span class="k">false</span> <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Add the ETag caching middleware to the Ocelot pipeline:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app.UseOcelot(c =&gt;
+{
+    // 👇 Add ETag caching middleware
+    c.AddETagCaching();
+}).Wait();
+</code></pre></div></div>
+
+<h2 id="tag-templates-and-cache-invalidation">Tag Templates and Cache Invalidation</h2>
+
+<p>Tag templates are used to generate cache tags based on request parameters, making it easy to invalidate specific cache entries. For example, for the route <code class="highlighter-rouge">/api/{tenantId}/products/{id}</code> and the tag template <code class="highlighter-rouge">product:{tenantId}:{id}</code>, the tag will be <code class="highlighter-rouge">product:1:2</code>.</p>
+
+<h3 id="automatic-cache-invalidation">Automatic Cache Invalidation</h3>
+
+<p>Define invalidate cache policies in <code class="highlighter-rouge">ocelot.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deleteProduct"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"UpstreamHttpMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"Delete"</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"InvalidateCachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidateProductCachePolicy"</span><span class="w"> 
+    </span><span class="err">//</span><span class="w"> </span><span class="err">👆</span><span class="w"> </span><span class="err">Invalidate</span><span class="w"> </span><span class="err">cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And configure them in <code class="highlighter-rouge">Program.cs</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddOcelotETagCaching</span><span class="p">(</span><span class="n">conf</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 Define invalidate cache policy</span>
+    <span class="n">conf</span><span class="p">.</span><span class="nf">AddInvalidatePolicy</span><span class="p">(</span><span class="s">"invalidateProductCachePolicy"</span><span class="p">,</span> <span class="n">builder</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Define tag templates to invalidate</span>
+        <span class="n">builder</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"product:{tenantId}"</span><span class="p">,</span> <span class="s">"product:{tenantId}:{id}"</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="manual-cache-invalidation">Manual Cache Invalidation</h3>
+
+<p>Manually invalidate cache entries using the <code class="highlighter-rouge">IOutputCacheStore</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ProductsService</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IOutputCacheStore</span> <span class="n">_outputCacheStore</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">ProductsService</span><span class="p">(</span><span class="n">IOutputCacheStore</span> <span class="n">outputCacheStore</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_outputCacheStore</span> <span class="p">=</span> <span class="n">outputCacheStore</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">DeleteProduct</span><span class="p">(</span><span class="kt">int</span> <span class="n">tenantId</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">await</span> <span class="n">_outputCacheStore</span><span class="p">.</span><span class="nf">InvalidateAsync</span><span class="p">(</span>
+            <span class="s">$"product:</span><span class="p">{</span><span class="n">tenantId</span><span class="p">}</span><span class="s">"</span><span class="p">,</span> <span class="s">$"product:</span><span class="p">{</span><span class="n">tenantId</span><span class="p">}</span><span class="s">:</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+        <span class="c1">// 👆 Invalidate cache entries by tags            </span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="redis-integration">Redis Integration</h2>
+
+<p>By default, the library uses <code class="highlighter-rouge">InMemoryCacheStore</code>, but you can configure it to use Redis for distributed caching:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddStackExchangeRedisOutputCache</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">Configuration</span> 
+        <span class="p">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">Configuration</span><span class="p">.</span><span class="nf">GetConnectionString</span><span class="p">(</span><span class="s">"MyRedisConStr"</span><span class="p">);</span>
+    <span class="n">options</span><span class="p">.</span><span class="n">InstanceName</span> <span class="p">=</span> <span class="s">"SampleInstance"</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+  <li><a href="https://github.com/Kros-sk/Kros.Ocelot.ETagCaching">Kros.Ocelot.ETagCaching GitHub Repository</a></li>
+  <li><a href="https://ocelot.readthedocs.io/en/latest/">Ocelot</a></li>
+</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="caching" /><category term="architecture" /><summary type="html"><![CDATA[A blog post discussing the use of ETag caching with Kros.Ocelot.ETagCaching library and Ocelot API Gateway.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">ASP.NET CORE Minimal API - Content Negotiation</title><link href="https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation" rel="alternate" type="text/html" title="ASP.NET CORE Minimal API - Content Negotiation" /><published>2024-05-19T17:00:00+00:00</published><updated>2024-05-19T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation</id><content type="html" xml:base="https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation"><![CDATA[<p>The primary goal of <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-8.0">ASP.NET Core Minimal API</a> is to deliver a straightforward, simple, and most importantly, very powerful framework for creating APIs. Rather than delivering features to cover every possible usage scenario <em>(unlike <a href="https://learn.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui?view=aspnetcore-8.0">MVC</a>)</em> it is designed with certain specific patterns in mind. One of these cases is that the Minimal API consumes and produces only the <code class="highlighter-rouge">JSON</code> format <em>(Thus, it does not support <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation">Content Negotiation</a> which is handled by <a href="https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/formatting?view=aspnetcore-8.0#content-negotiation">Output formatters</a> in the case of MVC)</em>.
+However, there are situations where you really need either a different type of output <em>(for example, standard <code class="highlighter-rouge">XML</code>)</em>, or you need to be more in control of the serialization process, and you want to take advantage of the simplicity and power of the Minimal API. In this article, I will try to show how you can create your own support for Content Negotiation in the Minimal API.</p>
+
+<blockquote>
+  <p>⚠️ This is a functional implementation, but it doesn’t cover all scenarios and is just a basic example of what such support could look like.</p>
+</blockquote>
+
+<p>The whole solution is based on a custom implementation for <code class="highlighter-rouge">IResult</code>. <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/responses?view=aspnetcore-8.0">More info in the documentation</a>.</p>
+
+<h2 id="iresponsenegotiator"><code class="highlighter-rouge">IResponseNegotiator</code></h2>
+
+<p>Let’s first define the interface whose implementation will be responsible for serializing the response.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IResponseNegotiator</span>
+<span class="p">{</span>
+    <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">);</span>
+
+    <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="implementation-for-json">Implementation for JSON</h2>
+
+<p>For JSON, we can directly use <code class="highlighter-rouge">Ok&lt;TResult&gt;</code> result, which is part of the Minimal API.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">JsonNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">=&gt;</span> <span class="n">MediaTypeNames</span><span class="p">.</span><span class="n">Application</span><span class="p">.</span><span class="n">Json</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="n">accept</span><span class="p">.</span><span class="n">MediaType</span> <span class="p">==</span> <span class="n">ContentType</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Use original Ok&lt;TResult&gt; type for JSON serialization</span>
+        <span class="k">return</span> <span class="n">TypedResults</span><span class="p">.</span><span class="nf">Ok</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">httpContext</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="implementation-for-xml">Implementation for XML</h2>
+
+<p>For XML, we can create a custom implementation that uses, for example, <code class="highlighter-rouge">DataContractSerializer</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">XmlNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">=&gt;</span> <span class="n">MediaTypeNames</span><span class="p">.</span><span class="n">Application</span><span class="p">.</span><span class="n">Xml</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="n">accept</span><span class="p">.</span><span class="n">MediaType</span> <span class="p">==</span> <span class="n">ContentType</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="n">ContentType</span><span class="p">;</span>
+
+        <span class="c1">// 👇 Use DataContractSerializer for XML serialization</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">stream</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">FileBufferingWriteStream</span><span class="p">();</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">streamWriter</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
+        <span class="kt">var</span> <span class="n">serializer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DataContractSerializer</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="nf">GetType</span><span class="p">());</span>
+
+        <span class="n">serializer</span><span class="p">.</span><span class="nf">WriteObject</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+
+        <span class="k">await</span> <span class="n">stream</span><span class="p">.</span><span class="nf">DrainBufferAsync</span><span class="p">(</span><span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Body</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="registration">Registration</h2>
+
+<p>Unfortunately, due to the way <code class="highlighter-rouge">IEndpointMetadataProvider</code> works and the way serialization works directly in the Minimal API, I couldn’t find an elegant way to use the DI container <em>(there would be a few inelegant ones 😊).</em> So I resorted to a custom registrar for negotiators.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">ContentNegotiationProvider</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">IResponseNegotiator</span><span class="p">&gt;</span> <span class="n">_negotiators</span> <span class="p">=</span> <span class="p">[];</span>
+
+    <span class="c1">// 👇 Internal list of negotiators</span>
+    <span class="k">internal</span> <span class="k">static</span> <span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">IResponseNegotiator</span><span class="p">&gt;</span> <span class="n">Negotiators</span> <span class="p">=&gt;</span> <span class="n">_negotiators</span><span class="p">;</span>
+
+    <span class="c1">// 👇 Add negotiator to the list</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">TNegotiator</span><span class="p">&gt;()</span>
+        <span class="k">where</span> <span class="n">TNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span><span class="p">,</span> <span class="k">new</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">_negotiators</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">TNegotiator</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We register the negotiators in <code class="highlighter-rouge">Program.cs</code> or <code class="highlighter-rouge">Startup.cs</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">JsonNegotiator</span><span class="p">&gt;();</span>
+<span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">XmlNegotiator</span><span class="p">&gt;();</span>
+</code></pre></div></div>
+
+<h2 id="contentnegotiationresulttresult"><code class="highlighter-rouge">ContentNegotiationResult&lt;TResult&gt;</code></h2>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">TResult</span> <span class="n">result</span><span class="p">)</span>
+    <span class="p">:</span> <span class="n">IResult</span><span class="p">,</span> <span class="n">IEndpointMetadataProvider</span><span class="p">,</span> <span class="n">IStatusCodeHttpResult</span><span class="p">,</span> <span class="n">IValueHttpResult</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">TResult</span> <span class="n">_result</span> <span class="p">=</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="k">public</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_result</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status204NoContent</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 👇 Get negotiator based on Accept header</span>
+        <span class="kt">var</span> <span class="n">negotiator</span> <span class="p">=</span> <span class="nf">GetNegotiator</span><span class="p">(</span><span class="n">httpContext</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">negotiator</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status406NotAcceptable</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 👇 Set status code</span>
+        <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCode</span><span class="p">;</span>
+
+        <span class="c1">// 👇 Handle the result</span>
+        <span class="k">return</span> <span class="n">negotiator</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="n">httpContext</span><span class="p">,</span> <span class="n">_result</span><span class="p">,</span> <span class="n">httpContext</span><span class="p">.</span><span class="n">RequestAborted</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">static</span> <span class="n">IResponseNegotiator</span><span class="p">?</span> <span class="nf">GetNegotiator</span><span class="p">(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">accept</span> <span class="p">=</span> <span class="n">httpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="nf">GetTypedHeaders</span><span class="p">().</span><span class="n">Accept</span><span class="p">;</span>
+        <span class="c1">// 👇 Get negotiator based on Accept header (use ContentNegotiationProvider)</span>
+        <span class="k">return</span> <span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">Negotiators</span><span class="p">.</span><span class="nf">FirstOrDefault</span><span class="p">(</span><span class="n">n</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">accept</span><span class="p">.</span><span class="nf">Any</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">n</span><span class="p">.</span><span class="nf">CanHandle</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="c1">//...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To make the documentation nicely generated and contain information about possible formats, we can implement <code class="highlighter-rouge">IEndpointMetadataProvider</code>.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">void</span> <span class="n">IEndpointMetadataProvider</span><span class="p">.</span><span class="nf">PopulateMetadata</span><span class="p">(</span><span class="n">MethodInfo</span> <span class="n">method</span><span class="p">,</span> <span class="n">EndpointBuilder</span> <span class="n">builder</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 Add produces response type metadata</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">Metadata</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">ProducesResponseTypeMetadata</span><span class="p">(</span><span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status200OK</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TResult</span><span class="p">),</span>
+        <span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">Negotiators</span><span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">n</span> <span class="p">=&gt;</span> <span class="n">n</span><span class="p">.</span><span class="n">ContentType</span><span class="p">).</span><span class="nf">ToArray</span><span class="p">()));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="helper-method">Helper method</h2>
+
+<p>Let’s create a static helper for ease of use.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Negotiation</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">Negotiate</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">result</span><span class="p">)</span>
+        <span class="p">=&gt;</span> <span class="k">new</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="usage">Usage</h2>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapGet</span><span class="p">(</span><span class="s">"/products"</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 Use Negotiation</span>
+    <span class="k">return</span> <span class="n">Negotiation</span><span class="p">.</span><span class="nf">Negotiate</span><span class="p">(</span><span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="k">new</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">"Product 1"</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span> <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="n">app</span><span class="p">.</span><span class="nf">MapGet</span><span class="p">(</span><span class="s">"/products/{id}"</span><span class="p">,</span> <span class="n">GetProduct</span><span class="p">);</span>
+
+<span class="k">static</span> <span class="n">Results</span><span class="p">&lt;</span><span class="n">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;,</span> <span class="n">NotFound</span><span class="p">&gt;</span> <span class="nf">GetProduct</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">id</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Use Negotiation</span>
+        <span class="k">return</span> <span class="n">Negotiation</span><span class="p">.</span><span class="nf">Negotiate</span><span class="p">(</span><span class="k">new</span> <span class="nf">Product</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">"Product 1"</span><span class="p">,</span> <span class="m">100</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">TypedResults</span><span class="p">.</span><span class="nf">NotFound</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>That’s it ✅.</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">### GET products as XML
+GET http://localhost:5210/product/
+Accept: application/xml
+
+### Response
+&lt;ArrayOfProduct xmlns="http://schemas.datacontract.org/2004/07/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;Product&gt;
+    &lt;Id&gt;1&lt;/Id&gt;
+    &lt;Name&gt;Product 1&lt;/Name&gt;
+    &lt;Price&gt;100&lt;/Price&gt;
+  &lt;/Product&gt;
+&lt;/ArrayOfProduct&gt;
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>⚠️ This solution is just a basic suggestion and does not cover all possible scenarios. 
+For example, the way it is done you can only use it for <code class="highlighter-rouge">200 OK</code> answers (but it can be extended).</p>
+</blockquote>
+
+<p>The full example is on <a href="https://github.com/Burgyn/Samples.ContentNegotion">GitHub</a>.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><summary type="html"><![CDATA[A guide to creating your own support for Content Negotiation in ASP.NET Core Minimal API by developing a custom 'IResult' implementation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to use IHostedService to initialize an application</title><link href="https://blog.burgyn.online/2024/05/12/how-to-use-ihostedservice-to-initialize-an-application" rel="alternate" type="text/html" title="How to use IHostedService to initialize an application" /><published>2024-05-12T17:00:00+00:00</published><updated>2024-05-12T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/05/12/how-to-use-ihostedservice-to-initialize-an-application</id><content type="html" xml:base="https://blog.burgyn.online/2024/05/12/how-to-use-ihostedservice-to-initialize-an-application"><![CDATA[<blockquote>
+  <p>ℹ️ This is another article in a series showing how you can use <code class="highlighter-rouge">IHostedService</code>.</p>
+  <ul>
+    <li><a href="/2024/04/28/asp-net-core-periodic-background-task">ASP.NET Core - Periodic Background Task</a>.</li>
+    <li><a href="/2024/05/05/asp-net-core-queued-hosted-service">ASP.NET Core - Queued hosted service</a>.</li>
+  </ul>
+</blockquote>
+
+<p>You may find that you need to do some initialization before your ASP.NET Core service starts (before the service starts responding to queries). 
+For example, you need to run database migrations, create some records, create storage, load data into the local cache, and so on.</p>
+
+<blockquote>
+  <p>⚠️ Beware of database migrations and data initialization. 
+For a more complex system it is recommended to do this in the CI/CD process and not at service start <em>(complications with multiple service instances, slowing down the application start, …)</em>.<br />
+In the case of <a href="https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/applying?tabs=dotnet-core-cli#bundles">Entity Framework it is possible for example to create a bundle.exe</a> <code class="highlighter-rouge">dotnet ef migrations bundle</code> and run this in the CD process.</p>
+
+  <p>However, this is suitable for simple services or for local development needs.</p>
+</blockquote>
+
+<p>A simple and quite nice way to do this is to use <code class="highlighter-rouge">IHostedService</code>.</p>
+
+<p>Let’s create an interface for such an application initializer:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IAppInitializer</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="nf">InitializeAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We then create a handler that implements <code class="highlighter-rouge">IHostedService</code> and handles all the initializers:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">internal</span> <span class="k">class</span> <span class="nc">AppInitializerHandler</span><span class="p">(</span><span class="n">IServiceScopeFactory</span> <span class="n">scopeFactory</span><span class="p">)</span> 
+    <span class="p">:</span> <span class="n">IHostedService</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IServiceScopeFactory</span> <span class="n">_scopeFactory</span> <span class="p">=</span> <span class="n">scopeFactory</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">StartAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Create a new scope to retrieve scoped services</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">scope</span> <span class="p">=</span> <span class="n">_scopeFactory</span><span class="p">.</span><span class="nf">CreateScope</span><span class="p">();</span>
+        <span class="c1">// 👇 Get all initializers</span>
+        <span class="kt">var</span> <span class="n">initializers</span> <span class="p">=</span> <span class="n">scope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">.</span><span class="n">GetServices</span><span class="p">&lt;</span><span class="n">IAppInitializer</span><span class="p">&gt;();</span>
+
+        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">initializer</span> <span class="k">in</span> <span class="n">initializers</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 Run the initializer (choose your async strategy)</span>
+            <span class="k">await</span> <span class="n">initializer</span><span class="p">.</span><span class="nf">InitializeAsync</span><span class="p">(</span><span class="n">cancellationToken</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">Task</span> <span class="nf">StopAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>An example of an initializer that will populate the local cache:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">CacheInitializer</span><span class="p">(</span>
+    <span class="n">IMemoryCache</span> <span class="n">memoryCache</span><span class="p">,</span> 
+    <span class="n">IProductRepository</span> <span class="n">productRepository</span><span class="p">)</span> <span class="p">:</span> <span class="n">IAppInitializer</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IMemoryCache</span> <span class="n">_memoryCache</span> <span class="p">=</span> <span class="n">memoryCache</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IProductRepository</span> <span class="n">productRepository</span> <span class="p">=</span> <span class="n">productRepository</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">Task</span> <span class="nf">InitializeAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Your logic for initializing the cache can go here</span>
+        <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In case we want to run database migrations, we can directly implement this interface in DbContext:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ProductsDbContext</span> <span class="p">:</span> <span class="n">DbContext</span><span class="p">,</span> <span class="n">IAppInitializer</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;</span> <span class="n">Products</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">public</span> <span class="nf">ProductsDbContext</span><span class="p">(</span><span class="n">DbContextOptions</span> <span class="n">options</span><span class="p">)</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">InitializeAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Apply pending migrations</span>
+        <span class="k">await</span> <span class="n">Database</span><span class="p">.</span><span class="nf">MigrateAsync</span><span class="p">(</span><span class="n">cancellationToken</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finally, we register all initializers and handler in DI containers:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Register the initializers</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IAppInitializer</span><span class="p">,</span> <span class="n">ProductsDbContext</span><span class="p">&gt;();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IAppInitializer</span><span class="p">,</span> <span class="n">CacheInitializer</span><span class="p">&gt;();</span>
+
+<span class="c1">// 👇 register AppInitializerHandler as a hosted service</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddHostedService</span><span class="p">&lt;</span><span class="n">AppInitializerHandler</span><span class="p">&gt;();</span>
+</code></pre></div></div>
+
+<p>This way we can elegantly initialize our application before it starts answering queries.</p>
+
+<blockquote>
+  <p>⚠️ Remember that initialization should be fast.</p>
+</blockquote>
+
+<p>To simplify registration to the DI container, we can create an extension:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">ServiceCollectionExtensions</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="n">AddAppInitializer</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span>
+        <span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span> 
+        <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">class</span><span class="err">,</span> <span class="nc">IAppInitializer</span>
+    <span class="p">{</span>
+        <span class="n">services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IAppInitializer</span><span class="p">,</span> <span class="n">T</span><span class="p">&gt;();</span>
+        <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 👇 Register the initializers</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddAppInitializer</span><span class="p">&lt;</span><span class="n">ProductsDbContext</span><span class="p">&gt;();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddAppInitializer</span><span class="p">&lt;</span><span class="n">CacheInitializer</span><span class="p">&gt;();</span>
+</code></pre></div></div>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><category term="architecture" /><summary type="html"><![CDATA[Learn how to use IHostedService in ASP.NET Core for tasks like database migrations or local cache loading before the service starts responding.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">ASP.NET Core - Queued hosted service</title><link href="https://blog.burgyn.online/2024/05/05/asp-net-core-queued-hosted-service" rel="alternate" type="text/html" title="ASP.NET Core - Queued hosted service" /><published>2024-05-05T17:00:00+00:00</published><updated>2024-05-05T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/05/05/asp-net-core-queued-hosted-service</id><content type="html" xml:base="https://blog.burgyn.online/2024/05/05/asp-net-core-queued-hosted-service"><![CDATA[<blockquote>
+  <p>ℹ️ This is a follow-up to <a href="/2024/04/28/asp-net-core-periodic-background-task">ASP.NET Core - Periodic Background Task</a>.</p>
+</blockquote>
+
+<p>There are situations when you do not want to process a longer-running action directly during request processing, but want to queue it and have it processed later. This is very useful when processing a large number of requests, where processing them directly (or parts of them) could slow down the overall performance of the application. If you use cloud services like AZURE or AWS, you may want to reach for their solutions. In AZURE, this would likely be a combination of <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview">Service bus</a> and <a href="https://azure.microsoft.com/en-us/products/functions#:~:text=Azure%20Functions%20is%20an%20event,highest%20level%20of%20hardware%20abstraction.">AZURE Functions</a>.</p>
+
+<p>But it’s good to know that we can implement a similar solution directly in our ASP.NET Core service.</p>
+
+<p>Let’s define an interface describing a simple task queue:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Simple interface for background task queue</span>
+<span class="k">public</span> <span class="k">interface</span> <span class="nc">IBackgroundTaskQueue</span>
+<span class="p">{</span>
+    <span class="n">ValueTask</span> <span class="nf">Queue</span><span class="p">(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;</span> <span class="n">workItem</span><span class="p">);</span>
+
+    <span class="n">ValueTask</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;&gt;</span> <span class="nf">Dequeue</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>For example, a task queue implementation based on <code class="highlighter-rouge">System.Threading.Channel</code> might look like this:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Simple implementation of background task queue based on System.Threading.Channel</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">BackgroundTaskQueue</span> <span class="p">:</span> <span class="n">IBackgroundTaskQueue</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">Channel</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;&gt;</span> <span class="n">_queue</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">BackgroundTaskQueue</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">BoundedChannelOptions</span><span class="p">(</span><span class="n">capacity</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 Wait for the queue to have space</span>
+            <span class="n">FullMode</span> <span class="p">=</span> <span class="n">BoundedChannelFullMode</span><span class="p">.</span><span class="n">Wait</span>
+        <span class="p">};</span>
+        <span class="n">_queue</span> <span class="p">=</span> <span class="n">Channel</span><span class="p">.</span><span class="n">CreateBounded</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;&gt;(</span><span class="n">options</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">ValueTask</span> <span class="nf">Queue</span><span class="p">(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;</span> <span class="n">workItem</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ArgumentNullException</span><span class="p">.</span><span class="nf">ThrowIfNull</span><span class="p">(</span><span class="n">workItem</span><span class="p">);</span>
+
+        <span class="k">await</span> <span class="n">_queue</span><span class="p">.</span><span class="n">Writer</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="n">workItem</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">ValueTask</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;&gt;</span> <span class="nf">Dequeue</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">workItem</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_queue</span><span class="p">.</span><span class="n">Reader</span><span class="p">.</span><span class="nf">ReadAsync</span><span class="p">(</span><span class="n">cancellationToken</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">workItem</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finally, let’s create a background service that will sequentially process tasks from the queue:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Hosted service that processes the queued work items</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">QueuedHostedService</span><span class="p">(</span>
+    <span class="n">IBackgroundTaskQueue</span> <span class="n">taskQueue</span><span class="p">,</span>
+    <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">QueuedHostedService</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">)</span> <span class="p">:</span> <span class="n">BackgroundService</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">QueuedHostedService</span><span class="p">&gt;</span> <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IBackgroundTaskQueue</span> <span class="n">_taskQueue</span> <span class="p">=</span> <span class="n">taskQueue</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">stoppingToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(!</span><span class="n">stoppingToken</span><span class="p">.</span><span class="n">IsCancellationRequested</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 Dequeue the work item</span>
+            <span class="kt">var</span> <span class="n">workItem</span> <span class="p">=</span>
+                <span class="k">await</span> <span class="n">_taskQueue</span><span class="p">.</span><span class="nf">Dequeue</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">);</span>
+
+            <span class="k">try</span>
+            <span class="p">{</span>
+                <span class="c1">// 👇 Execute the work item</span>
+                <span class="k">await</span> <span class="nf">workItem</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">_logger</span><span class="p">.</span><span class="nf">LogError</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="s">"Error occurred executing: {WorkItem}."</span><span class="p">,</span> <span class="k">nameof</span><span class="p">(</span><span class="n">workItem</span><span class="p">));</span>
+                <span class="k">throw</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let’s not forget to register the service and the job queue in DI containers:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Register the hosted service and the background task queue in the DI container</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">IBackgroundTaskQueue</span><span class="p">&gt;(</span><span class="k">new</span> <span class="nf">BackgroundTaskQueue</span><span class="p">(</span><span class="m">30</span><span class="p">));</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddHostedService</span><span class="p">&lt;</span><span class="n">QueuedHostedService</span><span class="p">&gt;();</span>
+</code></pre></div></div>
+
+<p>For example, instead of processing an order directly within an endpoint, the use case might be to place it in a job queue:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Endpoint for processing orders</span>
+<span class="n">app</span><span class="p">.</span><span class="nf">MapPost</span><span class="p">(</span><span class="s">"/orders"</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span>
+    <span class="n">Order</span> <span class="n">order</span><span class="p">,</span> 
+    <span class="p">[</span><span class="n">FromServices</span><span class="p">]</span> <span class="n">IBackgroundTaskQueue</span> <span class="n">backgroundTaskQueue</span><span class="p">,</span> 
+    <span class="p">[</span><span class="n">FromServices</span><span class="p">]</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">Order</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 Enqueue the work item</span>
+    <span class="k">await</span> <span class="n">backgroundTaskQueue</span><span class="p">.</span><span class="nf">Queue</span><span class="p">(</span><span class="k">async</span> <span class="n">token</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Simulate processing the order</span>
+        <span class="n">logger</span><span class="p">.</span><span class="nf">LogInformation</span><span class="p">(</span><span class="s">"Processing order: {order}"</span><span class="p">,</span> <span class="n">order</span><span class="p">);</span>
+        <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="nf">Delay</span><span class="p">(</span><span class="m">1000</span><span class="p">,</span> <span class="n">token</span><span class="p">);</span>
+        <span class="n">logger</span><span class="p">.</span><span class="nf">LogInformation</span><span class="p">(</span><span class="s">"Order processed: {order}"</span><span class="p">,</span> <span class="n">order</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="n">Results</span><span class="p">.</span><span class="nf">Created</span><span class="p">(</span><span class="s">$"/orders/</span><span class="p">{</span><span class="n">order</span><span class="p">.</span><span class="n">Id</span><span class="p">}</span><span class="s">"</span><span class="p">,</span> <span class="n">order</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>In this way, we have created a simple job queue that processes jobs in the background. This solution is suitable for simple scenarios. For more complex scenarios, for example, you need to persist the jobs so that you can process them in case of an outage. You can use solutions such as Redis, AZURE Storage Account Queues, or a database to store the jobs.</p>
+
+<p>If even this is not enough (you need to store messages because of possible outages), try solutions like <a href="https://www.hangfire.io/">Hangfire</a>, or cloud platform services like AZURE Service Bus + AZURE Functions.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="asp.net core" /><category term="AZURE" /><summary type="html"><![CDATA[Discover how to process long-running actions with ASP.NET Core by task queuing, simultaneously improving your application's performance.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">ASP.NET Core - Periodic Background Task</title><link href="https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task" rel="alternate" type="text/html" title="ASP.NET Core - Periodic Background Task" /><published>2024-04-28T17:00:00+00:00</published><updated>2024-04-28T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task</id><content type="html" xml:base="https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task"><![CDATA[<p>You may have had a need in your services to run some task that will run periodically in the background <em>(cache updates, data synchronization, deleting old data, etc.)</em>. In new architectures, you might reach for something like AZURE Functions, AWS Lambda, or other serverless solutions. But it’s good to know that you can also do this directly in your <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0&amp;tabs=visual-studio">ASP.NET Core service</a>. Just implement your own hosted service using the <code class="highlighter-rouge">IHostedService</code> interface. 
+This interface defines two methods <code class="highlighter-rouge">StartAsync</code> and <code class="highlighter-rouge">StopAsync</code> that are called when the service starts and stops.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IHostedService</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="nf">StartAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
+
+    <span class="n">Task</span> <span class="nf">StopAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>But rather than creating your own implementation of <code class="highlighter-rouge">IHostedService</code>, you can inherit the <code class="highlighter-rouge">BackgroundService</code> abstract class to make your stuff easier. With this class, you can override the <code class="highlighter-rouge">StartAsync</code> and <code class="highlighter-rouge">StopAsync</code> methods and implement your logic in them. Or you can just implement the <code class="highlighter-rouge">ExecuteAsync</code> method and implement only what you want to be executed in it.</p>
+
+<p>The following example shows a simple implementation of <code class="highlighter-rouge">BackgroundService</code> that runs in the background and prints the current time every 5 seconds.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 This is a simple implementation of a hosted service that runs a background task</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">PeriodicBackgroundTask</span><span class="p">(</span><span class="n">ILogger</span><span class="p">&lt;</span><span class="n">PeriodicBackgroundTask</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">,</span> <span class="n">TimeProvider</span> <span class="n">timeProvider</span><span class="p">)</span> 
+    <span class="p">:</span> <span class="n">BackgroundService</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">PeriodicBackgroundTask</span><span class="p">&gt;</span> <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">TimeProvider</span> <span class="n">_timeProvider</span> <span class="p">=</span> <span class="n">timeProvider</span><span class="p">;</span>
+
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">stoppingToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 In real-world scenarios, you should get the interval from configuration</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">timer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PeriodicTimer</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
+
+        <span class="c1">// 👇 This loop will run every 5 seconds</span>
+        <span class="k">while</span> <span class="p">(!</span><span class="n">stoppingToken</span><span class="p">.</span><span class="n">IsCancellationRequested</span>
+            <span class="p">&amp;&amp;</span> <span class="k">await</span> <span class="n">timer</span><span class="p">.</span><span class="nf">WaitForNextTickAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">_logger</span><span class="p">.</span><span class="nf">LogInformation</span><span class="p">(</span><span class="s">"Current time: {CurrentTime}"</span><span class="p">,</span> <span class="n">_timeProvider</span><span class="p">.</span><span class="nf">GetUtcNow</span><span class="p">().</span><span class="n">TimeOfDay</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The given background task needs to be arranged in the DI container as a hosted service using the <code class="highlighter-rouge">AddHostedService</code> method.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 👇 Register the hosted service in the DI container
+builder.Services.AddHostedService&lt;PeriodicBackgroundTask&gt;();
+</code></pre></div></div>
+
+<p>You can inject any services you need to execute into your background task. However, they must be registered as either singleton or transient services. Therefore, if you need to access scoped services, you must create a new scope using <code class="highlighter-rouge">IServiceProvider.CreateScope()</code> and get the dependencies from that scope.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Use scoped dependency injection</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ProductProcesSyncBackgroundTask</span><span class="p">(</span><span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">)</span> <span class="p">:</span> <span class="n">BackgroundService</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">stoppingToken</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">using</span> <span class="nn">var</span> <span class="n">timer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PeriodicTimer</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromHours</span><span class="p">(</span><span class="m">2</span><span class="p">));</span>
+
+        <span class="k">while</span> <span class="p">(!</span><span class="n">stoppingToken</span><span class="p">.</span><span class="n">IsCancellationRequested</span>
+            <span class="p">&amp;&amp;</span> <span class="k">await</span> <span class="n">timer</span><span class="p">.</span><span class="nf">WaitForNextTickAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 Create a new scope to resolve scoped services</span>
+            <span class="k">using</span> <span class="nn">var</span> <span class="n">scope</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="nf">CreateScope</span><span class="p">();</span>
+            <span class="kt">var</span> <span class="n">service</span> <span class="p">=</span> <span class="n">scope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">IProductPricesSyncService</span><span class="p">&gt;();</span>
+
+            <span class="k">await</span> <span class="n">service</span><span class="p">.</span><span class="nf">SyncProductPricesAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>ℹ️ In the next article, I’ll show how to create your own background processing jobs that will be queued.</p>
+</blockquote>
+
+<p>If you need more complex job scheduling, you can use libraries such as <a href="https://www.hangfire.io/">Hangfire</a> or <a href="https://www.quartz-scheduler.net/">Quartz.NET</a>, which give you more options and configurations for job scheduling.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="architecture" /><category term="ASP.NET Core" /><summary type="html"><![CDATA[Learn how to run periodic tasks in the background of ASP.NET Core services by implementing your own hosted service using the IHostedService interface.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">HttpContext Request Features</title><link href="https://blog.burgyn.online/2024/04/21/httpcontext-request-features" rel="alternate" type="text/html" title="HttpContext Request Features" /><published>2024-04-21T17:00:00+00:00</published><updated>2024-04-21T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/04/21/httpcontext-request-features</id><content type="html" xml:base="https://blog.burgyn.online/2024/04/21/httpcontext-request-features"><![CDATA[<p>In ASP.NET Core, we are used to working with dependency injection and we tend to pass most of the information through dependency injection to the classes where we need it. 
+However, sometimes we work with information that is closely tied to a particular request and we don’t need, want, or can’t inject it into classes as dependencies. 
+For such cases, there is <code class="highlighter-rouge">HttpContext.Features</code>.</p>
+
+<p>The <code class="highlighter-rouge">Features</code> property is a simple collection of type <code class="highlighter-rouge">IFeatureCollection</code>, where we can store strongly typed objects and then retrieve them at places where we need them. 
+This collection is available within <code class="highlighter-rouge">HttpContext</code> and is available throughout the request lifecycle. 
+The <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/use-http-context?view=aspnetcore-8.0#features">ASP.NET Core framework </a>itself uses this collection to store various information, for example:</p>
+<ul>
+  <li><code class="highlighter-rouge">IRouteValuesFeature</code> - contains information about the parameters and their values from the request path</li>
+  <li><code class="highlighter-rouge">IEndpointFeature</code> - contains information about the endpoint that processes the request</li>
+  <li>…</li>
+</ul>
+
+<p>The <code class="highlighter-rouge">Features</code> property is also available to us and we can store our own information that we will need during the request processing.
+An example use case might be storing information about the current user, the current tenant, or other information that is necessary 
+for processing the request with is bound in some way, or retrieved from the request itself.</p>
+
+<p>Information is typically stored in <code class="highlighter-rouge">Features</code> within middleware that is registered within the application pipeline. 
+The middleware can retrieve the information from the request, process it, and then store it in <code class="highlighter-rouge">Features</code> for further processing within the application.</p>
+
+<p>An example of middleware that retrieves information about the current tenant from a request and stores it in <code class="highlighter-rouge">Features</code> might look like the following:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">CurrentTenantInfoMiddleware</span><span class="p">(</span><span class="n">RequestDelegate</span> <span class="n">next</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">RequestDelegate</span> <span class="n">_next</span> <span class="p">=</span> <span class="n">next</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">InvokeAsync</span><span class="p">(</span><span class="n">HttpContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">ITenantService</span> <span class="n">tenantService</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 More complex logic to determine the current tenant can be added here</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="nf">TryGetValue</span><span class="p">(</span><span class="s">"X-TenantId"</span><span class="p">,</span> <span class="k">out</span> <span class="kt">var</span> <span class="n">routeValue</span><span class="p">)</span>
+            <span class="p">&amp;&amp;</span> <span class="n">Guid</span><span class="p">.</span><span class="nf">TryParse</span><span class="p">(</span><span class="n">routeValue</span><span class="p">.</span><span class="nf">First</span><span class="p">()?.</span><span class="nf">ToString</span><span class="p">(),</span> <span class="k">out</span> <span class="kt">var</span> <span class="n">tenantId</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">tenantInfo</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tenantService</span><span class="p">.</span><span class="nf">GetTenantInfoAsync</span><span class="p">(</span><span class="n">tenantId</span><span class="p">);</span>
+            <span class="c1">// 👇 Store the tenant info in Features</span>
+            <span class="n">context</span><span class="p">.</span><span class="n">Features</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="n">tenantInfo</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">await</span> <span class="nf">_next</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 👇 Register the middleware</span>
+<span class="n">app</span><span class="p">.</span><span class="n">UseMiddleware</span><span class="p">&lt;</span><span class="n">CurrentTenantInfoMiddleware</span><span class="p">&gt;();</span>
+</code></pre></div></div>
+
+<p>We can then access information about the current tenant from <code class="highlighter-rouge">Features</code> within other parts of the application:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapGet</span><span class="p">(</span><span class="s">"/api/"</span><span class="p">,</span> <span class="p">(</span><span class="n">HttpContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 Access the current tenant info from the context</span>
+    <span class="kt">var</span> <span class="n">currentTenantInfo</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Features</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="n">ICurrentTenantInfo</span><span class="p">&gt;();</span>
+    <span class="k">return</span> <span class="n">Results</span><span class="p">.</span><span class="nf">Ok</span><span class="p">(</span><span class="n">currentTenantInfo</span><span class="p">?.</span><span class="n">Id</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>For simplicity, we can create an extension method for <code class="highlighter-rouge">IFeatureCollection</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">IFeatureCollectionExtensions</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">ICurrentTenantInfo</span><span class="p">?</span> <span class="nf">GetTenant</span><span class="p">(</span><span class="k">this</span> <span class="n">IFeatureCollection</span> <span class="n">features</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">features</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="n">ICurrentTenantInfo</span><span class="p">&gt;();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">var</span> <span class="n">tenantInfo</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Features</span><span class="p">.</span><span class="nf">GetTenant</span><span class="p">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>For completeness: another way to transfer information during one request is to use <code class="highlighter-rouge">HttpContext.Items</code>. This collection is available within <code class="highlighter-rouge">HttpContext</code> and is available throughout the request lifecycle. However, <code class="highlighter-rouge">Items</code> is not strongly typed. It is a key value. Therefore, it is preferable to use <code class="highlighter-rouge">Features</code> if we need to store strongly typed objects.</p>
+</blockquote>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><category term="multi-tenant" /><category term="architecture" /><summary type="html"><![CDATA[Learn how to use HttpContext.Request.Features in ASP.NET Core to store and retrieve information related to individual requests.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/httpcontext-request-features/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/httpcontext-request-features/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

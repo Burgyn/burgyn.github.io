@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Na čo dávam pozor pri Code Review | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Na čo dávam pozor pri Code Review" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="O tom prečo je na projekte dôležité Code Review sa popísalo veľa článkov. Napríklad tento." />
+<meta property="og:description" content="O tom prečo je na projekte dôležité Code Review sa popísalo veľa článkov. Napríklad tento." />
+<link rel="canonical" href="https://blog.burgyn.online/2020/05/21/na-co-davam-pozor-pri-code-review" />
+<meta property="og:url" content="https://blog.burgyn.online/2020/05/21/na-co-davam-pozor-pri-code-review" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-21T16:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Na čo dávam pozor pri Code Review" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2020-05-21T16:00:00+00:00","datePublished":"2020-05-21T16:00:00+00:00","description":"O tom prečo je na projekte dôležité Code Review sa popísalo veľa článkov. Napríklad tento.","headline":"Na čo dávam pozor pri Code Review","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2020/05/21/na-co-davam-pozor-pri-code-review"},"url":"https://blog.burgyn.online/2020/05/21/na-co-davam-pozor-pri-code-review"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Na čo dávam pozor pri Code Review</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2020-05-21T16:00:00+00:00" itemprop="datePublished">May 21, 2020
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/clean code">clean code</a> -->
+                clean code
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>O tom prečo je na projekte dôležité Code Review sa popísalo veľa článkov. Napríklad <a href="https://www.atlassian.com/agile/software-development/code-reviews">tento</a>.</p>
+
+<p>Na projektoch na ktorých pracujem využívame Code Review už niekoľko rokov. Chcem sa preto podeliť s tým na čo si pri CR dávam pozor ja, čo sledujem, aké otázky si kladiem.</p>
+
+<h2 id="popis">Popis</h2>
+
+<p>Je PR dobre popísaný? Je z popisu jasné aké zmeny boli vykonané a hlavne prečo? Aký bol dôvod? Keby sa pozriem na tento PR o mesiac, musím študovať zmeny, alebo aj na základe popisu viem určiť aké zmeny prináša?</p>
+
+<p>Dobrý popis výrazne ušetrí čas reviewerovi, ale aj pri budúcom skúmaní, prečo sa dané zmeny vykonali.</p>
+
+<h2 id="code-style">Code style</h2>
+
+<p>Zodpovedá kód našim štandardom? Toto bol bod, kotrý v minulosti zaberal veľkú časť CR. Našťastie v súčastnosti máme veci ako <a href="https://docs.microsoft.com/en-us/visualstudio/ide/create-portable-custom-editor-options?view=vs-2019"><code class="highlighter-rouge">.editorconfig</code></a>, <a href="https://github.com/JosefPihrt/Roslynator">Roslynator</a>, <a href="https://www.codefactor.io/">CodeFactor</a>, <a href="https://sonarcloud.io/">SonarCloud</a>, <a href="https://palantir.github.io/tslint/">TSLint</a>, … Vďaka čomu sa môžem sústrediť na dôležitejšie veci. <em>(Samozrejme Code style považujem za veľmi dôležitý)</em></p>
+
+<h2 id="zrozumiteľnosť">Zrozumiteľnosť</h2>
+
+<p>Rozumiem tomu? Nie a prečo?</p>
+
+<p>Je kód dostatočne zrozumiteľný? Nemusím zbytočne zložito skúmať čo daná vec robí? Kebyže sa pozriem na ten kód bez kontextu daného PR, pochopím rýchlo čo robí? Aký je jeho význam?</p>
+
+<p>Odporúčam knihu <a href="https://www.martinus.sk/?uItem=73286">Čistý kód</a>.</p>
+
+<h2 id="udržateľnosť--rozšíriteľnosť">Udržateľnosť / rozšíriteľnosť</h2>
+
+<p>Pokúsim sa predstaviť aké reálne požiadavky na zmenu danej veci by mohli prísť. Keď prídu, je tento kód na dané zmeny pripravený? Ak nie, dá sa už teraz niečo jednoducho zmeniť tak, aby sa nám to v budúcnosti ľahšie zapracovalo?</p>
+
+<h3 id="otázka-ktorú-si-kladiem">Otázka ktorú si kladiem:</h3>
+
+<ul>
+  <li>Je zmena izolovaná?</li>
+  <li>Nevidel som to už niekedy?</li>
+  <li>Nie sú tam zbytočné závislosti?</li>
+  <li>Sú zachytené všetky chyby/výnimky?</li>
+</ul>
+
+<h2 id="bezpečnosť">Bezpečnosť</h2>
+
+<h3 id="otázky-ktoré-si-kladiem">Otázky ktoré si kladiem:</h3>
+
+<ul>
+  <li>Nepoužívam nedôveryhodné knižnice?</li>
+  <li>Nie je kvôli danej zmene zrazu možné pristúpiť k dátam iného používateľa?</li>
+  <li>Overujem, či dáta ktoré vyťahujem naozaj patria danému používateľovi / tenant-u? Keď editujem záznam, naozaj mám právo na ten záznam?</li>
+  <li>Nemôže nastať Sql injection? Nevyskladávam parametre dotazu do nejaké stringu?</li>
+  <li>Nemôže nastať xss útok? Nerenderujem priamo niekde obsah, ktorý zadáva používateľ?</li>
+  <li>Ako narábam s kľúčmi? Nedávam náhodou nejaký kľúč na klienta? Nedávam niekde do logov naše kľúče?</li>
+  <li>…</li>
+</ul>
+
+<h2 id="výkon">Výkon</h2>
+
+<h3 id="otázky-ktoré-si-kladiem-1">Otázky ktoré si kladiem:</h3>
+
+<ul>
+  <li>Nenačítavam zbytočne viac dát ako potrebujem?</li>
+  <li>Používam správne údajové štruktúry?</li>
+  <li>Nevolám zbytočne <code class="highlighter-rouge">ToList</code> tam kde to nemá zmysel?</li>
+  <li>Správne dispozujem veci?</li>
+  <li>Nastavujem správny life cycle?</li>
+  <li>Nevolám z klienta zbytočne veľa dotazov?</li>
+</ul>
+
+<h2 id="testy">Testy</h2>
+
+<p>Testujú sa očakávané scenáre a hraničné hodnoty?</p>
+
+<h3 id="unit-testy">Unit testy</h3>
+
+<p>Pri knižniciach podmienka. Pokiaľ neviem napísať test, tak pravdepodobne mám zle navrhnutý kód. Pre doménové veci sú tiež Unit testy potrebné. Pre infraštruktúrne (controllery, …) radšej Postman testy.</p>
+
+<p>Pri testoch taktiež dodržujeme pravidlá na kvalitu kódu. Sú tam ale možné výnimky napr: Opakovanie kódu môže byť chcené (radšej nech sa v testo opakuje ten istý kód, ale mám istotu, že sa nič neovplyvňuje)</p>
+
+<h3 id="postman-testy">Postman testy</h3>
+
+<p>Je každý endpoint pokrytý testami?
+Testujú sa aj komplexnejšie scenáre? Jeden endpoint niečo založí, iným zas overím či to tam je.</p>
+
+<h3 id="end-to-end-testy">End-To-End testy</h3>
+
+<p>Tieto testy chceme aby písali nevývojári.</p>
+
+<h2 id="the-boy-scout-rule">The Boy Scout Rule</h2>
+
+<p>Always leave the code you are editing a little better than you found it. <em>- Robert C. Martin (Uncle Bob)</em></p>
+
+<h2 id="ľudskosť">Ľudskosť</h2>
+
+<ul>
+  <li>Žiadne negatívne komentáre proti autorovi.</li>
+  <li>Keď kritizuješ, navrhni lepšie riešenie, ak nemáš „drž hubu“ :-)</li>
+  <li>Než začneš kritizovať, skús nájsť dôvod, prečo to autor tak napísal – možno na to mal pádny dôvod.</li>
+</ul>
+
+<h2 id="zhrnutie">Zhrnutie</h2>
+
+<p>Code Review považujem za veľmi dôležitý nástroj pri vývojí akéhokoľvek projektu. Za pravdu mi dáva aj to, že v súčasnsti sa to už považuje za štandard. Robiť Code Review vôbec nie je jednoduché. Zaberá dosť času a stojí dosť síl. Týchto pár bodov mi pomáha pristupovať k CR zodpovedne, systematicky tak aby prinášalo očakávaný osoh, ale zas aby mi nezaberalo všetok pracovný čas.</p>
+
+<p>A čo vy? Máte svoj zoznam? Ak áno podelte sa.</p>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2020/05/21/na-co-davam-pozor-pri-code-review" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

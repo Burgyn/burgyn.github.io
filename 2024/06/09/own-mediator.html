@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+    <meta name="keywords" content="Mediator design pattern, .NET">
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Own mediator | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Own mediator" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Discover how to build your own implementation of the Mediator design pattern in a .NET environment without third-party libraries." />
+<meta property="og:description" content="Discover how to build your own implementation of the Mediator design pattern in a .NET environment without third-party libraries." />
+<link rel="canonical" href="https://blog.burgyn.online/2024/06/09/own-mediator" />
+<meta property="og:url" content="https://blog.burgyn.online/2024/06/09/own-mediator" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:image" content="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-06-09T17:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" />
+<meta property="twitter:title" content="Own mediator" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2024-06-09T17:00:00+00:00","datePublished":"2024-06-09T17:00:00+00:00","description":"Discover how to build your own implementation of the Mediator design pattern in a .NET environment without third-party libraries.","headline":"Own mediator","image":"https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2024/06/09/own-mediator"},"url":"https://blog.burgyn.online/2024/06/09/own-mediator"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Own mediator</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2024-06-09T17:00:00+00:00" itemprop="datePublished">Jun 9, 2024
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/csharp">csharp</a> -->
+                csharp, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/dotnet">dotnet</a> -->
+                dotnet, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/unit tests">unit tests</a> -->
+                unit tests, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/architecture">architecture</a> -->
+                architecture
+            </span>  
+        </p>
+    </header>
+
+    
+    <div class="post-thumbnail">
+        <img src="/assets/images/code_images/own-mediator/cover.png" alt="Own mediator" itemprop="image">
+    </div>
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>Currently, the Mediator design pattern is often used. Its purpose is to separate the communication between objects from each other. Which will reduce dependencies between classes, make the code more transparent and simplify testing. 
+In a .NET environment, a developer often reaches for the cool library <a href="https://github.com/jbogard/MediatR">MediatR</a> by Jimmy Bogard. This library provides an easy way to implement the Mediator pattern into an application.</p>
+
+<p>However, there are situations where we can’t/don’t want to use a third party library. For example, you are writing some custom library/framework and you don’t want to introduce such dependencies into it.</p>
+
+<p>Something similar happened to us. Fortunately, we didn’t need the complete functionality that MediatR provides, but just a basic event dispatch and processing was enough.</p>
+
+<p>Therefore, I will now show how to easily create such an implementation of your own Mediator.</p>
+
+<p>Let’s start with defining the message interface. In our case it was a domain event, hence the name.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IDomainEvent</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>It’s just a pure markup interface. We could do without it, but it’s a good way to indicate that it’s an event.</p>
+</blockquote>
+
+<p>Then the event processing interface.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;</span> 
+    <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="nf">HandleAsync</span><span class="p">(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We need an interface for sending events.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IEventPublisher</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We could stop with the abstractions here and start implementing. However, we decided to add an abstraction for the processing strategy in there. For now, the sequential processing of events was enough, but we might need other strategies in the future.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IEventPublisherStrategy</span>
+<span class="p">{</span>
+    <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span>
+        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">,</span>
+        <span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span>
+        <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>Publisher can look like this:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">internal</span> <span class="k">class</span> <span class="nc">EventPublisher</span> <span class="p">:</span> <span class="n">IEventPublisher</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IServiceProvider</span> <span class="n">_serviceProvider</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IEventPublisherStrategy</span> <span class="n">_publisherStrategy</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IHttpContextAccessor</span> <span class="n">_httpContextAccessor</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="nf">EventPublisher</span><span class="p">(</span>
+        <span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">,</span>
+        <span class="n">IHttpContextAccessor</span> <span class="n">httpContextAccessor</span><span class="p">,</span>
+        <span class="n">IEventPublisherStrategy</span> <span class="n">publisherStrategy</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_serviceProvider</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">;</span>
+        <span class="n">_publisherStrategy</span> <span class="p">=</span> <span class="n">publisherStrategy</span><span class="p">;</span>
+        <span class="n">_httpContextAccessor</span> <span class="p">=</span> <span class="n">httpContextAccessor</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+    <span class="p">{</span>
+        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span> <span class="k">is</span> <span class="n">not</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 if available, then find handlers in HttpContext services</span>
+            <span class="n">handlers</span> <span class="p">=</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">RequestServices</span><span class="p">);</span>
+            <span class="c1">// 👇 publish event to all handlers</span>
+            <span class="k">await</span> <span class="n">_publisherStrategy</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="c1">// 👇 if not, then create new scope</span>
+            <span class="k">using</span> <span class="nn">var</span> <span class="n">scope</span> <span class="p">=</span> <span class="n">_serviceProvider</span><span class="p">.</span><span class="nf">CreateScope</span><span class="p">();</span>
+            <span class="n">handlers</span> <span class="p">=</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">scope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">);</span>
+            <span class="c1">// 👇 publish event to all handlers</span>
+            <span class="k">await</span> <span class="n">_publisherStrategy</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+        <span class="p">=&gt;</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="n">GetServices</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Publisher takes care of getting the handlers from the container and then forwards them to publisher strategy, which decides how they will be processed.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">ForeachAwaitPublisherStrategy</span> <span class="p">:</span> <span class="n">IEventPublisherStrategy</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span>
+        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">,</span>
+        <span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span>
+        <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
+        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 publish event to all handlers</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">handler</span> <span class="k">in</span> <span class="n">handlers</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">await</span> <span class="n">handler</span><span class="p">.</span><span class="nf">HandleAsync</span><span class="p">(</span><span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Our <code class="highlighter-rouge">ForeachAwaitPublisherStrategy</code> handles events sequentially. It forwards the message to all handlers and waits for them to process it.</p>
+
+<h2 id="registration">Registration</h2>
+
+<p>In order to use the abstractions we create, we need to register them in the DI container.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="nf">AddEventPublisher</span><span class="p">(</span><span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="nf">AddHttpContextAccessor</span><span class="p">();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">TryAddSingleton</span><span class="p">&lt;</span><span class="n">IEventPublisher</span><span class="p">,</span> <span class="n">EventPublisher</span><span class="p">&gt;();</span>
+    <span class="n">services</span><span class="p">.</span><span class="n">TryAddSingleton</span><span class="p">&lt;</span><span class="n">IEventPublisherStrategy</span><span class="p">,</span> <span class="n">ForeachAwaitPublisherStrategy</span><span class="p">&gt;();</span>
+    <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can also create an extension for easy registration of handlers.</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="n">AddDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">,</span> <span class="n">THandler</span><span class="p">&gt;(</span>
+    <span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">,</span>
+    <span class="n">ServiceLifetime</span> <span class="n">lifetime</span> <span class="p">=</span> <span class="n">ServiceLifetime</span><span class="p">.</span><span class="n">Transient</span><span class="p">)</span>
+    <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
+    <span class="k">where</span> <span class="n">THandler</span> <span class="p">:</span> <span class="k">class</span><span class="err">,</span> <span class="nc">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="n">services</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">ServiceDescriptor</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;),</span> <span class="k">typeof</span><span class="p">(</span><span class="n">THandler</span><span class="p">),</span> <span class="n">lifetime</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Using this extension looks like this <code class="highlighter-rouge">services.AddDomainEventHandler&lt;YourEvent, YourHandler&gt;();</code>. 
+This is because I wanted to avoid reflection. If reflection doesn’t bother you, a simplified call to <code class="highlighter-rouge">services.AddDomainEventHandler&lt;YourHandler&gt;();</code>. 
+But I’ll leave that up to you 😉.</p>
+</blockquote>
+
+<h2 id="usage">Usage</h2>
+
+<p>Finally, we’ll show you how to use our own Mediator.</p>
+
+<p>Event and handler:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 The event that the product was created</span>
+<span class="k">public</span> <span class="n">record</span> <span class="nf">ProductCreated</span><span class="p">(</span><span class="kt">int</span> <span class="n">Id</span><span class="p">,</span> <span class="kt">string</span> <span class="n">Name</span><span class="p">,</span> <span class="kt">decimal</span> <span class="n">Price</span><span class="p">)</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
+
+<span class="c1">// 👇 The handler that will process the event</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">ProductCreatedHandler</span> <span class="p">:</span> <span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">ProductCreated</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="n">Task</span> <span class="nf">HandleAsync</span><span class="p">(</span><span class="n">ProductCreated</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 👇 Process the event</span>
+        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"Product created: </span><span class="p">{</span><span class="n">domainEvent</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The registration:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddEventPublisher</span><span class="p">();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddDomainEventHandler</span><span class="p">&lt;</span><span class="n">ProductCreated</span><span class="p">,</span> <span class="n">ProductCreatedHandler</span><span class="p">&gt;();</span>
+</code></pre></div></div>
+
+<p>Use in endpoint:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapPost</span><span class="p">(</span><span class="s">"/products"</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="n">Product</span> <span class="n">product</span><span class="p">,</span> <span class="n">IEventPublisher</span> <span class="n">publisher</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// Save the product</span>
+    <span class="c1">// 👇 Publish the event</span>
+    <span class="k">await</span> <span class="n">publisher</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="k">new</span> <span class="nf">ProductCreated</span><span class="p">(</span><span class="n">product</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">product</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">product</span><span class="p">.</span><span class="n">Price</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">product</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://github.com/Burgyn/MMLib.Sample.Mediator">Sample project</a></li>
+</ul>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2024/06/09/own-mediator" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

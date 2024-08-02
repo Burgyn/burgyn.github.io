@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+    <meta name="keywords" content="property-based testing, example-based testing, FsCheck, C#, unit testing, commutative property, associative property, identity property, mathematical properties, test verification, code correctness, NuGet, test properties, refactoring, fuzz testing">
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Testing with properties using FsCheck | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Testing with properties using FsCheck" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Learn about property-based testing vs example-based testing with C# using the FsCheck library for verifying program correctness." />
+<meta property="og:description" content="Learn about property-based testing vs example-based testing with C# using the FsCheck library for verifying program correctness." />
+<link rel="canonical" href="https://blog.burgyn.online/2024/03/10/property-based-testing-fscheck" />
+<meta property="og:url" content="https://blog.burgyn.online/2024/03/10/property-based-testing-fscheck" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:image" content="https://blog.burgyn.online/assets/images/code_images/2024-03-11-property-based-testing-fscheck/cover.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-03-10T17:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://blog.burgyn.online/assets/images/code_images/2024-03-11-property-based-testing-fscheck/cover.png" />
+<meta property="twitter:title" content="Testing with properties using FsCheck" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2024-03-10T17:00:00+00:00","datePublished":"2024-03-10T17:00:00+00:00","description":"Learn about property-based testing vs example-based testing with C# using the FsCheck library for verifying program correctness.","headline":"Testing with properties using FsCheck","image":"https://blog.burgyn.online/assets/images/code_images/2024-03-11-property-based-testing-fscheck/cover.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2024/03/10/property-based-testing-fscheck"},"url":"https://blog.burgyn.online/2024/03/10/property-based-testing-fscheck"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Testing with properties using FsCheck</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2024-03-10T17:00:00+00:00" itemprop="datePublished">Mar 10, 2024
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/csharp">csharp</a> -->
+                csharp, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/unit tests">unit tests</a> -->
+                unit tests, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/FsCheck">FsCheck</a> -->
+                FsCheck, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/architecture">architecture</a> -->
+                architecture
+            </span>  
+        </p>
+    </header>
+
+    
+    <div class="post-thumbnail">
+        <img src="/assets/images/code_images/2024-03-11-property-based-testing-fscheck/cover.png" alt="Testing with properties using FsCheck" itemprop="image">
+    </div>
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>I assume that most of us use a technique called <em>example-based testing</em> when writing unit tests. This technique is based on writing tests that verify the behavior of our functions for specific inputs.</p>
+
+<blockquote>
+  <p>It is a natural way because our perception works based on examples.</p>
+</blockquote>
+
+<p>Example-based testing for an addition function might look like this:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">Theory</span><span class="p">]</span>
+<span class="p">[</span><span class="nf">InlineData</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">)]</span>
+<span class="p">[</span><span class="nf">InlineData</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">4</span><span class="p">)]</span>
+<span class="p">[</span><span class="nf">InlineData</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">5</span><span class="p">)]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">Add_ShouldReturnSumOfTwoNumbers</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">expected</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">Calculator</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+    <span class="n">result</span><span class="p">.</span><span class="nf">Should</span><span class="p">().</span><span class="nf">Be</span><span class="p">(</span><span class="n">expected</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>It’s simple, after all, what can go wrong with the addition function anymore. A couple of examples are enough and we have 100% coverage. Or do we?</p>
+
+<p>But what if we want to implement our own “super fast” addition function based on bitwise operations? For example, something like the following:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">b</span> <span class="p">!=</span> <span class="m">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">carry</span> <span class="p">=</span> <span class="n">a</span> <span class="p">&amp;</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">a</span> <span class="p">=</span> <span class="n">a</span> <span class="p">^</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">b</span> <span class="p">=</span> <span class="n">carry</span> <span class="p">&lt;&lt;</span> <span class="m">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>How do we verify that this function is working correctly? What if the algorithm is complicated and a few examples are not enough? 
+This is where <em>property-based testing</em> can help us. This is testing based on defined properties, or perhaps better specifications.</p>
+
+<p>If you remember from math, addition has several properties that must be satisfied:</p>
+
+<ol>
+  <li>Commutative property: <code class="highlighter-rouge">a + b = b + a</code></li>
+  <li>Associative property: <code class="highlighter-rouge">(a + b) + c = a + (b + c)</code></li>
+  <li>Identity: <code class="highlighter-rouge">a + 0 = a</code></li>
+</ol>
+
+<p>We can use these properties to verify the correctness of our addition function. So that we don’t have to do it all manually the <code class="highlighter-rouge">FsCheck</code> library can help us.
+This is a library primarily designed for the F# language, but its API is also usable in C#.</p>
+
+<p>We will install the library via NuGet:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dotnet add package FsCheck.Xunit
+// 👆 based on your testing framework
+</code></pre></div></div>
+
+<p>And then we can write tests based on the properties:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">Property</span><span class="p">]</span> <span class="c1">// 👈 attribute for property-based testing</span>
+<span class="k">public</span> <span class="n">Property</span> <span class="nf">Add_Should_Be_Commutative</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nf">Add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="p">==</span> <span class="nf">Add</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+        <span class="p">.</span><span class="nf">ToProperty</span><span class="p">();</span> <span class="c1">// 👈 convert boolean to Property</span>
+<span class="p">}</span>
+
+<span class="p">[</span><span class="n">Property</span><span class="p">]</span>
+<span class="k">public</span> <span class="n">Property</span> <span class="nf">Add_Should_Be_Associative</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nf">Add</span><span class="p">(</span><span class="nf">Add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">c</span><span class="p">)</span> <span class="p">==</span> <span class="nf">Add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nf">Add</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">))).</span><span class="nf">ToProperty</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="p">[</span><span class="n">Property</span><span class="p">]</span>
+<span class="k">public</span> <span class="n">Property</span> <span class="nf">Add_Should_Be_Identity</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nf">Add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span> <span class="p">==</span> <span class="n">a</span><span class="p">).</span><span class="nf">ToProperty</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>And that’s it. Now we have tests that verify the correctness of our addition function based on mathematical properties. 
+And all without having to write specific examples.</p>
+
+<p>The <code class="highlighter-rouge">FsCheck</code> will generate random inputs for us and verify our function based on the defined properties. It has many generators for different data types and methodologies on how to generate random inputs <em>(what range, …)</em>.</p>
+
+<p>If the test reveals an error, it will use the <em>shrinking</em> method to find us the smallest input that causes the error.</p>
+
+<p>For example, something like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FsCheck.Xunit.PropertyFailedException : 
+Falsifiable, after 3 tests <span class="o">(</span>11 shrinks<span class="o">)</span> <span class="o">(</span>StdGen <span class="o">(</span>422220575,297303727<span class="o">))</span>:
+Original:
+<span class="o">(</span><span class="nt">-137</span>, 122<span class="o">)</span>
+Shrunk:
+<span class="o">(</span>1, 101<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Yes, it’s not every day we write a function for addition, or similar mathematical functions. But <em>property-based testing</em> can also help us test “common” algorithms or functions. For example, when testing parsers, serializers, validators, …</p>
+
+<p>It is useful when:</p>
+
+<ul>
+  <li>there is an inverse function <em>(serialization / deserialization, write / read, crypt / decrypt, …)</em></li>
+  <li>we can define the required properties <em>(commutative, associative, distributive, …)</em></li>
+  <li>we do refactoring <em>(verifying that the new implementation is equivalent to the old one)</em></li>
+  <li>we do fuzz testing <em>(we want to see where the limits of our algorithm are)</em></li>
+  <li>…</li>
+</ul>
+
+<h2 id="-sources">🔗 Sources</h2>
+
+<ul>
+  <li><a href="https://fscheck.github.io/FsCheck/">FsCheck</a></li>
+</ul>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2024/03/10/property-based-testing-fscheck" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

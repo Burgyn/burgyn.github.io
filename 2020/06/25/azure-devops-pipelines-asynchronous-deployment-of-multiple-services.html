@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Azure DevOps Pipelines - Asynchronous deployment of multiple services | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Azure DevOps Pipelines - Asynchronous deployment of multiple services" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="If you have a larger project, you probably deploying more services. (especially if you are developing microservices) In this article, we will show you how to deploy all services in parallel into the AZURE WebApp and thus significantly reduce deployment time." />
+<meta property="og:description" content="If you have a larger project, you probably deploying more services. (especially if you are developing microservices) In this article, we will show you how to deploy all services in parallel into the AZURE WebApp and thus significantly reduce deployment time." />
+<link rel="canonical" href="https://blog.burgyn.online/2020/06/25/azure-devops-pipelines-asynchronous-deployment-of-multiple-services" />
+<meta property="og:url" content="https://blog.burgyn.online/2020/06/25/azure-devops-pipelines-asynchronous-deployment-of-multiple-services" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-25T16:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Azure DevOps Pipelines - Asynchronous deployment of multiple services" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2020-06-25T16:00:00+00:00","datePublished":"2020-06-25T16:00:00+00:00","description":"If you have a larger project, you probably deploying more services. (especially if you are developing microservices) In this article, we will show you how to deploy all services in parallel into the AZURE WebApp and thus significantly reduce deployment time.","headline":"Azure DevOps Pipelines - Asynchronous deployment of multiple services","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2020/06/25/azure-devops-pipelines-asynchronous-deployment-of-multiple-services"},"url":"https://blog.burgyn.online/2020/06/25/azure-devops-pipelines-asynchronous-deployment-of-multiple-services"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Azure DevOps Pipelines - Asynchronous deployment of multiple services</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2020-06-25T16:00:00+00:00" itemprop="datePublished">Jun 25, 2020
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/Azure">Azure</a> -->
+                Azure, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/DevOps">DevOps</a> -->
+                DevOps, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/CI/CD">CI/CD</a> -->
+                CI/CD, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/YAML">YAML</a> -->
+                YAML, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/PowerShell">PowerShell</a> -->
+                PowerShell
+            </span>  
+        </p>
+    </header>
+
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>If you have a larger project, you probably deploying more services. <em>(especially if you are developing microservices)</em> In this article, we will show you how to deploy all services in parallel into the AZURE WebApp and thus significantly reduce deployment time.
+<!-- excerpt --></p>
+
+<p>ZIP deploy to Azure Web App is from the point of view of the machine on which the agent runs in simplicity, the work of a network card that must upload a ZIP file.</p>
+
+<p>Instead of the classic <code class="highlighter-rouge">AzureWebApp@1</code> to deploy the service, we would rather use <code class="highlighter-rouge">AzureCLI@1</code> and deploy the service by the <a href="https://docs.microsoft.com/en-us/cli/azure/webapp/deployment/source?view=azure-cli-latest#az-webapp-deployment-source-config-zip">AZURE CLI</a>. We will create a PowerShell script whose input parameter will be a list of microservices to be deployed and a path to the artifact directory.</p>
+
+<p>PowerShell allows us to run multiple jobs in parallel with the <code class="highlighter-rouge">Start-Job</code> command to run deploy <code class="highlighter-rouge">az webapp deployment source config-zip</code>. All you have to do is set the <code class="highlighter-rouge">--resource-group</code> in which your Web App is located, the name of the service where we deploy <code class="highlighter-rouge">--name</code>, and finally the path to the ZIP file that we are going to deploy <code class="highlighter-rouge">--src</code>. We will put the running jobs in the <code class="highlighter-rouge">$jobs</code> variable so that we can wait for <code class="highlighter-rouge">Wait-Job -Job $jobs</code> to finish.</p>
+
+<pre><code class="language-pwsh">param (
+    [Parameter(Mandatory = $true)][String[]]$microservices,
+    [Parameter(Mandatory = $true)][String]$artifactPath
+)
+
+$jobs = @()
+ForEach ($service in $microservices) {
+    Write-Host "Start deploying microservice: " $service -ForegroundColor Green
+    $jobs += Start-Job -ArgumentList $service, $artifactPath -ScriptBlock {
+        param($name, $path)
+            $result = az webapp deployment source config-zip --resource-group kros-demo-rsg --name kros-demo-$name-api --src "$path/Kros.$name.Api.zip"
+            if (!$result){
+                throw "Microservice ($name) failed. More information: $result"
+            }
+    }
+}
+
+Wait-Job -Job $jobs
+
+$failed = $false
+
+foreach ($job in $jobs) {
+    if ($job.State -eq 'Failed') {
+        Write-Host ($job.ChildJobs[0].Error) -ForegroundColor Red
+        $failed = $true
+    }
+}
+
+if ($failed -eq $true) {
+   Write-Host
+   Write-Error "Microservices deploy failed."
+}
+</code></pre>
+
+<p>Once the script is complete, we can use it in the deployment pipeline <code class="highlighter-rouge">deploy-cd.yml</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">AzureCLI@2</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s">Deploy microservices</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="na">azureSubscription</span><span class="pi">:</span> <span class="s">$(azureSubscriptionName)</span>
+    <span class="na">scriptType</span><span class="pi">:</span> <span class="s">ps</span>
+    <span class="na">scriptLocation</span><span class="pi">:</span> <span class="s">scriptPath</span>
+    <span class="na">scriptPath</span><span class="pi">:</span> <span class="s1">'</span><span class="s">$(Pipeline.Workspace)\ToDosDemoServices\drop\pipelines\Deploy-Async.ps1'</span>
+    <span class="na">arguments</span><span class="pi">:</span> <span class="s">-microservices 'ToDos', 'Authorization', 'Organizations', 'ApiGateway' -artifactPath '$(Pipeline.Workspace)\ToDosDemoServices\drop\'</span>
+</code></pre></div></div>
+
+<h3 id="azure-parallel-deploy-task">Azure Parallel Deploy task</h3>
+
+<p>Using the PowerShell script is fine, but it’s a bit impractical if you have multiple projects where you want to use it. In this case, you must somehow ensure that it is copied to the artifacts. It would be easier if it existed task that can do it. Does not exist directly in the DevOps, but my colleague prepared one. <a href="https://marketplace.visualstudio.com/items?itemName=stano-petko.azure-parallel-deploy">Azure Parallel Deploy</a></p>
+
+<p>With him, it can look like this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">steps</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">task</span><span class="pi">:</span> <span class="s">AzureParallelDeploy@1</span>
+  <span class="na">displayName</span><span class="pi">:</span> <span class="s">Deploy microservices</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="na">ConnectedServiceName</span><span class="pi">:</span> <span class="s">$(azureSubscriptionName)</span>
+    <span class="na">ResourceGroup</span><span class="pi">:</span> <span class="s1">'</span><span class="s">kros-demo-rsg'</span>
+    <span class="na">Services</span><span class="pi">:</span> <span class="s1">'</span><span class="s">ToDos,</span><span class="nv"> </span><span class="s">Authorization,</span><span class="nv"> </span><span class="s">Organizations,</span><span class="nv"> </span><span class="s">ApiGateway'</span>
+    <span class="na">AppNameFormat</span><span class="pi">:</span> <span class="s1">'</span><span class="s">{0}-api'</span>
+    <span class="na">AppSourceFormat</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Kros.{0}.zip'</span>
+</code></pre></div></div>
+
+<h3 id="summary">Summary</h3>
+
+<p>Instead of approximately <strong>140 seconds</strong>, it now takes approximately <strong>40 seconds</strong> to deploy all four services. It is not exactly a quarter of the time because of course there is some overhead, but the time saved is still noticeable. Every minute saved counts. The team who is waiting for their changes to deploy to testers or customers is sure to thank you. <em>(Although maybe not out loud )</em></p>
+
+<blockquote>
+  <p>This task <em>(or the given script)</em> can also be used in classic UI releases.</p>
+</blockquote>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2020/06/25/azure-devops-pipelines-asynchronous-deployment-of-multiple-services" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2024-08-02 20:13:27 +0000">2024</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
