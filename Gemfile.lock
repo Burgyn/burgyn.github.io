@@ -38,6 +38,7 @@ GEM
       jekyll (>= 3.7, < 5.0)
     jekyll-feed (0.17.0)
       jekyll (>= 3.7, < 5.0)
+    jekyll-mermaid (1.0.0)
     jekyll-minifier (0.1.10)
       cssminify2 (~> 2.0)
       htmlcompressor (~> 0.4)
@@ -112,6 +113,7 @@ DEPENDENCIES
   jekyll (~> 4.0.0)
   jekyll-compose
   jekyll-feed (~> 0.12)
+  jekyll-mermaid
   jekyll-minifier
   jekyll-paginate
   jekyll-remote-theme

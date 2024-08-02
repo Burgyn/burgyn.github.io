@@ -51,6 +51,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-minifier
+  - jekyll-mermaid
 
 url: "https://blog.burgyn.online"
 

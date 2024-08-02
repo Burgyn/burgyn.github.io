@@ -16,6 +16,7 @@ gem "jekyll-remote-theme"
 gem "jekyll-paginate"
 gem 'jekyll-sitemap'
 gem 'jekyll-minifier'
+gem 'jekyll-mermaid'
 
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and

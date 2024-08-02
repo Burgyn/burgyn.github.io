@@ -10,7 +10,7 @@ image: "/assets/images/code_images/arch-tests-check-project-references/cover.png
 thumbnail: "/assets/images/code_images/arch-tests-check-project-references/cover.png"
 keywords:
 - project references
-- architectural test
+- architectural test    
 - test project
 - library
 - code review
