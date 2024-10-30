@@ -1,4 +1,176 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2024-09-22T12:23:43+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">Creating UML / Graphs with Mermaid</title><link href="https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid" rel="alternate" type="text/html" title="Creating UML / Graphs with Mermaid" /><published>2024-08-02T17:00:00+00:00</published><updated>2024-08-02T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid</id><content type="html" xml:base="https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid"><![CDATA[<p>How do you draw UML diagrams or charts? Do you draw? Not really, but sometimes it comes in handy and it’s nice to have the some part of the system described with a sequence diagram, for example. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2024-10-30T07:44:44+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">ASP.NET CORE Junior Developer Roadmap</title><link href="https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap" rel="alternate" type="text/html" title="ASP.NET CORE Junior Developer Roadmap" /><published>2024-10-29T17:00:00+00:00</published><updated>2024-10-29T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap</id><content type="html" xml:base="https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap"><![CDATA[<h2 id="úvod">Úvod</h2>
+
+<p>Občas sa ma ľudia pýtajú: „Učím sa programovať a chcel by som sa stať backend vývojárom. Ako začať?” alebo „Som junior/medior vývojár a chcem sa posunúť ďalej. Na čo sa mám zamerať?” Ak ide o niekoho z môjho okolia, vieme si sadnúť a prebrať to. Postupne sa dopracujeme k vhodnej ceste. Keď sa ma však opýta niekto na LinkedIn, odpoveď býva: „Je to špecifické, záleží na tom, čo presne chceš alebo potrebuješ…” A tam to väčšinou končí. Prípadne mu ešte odporúčim veľmi dobre spracovaný zoznam oblastí a zdrojov pre vývoj v prostredí .NET od <a href="https://medium.com/@techworldwithmilan/net-developer-roadmap-2023-c1a9a102748e">Milana Milanoviča (čistá zhoda mien 😊)</a>.</p>
+
+<p>Preto som sa rozhodol napísať túto mini sériu článkov, kde popíšem, ako môže vyzerať cesta od junior ASP.NET CORE backend vývojára po seniora. Nejde o návod na programovanie, ale skôr o opis cesty, ktorou sa vývojár môže vydať. Vysvetlím, v ktorej fáze je dobré ovládať určité zručnosti a aké vedomosti by mal mať.</p>
+
+<blockquote>
+  <p>💭 Toto nie je žiadna rigorózna práca. Každý človek je iný, každá firma má odlišné očakávania a potreby. Môžeš to brať ako jednu z možností, ktorou sa môžeš inšpirovať.</p>
+</blockquote>
+
+<h2 id="mojich-5-odporúčaní-pre-budúcich-vývojárov">Mojich 5 odporúčaní pre budúcich vývojárov</h2>
+
+<p>Tu je mojich 5 všeobecných odporúčaní, ktoré podľa mňa môžu pomôcť na ceste k tomu, aby sa z teba stal lepší vývojár.</p>
+
+<h3 id="1️⃣-práca-ťa-musí-baviť">1️⃣ Práca ťa musí baviť</h3>
+
+<p>Nezáleží na tom, či práve začínaš a vymýšľaš si projekt, na ktorom sa budeš učiť, či máš nápad, ktorý chceš zrealizovať, alebo hľadáš novú prácu. Vyberaj si tak, aby ťa to bavilo, aby si v tom videl zmysel a aby si videl výsledky. Tieto tri faktory (niekedy potrebuješ všetky tri, inokedy stačí jeden z nich) ťa môžu dostatočne motivovať, aby si sa zlepšoval, rástol a zotrval.</p>
+
+<h3 id="2️⃣-chuť-a-vytrvalosť">2️⃣ Chuť a vytrvalosť</h3>
+
+<p>Z vlastnej skúsenosti so začínajúcimi vývojármi viem, že chuť učiť sa, tvoriť a vytrvalosť sú dôležitejšie než momentálne vedomosti a schopnosti.</p>
+
+<h3 id="3️⃣-zvedavosť">3️⃣ Zvedavosť</h3>
+
+<p>Zvedavosť a záujem o to, ako veci fungujú, vedomé vnímanie toho, s čím pracuješ, môžu výrazne prispieť k tvorbe lepších riešení. Keď si všímam aplikácie, ktoré používam (čo dokážu, čo na nich oceňujem a čo mi nevyhovuje), môžem zákazníkom priniesť lepší produkt. Ak si uvedomujem, ako fungujú knižnice a frameworky, ktoré využívam, môžem navrhnúť efektívnejší kód.</p>
+
+<h3 id="4️⃣-lenivosť">4️⃣ Lenivosť</h3>
+
+<p>Tento bod možno niekoho prekvapí a na prvý pohľad si môže odporovať s predchádzajúcimi. Vysvetlím. Ak mi po tretíkrát príde rovnaká požiadavka, mal by sa prejaviť môj zmysel pre „lenivosť” a mal by som si danú úlohu zautomatizovať. Ak niekto opakovane potrebuje rovnaký report, vytvorím na to skript. Ak často zakladám nový projekt, pripravím si scaffold. Lenivý vývojár = efektívny vývojár 😊. Lenivosť je často motorom inovácií.</p>
+
+<h3 id="5️⃣-vystúp-zo-svojej-komfortnej-zóny">5️⃣ Vystúp zo svojej komfortnej zóny</h3>
+
+<p>Opustenie komfortnej zóny nás dokáže posunúť výrazne dopredu. Komunikuj s kolegami, nauč sa používať netechnický jazyk, vysvetľuj ľuďom, čo robíš, ich vlastnými slovami. Neboj sa komunikovať so zákazníkmi ani zdieľať svoje vedomosti v komunite. Uč sa soft skills. Nemusíš všetko zvládnuť hneď, ale zamysli sa, kde chceš byť v budúcnosti a vyber si to, čo ťa tam posunie. Práve toto sú veci, ktoré sú v súčasnosti tie rozdielové.</p>
+
+<h2 id="junior--medior--senior">Junior / Medior / Senior</h2>
+
+<p>V IT firmách sa zaužívalo rozdelenie na junior, medior a senior vývojárov z pohľadu kariérneho rastu alebo zručností. Neexistuje jednotná definícia toho, kto je junior, medior a senior, pretože každá firma to vníma po svojom. Všeobecne však platí, že tieto úrovne kombinujú odpracované roky, technické schopnosti, samostatnosť, zodpovednosť a soft skills.</p>
+
+<h2 id="junior-vývojár">Junior vývojár</h2>
+
+<p>Poďme sa pozrieť na jednu z možných ciest, ako sa môže junior programátor postupne dostať do vývoja ASP.NET CORE REST API.</p>
+
+<h3 id="prvý-projekt">Prvý projekt</h3>
+
+<p>🚩 Existuje mnoho roadmap a odporúčaní, čo všetko by mal takýto vývojár vedieť. Zvyčajne začínajú tým, že by mal ovládať základy C# a .NET. Ja by som sa však pridržiaval môjho prvého odporúčania: práca ťa musí baviť a musíš vidieť výsledky. Študovať C# je dôležité, ale výsledky prídu až časom.</p>
+
+<p>Preto by som rovno začal s ASP.NET CORE Minimal API a vyskúšal si prvé endpointy.</p>
+
+<p>Takto veľmi rýchlo uvidíš výsledok svojej práce. Máš prvé endpointy, ktoré si môžeš otestovať a postupne si začneš tvoriť obraz o tom, čo daná technológia umožňuje a na čo je dobrá.</p>
+
+<p>Navrhni si svoj prvý jednoduchý projekt a postupne skúšaj, čo do neho dokážeš zapracovať (napr. zoznam kontaktov, nákupný zoznam, receptár atď.).</p>
+
+<p>V tejto fáze si to zjednoduš a dáta nikam neukladaj, maximálne ich drž v pamäti. Na prácu s databázou príde čas.</p>
+
+<p>🚩 Keď už máš prvé endpointy za sebou, vráť sa k C# a preštuduj si základy. Premenné, základné dátové typy, funkcie, metódy a jednoduché triedy ti umožnia postupne riešiť komplexnejšie úlohy.</p>
+
+<p>🚩 Prvé requesty si pravdepodobne vykonal priamo z prehliadača pomocou API dokumentácie. Aby si mohol plnohodnotne pracovať s API, budeš si musieť osvojiť prácu s niektorým z HTTP klientov. Najpoužívanejší je Postman, ale môžeš sa stretnúť aj s Insomnia či inými nástrojmi.</p>
+
+<p>🚩 Dáta sú základom väčšiny projektov. Potrebuješ ich ukladať, manipulovať s nimi a poskytovať klientom. Možnosti na ukladanie dát sú rôzne, ale v prípade štruktúrovaných dát sa väčšinou jedná o SQL alebo NoSQL databázy. V nových projektoch je podiel SQL a NoSQL databáz pomerne vyrovnaný, v starších projektoch však častejšie narazíš na SQL databázy. Pre začiatok odporúčam SQL, keďže pravdepodobnosť, že s ním budeš pracovať, je vysoká.</p>
+
+<p>Na úvod to nemusí byť nič zložité. Skús začať s Entity Frameworkom, pripojiť sa na existujúcu databázu, vytvoriť prvú migráciu a naučiť sa, ako načítať dáta.</p>
+
+<p>🚩 Aby si sa mohol ďalej posúvať, potrebuješ ísť hlbšie do ASP.NET Core. Postupne si rozšír svoje zadanie. Pridaj nové sady endpointov, aby si pochopil, ako funguje routing. Preštuduj si model binding, aby si vedel, akými spôsobmi môžeš posielať dáta na backend (cez <code class="highlighter-rouge">path</code>, <code class="highlighter-rouge">query params</code>, <code class="highlighter-rouge">headers</code>, <code class="highlighter-rouge">body</code>).</p>
+
+<p>Dáta, ktoré ti prichádzajú, potrebuješ validovať, aby si mal istotu, že dostávaš to, čo očakávaš. Odporúčam sa rovno pozrieť na FluentValidation, keďže model validation princíp, ktorý sa používal v minulosti, už v MinimalAPI nie je možný.</p>
+
+<p>Aby si mohol lepšie štruktúrovať kód, budeš potrebovať pochopiť základy dependency injection (DI). Skús presunúť prácu s dátami zo samotných endpointov do samostatnej triedy (to, či ju nazveš repository, store, manager, je v tejto fáze jedno). Túto triedu teraz nakonfiguruj do DI kontajnera a nechaj si ju injektnúť do tvojich endpointov. Snaž sa pochopiť, na čo je to dobré a aspoň rámcovo pochop, ako to funguje.</p>
+
+<p>🫡 Ak zvládneš tieto veci, budeš pripravený pridať sa k tímu a začať pracovať na menších úlohách v reálnom projekte.</p>
+
+<blockquote>
+  <p>💁‍♂️ Odporúčam začať s MinimalAPI. Ak však vieš, že firma, v ktorej budeš pracovať (alebo pracuješ), používa klasický prístup cez controllery, prečítaj si o tom tiež.</p>
+
+</blockquote>
+
+<p>Toto je napríklad u nás nutné minimum, ktoré musí junior ovládať, aby mohol prísť k nám do firmy. Po pohovore dostane zadanie, ktoré, ak vypracuje, tak by mal mať tieto zručnosti zvládnuté.</p>
+
+<p>✅ Checklist:</p>
+
+<p><img src="/assets/images/junior-developer/r-1.png" alt="Checklist prvý projekt" /></p>
+
+<p><strong>🔗 Zdroje</strong></p>
+
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-8.0&amp;tabs=visual-studio">Create a web API with ASP.NET Core</a></li>
+  <li><a href="https://www.codecademy.com/learn/learn-c-sharp">Learn C#</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/shows/c-fundamentals-for-absolute-beginners/">C# Fundamentals for Absolute Beginners</a></li>
+  <li><a href="https://www.postman.com/product/what-is-postman/">What is Postman?</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli">First EF Core App</a></li>
+  <li><a href="https://docs.fluentvalidation.net/en/latest/">FluentValidation Documentation</a></li>
+  <li><a href="https://blog.burgyn.online/2023/01/16/asp-net-core-minimal-api-filters">ASP.NET Core Minimal API Filters</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-8.0">Dependency injection in ASP.NET Core</a></li>
+</ul>
+
+<h3 id="práca-v-tíme">Práca v tíme</h3>
+
+<p>Pokiaľ máš ako junior zvládnuté vyššie spomínané veci <em>(v rôznej úrovni. Niečo viac, niečo trochu menej)</em> môže začať robiť v tíme.</p>
+
+<p>🚩 V tíme nie si sám. Na to aby tími dokázali rozumne pracovať nad spoločným code baseom využívajú rôzne verzionovacie systémy. V súčasnej dobe to je najčastejšie GIT. Je potrebné aby si zvládol základnú prácu s GIT-om. Na začiatok stačí vedieť získať aktuálnu verziu, vytvoriť si novú vetvu. Vedieť commitovať zmeny a pushnúť zmeny na server.</p>
+
+<p>🚩 Nasleduje Pull request proces, ktorý má daná firma nastavený. <em>(Budeš musieť spoznať základy s nástrojom, ktorý používajú. GitHub / GitLab / AZURE DevOps / …)</em>  Tam získaš feadback na svoj kód. Je to výborné miesto na učenie sa. Pretože dostaneš konštruktívne pripomienky od skúsených ľudí. Naučíš sa veľa o projekte, na ktorom pracuješ, ale aj o samotnom programovaní.</p>
+
+<p>🚩 Firma, v ktorej budeš pracovať, má určite nastavený systém práce, využívajú jednu z viacerých metód riadenia softvérového vývoja. V súčasnosti to bude pravdpodobne nejaká z agilných techník. Skús pochopiť základy agilného riadenia, pozri si čo je scrum.</p>
+
+<p>🚩 Ďalej sa vzdelávaj v C# / .NET. Mal by si zvládnuť základy OOP v .NET (classes, objects, interfaces, inheritance, composition), základy generík, údajové štruktúry, error handling, … Je potrebné naučiť sa pracovať so štruktúrou projektov, závislosťami, balíčkovacím systémom (Nuget).</p>
+
+<p>Na projekte už nepracuješ sám, potrebuješ pochopiť a dodržiavať dohodnuté tímové štandardy, čítaš a orientuješ sa v cudzom kóde.</p>
+
+<p>✅ Checklist:</p>
+
+<p><img src="/assets/images/junior-developer/r-2.png" alt="Praca v time.png" /></p>
+
+<p><strong>🔗 Zdroje</strong></p>
+
+<ul>
+  <li><a href="https://medium.com/@dilkushi.j/scrum-for-beginners-ab1177f86f95">Scrum for Beginners</a></li>
+  <li><a href="https://einsmanntech.medium.com/soft-skills-help-developers-level-up-here-are-the-10-id-tell-my-junior-self-e8daaa26ad8e">Soft Skills Help Developers Level Up: 10 Tips</a></li>
+  <li><a href="https://dev.to/kanani_nirav/getting-started-with-github-actions-a-beginners-guide-og7">Getting Started with GitHub Actions: A Beginner’s Guide</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/azure/devops/pipelines/create-first-pipeline?view=azure-devops&amp;tabs=java,browser">Create Your First Pipeline with Azure DevOps</a></li>
+  <li><a href="https://github.blog/developer-skills/github/beginners-guide-to-github-creating-a-pull-request/">Beginner’s Guide to GitHub: Creating a Pull Request</a></li>
+  <li><a href="https://www.w3schools.com/git/default.asp">Git Tutorial - W3Schools</a></li>
+  <li><a href="https://dotnet.microsoft.com/en-us/learn/csharp">Learn C# with .NET</a></li>
+</ul>
+
+<h3 id="príprava-na-mediora">Príprava na Mediora</h3>
+
+<p>Keď už zvládneš prácu v tíme a pracuješ na reálnych projektoch, začína sa obdobie, kedy sa pripravuješ na úroveň mediora. Medior vývojár by mal mať zvládnuté nielen technické zručnosti, ale aj schopnosť samostatne riešiť problémy, robiť rozhodnutia a prichádzať s návrhmi zlepšení.</p>
+
+<p>🚩 Postupne budeš čoraz samostatnejší a budeš dostávať komplexnejšie úlohy. Tvoj kód musí byť nielen funkčný, ale aj prehľadný a udržiavateľný. V tejto fáze je dôležité osvojiť si princípy ako DRY (Don’t Repeat Yourself), KISS (Keep It Simple, Stupid) a YAGNI (You Aren’t Gonna Need It). Tieto základné princípi ti pomôžu ľahšie pristupovať k hľadaniu riešení.</p>
+
+<p>🚩 V rámci ASP.NET Core budeš musieť hlbšie pochopiť základy <code class="highlighter-rouge">HTTP</code> protokolu, parameter bindingu, autentifikácie a autorizácie. Hoci sa neočakáva, že navrhneš celý proces autorizácie, mal by si rozumieť jej významu a základnému fungovaniu v projekte. Pre efektívnu prácu s dátami je dôležité pochopiť koncept DTO a data mappingu, kde ti môžu pomôcť knižnice ako AutoMapper alebo Mapster. Rovnako je dôležité oboznámiť sa s tým, ako sa v ASP.NET Core používa Options pattern na konfiguráciu služby.</p>
+
+<blockquote>
+  <p>📖 Nauč sa čítať dokumentáciu. Prejdi si dokumentáciu frameworku, s ktorým pracuješ.</p>
+</blockquote>
+
+<p>🚩 Práca s databázami je kľúčová. Mal by si zvládnuť nielen základné DML príkazy (<code class="highlighter-rouge">SELECT</code>, <code class="highlighter-rouge">INSERT</code>, <code class="highlighter-rouge">UPDATE</code>, <code class="highlighter-rouge">DELETE</code>), ale aj prácu s migráciami a vedieť, prečo a ako používať indexy na optimalizáciu dotazov. Technické fungovanie indexov môžeš zatiaľ považovať za mágiu 🔮.</p>
+
+<p>🚩 Základné vývojárske zručnosti zahŕňajú efektívne používanie tvojho IDE (Visual Studio, VS Code, Rider), vrátane skratiek, debugovania a analýzy chýb. Investuj čas do spoznávania možností tvojho IDE, až kým niektoré skratky nebudeš mať v rukách namiesto v hlave. Tým získaš viac priestoru na premýšľanie o samotnom riešení a tvoje ruky budú len pretavovať tvoje myšlienky do kódu.</p>
+
+<p>Rovnako by si mal byť zbehlý v práci s príkazovým riadkom, najmä s nástrojmi ako dotnet CLI a ef CLI, ktoré ti umožnia jednoducho spravovať projekty a databázy. UI sa neustále mení, ale CLI príkazy sú trvácne. Keď sa naučíš pracovať s CLI, tvoja produktivita výrazne vzrastie.</p>
+
+<p>🚩 Základy DevOps ti pomôžu pochopiť, kde a ako je projekt nasadený a osvojíš si proces CI/CD (Continuous Integration / Continuous Deployment), aby si vedel lepšie spolupracovať s rôznymi časťami tímu.</p>
+
+<p>🚩 Nezabúdaj na testovanie. Aj keď budete mať testerov, vývojár je spoluzodpovedný za kvalitu svojho kódu. Mal by si rozumieť tomu, čo vyvíjaš a vedieť otestovať základné scenáre.</p>
+
+<p>Postupne si osvoj aj automatické testovanie. Začni s písaním unit testov a zdokonaľuj sa v nich. Ak sa na projekte používajú aj iné typy testov, ako napríklad E2E, integračné alebo load testy, na začiatku ich budeš vedieť upravovať (keď tvoja zmena spôsobí, že test zlyhá) a neskôr ich budeš sám vytvárať.</p>
+
+<blockquote>
+  <p>💁 Pri všetkej svojej práci nezabúdaj, že máš okolo seba šikovných kolegov, ktorí ti radi pomôžu, poradia a nasmerujú ťa. Využi ich skúsenosti a vedomosti. Na druhej strane, pamätaj, že práve tí najšikovnejší bývajú často veľmi vyťažení. Preto si vyberaj správny prístup, správne slová, a maj pokoru, no aj sebadôveru. Buď trpezlivý, keď odpoveď nepríde hneď.</p>
+</blockquote>
+
+<p>✅ Checklist</p>
+
+<p><img src="/assets/images/junior-developer/r-3.png" alt="Príprava na mediora - Develoepr roadmap.png" /></p>
+
+<p><strong>🔗 Zdroje</strong></p>
+
+<ul>
+  <li><a href="https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-8.0">Introduction to ASP.NET Core</a></li>
+  <li><a href="https://workat.tech/machine-coding/tutorial/software-design-principles-dry-yagni-eytrxfhz1fla">Software Design Principles: DRY, YAGNI</a></li>
+  <li><a href="https://www.boldare.com/blog/kiss-yagni-dry-principles/">KISS, YAGNI, and DRY Principles</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/ef/">Entity Framework Documentation</a></li>
+  <li><a href="https://toxigon.com/microsoft-visual-studio-tips-and-tricks">Microsoft Visual Studio Tips and Tricks</a></li>
+  <li><a href="https://learnwithinderjeet.com/blog/mastering-visual-studio-2022-shortcuts-tips-and-tricks/">Mastering Visual Studio 2022: Shortcuts, Tips, and Tricks</a></li>
+  <li><a href="https://www.meziantou.net/quick-introduction-to-xunitdotnet.htm">Quick Introduction to xUnit</a></li>
+  <li><a href="https://fluentassertions.com/">FluentAssertions Documentation</a></li>
+  <li><a href="https://github.com/AutoMapper/AutoMapper">AutoMapper GitHub Repository</a></li>
+</ul>
+
+<h2 id="záver">Záver</h2>
+
+<p>Na záver by som chcel zdôrazniť, že cesta vývojára je vždy individuálna a plná výziev. Každý z nás má iné tempo učenia sa, rôzne záujmy a preferencie. Tento článok ti mal poskytnúť návod, ktorým smerom sa môžeš vydať, no to, ako sa rozhodneš napredovať, je úplne na tebe. Nezabúdaj, že programovanie je o neustálom zlepšovaní a prispôsobovaní sa novým technológiám. Neboj sa urobiť chybu, uč sa z nej a hľadaj spôsoby, ako sa posunúť ďalej. Dôležité je neostať stáť na mieste a stále sa snažiť zlepšovať. Takže držím palce na tvojej ceste za lepším kódom a hlavne – užívaj si to!</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="ASP.NET CORE" /><category term="long read" /><summary type="html"><![CDATA[Úvod]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/junior-developer/1.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/junior-developer/1.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Creating UML / Graphs with Mermaid</title><link href="https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid" rel="alternate" type="text/html" title="Creating UML / Graphs with Mermaid" /><published>2024-08-02T17:00:00+00:00</published><updated>2024-08-02T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid</id><content type="html" xml:base="https://blog.burgyn.online/2024/08/02/creating-uml-graphs-with-mermaid"><![CDATA[<p>How do you draw UML diagrams or charts? Do you draw? Not really, but sometimes it comes in handy and it’s nice to have the some part of the system described with a sequence diagram, for example. 
 In the past I used <a href="https://draw.io">draw.io</a>. Cool tool, but there was a standard problem with it. How to store the diagrams? How to add them to the documentation? How to share them? And the biggest problem how to edit them afterwards 🤔? 
 I used <a href="https://plantuml.com/">PlantUML</a> a couple of times, which solved exactly this. I simply create the diagram using text directly in markdown, and the tool renders the outline for me at that point. For me it’s a great solution.</p>
 
@@ -1128,74 +1300,4 @@ builder.Services.AddHostedService&lt;PeriodicBackgroundTask&gt;();
   <p>ℹ️ In the next article, I’ll show how to create your own background processing jobs that will be queued.</p>
 </blockquote>
 
-<p>If you need more complex job scheduling, you can use libraries such as <a href="https://www.hangfire.io/">Hangfire</a> or <a href="https://www.quartz-scheduler.net/">Quartz.NET</a>, which give you more options and configurations for job scheduling.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="architecture" /><category term="ASP.NET Core" /><summary type="html"><![CDATA[Learn how to run periodic tasks in the background of ASP.NET Core services by implementing your own hosted service using the IHostedService interface.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">HttpContext Request Features</title><link href="https://blog.burgyn.online/2024/04/21/httpcontext-request-features" rel="alternate" type="text/html" title="HttpContext Request Features" /><published>2024-04-21T17:00:00+00:00</published><updated>2024-04-21T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/04/21/httpcontext-request-features</id><content type="html" xml:base="https://blog.burgyn.online/2024/04/21/httpcontext-request-features"><![CDATA[<p>In ASP.NET Core, we are used to working with dependency injection and we tend to pass most of the information through dependency injection to the classes where we need it. 
-However, sometimes we work with information that is closely tied to a particular request and we don’t need, want, or can’t inject it into classes as dependencies. 
-For such cases, there is <code class="highlighter-rouge">HttpContext.Features</code>.</p>
-
-<p>The <code class="highlighter-rouge">Features</code> property is a simple collection of type <code class="highlighter-rouge">IFeatureCollection</code>, where we can store strongly typed objects and then retrieve them at places where we need them. 
-This collection is available within <code class="highlighter-rouge">HttpContext</code> and is available throughout the request lifecycle. 
-The <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/use-http-context?view=aspnetcore-8.0#features">ASP.NET Core framework </a>itself uses this collection to store various information, for example:</p>
-<ul>
-  <li><code class="highlighter-rouge">IRouteValuesFeature</code> - contains information about the parameters and their values from the request path</li>
-  <li><code class="highlighter-rouge">IEndpointFeature</code> - contains information about the endpoint that processes the request</li>
-  <li>…</li>
-</ul>
-
-<p>The <code class="highlighter-rouge">Features</code> property is also available to us and we can store our own information that we will need during the request processing.
-An example use case might be storing information about the current user, the current tenant, or other information that is necessary 
-for processing the request with is bound in some way, or retrieved from the request itself.</p>
-
-<p>Information is typically stored in <code class="highlighter-rouge">Features</code> within middleware that is registered within the application pipeline. 
-The middleware can retrieve the information from the request, process it, and then store it in <code class="highlighter-rouge">Features</code> for further processing within the application.</p>
-
-<p>An example of middleware that retrieves information about the current tenant from a request and stores it in <code class="highlighter-rouge">Features</code> might look like the following:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">CurrentTenantInfoMiddleware</span><span class="p">(</span><span class="n">RequestDelegate</span> <span class="n">next</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">RequestDelegate</span> <span class="n">_next</span> <span class="p">=</span> <span class="n">next</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">InvokeAsync</span><span class="p">(</span><span class="n">HttpContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">ITenantService</span> <span class="n">tenantService</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 More complex logic to determine the current tenant can be added here</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="nf">TryGetValue</span><span class="p">(</span><span class="s">"X-TenantId"</span><span class="p">,</span> <span class="k">out</span> <span class="kt">var</span> <span class="n">routeValue</span><span class="p">)</span>
-            <span class="p">&amp;&amp;</span> <span class="n">Guid</span><span class="p">.</span><span class="nf">TryParse</span><span class="p">(</span><span class="n">routeValue</span><span class="p">.</span><span class="nf">First</span><span class="p">()?.</span><span class="nf">ToString</span><span class="p">(),</span> <span class="k">out</span> <span class="kt">var</span> <span class="n">tenantId</span><span class="p">))</span>
-        <span class="p">{</span>
-            <span class="kt">var</span> <span class="n">tenantInfo</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tenantService</span><span class="p">.</span><span class="nf">GetTenantInfoAsync</span><span class="p">(</span><span class="n">tenantId</span><span class="p">);</span>
-            <span class="c1">// 👇 Store the tenant info in Features</span>
-            <span class="n">context</span><span class="p">.</span><span class="n">Features</span><span class="p">.</span><span class="nf">Set</span><span class="p">(</span><span class="n">tenantInfo</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">await</span> <span class="nf">_next</span><span class="p">(</span><span class="n">context</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// 👇 Register the middleware</span>
-<span class="n">app</span><span class="p">.</span><span class="n">UseMiddleware</span><span class="p">&lt;</span><span class="n">CurrentTenantInfoMiddleware</span><span class="p">&gt;();</span>
-</code></pre></div></div>
-
-<p>We can then access information about the current tenant from <code class="highlighter-rouge">Features</code> within other parts of the application:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapGet</span><span class="p">(</span><span class="s">"/api/"</span><span class="p">,</span> <span class="p">(</span><span class="n">HttpContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="c1">// 👇 Access the current tenant info from the context</span>
-    <span class="kt">var</span> <span class="n">currentTenantInfo</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Features</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="n">ICurrentTenantInfo</span><span class="p">&gt;();</span>
-    <span class="k">return</span> <span class="n">Results</span><span class="p">.</span><span class="nf">Ok</span><span class="p">(</span><span class="n">currentTenantInfo</span><span class="p">?.</span><span class="n">Id</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div></div>
-
-<p>For simplicity, we can create an extension method for <code class="highlighter-rouge">IFeatureCollection</code>:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">IFeatureCollectionExtensions</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="n">ICurrentTenantInfo</span><span class="p">?</span> <span class="nf">GetTenant</span><span class="p">(</span><span class="k">this</span> <span class="n">IFeatureCollection</span> <span class="n">features</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">features</span><span class="p">.</span><span class="n">Get</span><span class="p">&lt;</span><span class="n">ICurrentTenantInfo</span><span class="p">&gt;();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">var</span> <span class="n">tenantInfo</span> <span class="p">=</span> <span class="n">context</span><span class="p">.</span><span class="n">Features</span><span class="p">.</span><span class="nf">GetTenant</span><span class="p">();</span>
-</code></pre></div></div>
-
-<blockquote>
-  <p>For completeness: another way to transfer information during one request is to use <code class="highlighter-rouge">HttpContext.Items</code>. This collection is available within <code class="highlighter-rouge">HttpContext</code> and is available throughout the request lifecycle. However, <code class="highlighter-rouge">Items</code> is not strongly typed. It is a key value. Therefore, it is preferable to use <code class="highlighter-rouge">Features</code> if we need to store strongly typed objects.</p>
-</blockquote>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><category term="multi-tenant" /><category term="architecture" /><summary type="html"><![CDATA[Learn how to use HttpContext.Request.Features in ASP.NET Core to store and retrieve information related to individual requests.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/httpcontext-request-features/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/httpcontext-request-features/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>If you need more complex job scheduling, you can use libraries such as <a href="https://www.hangfire.io/">Hangfire</a> or <a href="https://www.quartz-scheduler.net/">Quartz.NET</a>, which give you more options and configurations for job scheduling.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="architecture" /><category term="ASP.NET Core" /><summary type="html"><![CDATA[Learn how to run periodic tasks in the background of ASP.NET Core services by implementing your own hosted service using the IHostedService interface.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
