@@ -3,17 +3,17 @@
 	"file": "main.css",
 	"sources": [
 		"main.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_variables.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_base.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_code.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_post.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_syntax.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_layout.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_pagination.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_catalogue.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_404.scss",
-		"../../../../../tmp/jekyll-remote-theme-20241217-2698-awbhif/_sass/tale/_tags.scss"
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_variables.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_base.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_code.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_post.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_syntax.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_layout.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_pagination.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_catalogue.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_404.scss",
+		"../../../../../tmp/jekyll-remote-theme-20250219-2788-1g6xly8/_sass/tale/_tags.scss"
 	],
 	"sourcesContent": [
 		"@import 'tale';\n",
