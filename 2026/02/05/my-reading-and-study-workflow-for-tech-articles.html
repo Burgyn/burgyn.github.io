@@ -28,6 +28,8 @@
 
     <!-- keywoards -->
     
+    <meta name="keywords" content="reading;raindrop;bluesky;">
+    
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
@@ -40,22 +42,22 @@
     </script>
 
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>NUKE.Build skip the execution of the upcoming targets | Burgyn’s blog</title>
+<title>My Reading and Study Workflow for Tech Articles | Burgyn’s blog</title>
 <meta name="generator" content="Jekyll v4.0.1" />
-<meta property="og:title" content="NUKE.Build skip the execution of the upcoming targets" />
+<meta property="og:title" content="My Reading and Study Workflow for Tech Articles" />
 <meta name="author" content="Milan Martiniak" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="NUKE.Build skip the execution of the upcoming targets" />
-<meta property="og:description" content="NUKE.Build skip the execution of the upcoming targets" />
-<link rel="canonical" href="https://blog.burgyn.online/2022/05/15/nuke-build-skip-the-execution-of-the-upcoming-targets" />
-<meta property="og:url" content="https://blog.burgyn.online/2022/05/15/nuke-build-skip-the-execution-of-the-upcoming-targets" />
+<meta name="description" content="A blog about everything possible and impossible that dotnet developer face every day." />
+<meta property="og:description" content="A blog about everything possible and impossible that dotnet developer face every day." />
+<link rel="canonical" href="https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles" />
+<meta property="og:url" content="https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles" />
 <meta property="og:site_name" content="Burgyn’s blog" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-05-15T17:00:00+00:00" />
+<meta property="article:published_time" content="2026-02-05T17:00:00+00:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="NUKE.Build skip the execution of the upcoming targets" />
+<meta property="twitter:title" content="My Reading and Study Workflow for Tech Articles" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2022-05-15T17:00:00+00:00","datePublished":"2022-05-15T17:00:00+00:00","description":"NUKE.Build skip the execution of the upcoming targets","headline":"NUKE.Build skip the execution of the upcoming targets","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2022/05/15/nuke-build-skip-the-execution-of-the-upcoming-targets"},"url":"https://blog.burgyn.online/2022/05/15/nuke-build-skip-the-execution-of-the-upcoming-targets"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2026-02-05T17:00:00+00:00","datePublished":"2026-02-05T17:00:00+00:00","description":"A blog about everything possible and impossible that dotnet developer face every day.","headline":"My Reading and Study Workflow for Tech Articles","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles"},"url":"https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -118,24 +120,24 @@
             <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
     <header class="post-header">
-        <h1 class="post-title p-name" itemprop="name headline"><p>NUKE.Build skip the execution of the upcoming targets</p>
+        <h1 class="post-title p-name" itemprop="name headline"><p>My Reading and Study Workflow for Tech Articles</p>
 </h1>
         <p class="post-meta">
-            <time class="dt-published" datetime="2022-05-15T17:00:00+00:00" itemprop="datePublished">May 15, 2022
+            <time class="dt-published" datetime="2026-02-05T17:00:00+00:00" itemprop="datePublished">Feb 5, 2026
             </time><span itemprop="author" itemscope
                 itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
             | <span class="fa fa-tags" aria-label="Tags"> </span> 
             <span>
-                <!-- <a href="/tags/C#">C#</a> -->
-                C#, 
+                <!-- <a href="/tags/productivity">productivity</a> -->
+                productivity, 
             </span> 
             <span>
-                <!-- <a href="/tags/.NET">.NET</a> -->
-                .NET, 
+                <!-- <a href="/tags/developerworkflow">developerworkflow</a> -->
+                developerworkflow, 
             </span> 
             <span>
-                <!-- <a href="/tags/NUKE">NUKE</a> -->
-                NUKE
+                <!-- <a href="/tags/continuouslearning">continuouslearning</a> -->
+                continuouslearning
             </span>  
         </p>
     </header>
@@ -143,24 +145,34 @@
     
 
     <div class="post-content e-content" itemprop="articleBody">
-        <h3 id="nukebuild-skip-the-execution-of-the-upcoming-targets">NUKE.Build skip the execution of the upcoming targets</h3>
+        <p>I thought I’d share my flow for collecting and reading articles. Maybe you’ll find it useful, or maybe you’ll share yours in the comments.</p>
 
-<p>We use NUKE.Build to build our projects. Sometimes we want to skip the execution of the upcoming targets. For example, if the previous target did not produce a specific artifact, you want to end all trigger targets. In this case, you can use the <code class="highlighter-rouge">Status</code> property of the targets in all targets in the execution plan and set it to <code class="highlighter-rouge">Skipped</code>.</p>
+<p>🔍 Where I find articles
+I usually discover interesting content in 4 places:</p>
 
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Target</span> <span class="n">A</span> <span class="p">=&gt;</span> <span class="n">_</span> <span class="p">=&gt;</span> <span class="n">_</span>
-    <span class="p">.</span><span class="nf">Triggers</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">)</span>
-    <span class="p">.</span><span class="nf">Executes</span><span class="p">(()</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(!</span><span class="nf">ContainsSpecificArtifacts</span><span class="p">())</span>
-        <span class="p">{</span>
-            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">target</span> <span class="k">in</span> <span class="n">ExecutionPlan</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">target</span><span class="p">.</span><span class="n">Status</span> <span class="p">=</span> <span class="n">ExecutionStatus</span><span class="p">.</span><span class="n">Skipped</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="n">Log</span><span class="p">.</span><span class="n">Logger</span><span class="p">.</span><span class="nf">Information</span><span class="p">(</span><span class="s">"Target A"</span><span class="p">);</span>
-    <span class="p">});</span>
-</code></pre></div></div>
+<p>📬 <a href="https://vlko.substack.com/">Marián Vlčák aka vlko’s monthly newsletter</a>
+Consistently high-quality tech content.</p>
+
+<p>📰 Medium newsletter - Though lately it’s been flooded with “5 things every .NET developer must know” type articles. You have to dig deeper to find the gems.</p>
+
+<p>💼 LinkedIn - Still a solid source for technical articles. After Twitter’s decline, it became even more valuable.</p>
+
+<p>☁️ BlueSky - For me, the best Twitter replacement. I’ve created a custom feed built as a filter over my list of specific people I want to follow. BlueSky’s killer feature is the ability to create your own feeds and have full control over what you see and how much.
+<a href="https://bsky.app/profile/did:plc:gdx2f7prj422nixph6laigs7/lists/3mc5jltbaks2n">My Developers list.</a></p>
+
+<p>🎙️ Podcasts - Another source where I often discover interesting topics to explore further.</p>
+
+<p>📚 My reading workflow
+When I find an interesting article, I don’t read it immediately. Instead, I bookmark it using raindrop.io - my go-to bookmarking system for everything.
+Articles I want to read go into a “Blogs” folder, which I’ve set up as a public RSS feed. This RSS feed is connected to Instapaper - a reader that creates a clean copy of the article, optimizes it for mobile reading, and most importantly: preserves scroll position. Whenever I return to an article, I’m exactly where I left off.</p>
+
+<p>🤔 Why this seemingly complex setup?
+I separate two activities:
+ ⚡ Discovery - scrolling feeds and finding new content
+ 📖 Deep reading - actually consuming the content</p>
+
+<p>My BlueSky feed is limited to max 20 posts per day. I quickly scan what interests me and save it for later. When I’m in the mood for reading, I open Instapaper. Raindrop keeps all my bookmarks organized in one place.
+What’s your workflow for managing technical articles? Do you read immediately or save for later?</p>
 
     </div>
 
@@ -168,7 +180,7 @@
         
     </div>
 
-    <a class="u-url" href="/2022/05/15/nuke-build-skip-the-execution-of-the-upcoming-targets" hidden></a>
+    <a class="u-url" href="/2026/02/05/my-reading-and-study-workflow-for-tech-articles" hidden></a>
 
 </article>
 

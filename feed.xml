@@ -1,4 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2025-02-19T05:37:39+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">ASP.NET CORE Junior Developer Roadmap</title><link href="https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap" rel="alternate" type="text/html" title="ASP.NET CORE Junior Developer Roadmap" /><published>2024-10-29T17:00:00+00:00</published><updated>2024-10-29T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap</id><content type="html" xml:base="https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap"><![CDATA[<h2 id="úvod">Úvod</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-02-06T12:23:14+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">My Reading and Study Workflow for Tech Articles</title><link href="https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles" rel="alternate" type="text/html" title="My Reading and Study Workflow for Tech Articles" /><published>2026-02-05T17:00:00+00:00</published><updated>2026-02-05T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles</id><content type="html" xml:base="https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles"><![CDATA[<p>I thought I’d share my flow for collecting and reading articles. Maybe you’ll find it useful, or maybe you’ll share yours in the comments.</p>
+
+<p>🔍 Where I find articles
+I usually discover interesting content in 4 places:</p>
+
+<p>📬 <a href="https://vlko.substack.com/">Marián Vlčák aka vlko’s monthly newsletter</a>
+Consistently high-quality tech content.</p>
+
+<p>📰 Medium newsletter - Though lately it’s been flooded with “5 things every .NET developer must know” type articles. You have to dig deeper to find the gems.</p>
+
+<p>💼 LinkedIn - Still a solid source for technical articles. After Twitter’s decline, it became even more valuable.</p>
+
+<p>☁️ BlueSky - For me, the best Twitter replacement. I’ve created a custom feed built as a filter over my list of specific people I want to follow. BlueSky’s killer feature is the ability to create your own feeds and have full control over what you see and how much.
+<a href="https://bsky.app/profile/did:plc:gdx2f7prj422nixph6laigs7/lists/3mc5jltbaks2n">My Developers list.</a></p>
+
+<p>🎙️ Podcasts - Another source where I often discover interesting topics to explore further.</p>
+
+<p>📚 My reading workflow
+When I find an interesting article, I don’t read it immediately. Instead, I bookmark it using raindrop.io - my go-to bookmarking system for everything.
+Articles I want to read go into a “Blogs” folder, which I’ve set up as a public RSS feed. This RSS feed is connected to Instapaper - a reader that creates a clean copy of the article, optimizes it for mobile reading, and most importantly: preserves scroll position. Whenever I return to an article, I’m exactly where I left off.</p>
+
+<p>🤔 Why this seemingly complex setup?
+I separate two activities:
+ ⚡ Discovery - scrolling feeds and finding new content
+ 📖 Deep reading - actually consuming the content</p>
+
+<p>My BlueSky feed is limited to max 20 posts per day. I quickly scan what interests me and save it for later. When I’m in the mood for reading, I open Instapaper. Raindrop keeps all my bookmarks organized in one place.
+What’s your workflow for managing technical articles? Do you read immediately or save for later?</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="productivity" /><category term="developerworkflow" /><category term="continuouslearning" /><summary type="html"><![CDATA[I thought I’d share my flow for collecting and reading articles. Maybe you’ll find it useful, or maybe you’ll share yours in the comments.]]></summary></entry><entry><title type="html">ASP.NET CORE Junior Developer Roadmap</title><link href="https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap" rel="alternate" type="text/html" title="ASP.NET CORE Junior Developer Roadmap" /><published>2024-10-29T17:00:00+00:00</published><updated>2024-10-29T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap</id><content type="html" xml:base="https://blog.burgyn.online/2024/10/29/asp-net-core-junior-developer-roadmap"><![CDATA[<h2 id="úvod">Úvod</h2>
 
 <p>Občas sa ma ľudia pýtajú: „Učím sa programovať a chcel by som sa stať backend vývojárom. Ako začať?” alebo „Som junior/medior vývojár a chcem sa posunúť ďalej. Na čo sa mám zamerať?” Ak ide o niekoho z môjho okolia, vieme si sadnúť a prebrať to. Postupne sa dopracujeme k vhodnej ceste. Keď sa ma však opýta niekto na LinkedIn, odpoveď býva: „Je to špecifické, záleží na tom, čo presne chceš alebo potrebuješ…” A tam to väčšinou končí. Prípadne mu ešte odporúčim veľmi dobre spracovaný zoznam oblastí a zdrojov pre vývoj v prostredí .NET od <a href="https://medium.com/@techworldwithmilan/net-developer-roadmap-2023-c1a9a102748e">Milana Milanoviča (čistá zhoda mien 😊)</a>.</p>
 
@@ -1231,73 +1258,4 @@ In the case of <a href="https://learn.microsoft.com/en-us/ef/core/managing-schem
 
 <p>In this way, we have created a simple job queue that processes jobs in the background. This solution is suitable for simple scenarios. For more complex scenarios, for example, you need to persist the jobs so that you can process them in case of an outage. You can use solutions such as Redis, AZURE Storage Account Queues, or a database to store the jobs.</p>
 
-<p>If even this is not enough (you need to store messages because of possible outages), try solutions like <a href="https://www.hangfire.io/">Hangfire</a>, or cloud platform services like AZURE Service Bus + AZURE Functions.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="asp.net core" /><category term="AZURE" /><summary type="html"><![CDATA[Discover how to process long-running actions with ASP.NET Core by task queuing, simultaneously improving your application's performance.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">ASP.NET Core - Periodic Background Task</title><link href="https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task" rel="alternate" type="text/html" title="ASP.NET Core - Periodic Background Task" /><published>2024-04-28T17:00:00+00:00</published><updated>2024-04-28T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task</id><content type="html" xml:base="https://blog.burgyn.online/2024/04/28/asp-net-core-periodic-background-task"><![CDATA[<p>You may have had a need in your services to run some task that will run periodically in the background <em>(cache updates, data synchronization, deleting old data, etc.)</em>. In new architectures, you might reach for something like AZURE Functions, AWS Lambda, or other serverless solutions. But it’s good to know that you can also do this directly in your <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0&amp;tabs=visual-studio">ASP.NET Core service</a>. Just implement your own hosted service using the <code class="highlighter-rouge">IHostedService</code> interface. 
-This interface defines two methods <code class="highlighter-rouge">StartAsync</code> and <code class="highlighter-rouge">StopAsync</code> that are called when the service starts and stops.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IHostedService</span>
-<span class="p">{</span>
-    <span class="n">Task</span> <span class="nf">StartAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
-
-    <span class="n">Task</span> <span class="nf">StopAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>But rather than creating your own implementation of <code class="highlighter-rouge">IHostedService</code>, you can inherit the <code class="highlighter-rouge">BackgroundService</code> abstract class to make your stuff easier. With this class, you can override the <code class="highlighter-rouge">StartAsync</code> and <code class="highlighter-rouge">StopAsync</code> methods and implement your logic in them. Or you can just implement the <code class="highlighter-rouge">ExecuteAsync</code> method and implement only what you want to be executed in it.</p>
-
-<p>The following example shows a simple implementation of <code class="highlighter-rouge">BackgroundService</code> that runs in the background and prints the current time every 5 seconds.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 This is a simple implementation of a hosted service that runs a background task</span>
-<span class="k">public</span> <span class="k">class</span> <span class="nc">PeriodicBackgroundTask</span><span class="p">(</span><span class="n">ILogger</span><span class="p">&lt;</span><span class="n">PeriodicBackgroundTask</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">,</span> <span class="n">TimeProvider</span> <span class="n">timeProvider</span><span class="p">)</span> 
-    <span class="p">:</span> <span class="n">BackgroundService</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">PeriodicBackgroundTask</span><span class="p">&gt;</span> <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">TimeProvider</span> <span class="n">_timeProvider</span> <span class="p">=</span> <span class="n">timeProvider</span><span class="p">;</span>
-
-    <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">stoppingToken</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 In real-world scenarios, you should get the interval from configuration</span>
-        <span class="k">using</span> <span class="nn">var</span> <span class="n">timer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PeriodicTimer</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromSeconds</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
-
-        <span class="c1">// 👇 This loop will run every 5 seconds</span>
-        <span class="k">while</span> <span class="p">(!</span><span class="n">stoppingToken</span><span class="p">.</span><span class="n">IsCancellationRequested</span>
-            <span class="p">&amp;&amp;</span> <span class="k">await</span> <span class="n">timer</span><span class="p">.</span><span class="nf">WaitForNextTickAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">))</span>
-        <span class="p">{</span>
-            <span class="n">_logger</span><span class="p">.</span><span class="nf">LogInformation</span><span class="p">(</span><span class="s">"Current time: {CurrentTime}"</span><span class="p">,</span> <span class="n">_timeProvider</span><span class="p">.</span><span class="nf">GetUtcNow</span><span class="p">().</span><span class="n">TimeOfDay</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>The given background task needs to be arranged in the DI container as a hosted service using the <code class="highlighter-rouge">AddHostedService</code> method.</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 👇 Register the hosted service in the DI container
-builder.Services.AddHostedService&lt;PeriodicBackgroundTask&gt;();
-</code></pre></div></div>
-
-<p>You can inject any services you need to execute into your background task. However, they must be registered as either singleton or transient services. Therefore, if you need to access scoped services, you must create a new scope using <code class="highlighter-rouge">IServiceProvider.CreateScope()</code> and get the dependencies from that scope.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Use scoped dependency injection</span>
-<span class="k">public</span> <span class="k">class</span> <span class="nc">ProductProcesSyncBackgroundTask</span><span class="p">(</span><span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">)</span> <span class="p">:</span> <span class="n">BackgroundService</span>
-<span class="p">{</span>
-    <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">stoppingToken</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">using</span> <span class="nn">var</span> <span class="n">timer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">PeriodicTimer</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromHours</span><span class="p">(</span><span class="m">2</span><span class="p">));</span>
-
-        <span class="k">while</span> <span class="p">(!</span><span class="n">stoppingToken</span><span class="p">.</span><span class="n">IsCancellationRequested</span>
-            <span class="p">&amp;&amp;</span> <span class="k">await</span> <span class="n">timer</span><span class="p">.</span><span class="nf">WaitForNextTickAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">))</span>
-        <span class="p">{</span>
-            <span class="c1">// 👇 Create a new scope to resolve scoped services</span>
-            <span class="k">using</span> <span class="nn">var</span> <span class="n">scope</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="nf">CreateScope</span><span class="p">();</span>
-            <span class="kt">var</span> <span class="n">service</span> <span class="p">=</span> <span class="n">scope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">.</span><span class="n">GetRequiredService</span><span class="p">&lt;</span><span class="n">IProductPricesSyncService</span><span class="p">&gt;();</span>
-
-            <span class="k">await</span> <span class="n">service</span><span class="p">.</span><span class="nf">SyncProductPricesAsync</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<blockquote>
-  <p>ℹ️ In the next article, I’ll show how to create your own background processing jobs that will be queued.</p>
-</blockquote>
-
-<p>If you need more complex job scheduling, you can use libraries such as <a href="https://www.hangfire.io/">Hangfire</a> or <a href="https://www.quartz-scheduler.net/">Quartz.NET</a>, which give you more options and configurations for job scheduling.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="architecture" /><category term="ASP.NET Core" /><summary type="html"><![CDATA[Learn how to run periodic tasks in the background of ASP.NET Core services by implementing your own hosted service using the IHostedService interface.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-periodic-background-task/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>If even this is not enough (you need to store messages because of possible outages), try solutions like <a href="https://www.hangfire.io/">Hangfire</a>, or cloud platform services like AZURE Service Bus + AZURE Functions.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="asp.net core" /><category term="AZURE" /><summary type="html"><![CDATA[Discover how to process long-running actions with ASP.NET Core by task queuing, simultaneously improving your application's performance.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
