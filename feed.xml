@@ -1,4 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-02-06T12:23:14+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">My Reading and Study Workflow for Tech Articles</title><link href="https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles" rel="alternate" type="text/html" title="My Reading and Study Workflow for Tech Articles" /><published>2026-02-05T17:00:00+00:00</published><updated>2026-02-05T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles</id><content type="html" xml:base="https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles"><![CDATA[<p>I thought I’d share my flow for collecting and reading articles. Maybe you’ll find it useful, or maybe you’ll share yours in the comments.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-02-12T15:32:45+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">Built-in validation for Minimal APIs in .NET 10</title><link href="https://blog.burgyn.online/2026/02/11/minimal-api-validation" rel="alternate" type="text/html" title="Built-in validation for Minimal APIs in .NET 10" /><published>2026-02-11T17:00:00+00:00</published><updated>2026-02-11T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/02/11/minimal-api-validation</id><content type="html" xml:base="https://blog.burgyn.online/2026/02/11/minimal-api-validation"><![CDATA[<p>Minimal APIs have been around since .NET 6 and have evolved a lot, but one thing was missing: first-class validation support. With .NET 10 <em>(since November 2025)</em>, that gap is finally closed thanks to revived <code class="highlighter-rouge">System.ComponentModel.DataAnnotations</code> support for Minimal APIs.</p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>You need three things:</p>
+
+<ol>
+  <li><strong>Register validation in DI</strong> - call <code class="highlighter-rouge">builder.Services.AddValidation();</code> in <code class="highlighter-rouge">Program.cs</code>.</li>
+  <li><strong>Decorate your request types</strong> with DataAnnotation attributes: <code class="highlighter-rouge">[Required]</code>, <code class="highlighter-rouge">[MinLength]</code>, <code class="highlighter-rouge">[EmailAddress]</code>, <code class="highlighter-rouge">[Range]</code>, <code class="highlighter-rouge">[Compare]</code>, and so on.</li>
+  <li><strong>Do nothing else</strong> - a source generator emits the validation logic; your endpoint signature stays the same.</li>
+</ol>
+
+<p>If validation fails, the framework returns 400 Bad Request with a <code class="highlighter-rouge">ProblemDetails</code> - style payload before your handler runs.</p>
+
+<h2 id="where-you-can-use-it">Where you can use it</h2>
+
+<p>This validation works for:</p>
+
+<ul>
+  <li><strong>Request body</strong> - e.g. JSON bound to a record or class.</li>
+  <li><strong>Query parameters</strong> - e.g. <code class="highlighter-rouge">[FromQuery]</code> with attributes.</li>
+  <li><strong>Headers</strong> - when bound from headers with the right attributes.</li>
+</ul>
+
+<p>So you get the same declarative style you know from MVC, but without the controller layer.</p>
+
+<h2 id="important-the-request-type-must-be-public">Important: the request type must be public</h2>
+
+<p>If your request class or record is not <strong>public</strong>, validation will not run. The generated code only sees public types. Keep that in mind when you define DTOs in the same file as your endpoints or in a separate assembly.</p>
+
+<h2 id="example">Example</h2>
+
+<p>Let’s put it together. First, add the validation services and define a minimal endpoint:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">using</span> <span class="nn">System.ComponentModel.DataAnnotations</span><span class="p">;</span>
+
+<span class="kt">var</span> <span class="n">builder</span> <span class="p">=</span> <span class="n">WebApplication</span><span class="p">.</span><span class="nf">CreateBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+
+<span class="c1">// 👇 Add validation support</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddValidation</span><span class="p">();</span>
+
+<span class="kt">var</span> <span class="n">app</span> <span class="p">=</span> <span class="n">builder</span><span class="p">.</span><span class="nf">Build</span><span class="p">();</span>
+
+<span class="c1">// 👇 Nothing changed here in your endpoint</span>
+<span class="n">app</span><span class="p">.</span><span class="nf">MapPost</span><span class="p">(</span><span class="s">"/users"</span><span class="p">,</span> <span class="p">(</span><span class="n">CreateUserRequest</span> <span class="n">request</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">Results</span><span class="p">.</span><span class="nf">Ok</span><span class="p">(</span><span class="k">new</span> <span class="p">{</span> <span class="n">id</span> <span class="p">=</span> <span class="m">1</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">request</span><span class="p">.</span><span class="n">Email</span> <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="n">app</span><span class="p">.</span><span class="nf">Run</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Your handler still receives a <code class="highlighter-rouge">CreateUserRequest</code>; the framework validates it before the lambda runs. The request type is a <strong>public</strong> record with DataAnnotations:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Your model class with validation attributes</span>
+<span class="k">public</span> <span class="n">record</span> <span class="nf">CreateUserRequest</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">Required</span><span class="p">,</span> <span class="nf">MinLength</span><span class="p">(</span><span class="m">2</span><span class="p">),</span> <span class="nf">MaxLength</span><span class="p">(</span><span class="m">100</span><span class="p">)]</span>
+    <span class="kt">string</span> <span class="n">Name</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">Required</span><span class="p">,</span> <span class="n">EmailAddress</span><span class="p">]</span>
+    <span class="kt">string</span> <span class="n">Email</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">Required</span><span class="p">,</span> <span class="nf">MinLength</span><span class="p">(</span><span class="m">8</span><span class="p">),</span> <span class="nf">MaxLength</span><span class="p">(</span><span class="m">100</span><span class="p">)]</span>
+    <span class="kt">string</span> <span class="n">Password</span><span class="p">,</span>
+    <span class="p">[</span><span class="n">property</span><span class="p">:</span> <span class="n">Required</span><span class="p">,</span> <span class="nf">Compare</span><span class="p">(</span><span class="k">nameof</span><span class="p">(</span><span class="n">CreateUserRequest</span><span class="p">.</span><span class="n">Password</span><span class="p">))]</span>
+    <span class="kt">string</span> <span class="n">ConfirmPassword</span><span class="p">,</span>
+    <span class="p">[</span><span class="nf">Range</span><span class="p">(</span><span class="m">18</span><span class="p">,</span> <span class="m">120</span><span class="p">)]</span> <span class="kt">int</span> <span class="n">Age</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>For records, note the <code class="highlighter-rouge">property:</code> prefix on <code class="highlighter-rouge">[Compare]</code> so the attribute is applied to the generated property. Once that’s in place, invalid requests (e.g. short name, bad email, mismatched passwords, or age out of range) get a 400 response automatically.</p>
+
+<h2 id="when-you-need-more-than-dataannotations">When you need more than DataAnnotations</h2>
+
+<p>DataAnnotations are great for straightforward rules. If you need more complex, FluentValidation-style logic <em>(cross-field rules, async validators, or heavy reuse)</em>, you can still use custom endpoint filters - I wrote about that approach in an earlier post <em>(in Slovak)</em>: <a href="/2023/01/16/asp-net-core-minimal-api-filters/">ASP.NET Core Minimal API – Filters &amp; Validation</a>. The built-in validation in .NET 10 simply gives you a zero-friction option when attributes are enough.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="C#" /><category term=".NET" /><category term="ASP.NET CORE" /><category term="Minimal API" /><summary type="html"><![CDATA[Built-in validation for Minimal APIs in .NET 10: AddValidation(), DataAnnotations, and what to watch for.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/blog-post-base-cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/blog-post-base-cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">My Reading and Study Workflow for Tech Articles</title><link href="https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles" rel="alternate" type="text/html" title="My Reading and Study Workflow for Tech Articles" /><published>2026-02-05T17:00:00+00:00</published><updated>2026-02-05T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles</id><content type="html" xml:base="https://blog.burgyn.online/2026/02/05/my-reading-and-study-workflow-for-tech-articles"><![CDATA[<p>I thought I’d share my flow for collecting and reading articles. Maybe you’ll find it useful, or maybe you’ll share yours in the comments.</p>
 
 <p>🔍 Where I find articles
 I usually discover interesting content in 4 places:</p>
@@ -1143,119 +1214,4 @@ In the case of <a href="https://learn.microsoft.com/en-us/ef/core/managing-schem
 <span class="c1">// 👇 Register the initializers</span>
 <span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddAppInitializer</span><span class="p">&lt;</span><span class="n">ProductsDbContext</span><span class="p">&gt;();</span>
 <span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddAppInitializer</span><span class="p">&lt;</span><span class="n">CacheInitializer</span><span class="p">&gt;();</span>
-</code></pre></div></div>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><category term="architecture" /><summary type="html"><![CDATA[Learn how to use IHostedService in ASP.NET Core for tasks like database migrations or local cache loading before the service starts responding.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">ASP.NET Core - Queued hosted service</title><link href="https://blog.burgyn.online/2024/05/05/asp-net-core-queued-hosted-service" rel="alternate" type="text/html" title="ASP.NET Core - Queued hosted service" /><published>2024-05-05T17:00:00+00:00</published><updated>2024-05-05T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/05/05/asp-net-core-queued-hosted-service</id><content type="html" xml:base="https://blog.burgyn.online/2024/05/05/asp-net-core-queued-hosted-service"><![CDATA[<blockquote>
-  <p>ℹ️ This is a follow-up to <a href="/2024/04/28/asp-net-core-periodic-background-task">ASP.NET Core - Periodic Background Task</a>.</p>
-</blockquote>
-
-<p>There are situations when you do not want to process a longer-running action directly during request processing, but want to queue it and have it processed later. This is very useful when processing a large number of requests, where processing them directly (or parts of them) could slow down the overall performance of the application. If you use cloud services like AZURE or AWS, you may want to reach for their solutions. In AZURE, this would likely be a combination of <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview">Service bus</a> and <a href="https://azure.microsoft.com/en-us/products/functions#:~:text=Azure%20Functions%20is%20an%20event,highest%20level%20of%20hardware%20abstraction.">AZURE Functions</a>.</p>
-
-<p>But it’s good to know that we can implement a similar solution directly in our ASP.NET Core service.</p>
-
-<p>Let’s define an interface describing a simple task queue:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Simple interface for background task queue</span>
-<span class="k">public</span> <span class="k">interface</span> <span class="nc">IBackgroundTaskQueue</span>
-<span class="p">{</span>
-    <span class="n">ValueTask</span> <span class="nf">Queue</span><span class="p">(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;</span> <span class="n">workItem</span><span class="p">);</span>
-
-    <span class="n">ValueTask</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;&gt;</span> <span class="nf">Dequeue</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>For example, a task queue implementation based on <code class="highlighter-rouge">System.Threading.Channel</code> might look like this:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Simple implementation of background task queue based on System.Threading.Channel</span>
-<span class="k">public</span> <span class="k">class</span> <span class="nc">BackgroundTaskQueue</span> <span class="p">:</span> <span class="n">IBackgroundTaskQueue</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">Channel</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;&gt;</span> <span class="n">_queue</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="nf">BackgroundTaskQueue</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">BoundedChannelOptions</span><span class="p">(</span><span class="n">capacity</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="c1">// 👇 Wait for the queue to have space</span>
-            <span class="n">FullMode</span> <span class="p">=</span> <span class="n">BoundedChannelFullMode</span><span class="p">.</span><span class="n">Wait</span>
-        <span class="p">};</span>
-        <span class="n">_queue</span> <span class="p">=</span> <span class="n">Channel</span><span class="p">.</span><span class="n">CreateBounded</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;&gt;(</span><span class="n">options</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">async</span> <span class="n">ValueTask</span> <span class="nf">Queue</span><span class="p">(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;</span> <span class="n">workItem</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">ArgumentNullException</span><span class="p">.</span><span class="nf">ThrowIfNull</span><span class="p">(</span><span class="n">workItem</span><span class="p">);</span>
-
-        <span class="k">await</span> <span class="n">_queue</span><span class="p">.</span><span class="n">Writer</span><span class="p">.</span><span class="nf">WriteAsync</span><span class="p">(</span><span class="n">workItem</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">async</span> <span class="n">ValueTask</span><span class="p">&lt;</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">CancellationToken</span><span class="p">,</span> <span class="n">ValueTask</span><span class="p">&gt;&gt;</span> <span class="nf">Dequeue</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">workItem</span> <span class="p">=</span> <span class="k">await</span> <span class="n">_queue</span><span class="p">.</span><span class="n">Reader</span><span class="p">.</span><span class="nf">ReadAsync</span><span class="p">(</span><span class="n">cancellationToken</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="n">workItem</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Finally, let’s create a background service that will sequentially process tasks from the queue:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Hosted service that processes the queued work items</span>
-<span class="k">public</span> <span class="k">class</span> <span class="nc">QueuedHostedService</span><span class="p">(</span>
-    <span class="n">IBackgroundTaskQueue</span> <span class="n">taskQueue</span><span class="p">,</span>
-    <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">QueuedHostedService</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">)</span> <span class="p">:</span> <span class="n">BackgroundService</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">QueuedHostedService</span><span class="p">&gt;</span> <span class="n">_logger</span> <span class="p">=</span> <span class="n">logger</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IBackgroundTaskQueue</span> <span class="n">_taskQueue</span> <span class="p">=</span> <span class="n">taskQueue</span><span class="p">;</span>
-
-    <span class="k">protected</span> <span class="k">override</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">stoppingToken</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">while</span> <span class="p">(!</span><span class="n">stoppingToken</span><span class="p">.</span><span class="n">IsCancellationRequested</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="c1">// 👇 Dequeue the work item</span>
-            <span class="kt">var</span> <span class="n">workItem</span> <span class="p">=</span>
-                <span class="k">await</span> <span class="n">_taskQueue</span><span class="p">.</span><span class="nf">Dequeue</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">);</span>
-
-            <span class="k">try</span>
-            <span class="p">{</span>
-                <span class="c1">// 👇 Execute the work item</span>
-                <span class="k">await</span> <span class="nf">workItem</span><span class="p">(</span><span class="n">stoppingToken</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
-            <span class="p">{</span>
-                <span class="n">_logger</span><span class="p">.</span><span class="nf">LogError</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="s">"Error occurred executing: {WorkItem}."</span><span class="p">,</span> <span class="k">nameof</span><span class="p">(</span><span class="n">workItem</span><span class="p">));</span>
-                <span class="k">throw</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Let’s not forget to register the service and the job queue in DI containers:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Register the hosted service and the background task queue in the DI container</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSingleton</span><span class="p">&lt;</span><span class="n">IBackgroundTaskQueue</span><span class="p">&gt;(</span><span class="k">new</span> <span class="nf">BackgroundTaskQueue</span><span class="p">(</span><span class="m">30</span><span class="p">));</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddHostedService</span><span class="p">&lt;</span><span class="n">QueuedHostedService</span><span class="p">&gt;();</span>
-</code></pre></div></div>
-
-<p>For example, instead of processing an order directly within an endpoint, the use case might be to place it in a job queue:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Endpoint for processing orders</span>
-<span class="n">app</span><span class="p">.</span><span class="nf">MapPost</span><span class="p">(</span><span class="s">"/orders"</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span>
-    <span class="n">Order</span> <span class="n">order</span><span class="p">,</span> 
-    <span class="p">[</span><span class="n">FromServices</span><span class="p">]</span> <span class="n">IBackgroundTaskQueue</span> <span class="n">backgroundTaskQueue</span><span class="p">,</span> 
-    <span class="p">[</span><span class="n">FromServices</span><span class="p">]</span> <span class="n">ILogger</span><span class="p">&lt;</span><span class="n">Order</span><span class="p">&gt;</span> <span class="n">logger</span><span class="p">)</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="c1">// 👇 Enqueue the work item</span>
-    <span class="k">await</span> <span class="n">backgroundTaskQueue</span><span class="p">.</span><span class="nf">Queue</span><span class="p">(</span><span class="k">async</span> <span class="n">token</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 Simulate processing the order</span>
-        <span class="n">logger</span><span class="p">.</span><span class="nf">LogInformation</span><span class="p">(</span><span class="s">"Processing order: {order}"</span><span class="p">,</span> <span class="n">order</span><span class="p">);</span>
-        <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="nf">Delay</span><span class="p">(</span><span class="m">1000</span><span class="p">,</span> <span class="n">token</span><span class="p">);</span>
-        <span class="n">logger</span><span class="p">.</span><span class="nf">LogInformation</span><span class="p">(</span><span class="s">"Order processed: {order}"</span><span class="p">,</span> <span class="n">order</span><span class="p">);</span>
-    <span class="p">});</span>
-
-    <span class="k">return</span> <span class="n">Results</span><span class="p">.</span><span class="nf">Created</span><span class="p">(</span><span class="s">$"/orders/</span><span class="p">{</span><span class="n">order</span><span class="p">.</span><span class="n">Id</span><span class="p">}</span><span class="s">"</span><span class="p">,</span> <span class="n">order</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div></div>
-
-<p>In this way, we have created a simple job queue that processes jobs in the background. This solution is suitable for simple scenarios. For more complex scenarios, for example, you need to persist the jobs so that you can process them in case of an outage. You can use solutions such as Redis, AZURE Storage Account Queues, or a database to store the jobs.</p>
-
-<p>If even this is not enough (you need to store messages because of possible outages), try solutions like <a href="https://www.hangfire.io/">Hangfire</a>, or cloud platform services like AZURE Service Bus + AZURE Functions.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="asp.net core" /><category term="AZURE" /><summary type="html"><![CDATA[Discover how to process long-running actions with ASP.NET Core by task queuing, simultaneously improving your application's performance.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+</code></pre></div></div>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><category term="architecture" /><summary type="html"><![CDATA[Learn how to use IHostedService in ASP.NET Core for tasks like database migrations or local cache loading before the service starts responding.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
