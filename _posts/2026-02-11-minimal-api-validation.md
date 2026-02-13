@@ -86,4 +86,4 @@ For records, note the `property:` prefix on `[Compare]` so the attribute is appl
 
 ## When you need more than DataAnnotations
 
-DataAnnotations are great for straightforward rules. If you need more complex, FluentValidation-style logic *(cross-field rules, async validators, or heavy reuse)*, you can still use custom endpoint filters - I wrote about that approach in an earlier post *(in Slovak)*: [ASP.NET Core Minimal API – Filters & Validation](/2023/01/16/asp-net-core-minimal-api-filters/). The built-in validation in .NET 10 simply gives you a zero-friction option when attributes are enough.
+DataAnnotations are great for straightforward rules. If you need more complex, FluentValidation-style logic *(cross-field rules, async validators, or heavy reuse)*, you can still use custom endpoint filters - I wrote about that approach in an earlier post *(in Slovak)*: [ASP.NET Core Minimal API – Filters & Validation](/2023/01/16/asp-net-core-minimal-api-filters). The built-in validation in .NET 10 simply gives you a zero-friction option when attributes are enough.
