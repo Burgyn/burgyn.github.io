@@ -1,4 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-02-13T05:26:34+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">Built-in validation for Minimal APIs in .NET 10</title><link href="https://blog.burgyn.online/2026/02/11/minimal-api-validation" rel="alternate" type="text/html" title="Built-in validation for Minimal APIs in .NET 10" /><published>2026-02-11T17:00:00+00:00</published><updated>2026-02-11T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/02/11/minimal-api-validation</id><content type="html" xml:base="https://blog.burgyn.online/2026/02/11/minimal-api-validation"><![CDATA[<p>Minimal APIs have been around since .NET 6 and have evolved a lot, but one thing was missing: first-class validation support. With .NET 10 <em>(since November 2025)</em>, that gap is finally closed thanks to revived <code class="highlighter-rouge">System.ComponentModel.DataAnnotations</code> support for Minimal APIs.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-03-05T19:28:54+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">MMLib.DummyApi - Configurable mock API for prototypes and testing</title><link href="https://blog.burgyn.online/2026/03/04/mmlib-dummyapi" rel="alternate" type="text/html" title="MMLib.DummyApi - Configurable mock API for prototypes and testing" /><published>2026-03-04T17:00:00+00:00</published><updated>2026-03-04T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/04/mmlib-dummyapi</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/04/mmlib-dummyapi"><![CDATA[<p>This is probably one of those projects that helps mostly me. Still, I wanted to share it in case you run into the same problems.</p>
+
+<p>I often need a working API for quick UI prototypes, UI framework testing, integration tool testing, load-testing tools, and demo projects for talks <em>(conference, school, meetup)</em>. I do not want to build a new backend every single time just to have realistic endpoints and data.</p>
+
+<p>So I built <a href="https://github.com/Burgyn/MMLib.DummyApi"><code class="highlighter-rouge">MMLib.DummyApi</code></a>: a configurable mock REST API that starts fast and gives me fully functional CRUD endpoints, generated seed data, validation, and edge-case simulation.</p>
+
+<h2 id="why-this-project-exists">Why this project exists</h2>
+
+<p>The core idea is simple:</p>
+
+<ul>
+  <li>I have different frontends and tools to test.</li>
+  <li>I need realistic data and behavior.</li>
+  <li>I need to control “bad” scenarios too.</li>
+</ul>
+
+<p>Instead of creating another one-off API <em>(or asking an agent to generate one again)</em>, I provide configuration and the API is ready.</p>
+
+<p>Out of the box, it is not read-only mock data. The API works with:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">GET /{collection}</code></li>
+  <li><code class="highlighter-rouge">GET /{collection}/{id}</code></li>
+  <li><code class="highlighter-rouge">POST /{collection}</code></li>
+  <li><code class="highlighter-rouge">PUT /{collection}/{id}</code></li>
+  <li><code class="highlighter-rouge">DELETE /{collection}/{id}</code></li>
+</ul>
+
+<p>POST/PUT payloads are validated by your JSON schema, and collections can be seeded with dummy data on startup.</p>
+
+<h2 id="quick-start">Quick start</h2>
+
+<p>Run it with Docker:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull ghcr.io/burgyn/mmlib-dummyapi
+docker run <span class="nt">-p</span> 8080:8080 ghcr.io/burgyn/mmlib-dummyapi
+</code></pre></div></div>
+
+<p>Try a default collection:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://localhost:8080/products
+</code></pre></div></div>
+
+<p>API docs are available at <code class="highlighter-rouge">http://localhost:8080/scalar/v1</code>.</p>
+
+<h2 id="create-your-own-records-collection">Create your own records collection</h2>
+
+<p>In my case, I often need some custom “evidence” or “records” collection. Here is a minimal example:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"collections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"records"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Records"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"seedCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"schema"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"title"</span><span class="p">,</span><span class="w"> </span><span class="s2">"status"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nl">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nl">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"new"</span><span class="p">,</span><span class="w"> </span><span class="s2">"processing"</span><span class="p">,</span><span class="w"> </span><span class="s2">"done"</span><span class="p">]</span><span class="w"> </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"ownerEmail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Save it as <code class="highlighter-rouge">my-collections.json</code> and start the container with config mount:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-p</span> 8080:8080 <span class="se">\</span>
+  <span class="nt">-v</span> ./my-collections.json:/config/collections.json <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">DUMMYAPI__COLLECTIONSFILE</span><span class="o">=</span>/config/collections.json <span class="se">\</span>
+  ghcr.io/burgyn/mmlib-dummyapi
+</code></pre></div></div>
+
+<p>Now verify round-trip CRUD quickly:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST http://localhost:8080/records <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{"title":"Load test scenario","status":"new","ownerEmail":"john@example.com"}'</span>
+
+curl http://localhost:8080/records
+</code></pre></div></div>
+
+<h2 id="simulate-edge-cases-without-extra-coding">Simulate edge cases without extra coding</h2>
+
+<p>This is the part I use a lot in demos and testing:</p>
+
+<ul>
+  <li>Delays: <code class="highlighter-rouge">X-Simulate-Delay: 500</code></li>
+  <li>Forced error: <code class="highlighter-rouge">X-Simulate-Error: true</code></li>
+  <li>Retry scenario: <code class="highlighter-rouge">X-Simulate-Retry: 3</code> with <code class="highlighter-rouge">X-Request-Id</code></li>
+  <li>Random chaos latency/failures with chaos headers</li>
+  <li>Background updates with <code class="highlighter-rouge">backgroundJob</code> <em>(for example status transitions)</em></li>
+</ul>
+
+<p>A tiny retry simulation call can look like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://localhost:8080/records <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Simulate-Retry: 3"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"X-Request-Id: demo-retry-1"</span>
+</code></pre></div></div>
+
+<p>This lets me test how UI and integration clients behave when things are not perfect, without implementing custom fault endpoints.</p>
+
+<h2 id="wrap-up">Wrap-up</h2>
+
+<p>I built this as a practical utility for my own daily workflows, but maybe it helps you too if you prototype often or need controllable API behavior for tests and demos.</p>
+
+<p>I kept this article intentionally simple. Full details, all configuration options, and more advanced scenarios are in the project README.</p>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li>GitHub repository: <a href="https://github.com/Burgyn/MMLib.DummyApi">https://github.com/Burgyn/MMLib.DummyApi</a></li>
+</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="dotnet" /><category term="api" /><category term="testing" /><category term="tools" /><summary type="html"><![CDATA[I built a configurable mock API with CRUD and edge-case simulation for UI prototypes, demos, and testing tools.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/mmlib-dummyapi-cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/mmlib-dummyapi-cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Built-in validation for Minimal APIs in .NET 10</title><link href="https://blog.burgyn.online/2026/02/11/minimal-api-validation" rel="alternate" type="text/html" title="Built-in validation for Minimal APIs in .NET 10" /><published>2026-02-11T17:00:00+00:00</published><updated>2026-02-11T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/02/11/minimal-api-validation</id><content type="html" xml:base="https://blog.burgyn.online/2026/02/11/minimal-api-validation"><![CDATA[<p>Minimal APIs have been around since .NET 6 and have evolved a lot, but one thing was missing: first-class validation support. With .NET 10 <em>(since November 2025)</em>, that gap is finally closed thanks to revived <code class="highlighter-rouge">System.ComponentModel.DataAnnotations</code> support for Minimal APIs.</p>
 
 <h2 id="how-it-works">How it works</h2>
 
@@ -1093,125 +1210,4 @@ Accept: application/xml
 For example, the way it is done you can only use it for <code class="highlighter-rouge">200 OK</code> answers (but it can be extended).</p>
 </blockquote>
 
-<p>The full example is on <a href="https://github.com/Burgyn/Samples.ContentNegotion">GitHub</a>.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><summary type="html"><![CDATA[A guide to creating your own support for Content Negotiation in ASP.NET Core Minimal API by developing a custom 'IResult' implementation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to use IHostedService to initialize an application</title><link href="https://blog.burgyn.online/2024/05/12/how-to-use-ihostedservice-to-initialize-an-application" rel="alternate" type="text/html" title="How to use IHostedService to initialize an application" /><published>2024-05-12T17:00:00+00:00</published><updated>2024-05-12T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/05/12/how-to-use-ihostedservice-to-initialize-an-application</id><content type="html" xml:base="https://blog.burgyn.online/2024/05/12/how-to-use-ihostedservice-to-initialize-an-application"><![CDATA[<blockquote>
-  <p>ℹ️ This is another article in a series showing how you can use <code class="highlighter-rouge">IHostedService</code>.</p>
-  <ul>
-    <li><a href="/2024/04/28/asp-net-core-periodic-background-task">ASP.NET Core - Periodic Background Task</a>.</li>
-    <li><a href="/2024/05/05/asp-net-core-queued-hosted-service">ASP.NET Core - Queued hosted service</a>.</li>
-  </ul>
-</blockquote>
-
-<p>You may find that you need to do some initialization before your ASP.NET Core service starts (before the service starts responding to queries). 
-For example, you need to run database migrations, create some records, create storage, load data into the local cache, and so on.</p>
-
-<blockquote>
-  <p>⚠️ Beware of database migrations and data initialization. 
-For a more complex system it is recommended to do this in the CI/CD process and not at service start <em>(complications with multiple service instances, slowing down the application start, …)</em>.<br />
-In the case of <a href="https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/applying?tabs=dotnet-core-cli#bundles">Entity Framework it is possible for example to create a bundle.exe</a> <code class="highlighter-rouge">dotnet ef migrations bundle</code> and run this in the CD process.</p>
-
-  <p>However, this is suitable for simple services or for local development needs.</p>
-</blockquote>
-
-<p>A simple and quite nice way to do this is to use <code class="highlighter-rouge">IHostedService</code>.</p>
-
-<p>Let’s create an interface for such an application initializer:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IAppInitializer</span>
-<span class="p">{</span>
-    <span class="n">Task</span> <span class="nf">InitializeAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>We then create a handler that implements <code class="highlighter-rouge">IHostedService</code> and handles all the initializers:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">internal</span> <span class="k">class</span> <span class="nc">AppInitializerHandler</span><span class="p">(</span><span class="n">IServiceScopeFactory</span> <span class="n">scopeFactory</span><span class="p">)</span> 
-    <span class="p">:</span> <span class="n">IHostedService</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IServiceScopeFactory</span> <span class="n">_scopeFactory</span> <span class="p">=</span> <span class="n">scopeFactory</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">StartAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 Create a new scope to retrieve scoped services</span>
-        <span class="k">using</span> <span class="nn">var</span> <span class="n">scope</span> <span class="p">=</span> <span class="n">_scopeFactory</span><span class="p">.</span><span class="nf">CreateScope</span><span class="p">();</span>
-        <span class="c1">// 👇 Get all initializers</span>
-        <span class="kt">var</span> <span class="n">initializers</span> <span class="p">=</span> <span class="n">scope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">.</span><span class="n">GetServices</span><span class="p">&lt;</span><span class="n">IAppInitializer</span><span class="p">&gt;();</span>
-
-        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">initializer</span> <span class="k">in</span> <span class="n">initializers</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="c1">// 👇 Run the initializer (choose your async strategy)</span>
-            <span class="k">await</span> <span class="n">initializer</span><span class="p">.</span><span class="nf">InitializeAsync</span><span class="p">(</span><span class="n">cancellationToken</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="n">Task</span> <span class="nf">StopAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>An example of an initializer that will populate the local cache:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">CacheInitializer</span><span class="p">(</span>
-    <span class="n">IMemoryCache</span> <span class="n">memoryCache</span><span class="p">,</span> 
-    <span class="n">IProductRepository</span> <span class="n">productRepository</span><span class="p">)</span> <span class="p">:</span> <span class="n">IAppInitializer</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IMemoryCache</span> <span class="n">_memoryCache</span> <span class="p">=</span> <span class="n">memoryCache</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IProductRepository</span> <span class="n">productRepository</span> <span class="p">=</span> <span class="n">productRepository</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="n">Task</span> <span class="nf">InitializeAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// Your logic for initializing the cache can go here</span>
-        <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>In case we want to run database migrations, we can directly implement this interface in DbContext:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ProductsDbContext</span> <span class="p">:</span> <span class="n">DbContext</span><span class="p">,</span> <span class="n">IAppInitializer</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="n">DbSet</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;</span> <span class="n">Products</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="k">public</span> <span class="nf">ProductsDbContext</span><span class="p">(</span><span class="n">DbContextOptions</span> <span class="n">options</span><span class="p">)</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">InitializeAsync</span><span class="p">(</span><span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 Apply pending migrations</span>
-        <span class="k">await</span> <span class="n">Database</span><span class="p">.</span><span class="nf">MigrateAsync</span><span class="p">(</span><span class="n">cancellationToken</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Finally, we register all initializers and handler in DI containers:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Register the initializers</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IAppInitializer</span><span class="p">,</span> <span class="n">ProductsDbContext</span><span class="p">&gt;();</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IAppInitializer</span><span class="p">,</span> <span class="n">CacheInitializer</span><span class="p">&gt;();</span>
-
-<span class="c1">// 👇 register AppInitializerHandler as a hosted service</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddHostedService</span><span class="p">&lt;</span><span class="n">AppInitializerHandler</span><span class="p">&gt;();</span>
-</code></pre></div></div>
-
-<p>This way we can elegantly initialize our application before it starts answering queries.</p>
-
-<blockquote>
-  <p>⚠️ Remember that initialization should be fast.</p>
-</blockquote>
-
-<p>To simplify registration to the DI container, we can create an extension:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">ServiceCollectionExtensions</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="n">AddAppInitializer</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span>
-        <span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span> 
-        <span class="k">where</span> <span class="n">T</span> <span class="p">:</span> <span class="k">class</span><span class="err">,</span> <span class="nc">IAppInitializer</span>
-    <span class="p">{</span>
-        <span class="n">services</span><span class="p">.</span><span class="n">AddScoped</span><span class="p">&lt;</span><span class="n">IAppInitializer</span><span class="p">,</span> <span class="n">T</span><span class="p">&gt;();</span>
-        <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// 👇 Register the initializers</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddAppInitializer</span><span class="p">&lt;</span><span class="n">ProductsDbContext</span><span class="p">&gt;();</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddAppInitializer</span><span class="p">&lt;</span><span class="n">CacheInitializer</span><span class="p">&gt;();</span>
-</code></pre></div></div>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><category term="architecture" /><summary type="html"><![CDATA[Learn how to use IHostedService in ASP.NET Core for tasks like database migrations or local cache loading before the service starts responding.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>The full example is on <a href="https://github.com/Burgyn/Samples.ContentNegotion">GitHub</a>.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><summary type="html"><![CDATA[A guide to creating your own support for Content Negotiation in ASP.NET Core Minimal API by developing a custom 'IResult' implementation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
