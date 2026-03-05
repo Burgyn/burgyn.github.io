@@ -1,0 +1,41 @@
+{
+  "burgyn-blog": {
+    "theme": "custom",
+    "backgroundColor": "rgba(43, 62, 80, 1)",
+    "windowTheme": "none",
+    "windowControls": true,
+    "fontFamily": "JetBrains Mono",
+    "fontSize": "16px",
+    "lineNumbers": false,
+    "firstLineNumber": 1,
+    "selectedLines": "*",
+    "dropShadow": false,
+    "dropShadowOffsetY": "20px",
+    "dropShadowBlurRadius": "68px",
+    "widthAdjustment": true,
+    "lineHeight": "152%",
+    "paddingVertical": "0px",
+    "paddingHorizontal": "0px",
+    "squaredImage": false,
+    "watermark": false,
+    "exportSize": "2x",
+    "type": "png",
+    "custom": {
+      "background": "rgba(43, 62, 80, 1)",
+      "text": "rgba(171, 178, 191, 1)",
+      "variable": "rgba(224, 108, 117, 1)",
+      "variable2": "rgba(229, 192, 123, 1)",
+      "variable3": "rgba(97, 175, 239, 1)",
+      "attribute": "rgba(209, 154, 102, 1)",
+      "definition": "rgba(229, 192, 123, 1)",
+      "keyword": "rgba(198, 120, 221, 1)",
+      "operator": "rgba(86, 182, 194, 1)",
+      "property": "rgba(86, 182, 194, 1)",
+      "number": "rgba(209, 154, 102, 1)",
+      "string": "rgba(152, 195, 121, 1)",
+      "comment": "rgba(92, 99, 112, 1)",
+      "meta": "rgba(171, 178, 191, 1)",
+      "tag": "rgba(224, 108, 117, 1)"
+    }
+  }
+}
