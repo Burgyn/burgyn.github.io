@@ -7,7 +7,7 @@ description: Generate styled code images for blog posts using carbon-now-cli. Us
 
 ## Overview
 
-Generate styled code images for the Burgyn blog using `carbon-now-cli`. Images use one-dark theme with syntax highlighting (light text), background `#2B3E50`, macOS window controls, no padding, no line numbers, no shadow.
+Generate styled code images for the Burgyn blog using `carbon-now-cli`. Images use the built-in Material theme (bright syntax highlighting), background `#263238`, macOS window controls, no padding, no line numbers, no shadow.
 
 ## Workflow
 
@@ -36,7 +36,7 @@ The script uses `npx carbon-now-cli`; no global install required.
 
 ## Config
 
-Preset `burgyn-blog` in [carbon-now.json](carbon-now.json): background `#2B3E50`, JetBrains Mono, one-dark theme (syntax highlighting, light text), macOS window controls (no title text), no line numbers, no shadow, no watermark, zero padding.
+Preset `burgyn-blog` in [carbon-now.json](carbon-now.json): Material theme, background `#263238`, JetBrains Mono, macOS window controls (no title text), no line numbers, no shadow, no watermark, zero padding.
 
 ## Naming Convention
 
