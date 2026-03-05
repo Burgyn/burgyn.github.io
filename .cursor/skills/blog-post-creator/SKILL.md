@@ -7,7 +7,7 @@ description: Create English technical blog posts for the Jekyll blog. Use when t
 
 ## Overview
 
-Create and edit English technical blog posts for the Burgyn Jekyll blog. Drafts live in `_drafts/`; use the site's Jekyll draft command to create new posts. Match the author's writing style, fill correct frontmatter, and follow markdown lint rules. After a post is ready, offer to create LinkedIn and Bluesky posts via the social-post-creator skill.
+Create and edit English technical blog posts for the Burgyn Jekyll blog. Drafts live in `_drafts/`; use the site's Jekyll draft command to create new posts. Match the author's writing style, fill correct frontmatter, and follow markdown lint rules. After a post is ready, offer to generate a cover image via the blog-cover-image skill, then offer to create LinkedIn and Bluesky posts via the social-post-creator skill.
 
 ## Workflow
 
@@ -17,7 +17,8 @@ Create and edit English technical blog posts for the Burgyn Jekyll blog. Drafts 
 4. Fill in frontmatter: title, description (max 145 chars for SEO), tags (max 4), keywords, image/thumbnail (default `/assets/images/blog-post-base-cover.png` if none), and optionally `social_post_key` once a social post exists.
 5. Proofread for English grammar and technical accuracy. Act as an expert in both.
 6. Validate markdown against lint rules. See [references/markdown-rules.md](references/markdown-rules.md).
-7. Ask the user: "Should I create LinkedIn and Bluesky posts for this article?" If yes, use the **social-post-creator** skill (do not write social posts in this skill).
+7. Ask the user: "Should I generate a cover image for this article?" If yes, use the **blog-cover-image** skill.
+8. Ask the user: "Should I create LinkedIn and Bluesky posts for this article?" If yes, use the **social-post-creator** skill (do not write social posts in this skill).
 
 ## Frontmatter Template
 
@@ -42,6 +43,8 @@ keywords:
 ```
 
 The `social_post_key` links the post to `social_posts/<key>.md` when social posts are created by the social-post-creator skill.
+
+The default base cover paths can be replaced by a generated article-specific cover from `assets/images/<slug>-cover.png` via the blog-cover-image skill.
 
 ## Writing Style (Summary)
 

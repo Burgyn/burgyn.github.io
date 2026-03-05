@@ -1,0 +1,18 @@
+{
+    "collections": [
+      {
+        "name": "records",
+        "displayName": "Records",
+        "seedCount": 5,
+        "schema": {
+          "type": "object",
+          "required": ["title", "status"],
+          "properties": {
+            "title": { "type": "string", "minLength": 2 },
+            "status": { "type": "string", "enum": ["new", "processing", "done"] },
+            "ownerEmail": { "type": "string", "format": "email" }
+          }
+        }
+      }
+    ]
+  }
