@@ -1,6 +1,6 @@
 ---
 name: social-post-creator
-description: Create LinkedIn and Bluesky posts for blog articles. Use when the user wants to share a blog post on social media, or when the blog-post-creator skill delegates social post creation. Posts are authentic knowledge-sharing, not marketing.
+description: Create LinkedIn and Bluesky posts for blog articles. Use when the user wants to share a blog post on social media, or when the blog-post-creator skill delegates social post creation. Posts are authentic knowledge-sharing, not marketing. Can delegate closing image code to linkedin-closing-code skill.
 ---
 
 # Social Post Creator
@@ -16,6 +16,7 @@ Generate LinkedIn and Bluesky posts for a blog article. Write to `social_posts/<
 3. Generate LinkedIn and Bluesky post text following the guidelines below.
 4. Create `social_posts/<social_post_key>.md` with the file format below. Use the real blog URL: `https://blog.burgyn.online/:year/:month/:day/:title`.
 5. Update the blog post frontmatter: set `social_post_key: "<key>"`.
+6. Ask the user: "Should I generate closing image code for the LinkedIn post?" If yes, use the **linkedin-closing-code** skill.
 
 ## Social Post File Format
 
