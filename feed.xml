@@ -1,4 +1,222 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-03-11T11:56:30+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">MMLib.DummyApi - Configurable mock API for prototypes and testing</title><link href="https://blog.burgyn.online/2026/03/04/mmlib-dummyapi" rel="alternate" type="text/html" title="MMLib.DummyApi - Configurable mock API for prototypes and testing" /><published>2026-03-04T17:00:00+00:00</published><updated>2026-03-04T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/04/mmlib-dummyapi</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/04/mmlib-dummyapi"><![CDATA[<p>This is probably one of those projects that helps mostly me. Still, I wanted to share it in case you run into the same problems.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-03-14T07:36:16+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">TeaPie: Test your REST API in 5 minutes</title><link href="https://blog.burgyn.online/2026/03/12/teapie-getting-started" rel="alternate" type="text/html" title="TeaPie: Test your REST API in 5 minutes" /><published>2026-03-12T17:00:00+00:00</published><updated>2026-03-12T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/12/teapie-getting-started</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/12/teapie-getting-started"><![CDATA[<p>You have an API. You want to test it. You don’t want to set up a full test project, install a heavy framework, or write a test class just to send a <code class="highlighter-rouge">GET</code> request and check the status code.</p>
+
+<p>That’s exactly the use case <a href="https://www.teapie.fun">TeaPie</a> was built for. It’s a CLI tool for API testing that uses plain <code class="highlighter-rouge">.http</code> files — the same format you might already know from VS Code’s REST Client extension or Visual Studio’s HTTP Files support. You write the request, optionally add a C# script for assertions, and run it.</p>
+
+<p>Let me show you how to go from zero to running tests in a few minutes.</p>
+
+<h2 id="spin-up-a-demo-api">Spin up a demo API</h2>
+
+<p>I’ll use my own open-source project <a href="https://github.com/Burgyn/MMLib.DummyApi">MMLib.DummyApi</a> as the demo backend. It’s a configurable mock REST API that ships with three ready-to-use collections: <code class="highlighter-rouge">products</code>, <code class="highlighter-rouge">orders</code>, and <code class="highlighter-rouge">customers</code>. You can <a href="/2026/03/04/mmlib-dummyapi">read more about it here</a>.</p>
+
+<p>Start it with Docker:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull ghcr.io/burgyn/mmlib-dummyapi
+docker run <span class="nt">-p</span> 8080:8080 ghcr.io/burgyn/mmlib-dummyapi
+</code></pre></div></div>
+
+<p>That’s it. The API is running at <code class="highlighter-rouge">http://localhost:8080</code> with 50 seeded products, 20 orders, and 30 customers. Try it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://localhost:8080/products
+</code></pre></div></div>
+
+<h2 id="install-teapie">Install TeaPie</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dotnet tool <span class="nb">install</span> <span class="nt">-g</span> TeaPie.Tool
+</code></pre></div></div>
+
+<p>Verify it works:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie <span class="nt">--version</span>
+</code></pre></div></div>
+
+<h2 id="create-the-test-project">Create the test project</h2>
+
+<p>Navigate to the folder where you want to keep your tests and run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie init
+</code></pre></div></div>
+
+<p>This creates a <code class="highlighter-rouge">.teapie</code> folder with a default configuration. Now scaffold your first test case:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie generate <span class="s2">"001-List-Products"</span> Tests/001-Products
+</code></pre></div></div>
+
+<p>This generates a <code class="highlighter-rouge">001-List-Products-req.http</code> file. Open the <code class="highlighter-rouge">.http</code> file — it’s where the request lives.</p>
+
+<h2 id="step-1-your-first-test--no-c-needed">Step 1: Your first test — no C# needed</h2>
+
+<p>Open <code class="highlighter-rouge">Tests/001-Products/001-List-Products-req.http</code> and write:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [200]
+## TEST-HAS-BODY
+GET http://localhost:8080/products
+</span></code></pre></div></div>
+
+<p>That’s the whole test. The <code class="highlighter-rouge">## TEST-*</code> lines are <strong>directives</strong> — TeaPie processes them and schedules the assertions automatically. No <code class="highlighter-rouge">.csx</code> script, no C# code, no test class.</p>
+
+<p>Run it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie <span class="nb">test </span>Tests/001-Products/001-List-Products-req.http
+</code></pre></div></div>
+
+<p>or</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie <span class="nb">test </span>Tests
+</code></pre></div></div>
+
+<p>You’ll see the result in the console immediately. Two tests pass: status is 200, response has a body.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  _____                 ___   _           _       ___       ___
+ |_   _|  ___   __ _   | _ \ (_)  ___    / |     | __|     |_  )
+   | |   / -_) / _` |  |  _/ | | / -_)   | |  _  |__ \  _   / /
+   |_|   \___| \__,_|  |_|   |_| \___|   |_| (_) |___/ (_) /___|
+
+[21:03:22 INF] Exploration of the collection started at path: '/Users/martiniak/Developer/GitHub/Burgyn/MMLib.TeapieExample/Tests'.
+[21:03:22 INF] Collection explored in 4 ms, found 1 test cases.
+[21:03:22 WRN] No environment file found. Running without environment.
+[21:03:22 INF] Test case '001-List-Products' is going to be executed. (1/1)
+[21:03:22 INF] Test Passed: '[1] Status code should match one of these: [200]' in 5 ms
+[21:03:22 INF] Test Passed: '[2] Response should have body.' in 1 ms
+[21:03:22 INF] Execution of test case '001-List-Products' has finished. (1/1)
+╭────────────────────────────────────────────────────────────────────────────────╮
+│ Test Results: SUCCESS                                                          │
+├────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                │
+│ ┌─ Summary ──────────────────────────────────────────────────────────────────┐ │
+│ │                                                                            │ │
+│ │  ████████████████████████████████████████████████████████████████████████  │ │
+│ │                                                                            │ │
+│ │  ■ Passed Tests [100.00%]: 2          ■ Skipped Tests [0.00%]: 0           │ │
+│ │  ■ Failed Tests [0.00%]: 0                                                 │ │
+│ └────────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                │
+╰────────────────────────────────────────────────────────────────────────────────╯
+</code></pre></div></div>
+
+<blockquote>
+  <p>The directive approach is great for quick sanity checks. You don’t need to write any C# until you actually need something more specific.</p>
+</blockquote>
+
+<h2 id="step-2-add-a-csx-script-for-meaningful-assertions">Step 2: Add a .csx script for meaningful assertions</h2>
+
+<p>Directives cover the basics, but they can’t express things like “the response body is an array with at least one item” or “the newly created resource has a positive ID”. For that, you add a post-response script.</p>
+
+<p>Scaffold the create test:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie generate <span class="s2">"002-Create-Product"</span> Tests/001-Products <span class="nt">-t</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">-t</code> or <code class="highlighter-rouge">--test</code> create test csx file. Two files are created:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">002-Create-Product-req.http</code> — the request</li>
+  <li><code class="highlighter-rouge">002-Create-Product-test.csx</code> — the post-response assertions</li>
+</ul>
+
+<h3 id="the-request-file">The request file</h3>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># @name CreateProductRequest
+## TEST-EXPECT-STATUS: [201]
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "TeaPie Mug",
+  "price": 12.99,
+  "category": "merchandise",
+  "sku": "MUG-001"
+}
+</span></code></pre></div></div>
+
+<h3 id="the-post-response-script">The post-response script</h3>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Created product should have a positive ID."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="c1">// 👇 GetBodyAsExpandoAsync gives you case-insensitive dynamic access to the JSON body</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">NotNull</span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">id</span><span class="p">);</span>
+    <span class="n">tp</span><span class="p">.</span><span class="nf">SetVariable</span><span class="p">(</span><span class="s">"NewProductId"</span><span class="p">,</span> <span class="n">body</span><span class="p">.</span><span class="n">id</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Created product should have the correct name."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">Equal</span><span class="p">(</span><span class="s">"TeaPie Mug"</span><span class="p">,</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">body</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">tp.Test()</code> is the test runner. Assertions use XUnit’s <code class="highlighter-rouge">Assert</code> (the <code class="highlighter-rouge">Assert.</code> prefix is optional). The variable <code class="highlighter-rouge">NewProductId</code> is stored at collection level — other test cases in the same run can read it.</p>
+
+<blockquote>
+  <p>You can use your favorite assertion framework.</p>
+</blockquote>
+
+<h3 id="chain-to-get--using-request-variables">Chain to Get — using request variables</h3>
+
+<p>Now scaffold the get test:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie generate <span class="s2">"003-Get-Product"</span> Tests/001-Products <span class="nt">-t</span>
+</code></pre></div></div>
+
+<p>The request file uses a <strong>request variable</strong> to read the ID from the create response:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># @name GetProductRequest
+## TEST-EXPECT-STATUS: [200]
+## TEST-HAS-BODY
+GET http://localhost:8080/products/{{NewProductId}
+</span></code></pre></div></div>
+
+<p>The post-response script verifies the right product came back:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Retrieved product name should match."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">Equal</span><span class="p">(</span><span class="s">"TeaPie Mug"</span><span class="p">,</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">body</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="run-the-full-collection">Run the full collection</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie <span class="nb">test </span>Tests/001-Products
+</code></pre></div></div>
+
+<p>TeaPie runs all test cases in order, resolves variables across them, and prints a summary:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>╭────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Test Results: SUCCESS                                                                          │
+├────────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                                │
+│ ┌─ Summary ──────────────────────────────────────────────────────────────────────────────────┐ │
+│ │                                                                                            │ │
+│ │  ████████████████████████████████████████████████████████████████████████████████████████  │ │
+│ │                                                                                            │ │
+│ │  ■ Passed Tests [100.00%]: 8    ■ Skipped Tests [0.00%]: 0    ■ Failed Tests [0.00%]: 0    │ │
+│ └────────────────────────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                                │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+</code></pre></div></div>
+
+<p>Exit code <code class="highlighter-rouge">0</code> means all tests passed — which makes it CI-friendly out of the box.</p>
+
+<h2 id="where-you-are-now">Where you are now</h2>
+
+<p>In a few minutes you have:</p>
+
+<ul>
+  <li>A <code class="highlighter-rouge">GET</code> test that uses only directives — no C# at all.</li>
+  <li>A <code class="highlighter-rouge">POST</code> test with a post-response script that validates the response body and stores a variable.</li>
+  <li>A <code class="highlighter-rouge">GET</code> test that chains from the create response using request variables.</li>
+</ul>
+
+<p>The pattern scales. Start with directives for quick checks, add <code class="highlighter-rouge">.csx</code> scripts when you need real assertions. In the <a href="/">next article</a>, I’ll show how to handle environments, authenticated endpoints, background jobs, and validation errors — the kind of real-world patterns every API has.</p>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://www.teapie.fun/docs/introduction.html">TeaPie documentation</a></li>
+  <li><a href="https://github.com/Burgyn/MMLib.DummyApi">MMLib.DummyApi on GitHub</a></li>
+  <li><a href="/2026/03/04/mmlib-dummyapi">MMLib.DummyApi blog post</a></li>
+</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="dotnet" /><category term="testing" /><category term="api" /><category term="tools" /><summary type="html"><![CDATA[TeaPie is a CLI tool for API testing using .http files. No heavy frameworks — install it, write a request, run it.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/teapie-getting-started-cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/teapie-getting-started-cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">MMLib.DummyApi - Configurable mock API for prototypes and testing</title><link href="https://blog.burgyn.online/2026/03/04/mmlib-dummyapi" rel="alternate" type="text/html" title="MMLib.DummyApi - Configurable mock API for prototypes and testing" /><published>2026-03-04T17:00:00+00:00</published><updated>2026-03-04T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/04/mmlib-dummyapi</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/04/mmlib-dummyapi"><![CDATA[<p>This is probably one of those projects that helps mostly me. Still, I wanted to share it in case you run into the same problems.</p>
 
 <p>I often need a working API for quick UI prototypes, UI framework testing, integration tool testing, load-testing tools, and demo projects for talks <em>(conference, school, meetup)</em>. I do not want to build a new backend every single time just to have realistic endpoints and data.</p>
 
@@ -1003,211 +1221,4 @@ But I’ll leave that up to you 😉.</p>
 <ul>
   <li><a href="https://github.com/Kros-sk/Kros.Ocelot.ETagCaching">Kros.Ocelot.ETagCaching GitHub Repository</a></li>
   <li><a href="https://ocelot.readthedocs.io/en/latest/">Ocelot</a></li>
-</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="caching" /><category term="architecture" /><summary type="html"><![CDATA[A blog post discussing the use of ETag caching with Kros.Ocelot.ETagCaching library and Ocelot API Gateway.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">ASP.NET CORE Minimal API - Content Negotiation</title><link href="https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation" rel="alternate" type="text/html" title="ASP.NET CORE Minimal API - Content Negotiation" /><published>2024-05-19T17:00:00+00:00</published><updated>2024-05-19T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation</id><content type="html" xml:base="https://blog.burgyn.online/2024/05/19/asp-net-core-minimal-api-content-negotiation"><![CDATA[<p>The primary goal of <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-8.0">ASP.NET Core Minimal API</a> is to deliver a straightforward, simple, and most importantly, very powerful framework for creating APIs. Rather than delivering features to cover every possible usage scenario <em>(unlike <a href="https://learn.microsoft.com/en-us/aspnet/core/tutorials/choose-web-ui?view=aspnetcore-8.0">MVC</a>)</em> it is designed with certain specific patterns in mind. One of these cases is that the Minimal API consumes and produces only the <code class="highlighter-rouge">JSON</code> format <em>(Thus, it does not support <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation">Content Negotiation</a> which is handled by <a href="https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/formatting?view=aspnetcore-8.0#content-negotiation">Output formatters</a> in the case of MVC)</em>.
-However, there are situations where you really need either a different type of output <em>(for example, standard <code class="highlighter-rouge">XML</code>)</em>, or you need to be more in control of the serialization process, and you want to take advantage of the simplicity and power of the Minimal API. In this article, I will try to show how you can create your own support for Content Negotiation in the Minimal API.</p>
-
-<blockquote>
-  <p>⚠️ This is a functional implementation, but it doesn’t cover all scenarios and is just a basic example of what such support could look like.</p>
-</blockquote>
-
-<p>The whole solution is based on a custom implementation for <code class="highlighter-rouge">IResult</code>. <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/responses?view=aspnetcore-8.0">More info in the documentation</a>.</p>
-
-<h2 id="iresponsenegotiator"><code class="highlighter-rouge">IResponseNegotiator</code></h2>
-
-<p>Let’s first define the interface whose implementation will be responsible for serializing the response.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IResponseNegotiator</span>
-<span class="p">{</span>
-    <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
-
-    <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">);</span>
-
-    <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="implementation-for-json">Implementation for JSON</h2>
-
-<p>For JSON, we can directly use <code class="highlighter-rouge">Ok&lt;TResult&gt;</code> result, which is part of the Minimal API.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">JsonNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">=&gt;</span> <span class="n">MediaTypeNames</span><span class="p">.</span><span class="n">Application</span><span class="p">.</span><span class="n">Json</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">)</span>
-        <span class="p">=&gt;</span> <span class="n">accept</span><span class="p">.</span><span class="n">MediaType</span> <span class="p">==</span> <span class="n">ContentType</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 Use original Ok&lt;TResult&gt; type for JSON serialization</span>
-        <span class="k">return</span> <span class="n">TypedResults</span><span class="p">.</span><span class="nf">Ok</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">httpContext</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="implementation-for-xml">Implementation for XML</h2>
-
-<p>For XML, we can create a custom implementation that uses, for example, <code class="highlighter-rouge">DataContractSerializer</code>.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">XmlNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">string</span> <span class="n">ContentType</span> <span class="p">=&gt;</span> <span class="n">MediaTypeNames</span><span class="p">.</span><span class="n">Application</span><span class="p">.</span><span class="n">Xml</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="kt">bool</span> <span class="nf">CanHandle</span><span class="p">(</span><span class="n">MediaTypeHeaderValue</span> <span class="n">accept</span><span class="p">)</span>
-        <span class="p">=&gt;</span> <span class="n">accept</span><span class="p">.</span><span class="n">MediaType</span> <span class="p">==</span> <span class="n">ContentType</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Handle</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">,</span> <span class="n">TResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">ContentType</span> <span class="p">=</span> <span class="n">ContentType</span><span class="p">;</span>
-
-        <span class="c1">// 👇 Use DataContractSerializer for XML serialization</span>
-        <span class="k">using</span> <span class="nn">var</span> <span class="n">stream</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">FileBufferingWriteStream</span><span class="p">();</span>
-        <span class="k">using</span> <span class="nn">var</span> <span class="n">streamWriter</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">StreamWriter</span><span class="p">(</span><span class="n">stream</span><span class="p">);</span>
-        <span class="kt">var</span> <span class="n">serializer</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">DataContractSerializer</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="nf">GetType</span><span class="p">());</span>
-
-        <span class="n">serializer</span><span class="p">.</span><span class="nf">WriteObject</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
-
-        <span class="k">await</span> <span class="n">stream</span><span class="p">.</span><span class="nf">DrainBufferAsync</span><span class="p">(</span><span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">Body</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="registration">Registration</h2>
-
-<p>Unfortunately, due to the way <code class="highlighter-rouge">IEndpointMetadataProvider</code> works and the way serialization works directly in the Minimal API, I couldn’t find an elegant way to use the DI container <em>(there would be a few inelegant ones 😊).</em> So I resorted to a custom registrar for negotiators.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">ContentNegotiationProvider</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">static</span> <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">IResponseNegotiator</span><span class="p">&gt;</span> <span class="n">_negotiators</span> <span class="p">=</span> <span class="p">[];</span>
-
-    <span class="c1">// 👇 Internal list of negotiators</span>
-    <span class="k">internal</span> <span class="k">static</span> <span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">IResponseNegotiator</span><span class="p">&gt;</span> <span class="n">Negotiators</span> <span class="p">=&gt;</span> <span class="n">_negotiators</span><span class="p">;</span>
-
-    <span class="c1">// 👇 Add negotiator to the list</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">TNegotiator</span><span class="p">&gt;()</span>
-        <span class="k">where</span> <span class="n">TNegotiator</span> <span class="p">:</span> <span class="n">IResponseNegotiator</span><span class="p">,</span> <span class="k">new</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">_negotiators</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">TNegotiator</span><span class="p">());</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>We register the negotiators in <code class="highlighter-rouge">Program.cs</code> or <code class="highlighter-rouge">Startup.cs</code>.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">JsonNegotiator</span><span class="p">&gt;();</span>
-<span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">AddNegotiator</span><span class="p">&lt;</span><span class="n">XmlNegotiator</span><span class="p">&gt;();</span>
-</code></pre></div></div>
-
-<h2 id="contentnegotiationresulttresult"><code class="highlighter-rouge">ContentNegotiationResult&lt;TResult&gt;</code></h2>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">&gt;(</span><span class="n">TResult</span> <span class="n">result</span><span class="p">)</span>
-    <span class="p">:</span> <span class="n">IResult</span><span class="p">,</span> <span class="n">IEndpointMetadataProvider</span><span class="p">,</span> <span class="n">IStatusCodeHttpResult</span><span class="p">,</span> <span class="n">IValueHttpResult</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">TResult</span> <span class="n">_result</span> <span class="p">=</span> <span class="n">result</span><span class="p">;</span>
-
-    <span class="c1">// ...</span>
-
-    <span class="k">public</span> <span class="n">Task</span> <span class="nf">ExecuteAsync</span><span class="p">(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">_result</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status204NoContent</span><span class="p">;</span>
-            <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="c1">// 👇 Get negotiator based on Accept header</span>
-        <span class="kt">var</span> <span class="n">negotiator</span> <span class="p">=</span> <span class="nf">GetNegotiator</span><span class="p">(</span><span class="n">httpContext</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">negotiator</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status406NotAcceptable</span><span class="p">;</span>
-            <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="c1">// 👇 Set status code</span>
-        <span class="n">httpContext</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="n">StatusCode</span> <span class="p">=</span> <span class="n">StatusCode</span><span class="p">;</span>
-
-        <span class="c1">// 👇 Handle the result</span>
-        <span class="k">return</span> <span class="n">negotiator</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="n">httpContext</span><span class="p">,</span> <span class="n">_result</span><span class="p">,</span> <span class="n">httpContext</span><span class="p">.</span><span class="n">RequestAborted</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">private</span> <span class="k">static</span> <span class="n">IResponseNegotiator</span><span class="p">?</span> <span class="nf">GetNegotiator</span><span class="p">(</span><span class="n">HttpContext</span> <span class="n">httpContext</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">accept</span> <span class="p">=</span> <span class="n">httpContext</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="nf">GetTypedHeaders</span><span class="p">().</span><span class="n">Accept</span><span class="p">;</span>
-        <span class="c1">// 👇 Get negotiator based on Accept header (use ContentNegotiationProvider)</span>
-        <span class="k">return</span> <span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">Negotiators</span><span class="p">.</span><span class="nf">FirstOrDefault</span><span class="p">(</span><span class="n">n</span> <span class="p">=&gt;</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">accept</span><span class="p">.</span><span class="nf">Any</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">n</span><span class="p">.</span><span class="nf">CanHandle</span><span class="p">(</span><span class="n">a</span><span class="p">));</span>
-        <span class="p">});</span>
-    <span class="p">}</span>
-
-    <span class="c1">//...</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>To make the documentation nicely generated and contain information about possible formats, we can implement <code class="highlighter-rouge">IEndpointMetadataProvider</code>.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">void</span> <span class="n">IEndpointMetadataProvider</span><span class="p">.</span><span class="nf">PopulateMetadata</span><span class="p">(</span><span class="n">MethodInfo</span> <span class="n">method</span><span class="p">,</span> <span class="n">EndpointBuilder</span> <span class="n">builder</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// 👇 Add produces response type metadata</span>
-    <span class="n">builder</span><span class="p">.</span><span class="n">Metadata</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">ProducesResponseTypeMetadata</span><span class="p">(</span><span class="n">StatusCodes</span><span class="p">.</span><span class="n">Status200OK</span><span class="p">,</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TResult</span><span class="p">),</span>
-        <span class="n">ContentNegotiationProvider</span><span class="p">.</span><span class="n">Negotiators</span><span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">n</span> <span class="p">=&gt;</span> <span class="n">n</span><span class="p">.</span><span class="n">ContentType</span><span class="p">).</span><span class="nf">ToArray</span><span class="p">()));</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="helper-method">Helper method</h2>
-
-<p>Let’s create a static helper for ease of use.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">Negotiation</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="n">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">Negotiate</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">result</span><span class="p">)</span>
-        <span class="p">=&gt;</span> <span class="k">new</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="usage">Usage</h2>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapGet</span><span class="p">(</span><span class="s">"/products"</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="c1">// 👇 Use Negotiation</span>
-    <span class="k">return</span> <span class="n">Negotiation</span><span class="p">.</span><span class="nf">Negotiate</span><span class="p">(</span><span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;()</span> <span class="p">{</span> <span class="k">new</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">"Product 1"</span><span class="p">,</span> <span class="m">100</span><span class="p">)</span> <span class="p">});</span>
-<span class="p">});</span>
-
-<span class="n">app</span><span class="p">.</span><span class="nf">MapGet</span><span class="p">(</span><span class="s">"/products/{id}"</span><span class="p">,</span> <span class="n">GetProduct</span><span class="p">);</span>
-
-<span class="k">static</span> <span class="n">Results</span><span class="p">&lt;</span><span class="n">ContentNegotiationResult</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;,</span> <span class="n">NotFound</span><span class="p">&gt;</span> <span class="nf">GetProduct</span><span class="p">(</span><span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">id</span> <span class="p">==</span> <span class="m">1</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 Use Negotiation</span>
-        <span class="k">return</span> <span class="n">Negotiation</span><span class="p">.</span><span class="nf">Negotiate</span><span class="p">(</span><span class="k">new</span> <span class="nf">Product</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">"Product 1"</span><span class="p">,</span> <span class="m">100</span><span class="p">));</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">TypedResults</span><span class="p">.</span><span class="nf">NotFound</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>That’s it ✅.</p>
-
-<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">### GET products as XML
-GET http://localhost:5210/product/
-Accept: application/xml
-
-### Response
-&lt;ArrayOfProduct xmlns="http://schemas.datacontract.org/2004/07/" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;
-  &lt;Product&gt;
-    &lt;Id&gt;1&lt;/Id&gt;
-    &lt;Name&gt;Product 1&lt;/Name&gt;
-    &lt;Price&gt;100&lt;/Price&gt;
-  &lt;/Product&gt;
-&lt;/ArrayOfProduct&gt;
-</span></code></pre></div></div>
-
-<blockquote>
-  <p>⚠️ This solution is just a basic suggestion and does not cover all possible scenarios. 
-For example, the way it is done you can only use it for <code class="highlighter-rouge">200 OK</code> answers (but it can be extended).</p>
-</blockquote>
-
-<p>The full example is on <a href="https://github.com/Burgyn/Samples.ContentNegotion">GitHub</a>.</p>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="asp.net core" /><summary type="html"><![CDATA[A guide to creating your own support for Content Negotiation in ASP.NET Core Minimal API by developing a custom 'IResult' implementation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="caching" /><category term="architecture" /><summary type="html"><![CDATA[A blog post discussing the use of ETag caching with Kros.Ocelot.ETagCaching library and Ocelot API Gateway.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
