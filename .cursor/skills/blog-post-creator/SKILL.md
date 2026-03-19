@@ -69,3 +69,7 @@ Follow the rules in [references/markdown-rules.md](references/markdown-rules.md)
 
 - **Writing style**: [references/writing-style.md](references/writing-style.md) – load when drafting or editing body content.
 - **Markdown rules**: [references/markdown-rules.md](references/markdown-rules.md) – load when checking or fixing markdown.
+- **Liquid in Markdown (Jekyll)**:
+  [../jekyll-liquid-markdown/SKILL.md](../jekyll-liquid-markdown/SKILL.md) –
+  when the body must show `{{`, `}}`, or `{%` literally (framework examples,
+  JSON, templates).

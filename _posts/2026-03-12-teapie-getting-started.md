@@ -237,10 +237,17 @@ In a few minutes you have:
 - A `POST` test with a post-response script that validates the response body and stores a variable.
 - A `GET` test that chains from the create response using request variables.
 
-The pattern scales. Start with directives for quick checks, add `.csx` scripts when you need real assertions. In the [next article](/), I'll show how to handle environments, authenticated endpoints, background jobs, and validation errors — the kind of real-world patterns every API has.
+The pattern scales. Start with directives for quick checks, add `.csx` scripts
+when you need real assertions.
+
+**Part 2:**
+[TeaPie: Testing real-world API scenarios](/2026/03/18/teapie-real-world-api-testing)
+covers environments, API keys on DummyApi, pre-request variables,
+built-in `.http` functions, and retries (flaky responses vs async background work).
 
 ## Links
 
 - [TeaPie documentation](https://www.teapie.fun/docs/introduction.html)
+- [Part 2 of this series - real-world API scenarios](/2026/03/18/teapie-real-world-api-testing)
 - [MMLib.DummyApi on GitHub](https://github.com/Burgyn/MMLib.DummyApi)
 - [MMLib.DummyApi blog post](/2026/03/04/mmlib-dummyapi)
