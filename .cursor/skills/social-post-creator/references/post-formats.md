@@ -4,7 +4,7 @@ Concrete examples and anti-patterns for LinkedIn and Bluesky posts. Blog URL bas
 
 ## LinkedIn Examples
 
-### Example 1 (author's real post – Minimal API validation)
+### Example 1 (author's real post - Minimal API validation)
 
 ```
 🚀 Built-in validation for Minimal APIs is finally here in .NET 10 (since November 2025)
@@ -31,7 +31,7 @@ https://lnkd.in/dUu4DqDS
 #dotnet #minimalapi #aspnetcore
 ```
 
-### Example 2 (Own mediator – from blog frontmatter)
+### Example 2 (Own mediator - from blog frontmatter)
 
 ```
 Interested in the Mediator design pattern for .NET? Check out how you can create your own implementation without third-party libraries. 🎯💻 {link to blogpost}
@@ -40,7 +40,7 @@ Interested in the Mediator design pattern for .NET? Check out how you can create
 Adapted with structure and URL:
 
 ```
-🎯 Own Mediator implementation in .NET – no third-party library
+🎯 Own Mediator implementation in .NET - no third-party library
 
 Sometimes you can't or don't want to add MediatR. I wrote how we built a minimal event publisher that fits our needs.
 
@@ -53,7 +53,7 @@ https://blog.burgyn.online/2024/06/09/own-mediator
 #dotnet #csharp #architecture
 ```
 
-### Example 3 (Throw vs throw ex – from blog frontmatter)
+### Example 3 (Throw vs throw ex - from blog frontmatter)
 
 ```
 🔍 Get back to basics with C#! Learn how to use 'throw' & 'throw ex' and their impact on stack traces during exceptions. Understand how they aid in problem identification. Don't miss the details! 🚀 👨‍💻 [Link to blog post]
@@ -62,12 +62,12 @@ https://blog.burgyn.online/2024/06/09/own-mediator
 Adapted with structure and URL:
 
 ```
-🔍 Throw vs throw ex – back to the basics
+🔍 Throw vs throw ex - back to the basics
 
 In C# the difference is whether the stack trace is preserved. Short post on why it matters when debugging.
 
-→ throw ex – stack trace from rethrow point
-→ throw – original stack trace kept ✅
+→ throw ex - stack trace from rethrow point
+→ throw - original stack trace kept ✅
 
 https://blog.burgyn.online/2024/04/14/throw-vs-throw-ex-back-to-the-basics
 
@@ -81,7 +81,7 @@ Bluesky: max 300 characters. One short sentence + link + optional hashtags.
 ### Example 1
 
 ```
-Built-in validation for Minimal APIs in .NET 10 — wrote about how it works and what to watch out for.
+Built-in validation for Minimal APIs in .NET 10 - wrote about how it works and what to watch out for.
 
 https://blog.burgyn.online/2025/03/15/minimal-api-validation
 
@@ -101,7 +101,7 @@ https://blog.burgyn.online/2024/06/09/own-mediator
 ### Example 3
 
 ```
-Throw vs throw ex in C# — why the stack trace changes and why it matters for debugging.
+Throw vs throw ex in C# - why the stack trace changes and why it matters for debugging.
 
 https://blog.burgyn.online/2024/04/14/throw-vs-throw-ex-back-to-the-basics
 

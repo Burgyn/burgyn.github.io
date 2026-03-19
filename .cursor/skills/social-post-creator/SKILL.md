@@ -32,11 +32,11 @@ created_date: <YYYY-MM-DD>
 
 ## LinkedIn
 
-<LinkedIn post content – plain text, no markdown headings in the post body>
+<LinkedIn post content - plain text, no markdown headings in the post body>
 
 ## Bluesky
 
-<Bluesky post content – plain text>
+<Bluesky post content - plain text>
 ```
 
 ## LinkedIn Guidelines
@@ -45,19 +45,22 @@ created_date: <YYYY-MM-DD>
 - **Formatting**: LinkedIn does not support bold/italic. Use emojis as section markers (🚀, 🙏, 🛠️, ⚠️, etc.).
 - **Structure**: Emoji + short section title on first line, then content. Use → for bullet/list items.
 - **Hashtags**: At the end, space-separated: `#dotnet #minimalapi #aspnetcore` (relevant tech hashtags).
-- **Length**: Medium, typically 500–1300 characters.
+- **Length**: Medium, typically 500-1300 characters.
 - **Link**: Include the actual blog post URL: `https://blog.burgyn.online/:year/:month/:day/:title` (Jekyll permalink).
 - **Engagement**: Optional question or related link; keep it natural, no forced CTAs.
 - **Language**: English.
+- **Dashes**: Use a plain hyphen (`-`) in all post copy. Do not use em (`—`) or en (`–`) dashes; use ASCII `-` only.
 
 ## Bluesky Guidelines
 
-- **Length**: Much shorter than LinkedIn – max 300 characters (platform limit).
+- **Length**: Much shorter than LinkedIn - max 300 characters (platform limit).
 - **Content**: One short context sentence + direct link to the blog post. Essentially "here's what I wrote about" with the URL.
 - **URL**: Always include full URL: `https://blog.burgyn.online/:year/:month/:day/:title`.
 - **Tone**: Casual, authentic. No marketing fluff.
-- **Hashtags**: 1–2 if space permits (e.g. `#dotnet #aspnetcore`).
+- **Hashtags**: 1-2 if space permits (e.g. `#dotnet #aspnetcore`).
 
 ## Reference
 
 Load [references/post-formats.md](references/post-formats.md) for concrete LinkedIn and Bluesky examples and anti-patterns (what not to write).
+
+For **mobile-first portrait** share art (1080×1350), use **`linkedin-portrait-cover-image`** (AI vertical layout). Optional fast crop: **`social-portrait-image`**. YAML keys `linkedin_portrait_image` / `linkedin_portrait_image_size` in `social_posts/*.md` apply to the portrait asset path.

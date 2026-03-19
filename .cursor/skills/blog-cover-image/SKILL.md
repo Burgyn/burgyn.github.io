@@ -79,3 +79,11 @@ Use this skill when:
 
 - the user explicitly asks for a cover image for an article
 - `blog-post-creator` flow is used and the user confirms cover generation
+
+## Related
+
+- For **AI-native** LinkedIn portrait art (1080×1350, vertical layout), use
+  **`linkedin-portrait-cover-image`** - prefer over cropping when 16:9 would lose
+  code or illustration.
+- **`social-portrait-image`** - fast **ffmpeg center-crop** from this cover only if
+  acceptable.
