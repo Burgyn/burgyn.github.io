@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+    <meta name="keywords" content="TeaPie, API testing, environments, retry, dotnet tool">
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>TeaPie: Testing real-world API scenarios | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="TeaPie: Testing real-world API scenarios" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Environments, API keys on DummyApi, pre-request variables, built-in .http functions, and resilient retries - with links to TeaPie docs." />
+<meta property="og:description" content="Environments, API keys on DummyApi, pre-request variables, built-in .http functions, and resilient retries - with links to TeaPie docs." />
+<link rel="canonical" href="https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing" />
+<meta property="og:url" content="https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:image" content="https://blog.burgyn.online/assets/images/teapie-real-world-api-testing-cover.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-03-18T17:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://blog.burgyn.online/assets/images/teapie-real-world-api-testing-cover.png" />
+<meta property="twitter:title" content="TeaPie: Testing real-world API scenarios" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2026-03-18T17:00:00+00:00","datePublished":"2026-03-18T17:00:00+00:00","description":"Environments, API keys on DummyApi, pre-request variables, built-in .http functions, and resilient retries - with links to TeaPie docs.","headline":"TeaPie: Testing real-world API scenarios","image":"https://blog.burgyn.online/assets/images/teapie-real-world-api-testing-cover.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing"},"url":"https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>TeaPie: Testing real-world API scenarios</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2026-03-18T17:00:00+00:00" itemprop="datePublished">Mar 18, 2026
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/dotnet">dotnet</a> -->
+                dotnet, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/testing">testing</a> -->
+                testing, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/api">api</a> -->
+                api, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/tools">tools</a> -->
+                tools
+            </span>  
+        </p>
+    </header>
+
+    
+    <div class="post-thumbnail">
+        <img src="/assets/images/teapie-real-world-api-testing-cover.png" alt="TeaPie: Testing real-world API scenarios" itemprop="image">
+    </div>
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>In the <a href="/2026/03/12/teapie-getting-started">first article</a>,
+I showed how to get from zero to passing tests in a few minutes - directives,
+a <code class="highlighter-rouge">POST</code> with a <code class="highlighter-rouge">.csx</code> script, and chaining IDs across test cases.</p>
+
+<p>This post skips repeating that path. I won’t walk through extra CRUD steps or
+another “invalid body returns 400” example - you already have the pattern from
+Part 1. Instead: <strong>environments</strong>, how this demo API expects an <strong>API key</strong>,
+<strong>pre-request scripts</strong> that feed variables into <code class="highlighter-rouge">.http</code> files, <strong>built-in
+functions</strong> for inline values, and <strong>retries</strong> - both for flaky HTTP responses
+and for work that finishes asynchronously in the background.</p>
+
+<p>I’m still using
+<a href="https://github.com/Burgyn/MMLib.DummyApi">MMLib.DummyApi</a> as the demo backend.
+If you haven’t read
+<a href="/2026/03/12/teapie-getting-started">Part 1</a>, start there; spin up
+the API with
+<code class="highlighter-rouge">docker run -p 8080:8080 ghcr.io/burgyn/mmlib-dummyapi</code>.</p>
+
+<h2 id="environments">Environments</h2>
+
+<p>Until now, the API base URL was hardcoded in every <code class="highlighter-rouge">.http</code> file. That breaks
+the moment you want to run the same tests against staging. Let’s fix that.</p>
+
+<p>Create <code class="highlighter-rouge">.teapie/env.json</code> in your project root:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"$shared"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ApiBaseUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ApiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-api-key-123"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"staging"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ApiBaseUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my-staging-api.example.com"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">$shared</code> is the default environment - its variables are always available.
+<code class="highlighter-rouge">staging</code> overrides <code class="highlighter-rouge">ApiBaseUrl</code> for that specific environment.</p>
+
+<p>Now update your <code class="highlighter-rouge">.http</code> files to use the variable:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [200]
+## TEST-HAS-BODY
+GET {{ApiBaseUrl}}/products
+</span></code></pre></div></div>
+
+<p>Run against local (default):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie <span class="nb">test </span>Tests/
+</code></pre></div></div>
+
+<p>Run against staging:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie <span class="nb">test </span>Tests/ <span class="nt">-e</span> staging
+</code></pre></div></div>
+
+<p>One test collection, multiple environments.</p>
+
+<blockquote>
+  <p>Of course, tests won’t pass against <code class="highlighter-rouge">staging</code> right now - that URL doesn’t
+exist. Replace it with your real staging endpoint when you have one.</p>
+</blockquote>
+
+<h2 id="api-keys-in-this-demo-and-what-comes-next">API keys in this demo (and what comes next)</h2>
+
+<p>The DummyApi <code class="highlighter-rouge">orders</code> endpoints expect an <code class="highlighter-rouge">X-Api-Key</code> header. Without it, you get
+<code class="highlighter-rouge">401</code>. For this sample, put the key in <strong><code class="highlighter-rouge">.teapie/env.json</code></strong> (the same file as
+in <a href="#environments">Environments</a>). The <code class="highlighter-rouge">ApiKey</code> property becomes variable
+{{ApiKey}} in <code class="highlighter-rouge">.http</code> files. That is handy for workshops
+and Docker demos, but not how every real API handles identity.</p>
+
+<p>A follow-up post will cover other authentication styles and a <strong>custom auth
+provider</strong> in TeaPie so you don’t have to paste secrets into every request by
+hand.</p>
+
+<p>Positive path: use the env value in a header the same way you use
+{{ApiBaseUrl}}. Create
+<code class="highlighter-rouge">Tests/002-Orders/001-List-Orders-Authorized-req.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [200]
+## TEST-HAS-BODY
+GET {{ApiBaseUrl}}/orders
+X-Api-Key: {{ApiKey}}
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">ApiKey</code> is resolved from <code class="highlighter-rouge">.teapie/env.json</code> when you run <code class="highlighter-rouge">teapie test</code>.</p>
+
+<p>Quick negative check - no header, expect rejection. Create
+<code class="highlighter-rouge">Tests/002-Orders/004-Unauthorized-Access-req.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [401]
+GET {{ApiBaseUrl}}/orders
+</span></code></pre></div></div>
+
+<h2 id="pre-request-scripts-set-variables-keep-http-readable">Pre-request scripts: set variables, keep <code class="highlighter-rouge">.http</code> readable</h2>
+
+<p>Sometimes you need to prepare values <strong>before</strong> TeaPie sends the request. Add a
+<strong>pre-request script</strong> next to the test case: same base name, suffix
+<code class="highlighter-rouge">-init.csx</code>. It runs first; use <code class="highlighter-rouge">tp.SetVariable</code> for anything the <code class="highlighter-rouge">.http</code> file
+should reference by name.</p>
+
+<p>Example: <code class="highlighter-rouge">Tests/002-Orders/002-Create-Order-init.csx</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tp</span><span class="p">.</span><span class="nf">SetVariable</span><span class="p">(</span><span class="s">"OrderCustomerId"</span><span class="p">,</span> <span class="n">Guid</span><span class="p">.</span><span class="nf">NewGuid</span><span class="p">().</span><span class="nf">ToString</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>Http file: <code class="highlighter-rouge">Tests/002-Orders/002-Create-Order-init.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># @name CreateOrderRequest
+## TEST-EXPECT-STATUS: [201]
+POST {{ApiBaseUrl}}/orders
+Content-Type: application/json
+X-Api-Key: {{ApiKey}}
+
+{
+  "customerId": "{{OrderCustomerId}}",
+  "customerName": "TeaPie Demo Customer",
+  "customerEmail": "teapie.demo@example.com",
+  "totalAmount": 29.98,
+  "status": "pending",
+  "shippingAddress": "123 TeaPie Lane",
+  "shippingCity": "Demo City",
+  "shippingCountry": "SK"
+}
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">002-Create-Order-test.csx</code> (shortened):</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Created order should have a valid ID."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">True</span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">id</span> <span class="p">!=</span> <span class="k">null</span><span class="p">);</span>
+    <span class="n">tp</span><span class="p">.</span><span class="nf">SetVariable</span><span class="p">(</span><span class="s">"NewOrderId"</span><span class="p">,</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">body</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="nf">ToString</span><span class="p">());</span>
+<span class="p">});</span>
+
+<span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Order status should start as 'pending'."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">Equal</span><span class="p">(</span><span class="s">"pending"</span><span class="p">,</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">body</span><span class="p">.</span><span class="n">status</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="built-in-functions-in-http-files">Built-in functions in <code class="highlighter-rouge">.http</code> files</h2>
+
+<p>TeaPie can inject dynamic values <strong>directly</strong> in the request file, without an
+<code class="highlighter-rouge">init</code> script. You can use build-in functions; names start with
+<code class="highlighter-rouge">$</code> and use space-separated arguments (no commas), for example
+<code class="highlighter-rouge">{{$randomInt 1 100}}</code>.</p>
+
+<p>The defaults today are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">$guid</code></td>
+      <td>New GUID</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">$now</code></td>
+      <td>Current local time, optional format string</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">$rand</code></td>
+      <td>Random double in [0, 1)</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">$randomInt</code></td>
+      <td>Random int in [min, max)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>You can rewrite preview <code class="highlighter-rouge">.http</code> file without <code class="highlighter-rouge">-init.csx</code> file.</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># @name CreateOrderRequest
+## TEST-EXPECT-STATUS: [201]
+POST {{ApiBaseUrl}}/orders
+Content-Type: application/json
+X-Api-Key: {{ApiKey}}
+
+{
+  "customerId": "{{$guid}}",
+  "customerName": "TeaPie Demo Customer",
+  "customerEmail": "teapie.demo@example.com",
+  "totalAmount": 29.98,
+  "status": "pending",
+  "shippingAddress": "123 TeaPie Lane",
+  "shippingCity": "Demo City",
+  "shippingCountry": "SK"
+}
+</span></code></pre></div></div>
+
+<p>You can also define <strong>your own functions</strong> and use them from <code class="highlighter-rouge">.http</code>
+files like the built-ins. How that works is worth its own walkthrough - I’ll
+cover it in the next article.</p>
+
+<h2 id="retrying-when-the-server-answers-not-yet">Retrying when the server answers “not yet”</h2>
+
+<p>Sometimes the API is up, but the <strong>response is not ready</strong> - cold starts, short
+outages, overloaded instances, or an honest <code class="highlighter-rouge">500</code>. Reasonable clients <strong>repeat
+the request</strong> with backoff until they get a successful status (or give up).</p>
+
+<p>DummyApi can force that shape without a real outage. You flip behavior with
+simulation headers (full list is in the
+<a href="https://github.com/Burgyn/MMLib.DummyApi">DummyApi README</a>):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Header</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">X-Simulate-Delay: 500</code></td>
+      <td>Add 500 ms delay before responding</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">X-Simulate-Error: true</code></td>
+      <td>Return <code class="highlighter-rouge">500</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">X-Simulate-Retry: 3</code></td>
+      <td>Two failing responses, then success on the 3rd</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">X-Request-Id</code></td>
+      <td>Correlation id; required when using <code class="highlighter-rouge">X-Simulate-Retry</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For a <strong>worked example</strong>, ask for two failures then success, and tell TeaPie to
+retry until it finally sees <code class="highlighter-rouge">200</code>:</p>
+
+<p><code class="highlighter-rouge">Tests/003-Retry/001-Simulate-Flaky-Get-req.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [200]
+## TEST-HAS-BODY
+## RETRY-MAX-ATTEMPTS: 5
+## RETRY-UNTIL-STATUS: [200]
+GET {{ApiBaseUrl}}/products
+X-Simulate-Retry: 3
+X-Request-Id: {{$guid}}
+</span></code></pre></div></div>
+
+<p>Without retries, the first responses would be errors. With <code class="highlighter-rouge">RETRY-UNTIL-STATUS</code>
+and enough attempts, the run lines up with the 3rd successful response.</p>
+
+<h2 id="retrying-until-the-body-matches-what-you-expect">Retrying until the body matches what you expect</h2>
+
+<p>In production you often see this: the API returns <strong><code class="highlighter-rouge">200</code></strong> right away because the
+request itself was accepted, but the <strong>real outcome</strong> is produced later - a
+message on a queue, a background job, a workflow engine, whatever runs
+<strong>asynchronously</strong>. Until that work finishes, the resource still looks “in
+progress”. Your test needs to prove that the job <strong>eventually</strong> reached the
+expected state - not that the first HTTP response was OK.</p>
+
+<p>DummyApi does the same with orders: <code class="highlighter-rouge">status</code> advances in the background
+(<code class="highlighter-rouge">pending</code> → <code class="highlighter-rouge">processing</code> → <code class="highlighter-rouge">completed</code>). Your <code class="highlighter-rouge">GET /orders/{id}</code> can keep
+returning <strong><code class="highlighter-rouge">200</code></strong> while the JSON still says <code class="highlighter-rouge">pending</code>, so
+<code class="highlighter-rouge">## RETRY-UNTIL-STATUS: [200]</code> tells you nothing new - you
+already had <code class="highlighter-rouge">200</code> on the first try.</p>
+
+<p>What you need is <strong>retry until a post-response test passes</strong>. Put the real
+condition in <code class="highlighter-rouge">.csx</code> (here: <code class="highlighter-rouge">status</code> is <code class="highlighter-rouge">completed</code>), then point the directive at
+that test’s <strong>exact name</strong>:</p>
+
+<p><code class="highlighter-rouge">Tests/002-Orders/003-Check-Order-Status-req.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># @name CheckOrderStatusRequest
+## RETRY-UNTIL-TEST-PASS: Order should eventually reach 'completed' status.
+## RETRY-MAX-ATTEMPTS: 15
+## RETRY-BACKOFF-TYPE: Linear
+GET {{ApiBaseUrl}}/orders/{{NewOrderId}}
+X-Api-Key: {{ApiKey}}
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">003-Check-Order-Status-test.csx</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Order should eventually reach 'completed' status."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">Equal</span><span class="p">(</span><span class="s">"completed"</span><span class="p">,</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">body</span><span class="p">.</span><span class="n">status</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>The string in <code class="highlighter-rouge">RETRY-UNTIL-TEST-PASS</code> must match the first argument of
+<code class="highlighter-rouge">tp.Test</code> character for character.</p>
+
+<h2 id="where-you-are-now">Where you are now</h2>
+
+<p>You have:</p>
+
+<ul>
+  <li><strong>Environments</strong> via <code class="highlighter-rouge">.teapie/env.json</code> and <code class="highlighter-rouge">teapie test … -e &lt;name&gt;</code></li>
+  <li><strong>Pre-request scripts</strong> that set variables consumed from <code class="highlighter-rouge">.http</code> files</li>
+  <li><strong>Built-in <code class="highlighter-rouge">$…</code> functions</strong> for inline dynamic values</li>
+  <li><strong>Retries</strong> for flaky status codes and for
+async state using <code class="highlighter-rouge">RETRY-UNTIL-TEST-PASS</code>, with the
+<a href="https://www.teapie.fun/docs/retrying.html">retrying documentation</a> for deeper
+configuration</li>
+</ul>
+
+<p>The <a href="/">next article</a> goes deeper: custom test directives, custom auth
+providers, named retry strategies, reporting, and TeaPie’s AI-assisted workflows.</p>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://www.teapie.fun/docs/introduction.html">TeaPie documentation</a></li>
+  <li><a href="https://www.teapie.fun/docs/environments.html">Environments</a></li>
+  <li><a href="https://www.teapie.fun/docs/retrying.html">Retrying</a></li>
+  <li><a href="https://www.teapie.fun/docs/functions.html">Functions</a></li>
+  <li><a href="https://github.com/Burgyn/MMLib.DummyApi">MMLib.DummyApi on GitHub</a></li>
+  <li><a href="/2026/03/12/teapie-getting-started">Part 1 of this series</a></li>
+</ul>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2026/03/18/teapie-real-world-api-testing" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2026-03-19 20:40:54 +0000">2026</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

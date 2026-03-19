@@ -1,4 +1,327 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-03-14T08:00:04+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">TeaPie: Test your REST API in 5 minutes</title><link href="https://blog.burgyn.online/2026/03/12/teapie-getting-started" rel="alternate" type="text/html" title="TeaPie: Test your REST API in 5 minutes" /><published>2026-03-12T17:00:00+00:00</published><updated>2026-03-12T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/12/teapie-getting-started</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/12/teapie-getting-started"><![CDATA[<p>You have an API. You want to test it. You don’t want to set up a full test project, install a heavy framework, or write a test class just to send a <code class="highlighter-rouge">GET</code> request and check the status code.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-03-19T20:40:54+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">TeaPie: Testing real-world API scenarios</title><link href="https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing" rel="alternate" type="text/html" title="TeaPie: Testing real-world API scenarios" /><published>2026-03-18T17:00:00+00:00</published><updated>2026-03-18T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing"><![CDATA[<p>In the <a href="/2026/03/12/teapie-getting-started">first article</a>,
+I showed how to get from zero to passing tests in a few minutes - directives,
+a <code class="highlighter-rouge">POST</code> with a <code class="highlighter-rouge">.csx</code> script, and chaining IDs across test cases.</p>
+
+<p>This post skips repeating that path. I won’t walk through extra CRUD steps or
+another “invalid body returns 400” example - you already have the pattern from
+Part 1. Instead: <strong>environments</strong>, how this demo API expects an <strong>API key</strong>,
+<strong>pre-request scripts</strong> that feed variables into <code class="highlighter-rouge">.http</code> files, <strong>built-in
+functions</strong> for inline values, and <strong>retries</strong> - both for flaky HTTP responses
+and for work that finishes asynchronously in the background.</p>
+
+<p>I’m still using
+<a href="https://github.com/Burgyn/MMLib.DummyApi">MMLib.DummyApi</a> as the demo backend.
+If you haven’t read
+<a href="/2026/03/12/teapie-getting-started">Part 1</a>, start there; spin up
+the API with
+<code class="highlighter-rouge">docker run -p 8080:8080 ghcr.io/burgyn/mmlib-dummyapi</code>.</p>
+
+<h2 id="environments">Environments</h2>
+
+<p>Until now, the API base URL was hardcoded in every <code class="highlighter-rouge">.http</code> file. That breaks
+the moment you want to run the same tests against staging. Let’s fix that.</p>
+
+<p>Create <code class="highlighter-rouge">.teapie/env.json</code> in your project root:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"$shared"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ApiBaseUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://localhost:8080"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ApiKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test-api-key-123"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"staging"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"ApiBaseUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://my-staging-api.example.com"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">$shared</code> is the default environment - its variables are always available.
+<code class="highlighter-rouge">staging</code> overrides <code class="highlighter-rouge">ApiBaseUrl</code> for that specific environment.</p>
+
+<p>Now update your <code class="highlighter-rouge">.http</code> files to use the variable:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [200]
+## TEST-HAS-BODY
+GET {{ApiBaseUrl}}/products
+</span></code></pre></div></div>
+
+<p>Run against local (default):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie <span class="nb">test </span>Tests/
+</code></pre></div></div>
+
+<p>Run against staging:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>teapie <span class="nb">test </span>Tests/ <span class="nt">-e</span> staging
+</code></pre></div></div>
+
+<p>One test collection, multiple environments.</p>
+
+<blockquote>
+  <p>Of course, tests won’t pass against <code class="highlighter-rouge">staging</code> right now - that URL doesn’t
+exist. Replace it with your real staging endpoint when you have one.</p>
+</blockquote>
+
+<h2 id="api-keys-in-this-demo-and-what-comes-next">API keys in this demo (and what comes next)</h2>
+
+<p>The DummyApi <code class="highlighter-rouge">orders</code> endpoints expect an <code class="highlighter-rouge">X-Api-Key</code> header. Without it, you get
+<code class="highlighter-rouge">401</code>. For this sample, put the key in <strong><code class="highlighter-rouge">.teapie/env.json</code></strong> (the same file as
+in <a href="#environments">Environments</a>). The <code class="highlighter-rouge">ApiKey</code> property becomes variable
+{{ApiKey}} in <code class="highlighter-rouge">.http</code> files. That is handy for workshops
+and Docker demos, but not how every real API handles identity.</p>
+
+<p>A follow-up post will cover other authentication styles and a <strong>custom auth
+provider</strong> in TeaPie so you don’t have to paste secrets into every request by
+hand.</p>
+
+<p>Positive path: use the env value in a header the same way you use
+{{ApiBaseUrl}}. Create
+<code class="highlighter-rouge">Tests/002-Orders/001-List-Orders-Authorized-req.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [200]
+## TEST-HAS-BODY
+GET {{ApiBaseUrl}}/orders
+X-Api-Key: {{ApiKey}}
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">ApiKey</code> is resolved from <code class="highlighter-rouge">.teapie/env.json</code> when you run <code class="highlighter-rouge">teapie test</code>.</p>
+
+<p>Quick negative check - no header, expect rejection. Create
+<code class="highlighter-rouge">Tests/002-Orders/004-Unauthorized-Access-req.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [401]
+GET {{ApiBaseUrl}}/orders
+</span></code></pre></div></div>
+
+<h2 id="pre-request-scripts-set-variables-keep-http-readable">Pre-request scripts: set variables, keep <code class="highlighter-rouge">.http</code> readable</h2>
+
+<p>Sometimes you need to prepare values <strong>before</strong> TeaPie sends the request. Add a
+<strong>pre-request script</strong> next to the test case: same base name, suffix
+<code class="highlighter-rouge">-init.csx</code>. It runs first; use <code class="highlighter-rouge">tp.SetVariable</code> for anything the <code class="highlighter-rouge">.http</code> file
+should reference by name.</p>
+
+<p>Example: <code class="highlighter-rouge">Tests/002-Orders/002-Create-Order-init.csx</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tp</span><span class="p">.</span><span class="nf">SetVariable</span><span class="p">(</span><span class="s">"OrderCustomerId"</span><span class="p">,</span> <span class="n">Guid</span><span class="p">.</span><span class="nf">NewGuid</span><span class="p">().</span><span class="nf">ToString</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>Http file: <code class="highlighter-rouge">Tests/002-Orders/002-Create-Order-init.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># @name CreateOrderRequest
+## TEST-EXPECT-STATUS: [201]
+POST {{ApiBaseUrl}}/orders
+Content-Type: application/json
+X-Api-Key: {{ApiKey}}
+
+{
+  "customerId": "{{OrderCustomerId}}",
+  "customerName": "TeaPie Demo Customer",
+  "customerEmail": "teapie.demo@example.com",
+  "totalAmount": 29.98,
+  "status": "pending",
+  "shippingAddress": "123 TeaPie Lane",
+  "shippingCity": "Demo City",
+  "shippingCountry": "SK"
+}
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">002-Create-Order-test.csx</code> (shortened):</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Created order should have a valid ID."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">True</span><span class="p">(</span><span class="n">body</span><span class="p">.</span><span class="n">id</span> <span class="p">!=</span> <span class="k">null</span><span class="p">);</span>
+    <span class="n">tp</span><span class="p">.</span><span class="nf">SetVariable</span><span class="p">(</span><span class="s">"NewOrderId"</span><span class="p">,</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">body</span><span class="p">.</span><span class="n">id</span><span class="p">.</span><span class="nf">ToString</span><span class="p">());</span>
+<span class="p">});</span>
+
+<span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Order status should start as 'pending'."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">Equal</span><span class="p">(</span><span class="s">"pending"</span><span class="p">,</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">body</span><span class="p">.</span><span class="n">status</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="built-in-functions-in-http-files">Built-in functions in <code class="highlighter-rouge">.http</code> files</h2>
+
+<p>TeaPie can inject dynamic values <strong>directly</strong> in the request file, without an
+<code class="highlighter-rouge">init</code> script. You can use build-in functions; names start with
+<code class="highlighter-rouge">$</code> and use space-separated arguments (no commas), for example
+<code class="highlighter-rouge">{{$randomInt 1 100}}</code>.</p>
+
+<p>The defaults today are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">$guid</code></td>
+      <td>New GUID</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">$now</code></td>
+      <td>Current local time, optional format string</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">$rand</code></td>
+      <td>Random double in [0, 1)</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">$randomInt</code></td>
+      <td>Random int in [min, max)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>You can rewrite preview <code class="highlighter-rouge">.http</code> file without <code class="highlighter-rouge">-init.csx</code> file.</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># @name CreateOrderRequest
+## TEST-EXPECT-STATUS: [201]
+POST {{ApiBaseUrl}}/orders
+Content-Type: application/json
+X-Api-Key: {{ApiKey}}
+
+{
+  "customerId": "{{$guid}}",
+  "customerName": "TeaPie Demo Customer",
+  "customerEmail": "teapie.demo@example.com",
+  "totalAmount": 29.98,
+  "status": "pending",
+  "shippingAddress": "123 TeaPie Lane",
+  "shippingCity": "Demo City",
+  "shippingCountry": "SK"
+}
+</span></code></pre></div></div>
+
+<p>You can also define <strong>your own functions</strong> and use them from <code class="highlighter-rouge">.http</code>
+files like the built-ins. How that works is worth its own walkthrough - I’ll
+cover it in the next article.</p>
+
+<h2 id="retrying-when-the-server-answers-not-yet">Retrying when the server answers “not yet”</h2>
+
+<p>Sometimes the API is up, but the <strong>response is not ready</strong> - cold starts, short
+outages, overloaded instances, or an honest <code class="highlighter-rouge">500</code>. Reasonable clients <strong>repeat
+the request</strong> with backoff until they get a successful status (or give up).</p>
+
+<p>DummyApi can force that shape without a real outage. You flip behavior with
+simulation headers (full list is in the
+<a href="https://github.com/Burgyn/MMLib.DummyApi">DummyApi README</a>):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Header</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">X-Simulate-Delay: 500</code></td>
+      <td>Add 500 ms delay before responding</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">X-Simulate-Error: true</code></td>
+      <td>Return <code class="highlighter-rouge">500</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">X-Simulate-Retry: 3</code></td>
+      <td>Two failing responses, then success on the 3rd</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">X-Request-Id</code></td>
+      <td>Correlation id; required when using <code class="highlighter-rouge">X-Simulate-Retry</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For a <strong>worked example</strong>, ask for two failures then success, and tell TeaPie to
+retry until it finally sees <code class="highlighter-rouge">200</code>:</p>
+
+<p><code class="highlighter-rouge">Tests/003-Retry/001-Simulate-Flaky-Get-req.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">## TEST-EXPECT-STATUS: [200]
+## TEST-HAS-BODY
+## RETRY-MAX-ATTEMPTS: 5
+## RETRY-UNTIL-STATUS: [200]
+GET {{ApiBaseUrl}}/products
+X-Simulate-Retry: 3
+X-Request-Id: {{$guid}}
+</span></code></pre></div></div>
+
+<p>Without retries, the first responses would be errors. With <code class="highlighter-rouge">RETRY-UNTIL-STATUS</code>
+and enough attempts, the run lines up with the 3rd successful response.</p>
+
+<h2 id="retrying-until-the-body-matches-what-you-expect">Retrying until the body matches what you expect</h2>
+
+<p>In production you often see this: the API returns <strong><code class="highlighter-rouge">200</code></strong> right away because the
+request itself was accepted, but the <strong>real outcome</strong> is produced later - a
+message on a queue, a background job, a workflow engine, whatever runs
+<strong>asynchronously</strong>. Until that work finishes, the resource still looks “in
+progress”. Your test needs to prove that the job <strong>eventually</strong> reached the
+expected state - not that the first HTTP response was OK.</p>
+
+<p>DummyApi does the same with orders: <code class="highlighter-rouge">status</code> advances in the background
+(<code class="highlighter-rouge">pending</code> → <code class="highlighter-rouge">processing</code> → <code class="highlighter-rouge">completed</code>). Your <code class="highlighter-rouge">GET /orders/{id}</code> can keep
+returning <strong><code class="highlighter-rouge">200</code></strong> while the JSON still says <code class="highlighter-rouge">pending</code>, so
+<code class="highlighter-rouge">## RETRY-UNTIL-STATUS: [200]</code> tells you nothing new - you
+already had <code class="highlighter-rouge">200</code> on the first try.</p>
+
+<p>What you need is <strong>retry until a post-response test passes</strong>. Put the real
+condition in <code class="highlighter-rouge">.csx</code> (here: <code class="highlighter-rouge">status</code> is <code class="highlighter-rouge">completed</code>), then point the directive at
+that test’s <strong>exact name</strong>:</p>
+
+<p><code class="highlighter-rouge">Tests/002-Orders/003-Check-Order-Status-req.http</code>:</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"># @name CheckOrderStatusRequest
+## RETRY-UNTIL-TEST-PASS: Order should eventually reach 'completed' status.
+## RETRY-MAX-ATTEMPTS: 15
+## RETRY-BACKOFF-TYPE: Linear
+GET {{ApiBaseUrl}}/orders/{{NewOrderId}}
+X-Api-Key: {{ApiKey}}
+</span></code></pre></div></div>
+
+<p><code class="highlighter-rouge">003-Check-Order-Status-test.csx</code>:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="nf">Test</span><span class="p">(</span><span class="s">"Order should eventually reach 'completed' status."</span><span class="p">,</span> <span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">dynamic</span> <span class="n">body</span> <span class="p">=</span> <span class="k">await</span> <span class="n">tp</span><span class="p">.</span><span class="n">Response</span><span class="p">.</span><span class="nf">GetBodyAsExpandoAsync</span><span class="p">();</span>
+    <span class="nf">Equal</span><span class="p">(</span><span class="s">"completed"</span><span class="p">,</span> <span class="p">(</span><span class="kt">string</span><span class="p">)</span><span class="n">body</span><span class="p">.</span><span class="n">status</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>The string in <code class="highlighter-rouge">RETRY-UNTIL-TEST-PASS</code> must match the first argument of
+<code class="highlighter-rouge">tp.Test</code> character for character.</p>
+
+<h2 id="where-you-are-now">Where you are now</h2>
+
+<p>You have:</p>
+
+<ul>
+  <li><strong>Environments</strong> via <code class="highlighter-rouge">.teapie/env.json</code> and <code class="highlighter-rouge">teapie test … -e &lt;name&gt;</code></li>
+  <li><strong>Pre-request scripts</strong> that set variables consumed from <code class="highlighter-rouge">.http</code> files</li>
+  <li><strong>Built-in <code class="highlighter-rouge">$…</code> functions</strong> for inline dynamic values</li>
+  <li><strong>Retries</strong> for flaky status codes and for
+async state using <code class="highlighter-rouge">RETRY-UNTIL-TEST-PASS</code>, with the
+<a href="https://www.teapie.fun/docs/retrying.html">retrying documentation</a> for deeper
+configuration</li>
+</ul>
+
+<p>The <a href="/">next article</a> goes deeper: custom test directives, custom auth
+providers, named retry strategies, reporting, and TeaPie’s AI-assisted workflows.</p>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://www.teapie.fun/docs/introduction.html">TeaPie documentation</a></li>
+  <li><a href="https://www.teapie.fun/docs/environments.html">Environments</a></li>
+  <li><a href="https://www.teapie.fun/docs/retrying.html">Retrying</a></li>
+  <li><a href="https://www.teapie.fun/docs/functions.html">Functions</a></li>
+  <li><a href="https://github.com/Burgyn/MMLib.DummyApi">MMLib.DummyApi on GitHub</a></li>
+  <li><a href="/2026/03/12/teapie-getting-started">Part 1 of this series</a></li>
+</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="dotnet" /><category term="testing" /><category term="api" /><category term="tools" /><summary type="html"><![CDATA[Environments, API keys on DummyApi, pre-request variables, built-in .http functions, and resilient retries - with links to TeaPie docs.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/teapie-real-world-api-testing-cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/teapie-real-world-api-testing-cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">TeaPie: Test your REST API in 5 minutes</title><link href="https://blog.burgyn.online/2026/03/12/teapie-getting-started" rel="alternate" type="text/html" title="TeaPie: Test your REST API in 5 minutes" /><published>2026-03-12T17:00:00+00:00</published><updated>2026-03-12T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/12/teapie-getting-started</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/12/teapie-getting-started"><![CDATA[<p>You have an API. You want to test it. You don’t want to set up a full test project, install a heavy framework, or write a test class just to send a <code class="highlighter-rouge">GET</code> request and check the status code.</p>
 
 <p>That’s exactly the use case <a href="https://www.teapie.fun">TeaPie</a> was built for. It’s a CLI tool for API testing that uses plain <code class="highlighter-rouge">.http</code> files — the same format you might already know from VS Code’s REST Client extension or Visual Studio’s HTTP Files support. You write the request, optionally add a C# script for assertions, and run it.</p>
 
@@ -208,12 +531,19 @@ GET http://localhost:8080/products/{{NewProductId}
   <li>A <code class="highlighter-rouge">GET</code> test that chains from the create response using request variables.</li>
 </ul>
 
-<p>The pattern scales. Start with directives for quick checks, add <code class="highlighter-rouge">.csx</code> scripts when you need real assertions. In the <a href="/">next article</a>, I’ll show how to handle environments, authenticated endpoints, background jobs, and validation errors — the kind of real-world patterns every API has.</p>
+<p>The pattern scales. Start with directives for quick checks, add <code class="highlighter-rouge">.csx</code> scripts
+when you need real assertions.</p>
+
+<p><strong>Part 2:</strong>
+<a href="/2026/03/18/teapie-real-world-api-testing">TeaPie: Testing real-world API scenarios</a>
+covers environments, API keys on DummyApi, pre-request variables,
+built-in <code class="highlighter-rouge">.http</code> functions, and retries (flaky responses vs async background work).</p>
 
 <h2 id="links">Links</h2>
 
 <ul>
   <li><a href="https://www.teapie.fun/docs/introduction.html">TeaPie documentation</a></li>
+  <li><a href="/2026/03/18/teapie-real-world-api-testing">Part 2 of this series - real-world API scenarios</a></li>
   <li><a href="https://github.com/Burgyn/MMLib.DummyApi">MMLib.DummyApi on GitHub</a></li>
   <li><a href="/2026/03/04/mmlib-dummyapi">MMLib.DummyApi blog post</a></li>
 </ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="dotnet" /><category term="testing" /><category term="api" /><category term="tools" /><summary type="html"><![CDATA[TeaPie is a CLI tool for API testing using .http files. No heavy frameworks — install it, write a request, run it.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/teapie-getting-started-cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/teapie-getting-started-cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">MMLib.DummyApi - Configurable mock API for prototypes and testing</title><link href="https://blog.burgyn.online/2026/03/04/mmlib-dummyapi" rel="alternate" type="text/html" title="MMLib.DummyApi - Configurable mock API for prototypes and testing" /><published>2026-03-04T17:00:00+00:00</published><updated>2026-03-04T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/04/mmlib-dummyapi</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/04/mmlib-dummyapi"><![CDATA[<p>This is probably one of those projects that helps mostly me. Still, I wanted to share it in case you run into the same problems.</p>
@@ -1068,157 +1398,4 @@ But I’ll leave that up to you 😉.</p>
 
 <ul>
   <li><a href="https://github.com/Burgyn/MMLib.Sample.Mediator">Sample project</a></li>
-</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="unit tests" /><category term="architecture" /><summary type="html"><![CDATA[Discover how to build your own implementation of the Mediator design pattern in a .NET environment without third-party libraries.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ocelot ETag Caching</title><link href="https://blog.burgyn.online/2024/06/02/ocelot-etag-caching" rel="alternate" type="text/html" title="Ocelot ETag Caching" /><published>2024-06-02T17:00:00+00:00</published><updated>2024-06-02T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/06/02/ocelot-etag-caching</id><content type="html" xml:base="https://blog.burgyn.online/2024/06/02/ocelot-etag-caching"><![CDATA[<p>The <code class="highlighter-rouge">Kros.Ocelot.ETagCaching</code> library brings ETag caching support to the Ocelot API Gateway. ETag caching is an HTTP caching mechanism that allows clients to verify if the cached data is still current without downloading the entire resource again. If the data hasn’t changed, the server responds with a <code class="highlighter-rouge">304 Not Modified</code> status, prompting the client to use the cached data, thereby saving bandwidth and reducing server load.</p>
-
-<h2 id="why-use-etag-caching">Why Use ETag Caching?</h2>
-
-<p>ETag caching is particularly useful in scenarios where data changes infrequently but is requested frequently. It optimizes network usage and improves response times by minimizing data transfer. By using ETags, clients can ensure they always have the most recent version of the data.</p>
-
-<h2 id="how-etag-caching-works">How ETag Caching Works</h2>
-
-<p>ETag caching involves the use of two HTTP headers:</p>
-
-<ul>
-  <li><code class="highlighter-rouge">ETag</code>: A unique identifier for the data, typically a hash or a version number.</li>
-  <li><code class="highlighter-rouge">cache-control</code>: Instructs the client that the response can be cached. For ETag caching, this should be set to <code class="highlighter-rouge">private</code>.</li>
-</ul>
-
-<p>When a client receives a response with these headers, it caches the data and the ETag value. On subsequent requests, the client sends an <code class="highlighter-rouge">If-None-Match</code> header with the ETag value. The server then compares the ETag with the current version of the data. If they match, the server returns a <code class="highlighter-rouge">304 Not Modified</code> status, indicating the client should use the cached data.</p>
-
-<h2 id="implementation-in-ocelot">Implementation in Ocelot</h2>
-
-<p>The <code class="highlighter-rouge">Kros.Ocelot.ETagCaching</code> library integrates seamlessly with Ocelot’s middleware. It handles ETag generation, storage, and validation transparently. Here’s how to get started:</p>
-
-<h3 id="ocelot-configuration">Ocelot Configuration</h3>
-
-<p>Configure your routes in the <code class="highlighter-rouge">ocelot.json</code> file, specifying cache policies:</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"Routes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getAllProducts"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"CachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getAllProducts"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">👈</span><span class="w"> </span><span class="err">Cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getProduct"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"CachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"getProduct"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">👈</span><span class="w"> </span><span class="err">Cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deleteProduct"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"InvalidateCachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidateProductCachePolicy"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<h3 id="programcs-configuration">Program.cs Configuration</h3>
-
-<p>Set up the ETag caching policies in <code class="highlighter-rouge">Program.cs</code>:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 Define policies</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddOcelotETagCaching</span><span class="p">((</span><span class="n">c</span><span class="p">)</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="c1">//  👇 Simple policy with expiration and tag templates</span>
-    <span class="n">c</span><span class="p">.</span><span class="nf">AddPolicy</span><span class="p">(</span><span class="s">"getAllProducts"</span><span class="p">,</span> <span class="n">p</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="n">p</span><span class="p">.</span><span class="nf">Expire</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromMinutes</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
-        <span class="n">p</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"products:{tenantId}"</span><span class="p">,</span> <span class="s">"all"</span><span class="p">,</span> <span class="s">"tenantAll:{tenantId}"</span><span class="p">);</span>
-    <span class="p">});</span>
-
-    <span class="c1">// 👇 Policy with custom cache key, ETag generator, and cache control</span>
-    <span class="n">c</span><span class="p">.</span><span class="nf">AddPolicy</span><span class="p">(</span><span class="s">"getProduct"</span><span class="p">,</span> <span class="n">p</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="n">p</span><span class="p">.</span><span class="nf">Expire</span><span class="p">(</span><span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromMinutes</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
-        <span class="n">p</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"product:{tenantId}:{id}"</span><span class="p">,</span> <span class="s">"tenant:{tenantId}:all"</span><span class="p">,</span> <span class="s">"all"</span><span class="p">);</span>
-        <span class="n">p</span><span class="p">.</span><span class="nf">CacheKey</span><span class="p">(</span><span class="n">context</span> <span class="p">=&gt;</span> <span class="n">context</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="nf">GetValues</span><span class="p">(</span><span class="s">"id"</span><span class="p">).</span><span class="nf">FirstOrDefault</span><span class="p">());</span>
-        <span class="n">p</span><span class="p">.</span><span class="nf">ETag</span><span class="p">(</span><span class="n">context</span> <span class="p">=&gt;</span> <span class="k">new</span><span class="p">(</span><span class="s">$""</span><span class="p">{</span><span class="n">Guid</span><span class="p">.</span><span class="nf">NewGuid</span><span class="p">()}</span><span class="s">""</span><span class="p">));</span>
-        <span class="n">p</span><span class="p">.</span><span class="nf">CacheControl</span><span class="p">(</span><span class="k">new</span><span class="p">()</span> <span class="p">{</span> <span class="n">Public</span> <span class="p">=</span> <span class="k">false</span> <span class="p">});</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div></div>
-
-<p>Add the ETag caching middleware to the Ocelot pipeline:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app.UseOcelot(c =&gt;
-{
-    // 👇 Add ETag caching middleware
-    c.AddETagCaching();
-}).Wait();
-</code></pre></div></div>
-
-<h2 id="tag-templates-and-cache-invalidation">Tag Templates and Cache Invalidation</h2>
-
-<p>Tag templates are used to generate cache tags based on request parameters, making it easy to invalidate specific cache entries. For example, for the route <code class="highlighter-rouge">/api/{tenantId}/products/{id}</code> and the tag template <code class="highlighter-rouge">product:{tenantId}:{id}</code>, the tag will be <code class="highlighter-rouge">product:1:2</code>.</p>
-
-<h3 id="automatic-cache-invalidation">Automatic Cache Invalidation</h3>
-
-<p>Define invalidate cache policies in <code class="highlighter-rouge">ocelot.json</code>:</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"Key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deleteProduct"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"UpstreamHttpMethod"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"Delete"</span><span class="w"> </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"DownstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{id}"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"UpstreamPathTemplate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{id}"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"InvalidateCachePolicy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalidateProductCachePolicy"</span><span class="w"> 
-    </span><span class="err">//</span><span class="w"> </span><span class="err">👆</span><span class="w"> </span><span class="err">Invalidate</span><span class="w"> </span><span class="err">cache</span><span class="w"> </span><span class="err">policy</span><span class="w"> </span><span class="err">key</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p>And configure them in <code class="highlighter-rouge">Program.cs</code>:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddOcelotETagCaching</span><span class="p">(</span><span class="n">conf</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="c1">// 👇 Define invalidate cache policy</span>
-    <span class="n">conf</span><span class="p">.</span><span class="nf">AddInvalidatePolicy</span><span class="p">(</span><span class="s">"invalidateProductCachePolicy"</span><span class="p">,</span> <span class="n">builder</span> <span class="p">=&gt;</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 Define tag templates to invalidate</span>
-        <span class="n">builder</span><span class="p">.</span><span class="nf">TagTemplates</span><span class="p">(</span><span class="s">"product:{tenantId}"</span><span class="p">,</span> <span class="s">"product:{tenantId}:{id}"</span><span class="p">);</span>
-    <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div></div>
-
-<h3 id="manual-cache-invalidation">Manual Cache Invalidation</h3>
-
-<p>Manually invalidate cache entries using the <code class="highlighter-rouge">IOutputCacheStore</code>:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">class</span> <span class="nc">ProductsService</span> <span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IOutputCacheStore</span> <span class="n">_outputCacheStore</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="nf">ProductsService</span><span class="p">(</span><span class="n">IOutputCacheStore</span> <span class="n">outputCacheStore</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">_outputCacheStore</span> <span class="p">=</span> <span class="n">outputCacheStore</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="nf">DeleteProduct</span><span class="p">(</span><span class="kt">int</span> <span class="n">tenantId</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">await</span> <span class="n">_outputCacheStore</span><span class="p">.</span><span class="nf">InvalidateAsync</span><span class="p">(</span>
-            <span class="s">$"product:</span><span class="p">{</span><span class="n">tenantId</span><span class="p">}</span><span class="s">"</span><span class="p">,</span> <span class="s">$"product:</span><span class="p">{</span><span class="n">tenantId</span><span class="p">}</span><span class="s">:</span><span class="p">{</span><span class="n">id</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
-        <span class="c1">// 👆 Invalidate cache entries by tags            </span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="redis-integration">Redis Integration</h2>
-
-<p>By default, the library uses <code class="highlighter-rouge">InMemoryCacheStore</code>, but you can configure it to use Redis for distributed caching:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddStackExchangeRedisOutputCache</span><span class="p">(</span><span class="n">options</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="n">options</span><span class="p">.</span><span class="n">Configuration</span> 
-        <span class="p">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">Configuration</span><span class="p">.</span><span class="nf">GetConnectionString</span><span class="p">(</span><span class="s">"MyRedisConStr"</span><span class="p">);</span>
-    <span class="n">options</span><span class="p">.</span><span class="n">InstanceName</span> <span class="p">=</span> <span class="s">"SampleInstance"</span><span class="p">;</span>
-<span class="p">});</span>
-</code></pre></div></div>
-
-<h2 id="sources">Sources</h2>
-
-<ul>
-  <li><a href="https://github.com/Kros-sk/Kros.Ocelot.ETagCaching">Kros.Ocelot.ETagCaching GitHub Repository</a></li>
-  <li><a href="https://ocelot.readthedocs.io/en/latest/">Ocelot</a></li>
-</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="caching" /><category term="architecture" /><summary type="html"><![CDATA[A blog post discussing the use of ETag caching with Kros.Ocelot.ETagCaching library and Ocelot API Gateway.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/ocelot-etag-caching/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="unit tests" /><category term="architecture" /><summary type="html"><![CDATA[Discover how to build your own implementation of the Mediator design pattern in a .NET environment without third-party libraries.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

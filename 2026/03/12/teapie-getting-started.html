@@ -365,12 +365,19 @@ GET http://localhost:8080/products/{{NewProductId}
   <li>A <code class="highlighter-rouge">GET</code> test that chains from the create response using request variables.</li>
 </ul>
 
-<p>The pattern scales. Start with directives for quick checks, add <code class="highlighter-rouge">.csx</code> scripts when you need real assertions. In the <a href="/">next article</a>, I’ll show how to handle environments, authenticated endpoints, background jobs, and validation errors — the kind of real-world patterns every API has.</p>
+<p>The pattern scales. Start with directives for quick checks, add <code class="highlighter-rouge">.csx</code> scripts
+when you need real assertions.</p>
+
+<p><strong>Part 2:</strong>
+<a href="/2026/03/18/teapie-real-world-api-testing">TeaPie: Testing real-world API scenarios</a>
+covers environments, API keys on DummyApi, pre-request variables,
+built-in <code class="highlighter-rouge">.http</code> functions, and retries (flaky responses vs async background work).</p>
 
 <h2 id="links">Links</h2>
 
 <ul>
   <li><a href="https://www.teapie.fun/docs/introduction.html">TeaPie documentation</a></li>
+  <li><a href="/2026/03/18/teapie-real-world-api-testing">Part 2 of this series - real-world API scenarios</a></li>
   <li><a href="https://github.com/Burgyn/MMLib.DummyApi">MMLib.DummyApi on GitHub</a></li>
   <li><a href="/2026/03/04/mmlib-dummyapi">MMLib.DummyApi blog post</a></li>
 </ul>
@@ -397,7 +404,7 @@ GET http://localhost:8080/products/{{NewProductId}
         </div>
     </main><footer class="footer">
   <span>
-    &copy; <time datetime="2026-03-14 08:00:04 +0000">2026</time> Milan Martiniak
+    &copy; <time datetime="2026-03-19 20:40:54 +0000">2026</time> Milan Martiniak
     <a rel="me" href="https://github.com/burgyn"
       title="GitHub - burgyn">
       <span class="fa fa-github" aria-label="GitHub"></span>
