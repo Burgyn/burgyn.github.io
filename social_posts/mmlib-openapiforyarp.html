@@ -1,0 +1,28 @@
+<h2 id="linkedin">LinkedIn</h2>
+
+<p>🚀 Aggregating OpenAPI docs on a YARP gateway</p>
+
+<p>Years ago I built MMLib.SwaggerForOcelot so you’d get one Swagger view for all the services behind an Ocelot gateway. It grew past 3.8M downloads, which still surprises me.</p>
+
+<p>But the stack moved on - Ocelot to YARP, Swashbuckle to Microsoft.OpenApi, Swagger UI to Scalar. So I rebuilt the idea from scratch: MMLib.OpenApiForYarp.</p>
+
+<p>🛠️ What it does:
+ → Fetches each downstream service’s OpenAPI document at runtime
+ → Rewrites the paths to match how the gateway exposes them - read straight from your YARP routes, no parallel config
+ → Serves a clean per-service or merged document in Scalar (or Swagger UI)</p>
+
+<p>It’s three lines to turn on, and the path rewriting comes automatically from your existing YARP transforms.</p>
+
+<p>⚠️ It’s a v1, so there are gaps - no request aggregation yet, no dynamic reload. If something’s missing for your setup, issues and PRs are welcome.</p>
+
+<p>https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp</p>
+
+<p>#dotnet #yarp #openapi #aspnetcore</p>
+
+<h2 id="bluesky">Bluesky</h2>
+
+<p>I rebuilt MMLib.SwaggerForOcelot for the modern stack - YARP, Microsoft.OpenApi, Scalar. One clean OpenAPI view for every service behind your gateway, in three lines.</p>
+
+<p>https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp</p>
+
+<p>#dotnet #yarp</p>
