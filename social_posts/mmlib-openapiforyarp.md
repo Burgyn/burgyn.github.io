@@ -7,24 +7,31 @@ created_date: 2026-06-19
 
 ## LinkedIn
 
-🚀 Aggregating OpenAPI docs on a YARP gateway
+🚀 Years ago I built a library that's now passed 3.8M downloads. This week I rewrote it from scratch — for YARP.
 
-Years ago I built MMLib.SwaggerForOcelot so you'd get one Swagger view for all the services behind an Ocelot gateway. It grew past 3.8M downloads, which still surprises me.
+The original was MMLib.SwaggerForOcelot: one Swagger view for every service sitting behind an Ocelot gateway.
 
-But the stack moved on - Ocelot to YARP, Swashbuckle to Microsoft.OpenApi, Swagger UI to Scalar. So I rebuilt the idea from scratch: MMLib.OpenApiForYarp.
+But the stack moved on — Ocelot → YARP, Swashbuckle → Microsoft.OpenApi, Swagger UI → Scalar. So instead of patching the old one, I started fresh: MMLib.OpenApiForYarp.
 
 🛠️ What it does:
  → Fetches each downstream service's OpenAPI document at runtime
- → Rewrites the paths to match how the gateway exposes them - read straight from your YARP routes, no parallel config
+ → Rewrites the paths to match how the gateway exposes them — read straight from your YARP routes, no parallel config
  → Serves a clean per-service or merged document in Scalar (or Swagger UI)
 
-It's three lines to turn on, and the path rewriting comes automatically from your existing YARP transforms.
+Three lines to turn on, and the path rewriting comes automatically from your existing YARP transforms.
 
-⚠️ It's a v1, so there are gaps - no request aggregation yet, no dynamic reload. If something's missing for your setup, issues and PRs are welcome.
+⚠️ It's a v1, so there are gaps — no request aggregation yet, no dynamic reload. If something's missing for your setup, issues and PRs are welcome.
 
-https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp
+👉 How are you exposing OpenAPI docs behind your gateway today?
 
-#dotnet #yarp #openapi #aspnetcore
+Full write-up + source in the comments.
+
+#dotnet #csharp #yarp #openapi #aspnetcore
+
+### First comment (link goes here for better reach)
+
+Full write-up: https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp
+Source + NuGet: https://github.com/Burgyn/MMLib.OpenApiForYarp
 
 ## Bluesky
 
