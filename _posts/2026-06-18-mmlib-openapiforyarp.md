@@ -19,7 +19,7 @@ keywords:
 
 Years ago I built [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot)
 to solve one annoying problem: you put a bunch of microservices behind an
-[Ocelot](/2020/06/02/building-net-core-api-gateway-with-ocelot/) gateway, and
+[Ocelot](/2020/04/17/swagger-for-ocelot-api-gateway-en/) gateway, and
 suddenly there's no single place to see their Swagger docs. The package grew to
 **3.8M+ downloads**, which still surprises me.
 
@@ -180,4 +180,4 @@ Give it a try, and if something's missing, issues and PRs are very welcome.
 - [YARP - Yet Another Reverse Proxy](https://microsoft.github.io/reverse-proxy/)
 - [Scalar](https://scalar.com/)
 - [MMLib.SwaggerForOcelot - the Ocelot predecessor](https://github.com/Burgyn/MMLib.SwaggerForOcelot)
-- [My earlier Ocelot gateway post](/2020/06/02/building-net-core-api-gateway-with-ocelot/)
+- [My earlier Ocelot gateway post](/2020/04/17/swagger-for-ocelot-api-gateway-en/)
