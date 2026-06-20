@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+
+    <!-- cache -->
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />    
+
+    <!-- Pridanie Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- Pridanie Slick Carousel Theme CSS (voliteľné) -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <!-- Pridanie jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Pridanie Lightbox CSS a JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
+    <!-- Pridanie Slick Carousel JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+    <!-- IMPORTANT -->
+    <script src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    <!-- keywoards -->
+    
+    <meta name="keywords" content="YARP, OpenAPI, Scalar, API gateway, microservices">
+    
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYN9BGS01R"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FYN9BGS01R');
+    </script>
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Aggregating OpenAPI docs on a YARP gateway with MMLib.OpenApiForYarp | Burgyn’s blog</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Aggregating OpenAPI docs on a YARP gateway with MMLib.OpenApiForYarp" />
+<meta name="author" content="Milan Martiniak" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Aggregate your microservices’ OpenAPI docs onto a YARP gateway and browse them in Scalar - the successor to MMLib.SwaggerForOcelot." />
+<meta property="og:description" content="Aggregate your microservices’ OpenAPI docs onto a YARP gateway and browse them in Scalar - the successor to MMLib.SwaggerForOcelot." />
+<link rel="canonical" href="https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp" />
+<meta property="og:url" content="https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp" />
+<meta property="og:site_name" content="Burgyn’s blog" />
+<meta property="og:image" content="https://blog.burgyn.online/assets/images/mmlib-openapiforyarp-cover.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-06-19T16:00:00+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://blog.burgyn.online/assets/images/mmlib-openapiforyarp-cover.png" />
+<meta property="twitter:title" content="Aggregating OpenAPI docs on a YARP gateway with MMLib.OpenApiForYarp" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Milan Martiniak","url":"https://burgyn.bio.link/"},"dateModified":"2026-06-19T16:00:00+00:00","datePublished":"2026-06-19T16:00:00+00:00","description":"Aggregate your microservices’ OpenAPI docs onto a YARP gateway and browse them in Scalar - the successor to MMLib.SwaggerForOcelot.","headline":"Aggregating OpenAPI docs on a YARP gateway with MMLib.OpenApiForYarp","image":"https://blog.burgyn.online/assets/images/mmlib-openapiforyarp-cover.png","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp"},"url":"https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+    
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-192x192" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+    <link rel="android-chrome-512x512" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+
+    <!-- PWA -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- RSS -->
+    <link type="application/atom+xml" rel="alternate" href="https://blog.burgyn.online/feed.xml" title="Burgyn's blog" />
+
+    <!-- Google Analytics-->
+    
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark'
+        });
+    </script>
+</head><body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <div class="site-name">
+        <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+        <h2 class="nav-title">Burgyn's blog</h2>
+      </div>
+    </a>    
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/about/">About me</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <header class="post-header">
+        <h1 class="post-title p-name" itemprop="name headline"><p>Aggregating OpenAPI docs on a YARP gateway with MMLib.OpenApiForYarp</p>
+</h1>
+        <p class="post-meta">
+            <time class="dt-published" datetime="2026-06-19T16:00:00+00:00" itemprop="datePublished">Jun 19, 2026
+            </time><span itemprop="author" itemscope
+                itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | Milan Martiniak</span></span>
+            | <span class="fa fa-tags" aria-label="Tags"> </span> 
+            <span>
+                <!-- <a href="/tags/dotnet">dotnet</a> -->
+                dotnet, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/yarp">yarp</a> -->
+                yarp, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/openapi">openapi</a> -->
+                openapi, 
+            </span> 
+            <span>
+                <!-- <a href="/tags/library">library</a> -->
+                library
+            </span>  
+        </p>
+    </header>
+
+    
+    <div class="post-thumbnail">
+        <img src="/assets/images/mmlib-openapiforyarp-cover.png" alt="Aggregating OpenAPI docs on a YARP gateway with MMLib.OpenApiForYarp" itemprop="image">
+    </div>
+    
+
+    <div class="post-content e-content" itemprop="articleBody">
+        <p>Years ago I built <a href="https://github.com/Burgyn/MMLib.SwaggerForOcelot">MMLib.SwaggerForOcelot</a>
+to solve one annoying problem: you put a bunch of microservices behind an
+<a href="/2020/06/02/building-net-core-api-gateway-with-ocelot/">Ocelot</a> gateway, and
+suddenly there’s no single place to see their Swagger docs. The package grew to
+<strong>3.8M+ downloads</strong>, which still surprises me.</p>
+
+<p>But the world moved on. Ocelot gave way to <strong><a href="https://microsoft.github.io/reverse-proxy/">YARP</a></strong>,
+Swashbuckle gave way to <strong><code class="highlighter-rouge">Microsoft.OpenApi</code></strong>, and Swagger UI got serious
+competition from <strong><a href="https://scalar.com/">Scalar</a></strong>. So I rebuilt the idea from
+scratch for the modern stack: <strong><a href="https://github.com/Burgyn/MMLib.OpenApiForYarp">MMLib.OpenApiForYarp</a></strong>.</p>
+
+<blockquote>
+  <p>💁 If you’ve used SwaggerForOcelot, this is the same idea for YARP.</p>
+</blockquote>
+
+<h2 id="the-problem-it-solves">The problem it solves</h2>
+
+<p>You have a YARP gateway in front of several services. Each service exposes its own
+OpenAPI document - <code class="highlighter-rouge">products</code> has one, <code class="highlighter-rouge">orders</code> has another. On their own they’re
+useless to a consumer of the gateway, because they describe <strong>the service’s own
+paths</strong> (<code class="highlighter-rouge">/products/{id}</code>), not the paths the client actually calls <strong>through the
+gateway</strong> (<code class="highlighter-rouge">/api/products/{id}</code>).</p>
+
+<p>MMLib.OpenApiForYarp fetches each downstream document at runtime, rewrites its
+paths to match how the gateway exposes them, and serves a clean per-service (or
+merged) document - then renders it in Scalar or Swagger UI.</p>
+
+<h2 id="quick-start">Quick start</h2>
+
+<p>Install the core plus the UI you want:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dotnet add package MMLib.OpenApiForYarp
+dotnet add package MMLib.OpenApiForYarp.Scalar
+</code></pre></div></div>
+
+<p>Wire it up next to YARP in <code class="highlighter-rouge">Program.cs</code>. If you already have a reverse proxy, this
+is three extra lines:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">builder</span> <span class="p">=</span> <span class="n">WebApplication</span><span class="p">.</span><span class="nf">CreateBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span>
+    <span class="p">.</span><span class="nf">AddReverseProxy</span><span class="p">()</span>
+    <span class="p">.</span><span class="nf">LoadFromConfig</span><span class="p">(</span><span class="n">builder</span><span class="p">.</span><span class="n">Configuration</span><span class="p">.</span><span class="nf">GetSection</span><span class="p">(</span><span class="s">"ReverseProxy"</span><span class="p">))</span>
+    <span class="p">.</span><span class="nf">AddOpenApiForYarp</span><span class="p">();</span>   <span class="c1">// 👈 that's the whole registration</span>
+
+<span class="kt">var</span> <span class="n">app</span> <span class="p">=</span> <span class="n">builder</span><span class="p">.</span><span class="nf">Build</span><span class="p">();</span>
+
+<span class="n">app</span><span class="p">.</span><span class="nf">MapReverseProxy</span><span class="p">();</span>
+<span class="n">app</span><span class="p">.</span><span class="nf">MapOpenApiForYarp</span><span class="p">();</span>   <span class="c1">// 👈 /openapi/{cluster}.json</span>
+<span class="n">app</span><span class="p">.</span><span class="nf">MapScalarForYarp</span><span class="p">();</span>    <span class="c1">// 👈 Scalar UI at /scalar</span>
+
+<span class="n">app</span><span class="p">.</span><span class="nf">Run</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">AddOpenApiForYarp()</code> binds a <code class="highlighter-rouge">YarpOpenApi</code> section that sits <strong>right next to</strong>
+YARP’s own <code class="highlighter-rouge">ReverseProxy</code> config - no parallel routing config to keep in sync:</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"ReverseProxy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Routes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"products-route"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"ClusterId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products-cluster"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"Path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{**catch-all}"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"Transforms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"PathPattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{**catch-all}"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"Clusters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"products-cluster"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Destinations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://localhost:5101"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"YarpOpenApi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Clusters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"products-cluster"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"Title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Products API"</span><span class="p">,</span><span class="w"> </span><span class="nl">"OpenApiPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/openapi/v1.json"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Browse to <strong><code class="highlighter-rouge">/scalar</code></strong> and every downstream service shows up as its own tab, with
+paths shown exactly as a client calls them through the gateway.</p>
+
+<h2 id="the-clever-bit-path-rewriting">The clever bit: path rewriting</h2>
+
+<p>This is the part I’m most happy with. The library doesn’t ask you to redeclare
+anything - it <strong>reads your YARP routes and inverts their path transforms</strong> to figure
+out the gateway-facing path for every downstream path.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Downstream path</th>
+      <th>YARP route</th>
+      <th>Aggregated path (gateway)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">GET /products/{id}</code></td>
+      <td>Match <code class="highlighter-rouge">/api/products/{**catch-all}</code>, <code class="highlighter-rouge">PathPattern: /products/{**catch-all}</code></td>
+      <td><code class="highlighter-rouge">GET /api/products/{id}</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">GET /orders/{id}</code></td>
+      <td>Match <code class="highlighter-rouge">/api/orders/{**catch-all}</code>, <code class="highlighter-rouge">PathRemovePrefix: /api</code></td>
+      <td><code class="highlighter-rouge">GET /api/orders/{id}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">PathPattern</code>, <code class="highlighter-rouge">PathPrefix</code>, <code class="highlighter-rouge">PathRemovePrefix</code>, and <code class="highlighter-rouge">PathSet</code> are all handled out
+of the box. Path parameters and catch-all remainders are preserved verbatim.</p>
+
+<h2 id="scalar-by-default-swagger-ui-if-you-prefer">Scalar by default, Swagger UI if you prefer</h2>
+
+<p>The core package has <strong>no UI dependency</strong>. It exposes the documents through an
+<code class="highlighter-rouge">IClusterDocumentSource</code>; the <code class="highlighter-rouge">.Scalar</code> and <code class="highlighter-rouge">.SwaggerUI</code> packages are thin adapters
+over it. Want Swagger UI instead of Scalar? Swap one package and one call:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapSwaggerUIForYarp</span><span class="p">();</span>   <span class="c1">// 👈 instead of MapScalarForYarp()</span>
+</code></pre></div></div>
+
+<p>Want your own UI? Resolve <code class="highlighter-rouge">IClusterDocumentSource</code> and point your renderer at each
+document’s <code class="highlighter-rouge">RoutePattern</code>.</p>
+
+<h2 id="a-few-features-worth-knowing">A few features worth knowing</h2>
+
+<p>You’ll grow into these, but they’re there from day one:</p>
+
+<ul>
+  <li><strong>Merged document.</strong> Set <code class="highlighter-rouge">MergeDocuments: true</code> to also serve <code class="highlighter-rouge">/openapi/all.json</code>
+combining every cluster. Identically-shaped schemas merge silently; genuine name
+collisions can be auto-renamed instead of silently dropped.</li>
+  <li><strong>Published-paths filter.</strong> <code class="highlighter-rouge">AddOnlyPublishedPaths: true</code> drops any downstream
+path that isn’t actually reachable through a YARP route. <code class="highlighter-rouge">IncludePaths</code> /
+<code class="highlighter-rouge">ExcludePaths</code> add regex control over the gateway paths.</li>
+  <li><strong>Security propagation.</strong> <code class="highlighter-rouge">securitySchemes</code> flow through from each downstream
+document, deduplicated by name.</li>
+  <li><strong>Service discovery.</strong> With <code class="highlighter-rouge">Microsoft.Extensions.ServiceDiscovery</code> (.NET Aspire),
+logical addresses like <code class="highlighter-rouge">https://products-service</code> are resolved before the document
+is fetched.</li>
+</ul>
+
+<h2 id="extensibility-the-transformer-pipeline">Extensibility: the transformer pipeline</h2>
+
+<p>The built-in steps (path rewrite, security propagation, published-paths filter) are
+themselves transformers. You can append, reorder, or replace them at three
+granularities - whole document, per operation, or per schema:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span>
+    <span class="p">.</span><span class="nf">AddReverseProxy</span><span class="p">()</span>
+    <span class="p">.</span><span class="nf">LoadFromConfig</span><span class="p">(</span><span class="cm">/* ... */</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">AddOpenApiForYarp</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">AddDocumentTransformer</span><span class="p">&lt;</span><span class="n">MyDocumentTransformer</span><span class="p">&gt;()</span>    <span class="c1">// 👈 whole document</span>
+    <span class="p">.</span><span class="n">AddOperationTransformer</span><span class="p">&lt;</span><span class="n">MyOperationTransformer</span><span class="p">&gt;()</span>  <span class="c1">// 👈 per operation</span>
+    <span class="p">.</span><span class="n">AddSchemaTransformer</span><span class="p">&lt;</span><span class="n">MySchemaTransformer</span><span class="p">&gt;();</span>        <span class="c1">// 👈 per schema</span>
+</code></pre></div></div>
+
+<p>There’s even <code class="highlighter-rouge">ITransformFactory</code> parity: a class that implements <strong>both</strong> YARP’s
+proxy transform and this library’s document transformer is wired from a single
+registration, so your request rewriting and your documentation stay in sync.</p>
+
+<h2 id="wrap-up">Wrap-up</h2>
+
+<p>It’s a v1, so there are limits - no request aggregation, no dynamic config reload,
+and authenticated “Try it out” isn’t wired up yet. But for the core job - one clean,
+correctly-pathed OpenAPI view of every service behind your YARP gateway - it does
+exactly what I wanted, and it took three lines to turn on.</p>
+
+<p>Give it a try, and if something’s missing, issues and PRs are very welcome.</p>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://github.com/Burgyn/MMLib.OpenApiForYarp">MMLib.OpenApiForYarp on GitHub</a></li>
+  <li><a href="https://www.nuget.org/packages/MMLib.OpenApiForYarp">MMLib.OpenApiForYarp on NuGet</a></li>
+  <li><a href="https://microsoft.github.io/reverse-proxy/">YARP - Yet Another Reverse Proxy</a></li>
+  <li><a href="https://scalar.com/">Scalar</a></li>
+  <li><a href="https://github.com/Burgyn/MMLib.SwaggerForOcelot">MMLib.SwaggerForOcelot - the Ocelot predecessor</a></li>
+  <li><a href="/2020/06/02/building-net-core-api-gateway-with-ocelot/">My earlier Ocelot gateway post</a></li>
+</ul>
+
+    </div>
+
+    <div class="carousel">
+        
+    </div>
+
+    <a class="u-url" href="/2026/06/19/mmlib-openapiforyarp" hidden></a>
+
+</article>
+
+            <script data-name="BMC-Widget" data-cfasync="false" 
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" 
+                data-id="minomartiniak" 
+                data-description="Support me on Buy me a coffee!" 
+                data-message="" 
+                data-color="#00BF63" data-position="Right" 
+                data-x_margin="25" 
+                data-y_margin="50">
+            </script>
+        </div>
+    </main><footer class="footer">
+  <span>
+    &copy; <time datetime="2026-06-20 13:02:19 +0000">2026</time> Milan Martiniak
+    <a rel="me" href="https://github.com/burgyn"
+      title="GitHub - burgyn">
+      <span class="fa fa-github" aria-label="GitHub"></span>
+    </a>
+    <a rel="me" href="https://twitter.com/minomartiniak"
+      title="Twitter - minomartiniak">
+      <span class="fa fa-twitter" aria-label="Twitter"></span>
+    </a>
+    <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+      <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+    </a>
+
+    <a rel="me" href="https://blog.burgyn.online/feed.xml" title="RSS feed">
+      <span class="fa fa-rss" aria-label="RSS"></span>
+    </a>
+  </span>
+</footer><script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: false,
+                focusOnSelect: true,
+                infinite: false,
+                adaptiveHeight: true
+            });
+        });
+
+        lightbox.option({
+            'resizeDuration': 50,
+            'wrapAround': false,
+            'fadeDuration': 50,
+            'imageFadeDuration': 50,
+            'resizeDuration': 50            
+        })
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,4 +1,185 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-06-19T12:21:52+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">TeaPie: Testing real-world API scenarios</title><link href="https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing" rel="alternate" type="text/html" title="TeaPie: Testing real-world API scenarios" /><published>2026-03-18T17:00:00+00:00</published><updated>2026-03-18T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing"><![CDATA[<p>In the <a href="/2026/03/12/teapie-getting-started">first article</a>,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="https://blog.burgyn.online/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.burgyn.online/" rel="alternate" type="text/html" /><updated>2026-06-20T13:02:19+00:00</updated><id>https://blog.burgyn.online/feed.xml</id><title type="html">Burgyn’s blog</title><subtitle>A blog about everything possible and impossible that dotnet developer face every day.</subtitle><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><entry><title type="html">Aggregating OpenAPI docs on a YARP gateway with MMLib.OpenApiForYarp</title><link href="https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp" rel="alternate" type="text/html" title="Aggregating OpenAPI docs on a YARP gateway with MMLib.OpenApiForYarp" /><published>2026-06-19T16:00:00+00:00</published><updated>2026-06-19T16:00:00+00:00</updated><id>https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp</id><content type="html" xml:base="https://blog.burgyn.online/2026/06/19/mmlib-openapiforyarp"><![CDATA[<p>Years ago I built <a href="https://github.com/Burgyn/MMLib.SwaggerForOcelot">MMLib.SwaggerForOcelot</a>
+to solve one annoying problem: you put a bunch of microservices behind an
+<a href="/2020/06/02/building-net-core-api-gateway-with-ocelot/">Ocelot</a> gateway, and
+suddenly there’s no single place to see their Swagger docs. The package grew to
+<strong>3.8M+ downloads</strong>, which still surprises me.</p>
+
+<p>But the world moved on. Ocelot gave way to <strong><a href="https://microsoft.github.io/reverse-proxy/">YARP</a></strong>,
+Swashbuckle gave way to <strong><code class="highlighter-rouge">Microsoft.OpenApi</code></strong>, and Swagger UI got serious
+competition from <strong><a href="https://scalar.com/">Scalar</a></strong>. So I rebuilt the idea from
+scratch for the modern stack: <strong><a href="https://github.com/Burgyn/MMLib.OpenApiForYarp">MMLib.OpenApiForYarp</a></strong>.</p>
+
+<blockquote>
+  <p>💁 If you’ve used SwaggerForOcelot, this is the same idea for YARP.</p>
+</blockquote>
+
+<h2 id="the-problem-it-solves">The problem it solves</h2>
+
+<p>You have a YARP gateway in front of several services. Each service exposes its own
+OpenAPI document - <code class="highlighter-rouge">products</code> has one, <code class="highlighter-rouge">orders</code> has another. On their own they’re
+useless to a consumer of the gateway, because they describe <strong>the service’s own
+paths</strong> (<code class="highlighter-rouge">/products/{id}</code>), not the paths the client actually calls <strong>through the
+gateway</strong> (<code class="highlighter-rouge">/api/products/{id}</code>).</p>
+
+<p>MMLib.OpenApiForYarp fetches each downstream document at runtime, rewrites its
+paths to match how the gateway exposes them, and serves a clean per-service (or
+merged) document - then renders it in Scalar or Swagger UI.</p>
+
+<h2 id="quick-start">Quick start</h2>
+
+<p>Install the core plus the UI you want:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dotnet add package MMLib.OpenApiForYarp
+dotnet add package MMLib.OpenApiForYarp.Scalar
+</code></pre></div></div>
+
+<p>Wire it up next to YARP in <code class="highlighter-rouge">Program.cs</code>. If you already have a reverse proxy, this
+is three extra lines:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">var</span> <span class="n">builder</span> <span class="p">=</span> <span class="n">WebApplication</span><span class="p">.</span><span class="nf">CreateBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span>
+    <span class="p">.</span><span class="nf">AddReverseProxy</span><span class="p">()</span>
+    <span class="p">.</span><span class="nf">LoadFromConfig</span><span class="p">(</span><span class="n">builder</span><span class="p">.</span><span class="n">Configuration</span><span class="p">.</span><span class="nf">GetSection</span><span class="p">(</span><span class="s">"ReverseProxy"</span><span class="p">))</span>
+    <span class="p">.</span><span class="nf">AddOpenApiForYarp</span><span class="p">();</span>   <span class="c1">// 👈 that's the whole registration</span>
+
+<span class="kt">var</span> <span class="n">app</span> <span class="p">=</span> <span class="n">builder</span><span class="p">.</span><span class="nf">Build</span><span class="p">();</span>
+
+<span class="n">app</span><span class="p">.</span><span class="nf">MapReverseProxy</span><span class="p">();</span>
+<span class="n">app</span><span class="p">.</span><span class="nf">MapOpenApiForYarp</span><span class="p">();</span>   <span class="c1">// 👈 /openapi/{cluster}.json</span>
+<span class="n">app</span><span class="p">.</span><span class="nf">MapScalarForYarp</span><span class="p">();</span>    <span class="c1">// 👈 Scalar UI at /scalar</span>
+
+<span class="n">app</span><span class="p">.</span><span class="nf">Run</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">AddOpenApiForYarp()</code> binds a <code class="highlighter-rouge">YarpOpenApi</code> section that sits <strong>right next to</strong>
+YARP’s own <code class="highlighter-rouge">ReverseProxy</code> config - no parallel routing config to keep in sync:</p>
+
+<div class="language-jsonc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"ReverseProxy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Routes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"products-route"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"ClusterId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"products-cluster"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"Match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"Path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/api/products/{**catch-all}"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"Transforms"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"PathPattern"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/products/{**catch-all}"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"Clusters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"products-cluster"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"Destinations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://localhost:5101"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"YarpOpenApi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Clusters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"products-cluster"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"Title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Products API"</span><span class="p">,</span><span class="w"> </span><span class="nl">"OpenApiPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/openapi/v1.json"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Browse to <strong><code class="highlighter-rouge">/scalar</code></strong> and every downstream service shows up as its own tab, with
+paths shown exactly as a client calls them through the gateway.</p>
+
+<h2 id="the-clever-bit-path-rewriting">The clever bit: path rewriting</h2>
+
+<p>This is the part I’m most happy with. The library doesn’t ask you to redeclare
+anything - it <strong>reads your YARP routes and inverts their path transforms</strong> to figure
+out the gateway-facing path for every downstream path.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Downstream path</th>
+      <th>YARP route</th>
+      <th>Aggregated path (gateway)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">GET /products/{id}</code></td>
+      <td>Match <code class="highlighter-rouge">/api/products/{**catch-all}</code>, <code class="highlighter-rouge">PathPattern: /products/{**catch-all}</code></td>
+      <td><code class="highlighter-rouge">GET /api/products/{id}</code></td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">GET /orders/{id}</code></td>
+      <td>Match <code class="highlighter-rouge">/api/orders/{**catch-all}</code>, <code class="highlighter-rouge">PathRemovePrefix: /api</code></td>
+      <td><code class="highlighter-rouge">GET /api/orders/{id}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="highlighter-rouge">PathPattern</code>, <code class="highlighter-rouge">PathPrefix</code>, <code class="highlighter-rouge">PathRemovePrefix</code>, and <code class="highlighter-rouge">PathSet</code> are all handled out
+of the box. Path parameters and catch-all remainders are preserved verbatim.</p>
+
+<h2 id="scalar-by-default-swagger-ui-if-you-prefer">Scalar by default, Swagger UI if you prefer</h2>
+
+<p>The core package has <strong>no UI dependency</strong>. It exposes the documents through an
+<code class="highlighter-rouge">IClusterDocumentSource</code>; the <code class="highlighter-rouge">.Scalar</code> and <code class="highlighter-rouge">.SwaggerUI</code> packages are thin adapters
+over it. Want Swagger UI instead of Scalar? Swap one package and one call:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapSwaggerUIForYarp</span><span class="p">();</span>   <span class="c1">// 👈 instead of MapScalarForYarp()</span>
+</code></pre></div></div>
+
+<p>Want your own UI? Resolve <code class="highlighter-rouge">IClusterDocumentSource</code> and point your renderer at each
+document’s <code class="highlighter-rouge">RoutePattern</code>.</p>
+
+<h2 id="a-few-features-worth-knowing">A few features worth knowing</h2>
+
+<p>You’ll grow into these, but they’re there from day one:</p>
+
+<ul>
+  <li><strong>Merged document.</strong> Set <code class="highlighter-rouge">MergeDocuments: true</code> to also serve <code class="highlighter-rouge">/openapi/all.json</code>
+combining every cluster. Identically-shaped schemas merge silently; genuine name
+collisions can be auto-renamed instead of silently dropped.</li>
+  <li><strong>Published-paths filter.</strong> <code class="highlighter-rouge">AddOnlyPublishedPaths: true</code> drops any downstream
+path that isn’t actually reachable through a YARP route. <code class="highlighter-rouge">IncludePaths</code> /
+<code class="highlighter-rouge">ExcludePaths</code> add regex control over the gateway paths.</li>
+  <li><strong>Security propagation.</strong> <code class="highlighter-rouge">securitySchemes</code> flow through from each downstream
+document, deduplicated by name.</li>
+  <li><strong>Service discovery.</strong> With <code class="highlighter-rouge">Microsoft.Extensions.ServiceDiscovery</code> (.NET Aspire),
+logical addresses like <code class="highlighter-rouge">https://products-service</code> are resolved before the document
+is fetched.</li>
+</ul>
+
+<h2 id="extensibility-the-transformer-pipeline">Extensibility: the transformer pipeline</h2>
+
+<p>The built-in steps (path rewrite, security propagation, published-paths filter) are
+themselves transformers. You can append, reorder, or replace them at three
+granularities - whole document, per operation, or per schema:</p>
+
+<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span>
+    <span class="p">.</span><span class="nf">AddReverseProxy</span><span class="p">()</span>
+    <span class="p">.</span><span class="nf">LoadFromConfig</span><span class="p">(</span><span class="cm">/* ... */</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">AddOpenApiForYarp</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">AddDocumentTransformer</span><span class="p">&lt;</span><span class="n">MyDocumentTransformer</span><span class="p">&gt;()</span>    <span class="c1">// 👈 whole document</span>
+    <span class="p">.</span><span class="n">AddOperationTransformer</span><span class="p">&lt;</span><span class="n">MyOperationTransformer</span><span class="p">&gt;()</span>  <span class="c1">// 👈 per operation</span>
+    <span class="p">.</span><span class="n">AddSchemaTransformer</span><span class="p">&lt;</span><span class="n">MySchemaTransformer</span><span class="p">&gt;();</span>        <span class="c1">// 👈 per schema</span>
+</code></pre></div></div>
+
+<p>There’s even <code class="highlighter-rouge">ITransformFactory</code> parity: a class that implements <strong>both</strong> YARP’s
+proxy transform and this library’s document transformer is wired from a single
+registration, so your request rewriting and your documentation stay in sync.</p>
+
+<h2 id="wrap-up">Wrap-up</h2>
+
+<p>It’s a v1, so there are limits - no request aggregation, no dynamic config reload,
+and authenticated “Try it out” isn’t wired up yet. But for the core job - one clean,
+correctly-pathed OpenAPI view of every service behind your YARP gateway - it does
+exactly what I wanted, and it took three lines to turn on.</p>
+
+<p>Give it a try, and if something’s missing, issues and PRs are very welcome.</p>
+
+<h2 id="links">Links</h2>
+
+<ul>
+  <li><a href="https://github.com/Burgyn/MMLib.OpenApiForYarp">MMLib.OpenApiForYarp on GitHub</a></li>
+  <li><a href="https://www.nuget.org/packages/MMLib.OpenApiForYarp">MMLib.OpenApiForYarp on NuGet</a></li>
+  <li><a href="https://microsoft.github.io/reverse-proxy/">YARP - Yet Another Reverse Proxy</a></li>
+  <li><a href="https://scalar.com/">Scalar</a></li>
+  <li><a href="https://github.com/Burgyn/MMLib.SwaggerForOcelot">MMLib.SwaggerForOcelot - the Ocelot predecessor</a></li>
+  <li><a href="/2020/06/02/building-net-core-api-gateway-with-ocelot/">My earlier Ocelot gateway post</a></li>
+</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="dotnet" /><category term="yarp" /><category term="openapi" /><category term="library" /><summary type="html"><![CDATA[Aggregate your microservices' OpenAPI docs onto a YARP gateway and browse them in Scalar - the successor to MMLib.SwaggerForOcelot.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/mmlib-openapiforyarp-cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/mmlib-openapiforyarp-cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">TeaPie: Testing real-world API scenarios</title><link href="https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing" rel="alternate" type="text/html" title="TeaPie: Testing real-world API scenarios" /><published>2026-03-18T17:00:00+00:00</published><updated>2026-03-18T17:00:00+00:00</updated><id>https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing</id><content type="html" xml:base="https://blog.burgyn.online/2026/03/18/teapie-real-world-api-testing"><![CDATA[<p>In the <a href="/2026/03/12/teapie-getting-started">first article</a>,
 I showed how to get from zero to passing tests in a few minutes - directives,
 a <code class="highlighter-rouge">POST</code> with a <code class="highlighter-rouge">.csx</code> script, and chaining IDs across test cases.</p>
 
@@ -1204,198 +1385,4 @@ We didn’t mind, though, because the necessary ones were there.</p>
 	- Kros.Esw.ApiProjectD
 ----------------------------------------
 , but found 1 (difference of 1).
-</code></pre></div></div>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="architecture" /><category term="unit tests" /><category term="AZURE" /><summary type="html"><![CDATA[The blog post discusses managing project references in WebAPI projects featuring C# codes to perform architectural tests and maintain project independence.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/arch-tests-check-project-references/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/arch-tests-check-project-references/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Own mediator</title><link href="https://blog.burgyn.online/2024/06/09/own-mediator" rel="alternate" type="text/html" title="Own mediator" /><published>2024-06-09T17:00:00+00:00</published><updated>2024-06-09T17:00:00+00:00</updated><id>https://blog.burgyn.online/2024/06/09/own-mediator</id><content type="html" xml:base="https://blog.burgyn.online/2024/06/09/own-mediator"><![CDATA[<p>Currently, the Mediator design pattern is often used. Its purpose is to separate the communication between objects from each other. Which will reduce dependencies between classes, make the code more transparent and simplify testing. 
-In a .NET environment, a developer often reaches for the cool library <a href="https://github.com/jbogard/MediatR">MediatR</a> by Jimmy Bogard. This library provides an easy way to implement the Mediator pattern into an application.</p>
-
-<p>However, there are situations where we can’t/don’t want to use a third party library. For example, you are writing some custom library/framework and you don’t want to introduce such dependencies into it.</p>
-
-<p>Something similar happened to us. Fortunately, we didn’t need the complete functionality that MediatR provides, but just a basic event dispatch and processing was enough.</p>
-
-<p>Therefore, I will now show how to easily create such an implementation of your own Mediator.</p>
-
-<p>Let’s start with defining the message interface. In our case it was a domain event, hence the name.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IDomainEvent</span>
-<span class="p">{</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<blockquote>
-  <p>It’s just a pure markup interface. We could do without it, but it’s a good way to indicate that it’s an event.</p>
-</blockquote>
-
-<p>Then the event processing interface.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;</span> 
-    <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
-<span class="p">{</span>
-    <span class="n">Task</span> <span class="nf">HandleAsync</span><span class="p">(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>We need an interface for sending events.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IEventPublisher</span>
-<span class="p">{</span>
-    <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
-        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>We could stop with the abstractions here and start implementing. However, we decided to add an abstraction for the processing strategy in there. For now, the sequential processing of events was enough, but we might need other strategies in the future.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">interface</span> <span class="nc">IEventPublisherStrategy</span>
-<span class="p">{</span>
-    <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span>
-        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">,</span>
-        <span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span>
-        <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
-        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h2 id="implementation">Implementation</h2>
-
-<p>Publisher can look like this:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">internal</span> <span class="k">class</span> <span class="nc">EventPublisher</span> <span class="p">:</span> <span class="n">IEventPublisher</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IServiceProvider</span> <span class="n">_serviceProvider</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IEventPublisherStrategy</span> <span class="n">_publisherStrategy</span><span class="p">;</span>
-    <span class="k">private</span> <span class="k">readonly</span> <span class="n">IHttpContextAccessor</span> <span class="n">_httpContextAccessor</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="nf">EventPublisher</span><span class="p">(</span>
-        <span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">,</span>
-        <span class="n">IHttpContextAccessor</span> <span class="n">httpContextAccessor</span><span class="p">,</span>
-        <span class="n">IEventPublisherStrategy</span> <span class="n">publisherStrategy</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">_serviceProvider</span> <span class="p">=</span> <span class="n">serviceProvider</span><span class="p">;</span>
-        <span class="n">_publisherStrategy</span> <span class="p">=</span> <span class="n">publisherStrategy</span><span class="p">;</span>
-        <span class="n">_httpContextAccessor</span> <span class="p">=</span> <span class="n">httpContextAccessor</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
-        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
-    <span class="p">{</span>
-        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span> <span class="k">is</span> <span class="n">not</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="c1">// 👇 if available, then find handlers in HttpContext services</span>
-            <span class="n">handlers</span> <span class="p">=</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">_httpContextAccessor</span><span class="p">.</span><span class="n">HttpContext</span><span class="p">.</span><span class="n">RequestServices</span><span class="p">);</span>
-            <span class="c1">// 👇 publish event to all handlers</span>
-            <span class="k">await</span> <span class="n">_publisherStrategy</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="c1">// 👇 if not, then create new scope</span>
-            <span class="k">using</span> <span class="nn">var</span> <span class="n">scope</span> <span class="p">=</span> <span class="n">_serviceProvider</span><span class="p">.</span><span class="nf">CreateScope</span><span class="p">();</span>
-            <span class="n">handlers</span> <span class="p">=</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">scope</span><span class="p">.</span><span class="n">ServiceProvider</span><span class="p">);</span>
-            <span class="c1">// 👇 publish event to all handlers</span>
-            <span class="k">await</span> <span class="n">_publisherStrategy</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">private</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">GetHandlers</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span><span class="n">IServiceProvider</span> <span class="n">serviceProvider</span><span class="p">)</span>
-        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
-        <span class="p">=&gt;</span> <span class="n">serviceProvider</span><span class="p">.</span><span class="n">GetServices</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;();</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>Publisher takes care of getting the handlers from the container and then forwards them to publisher strategy, which decides how they will be processed.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">ForeachAwaitPublisherStrategy</span> <span class="p">:</span> <span class="n">IEventPublisherStrategy</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">PublishAsync</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;(</span>
-        <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;&gt;</span> <span class="n">handlers</span><span class="p">,</span>
-        <span class="n">TEvent</span> <span class="n">domainEvent</span><span class="p">,</span>
-        <span class="n">CancellationToken</span> <span class="n">cancellationToken</span><span class="p">)</span>
-        <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 publish event to all handlers</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">handler</span> <span class="k">in</span> <span class="n">handlers</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">await</span> <span class="n">handler</span><span class="p">.</span><span class="nf">HandleAsync</span><span class="p">(</span><span class="n">domainEvent</span><span class="p">,</span> <span class="n">cancellationToken</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></div></div>
-
-<p>Our <code class="highlighter-rouge">ForeachAwaitPublisherStrategy</code> handles events sequentially. It forwards the message to all handlers and waits for them to process it.</p>
-
-<h2 id="registration">Registration</h2>
-
-<p>In order to use the abstractions we create, we need to register them in the DI container.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="nf">AddEventPublisher</span><span class="p">(</span><span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">services</span><span class="p">.</span><span class="nf">AddHttpContextAccessor</span><span class="p">();</span>
-    <span class="n">services</span><span class="p">.</span><span class="n">TryAddSingleton</span><span class="p">&lt;</span><span class="n">IEventPublisher</span><span class="p">,</span> <span class="n">EventPublisher</span><span class="p">&gt;();</span>
-    <span class="n">services</span><span class="p">.</span><span class="n">TryAddSingleton</span><span class="p">&lt;</span><span class="n">IEventPublisherStrategy</span><span class="p">,</span> <span class="n">ForeachAwaitPublisherStrategy</span><span class="p">&gt;();</span>
-    <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>We can also create an extension for easy registration of handlers.</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">static</span> <span class="n">IServiceCollection</span> <span class="n">AddDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">,</span> <span class="n">THandler</span><span class="p">&gt;(</span>
-    <span class="k">this</span> <span class="n">IServiceCollection</span> <span class="n">services</span><span class="p">,</span>
-    <span class="n">ServiceLifetime</span> <span class="n">lifetime</span> <span class="p">=</span> <span class="n">ServiceLifetime</span><span class="p">.</span><span class="n">Transient</span><span class="p">)</span>
-    <span class="k">where</span> <span class="n">TEvent</span> <span class="p">:</span> <span class="n">IDomainEvent</span>
-    <span class="k">where</span> <span class="n">THandler</span> <span class="p">:</span> <span class="k">class</span><span class="err">,</span> <span class="nc">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;</span>
-<span class="p">{</span>
-    <span class="n">services</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="k">new</span> <span class="nf">ServiceDescriptor</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">TEvent</span><span class="p">&gt;),</span> <span class="k">typeof</span><span class="p">(</span><span class="n">THandler</span><span class="p">),</span> <span class="n">lifetime</span><span class="p">));</span>
-
-    <span class="k">return</span> <span class="n">services</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<blockquote>
-  <p>Using this extension looks like this <code class="highlighter-rouge">services.AddDomainEventHandler&lt;YourEvent, YourHandler&gt;();</code>. 
-This is because I wanted to avoid reflection. If reflection doesn’t bother you, a simplified call to <code class="highlighter-rouge">services.AddDomainEventHandler&lt;YourHandler&gt;();</code>. 
-But I’ll leave that up to you 😉.</p>
-</blockquote>
-
-<h2 id="usage">Usage</h2>
-
-<p>Finally, we’ll show you how to use our own Mediator.</p>
-
-<p>Event and handler:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 👇 The event that the product was created</span>
-<span class="k">public</span> <span class="n">record</span> <span class="nf">ProductCreated</span><span class="p">(</span><span class="kt">int</span> <span class="n">Id</span><span class="p">,</span> <span class="kt">string</span> <span class="n">Name</span><span class="p">,</span> <span class="kt">decimal</span> <span class="n">Price</span><span class="p">)</span> <span class="p">:</span> <span class="n">IDomainEvent</span><span class="p">;</span>
-
-<span class="c1">// 👇 The handler that will process the event</span>
-<span class="k">public</span> <span class="k">class</span> <span class="nc">ProductCreatedHandler</span> <span class="p">:</span> <span class="n">IDomainEventHandler</span><span class="p">&lt;</span><span class="n">ProductCreated</span><span class="p">&gt;</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="n">Task</span> <span class="nf">HandleAsync</span><span class="p">(</span><span class="n">ProductCreated</span> <span class="n">domainEvent</span><span class="p">,</span> <span class="n">CancellationToken</span> <span class="n">cancellationToken</span> <span class="p">=</span> <span class="k">default</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// 👇 Process the event</span>
-        <span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"Product created: </span><span class="p">{</span><span class="n">domainEvent</span><span class="p">.</span><span class="n">Name</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">Task</span><span class="p">.</span><span class="n">CompletedTask</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>The registration:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="nf">AddEventPublisher</span><span class="p">();</span>
-<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddDomainEventHandler</span><span class="p">&lt;</span><span class="n">ProductCreated</span><span class="p">,</span> <span class="n">ProductCreatedHandler</span><span class="p">&gt;();</span>
-</code></pre></div></div>
-
-<p>Use in endpoint:</p>
-
-<div class="language-csharp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="nf">MapPost</span><span class="p">(</span><span class="s">"/products"</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="n">Product</span> <span class="n">product</span><span class="p">,</span> <span class="n">IEventPublisher</span> <span class="n">publisher</span><span class="p">)</span> <span class="p">=&gt;</span>
-<span class="p">{</span>
-    <span class="c1">// Save the product</span>
-    <span class="c1">// 👇 Publish the event</span>
-    <span class="k">await</span> <span class="n">publisher</span><span class="p">.</span><span class="nf">PublishAsync</span><span class="p">(</span><span class="k">new</span> <span class="nf">ProductCreated</span><span class="p">(</span><span class="n">product</span><span class="p">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">product</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">product</span><span class="p">.</span><span class="n">Price</span><span class="p">));</span>
-    <span class="k">return</span> <span class="n">product</span><span class="p">;</span>
-<span class="p">});</span>
-</code></pre></div></div>
-
-<h2 id="links">Links</h2>
-
-<ul>
-  <li><a href="https://github.com/Burgyn/MMLib.Sample.Mediator">Sample project</a></li>
-</ul>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="dotnet" /><category term="unit tests" /><category term="architecture" /><summary type="html"><![CDATA[Discover how to build your own implementation of the Mediator design pattern in a .NET environment without third-party libraries.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/own-mediator/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+</code></pre></div></div>]]></content><author><name>Milan Martiniak</name><email>mino.martiniak@gmail.com</email></author><category term="csharp" /><category term="architecture" /><category term="unit tests" /><category term="AZURE" /><summary type="html"><![CDATA[The blog post discusses managing project references in WebAPI projects featuring C# codes to perform architectural tests and maintain project independence.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.burgyn.online/assets/images/code_images/arch-tests-check-project-references/cover.png" /><media:content medium="image" url="https://blog.burgyn.online/assets/images/code_images/arch-tests-check-project-references/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
