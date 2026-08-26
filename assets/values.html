@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GROW — naše hodnoty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C2B26;        /* hlboká zeleň — pozadie */
+    --ink-2:#123A33;      /* svetlejšia zeleň — karty */
+    --leaf:#3E9A82;       /* list */
+    --rind:#F0821E;       /* kôra pomaranča */
+    --flesh:#FFD7A0;      /* dužina */
+    --paper:#FBF6EC;      /* papier */
+    --muted:rgba(251,246,236,.62);
+    --line:rgba(251,246,236,.14);
+    --display:"Bricolage Grotesque",system-ui,sans-serif;
+    --body:"Instrument Sans",system-ui,sans-serif;
+    --serif:"Instrument Serif",Georgia,serif;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:120px 0 80px;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    pointer-events:none;
+    opacity:.5;
+  }
+  .hero-bg svg{position:absolute;width:100%;height:100%}
+
+  .eyebrow{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(18px,2.2vw,24px);
+    color:var(--flesh);
+    letter-spacing:.01em;
+    margin:0 0 6px;
+  }
+  .grow{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(88px,23vw,300px);
+    line-height:.82;
+    letter-spacing:-.045em;
+    margin:0;
+    position:relative;
+    z-index:2;
+  }
+  .grow span{display:inline-block}
+  .grow .o{
+    color:var(--rind);
+    position:relative;
+  }
+  .hero-sub{
+    margin:34px 0 0;
+    max-width:44ch;
+    font-size:clamp(18px,2vw,21px);
+    color:var(--muted);
+    position:relative;z-index:2;
+  }
+  .hero-sub strong{color:var(--paper);font-weight:600}
+
+  .scroll-hint{
+    margin-top:56px;
+    display:flex;align-items:center;gap:12px;
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);
+    position:relative;z-index:2;
+  }
+  .scroll-hint .bar{width:54px;height:1px;background:var(--leaf);transform-origin:left;animation:reach 2.6s ease-in-out infinite}
+  @keyframes reach{0%,100%{transform:scaleX(.4)}50%{transform:scaleX(1)}}
+
+  /* ---------- VETVA / SPINE ---------- */
+  .values{position:relative;padding:40px 0 40px}
+  .spine{
+    position:absolute;
+    left:calc(50% - 540px + 28px);
+    top:0;bottom:0;width:120px;
+    pointer-events:none;
+  }
+  .spine svg{height:100%;width:100%}
+  .spine .stem{
+    fill:none;stroke:var(--rind);stroke-width:2.5;stroke-linecap:round;
+  }
+  .spine .leaf{fill:var(--leaf)}
+
+  /* ---------- VALUE BLOCKS ---------- */
+  .value{
+    position:relative;
+    padding:88px 0;
+    border-top:1px solid var(--line);
+  }
+  .value:first-of-type{border-top:none}
+  .value-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+    gap:clamp(32px,6vw,88px);
+    align-items:start;
+  }
+  .value-num{
+    display:flex;align-items:center;gap:14px;
+    margin-bottom:14px;
+  }
+  .value-num .dot{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--rind);
+    display:grid;place-items:center;
+    font-family:var(--display);font-weight:700;font-size:16px;
+    color:var(--ink);
+    flex:none;
+  }
+  .value-num .kicker{
+    font-family:var(--serif);font-style:italic;
+    font-size:17px;color:var(--flesh);
+  }
+  .value h2{
+    font-family:var(--display);
+    font-weight:800;
+    font-size:clamp(44px,7.4vw,88px);
+    line-height:.92;
+    letter-spacing:-.035em;
+    margin:0 0 22px;
+  }
+  .value h2 em{font-style:normal;color:var(--rind)}
+  .value .lead{
+    font-size:clamp(18px,1.9vw,22px);
+    line-height:1.5;
+    margin:0;
+    max-width:34ch;
+  }
+
+  .examples{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:30px 30px 26px;
+    margin-top:6px;
+  }
+  .examples h3{
+    margin:0 0 18px;
+    font-family:var(--body);
+    font-size:12px;font-weight:600;
+    letter-spacing:.2em;text-transform:uppercase;
+    color:var(--leaf);
+  }
+  .examples ol{margin:0;padding:0;list-style:none;counter-reset:ex}
+  .examples li{
+    counter-increment:ex;
+    display:flex;gap:16px;
+    padding:14px 0;
+    border-top:1px solid var(--line);
+    font-size:16.5px;
+  }
+  .examples li:first-child{border-top:none;padding-top:0}
+  .examples li::before{
+    content:counter(ex);
+    font-family:var(--display);font-weight:700;font-size:13px;
+    color:var(--flesh);
+    padding-top:3px;
+    flex:none;width:14px;
+  }
+
+  /* ---------- SLICE (signature) ---------- */
+  .slice-wrap{
+    position:absolute;
+    right:-90px;top:50%;transform:translateY(-50%);
+    width:260px;height:260px;
+    opacity:.16;
+    pointer-events:none;
+  }
+
+  /* ---------- OUTRO ---------- */
+  .outro{
+    padding:110px 0 130px;
+    border-top:1px solid var(--line);
+    text-align:center;
+  }
+  .outro p{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(28px,4.6vw,54px);
+    line-height:1.08;
+    letter-spacing:-.03em;
+    margin:0 auto;
+    max-width:18ch;
+  }
+  .outro p em{font-style:normal;color:var(--rind)}
+  .outro .sig{
+    margin-top:34px;
+    font-family:var(--serif);font-style:italic;
+    color:var(--muted);font-size:18px;
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .spine{display:none}
+    .value-grid{grid-template-columns:1fr;gap:34px}
+    .slice-wrap{display:none}
+    .value{padding:64px 0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+  :focus-visible{outline:2px solid var(--flesh);outline-offset:4px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+      <g fill="none" stroke="#F0821E" stroke-width="2" stroke-linecap="round">
+        <path d="M1180 60 C1010 130 940 250 900 380 C870 480 830 560 740 620"/>
+        <path d="M900 380 C820 340 760 350 700 400"/>
+        <path d="M940 250 C1030 230 1080 190 1110 140"/>
+        <path d="M20 720 C160 660 240 560 280 440"/>
+      </g>
+      <g fill="#3E9A82">
+        <!-- listy pozdĺž hlavnej vetvy -->
+        <g transform="translate(1140,80) rotate(-25)"><ellipse rx="26" ry="8"/></g>
+        <g transform="translate(1090,130) rotate(15)"><ellipse rx="24" ry="8"/></g>
+        <g transform="translate(1040,180) rotate(-30)"><ellipse rx="26" ry="8"/></g>
+        <g transform="translate(995,235) rotate(20)"><ellipse rx="24" ry="8"/></g>
+        <g transform="translate(955,300) rotate(-35)"><ellipse rx="26" ry="8"/></g>
+        <g transform="translate(915,370) rotate(25)"><ellipse rx="24" ry="8"/></g>
+        <g transform="translate(880,450) rotate(-20)"><ellipse rx="26" ry="8"/></g>
+        <g transform="translate(840,520) rotate(30)"><ellipse rx="24" ry="8"/></g>
+        <g transform="translate(790,580) rotate(-15)"><ellipse rx="26" ry="8"/></g>
+        <g transform="translate(760,380) rotate(10)"><ellipse rx="22" ry="7"/></g>
+        <g transform="translate(710,405) rotate(-20)"><ellipse rx="22" ry="7"/></g>
+        <g transform="translate(250,500) rotate(35)"><ellipse rx="24" ry="8"/></g>
+        <g transform="translate(200,580) rotate(-25)"><ellipse rx="26" ry="8"/></g>
+        <g transform="translate(140,650) rotate(20)"><ellipse rx="24" ry="8"/></g>
+      </g>
+      <g fill="#F0821E">
+        <circle cx="1108" cy="146" r="26"/>
+        <circle cx="898" cy="382" r="30"/>
+        <circle cx="736" cy="624" r="24"/>
+        <circle cx="282" cy="436" r="26"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="wrap">
+    <p class="eyebrow">Naše hodnoty</p>
+    <h1 class="grow"><span>G</span><span>R</span><span class="o">O</span><span>W</span></h1>
+    <p class="hero-sub">Tri vety o tom, ako pestujeme, ako sa správame a čo po nás zostane v prepravke. <strong>Fairly. Differently. Juicy.</strong></p>
+    <div class="scroll-hint"><span class="bar"></span> Poď ďalej</div>
+  </div>
+</header>
+
+<!-- ================= HODNOTY ================= -->
+<main class="values">
+  <div class="spine" aria-hidden="true">
+    <svg viewBox="0 0 120 1000" preserveAspectRatio="none">
+      <path class="stem" d="M60 0 C30 160 90 300 60 460 C30 620 90 760 60 1000"/>
+    </svg>
+  </div>
+
+  <div class="wrap">
+
+    <!-- 1 -->
+    <section class="value reveal">
+      <div class="slice-wrap" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#F0821E"/><circle cx="50" cy="50" r="40" fill="#FFD7A0"/>
+          <g stroke="#F0821E" stroke-width="2.5"><line x1="50" y1="10" x2="50" y2="90"/><line x1="10" y1="50" x2="90" y2="50"/><line x1="22" y1="22" x2="78" y2="78"/><line x1="78" y1="22" x2="22" y2="78"/></g>
+        </svg>
+      </div>
+      <div class="value-num">
+        <span class="dot">1</span>
+        <span class="kicker">rovné podmienky</span>
+      </div>
+      <div class="value-grid">
+        <div>
+          <h2>Grow <em>fairly</em></h2>
+          <p class="lead">Rastieme tak, aby s nami rástli aj ostatní. Férové podmienky pre pestovateľov, kolegov aj partnerov nie sú benefit navyše — sú základ.</p>
+        </div>
+        <div class="examples">
+          <h3>Príklady prejavov</h3>
+          <ol>
+            <li>Fér odmeny pre všetkých.</li>
+            <li>O produkte hovoríme pravdivo.</li>
+            <li>Pestujeme s rešpektom k prírode.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="value reveal">
+      <div class="slice-wrap" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#3E9A82"/><circle cx="50" cy="50" r="40" fill="#FFD7A0"/>
+          <g stroke="#3E9A82" stroke-width="2.5"><line x1="50" y1="10" x2="50" y2="90"/><line x1="10" y1="50" x2="90" y2="50"/><line x1="22" y1="22" x2="78" y2="78"/><line x1="78" y1="22" x2="22" y2="78"/></g>
+        </svg>
+      </div>
+      <div class="value-num">
+        <span class="dot">2</span>
+        <span class="kicker">vlastná cesta</span>
+      </div>
+      <div class="value-grid">
+        <div>
+          <h2>Grow <em>differently</em></h2>
+          <p class="lead">Nebojíme sa rásť inak než ostatní. Skúšame nové odrody, postupy aj cesty — a to aj napriek tomu, že jednoduchšie by bolo robiť to ako všetci.</p>
+        </div>
+        <div class="examples">
+          <h3>Príklady prejavov</h3>
+          <ol>
+            <li>Neustále hľadáme, čo by sa dalo urobiť inak a lepšie.</li>
+            <li>Experimentujeme v odrodách aj procesoch a učíme sa z toho.</li>
+            <li>Vyhráme si s tým a spolupracujeme.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="value reveal">
+      <div class="slice-wrap" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="#F0821E"/><circle cx="50" cy="50" r="40" fill="#FFD7A0"/>
+          <g stroke="#F0821E" stroke-width="2.5"><line x1="50" y1="10" x2="50" y2="90"/><line x1="10" y1="50" x2="90" y2="50"/><line x1="22" y1="22" x2="78" y2="78"/><line x1="78" y1="22" x2="22" y2="78"/></g>
+        </svg>
+      </div>
+      <div class="value-num">
+        <span class="dot">3</span>
+        <span class="kicker">kvalita, ktorú cítiť</span>
+      </div>
+      <div class="value-grid">
+        <div>
+          <h2>Grow <em>juicy</em></h2>
+          <p class="lead">Chuť, energiu aj dôslednosť venujeme tomu, aby bola vo výsledku cítiť šťava, ku ktorej sa chcete vrátiť.</p>
+        </div>
+        <div class="examples">
+          <h3>Príklady prejavov</h3>
+          <ol>
+            <li>Kvalitu kontrolujeme od výsadby až po dodanie.</li>
+            <li>Čo nespĺňa náš štandard kvality, do predaja nepustíme.</li>
+            <li>Odrody vyberáme podľa chuti, nie len podľa výnosu.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ================= OUTRO ================= -->
+<footer class="outro reveal">
+  <div class="wrap">
+    <p>Rásť sa dá rôzne. My rastieme <em>férovo, inak a so šťavou.</em></p>
+    <p class="sig">GROW — hodnoty, ktoré pestujeme každý deň</p>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
