@@ -1,4 +1,4 @@
-const cacheName = 'burgyn-20260909222447';
+const cacheName = 'burgyn-20260910105851';
 const offlineUrl = 'offline.html';
 
 self.addEventListener('install', evt => {
