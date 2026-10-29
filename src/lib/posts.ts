@@ -16,7 +16,7 @@ function withUrl(entry: CollectionEntry<'posts'>): Post {
   return Object.assign(entry, { date, url });
 }
 
-// Published posts, newest first. Future-dated posts appear once a scheduled build runs after their date
+// Published posts, newest first. Future-dated posts are left out until a build after their date
 // (`npm run dev:drafts` shows them right away).
 export async function getPosts(): Promise<Post[]> {
   const now = new Date();
