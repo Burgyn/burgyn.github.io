@@ -13,6 +13,7 @@ keywords:
     - KORM
     - MMLib.SwaggerForOcelot
     - POLLMEA
+    - Spolu
     - CODECON Žilina
     - University of Žilina
     - Software Development
@@ -34,6 +35,8 @@ Since 2007 I'm .NET developer at KROS a.s. In the past I have been developing de
 I'm co-autor of an open source project [KORM](https://github.com/Kros-sk/Kros.KORM). And autor/founder of an open source project [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot). I actively take care of both of these projects.
 
 My friend [Andrej Kollárik](https://www.linkedin.com/in/andrej-kollarik/) and I are co-authors and co-founders of [POLLMEA](https://pollmea.com), a free online application for creating polls.
+
+I also built [Spolu](https://spolu.top), a free app for splitting trip expenses between whole families - kids at half, everyone sees who owes whom. ([more about it](/2026/10/29/spolu))
 
 With friends from work we are starting to organize public meetups in Žilina called [KROS Dev Meetup](https://www.meetup.com/KROS-Dev-Meetup/) dedicated to software development.
 Sometimes I talk about software development at the University of Žilina.
