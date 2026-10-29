@@ -1,8 +1,8 @@
 ---
 import Default from '../layouts/Default.astro';
-import NotFound from '../components/NotFound.astro';
+import Offline from '../components/Offline.astro';
 import { site } from '../lib/site';
 ---
-<Default seo={{ jsonLd: { '@type': 'WebPage', headline: site.title } }}>
-    <NotFound />
+<Default seo={{ keepHtml: true, jsonLd: { '@type': 'WebPage', headline: site.title } }}>
+    <Offline />
 </Default>

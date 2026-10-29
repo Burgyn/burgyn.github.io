@@ -6,6 +6,8 @@ import { smartify, titleText } from '../lib/posts';
 interface Props {
   title?: string;
   fullTitle?: string;
+  // Pages with an explicit .html permalink (404, offline) keep it in the canonical URL.
+  keepHtml?: boolean;
   description?: string;
   image?: string;
   type?: 'website' | 'article';
@@ -15,11 +17,11 @@ interface Props {
   jsonLd: Record<string, unknown>;
 }
 
-const { title, fullTitle: fullTitleOverride, description = site.description, image, type = 'website', published, next, prev, jsonLd } = Astro.props;
+const { title, fullTitle: fullTitleOverride, keepHtml = false, description = site.description, image, type = 'website', published, next, prev, jsonLd } = Astro.props;
 const siteTitle = smartify(site.title);
 const pageTitle = title ? titleText(title) : siteTitle;
 const fullTitle = fullTitleOverride ?? (title ? `${pageTitle} | ${siteTitle}` : `${siteTitle} | ${site.description}`);
-const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/'), site.url).href;
+const canonical = new URL((keepHtml ? Astro.url.pathname : Astro.url.pathname.replace(/\.html$/, '')).replace(/\/index$/, '/'), site.url).href;
 const imageUrl = image && new URL(image, site.url).href;
 ---
 <title>{fullTitle}</title>
