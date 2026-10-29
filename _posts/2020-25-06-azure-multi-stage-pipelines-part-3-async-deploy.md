@@ -8,7 +8,7 @@ date: 2020-06-25 17:00:00 +0100
 Pri väčšom projekte s veľkou pravdepodobnosťou nasadzujete viaceré služby. *(hlavne pokiaľ vyvíjate mikroslužby)* V tomto článku si ukážeme, ako môžme výrazne skrátiť čas nasadzovania celého riešenia do AZURE Web Apps.
 <!-- excerpt -->
 
-V predchádzajúcom článku [Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)]({% post_url 2020-02-23-azure-multi-stage-pipelines %}) som ukázal, ako môžme nasadiť ASP.NET Core API do Azure Web Apps. Teraz na to nadviažem a upravíme nasadzovaciu pipeline-u tak, aby sme výrazne skrátili čas nasadzovania.
+V predchádzajúcom článku [Azure Multi-Stage Pipelines (časť 1. a 2. - Build a Nasadenie)](/2020/02/23/azure-multi-stage-pipelines) som ukázal, ako môžme nasadiť ASP.NET Core API do Azure Web Apps. Teraz na to nadviažem a upravíme nasadzovaciu pipeline-u tak, aby sme výrazne skrátili čas nasadzovania.
 
 Jednotlivé služby sú na sebe nezávislé a je preto možné ušetriť čas tým, že ich nasadíme paralelne. Najjednoduchšie by bolo využiť viacerých agentov. *(pre každú službu iného)* Avšak takýmto spôsobom by sme kvôli jednému nasadzovaniu použili veľa agentov, ktorí by mohli chýbať. *(pravdepodobne by ste blokovali prácu ďalších ľudí v tíme, alebo ostatné tími vo vašej firme. Build PR, spúšťanie testov, ďalšie nasadzovanie, ...)* Preto sa to pokúsime spraviť vrámci jedného job-u.
 
@@ -20,7 +20,6 @@ Namiesto klasického task-u `AzureWebApp@1` na sadenie služby použijeme radše
 
 PowerShell nám umožňuje pomocou príkazu `Start-Job` spustiť paralelne viacero job-ov v rámci ktorých spustíme deploy `az webapp deployment source config-zip`. Stačí mu nastaviť `--resource-group` v ktorej sa nachádza vaša Web App, ďalej názvo služby kam nasadzujeme `--name` a nakoniec cestu k ZIP súboru, ktorý ideme nasadzovať `--src`. Spustené joby si odložíme do premennej `$jobs` aby sme mohli počkať na ich dokončenie `Wait-Job -Job $jobs`.
 
-{% raw %}
 
 ```pwsh
 param (
@@ -57,7 +56,6 @@ if ($failed -eq $true) {
 }
 ```
 
-{% endraw %}
 
 Keď máme script dokončený, môžme ho použiť v deployment pipeline `deploy-cd.yml`.
 

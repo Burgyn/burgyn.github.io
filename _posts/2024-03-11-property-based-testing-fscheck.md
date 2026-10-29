@@ -4,7 +4,7 @@ title: Testing with properties using FsCheck
 tags: [csharp, unit tests, FsCheck, architecture]
 comments: true
 description: 'Learn about property-based testing vs example-based testing with C# using the FsCheck library for verifying program correctness.'
-date: 2024-03-10 18:00:00.000000000 +01:00 2021-05-10 00:00:00 +0200
+date: 2024-03-10 17:00:00 +00:00
 linkedin_post_text: 'Improve your C# unit testing skills with property-based testing. Discover how the FsCheck library can help verify your code correctness based on properties or specification, rather than specific examples 🧮🔍. Refactoring or fuzz testing? Property-based testing can help! Read more in my latest blog post 👨‍💻 here: https://blog.burgyn.online/2024/03/10/property-based-testing-fscheck'
 image: "/assets/images/code_images/2024-03-11-property-based-testing-fscheck/cover.png"
 thumbnail: "/assets/images/code_images/2024-03-11-property-based-testing-fscheck/cover.png"

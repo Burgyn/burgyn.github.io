@@ -5,7 +5,7 @@ tags: [csharp, dotnet, unit tests, architecture]
 comments: true
 description: "Discover how to build your own implementation of the Mediator design pattern in a .NET environment without third-party libraries."
 linkedin_post_text: "Interested in the Mediator design pattern for .NET? Check out how you can create your own implementation without third-party libraries. 🎯💻 {link to blogpost}"
-date: 2024-06-09 18:00:00.000000000 +01:00 
+date: 2024-06-09 17:00:00 +00:00
 image: "/assets/images/code_images/own-mediator/cover.png"
 thumbnail: "/assets/images/code_images/own-mediator/cover.png"
 keywords:

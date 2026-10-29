@@ -182,7 +182,6 @@ internal static class SourceCodeGenerator
 
 Šablóna `PartialClassTemplate.txt`
 
-{% raw %}
 
 ```csharp
 //------------------------------------------------------------------------------
@@ -218,7 +217,6 @@ namespace {{Namespace}}
 }
 ```
 
-{% endraw %}
 
 Ok, s použitím `StringBuilder`-a by to v tomto prípade bolo jednoduchšie. Ale zámerne som si to chcel vyskúšať, keďže to budem chcieť použiť a tušil som problémy. A áno boli. Vysvetlím nižšie.
 

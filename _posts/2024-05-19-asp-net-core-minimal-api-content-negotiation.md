@@ -5,7 +5,7 @@ tags: [csharp, asp.net core]
 comments: true
 description: "A guide to creating your own support for Content Negotiation in ASP.NET Core Minimal API by developing a custom 'IResult' implementation."
 linkedin_post_text: "Discover how to enhance ASP.NET Core Minimal API's capabilities with your own support for content negotiation. Learn the step-by-step process, complete with code examples. 💻🎓🔧 #ASPNET #MinimalAPI #ContentNegotiation #CodingTutorial Read more here: {placeholder for blog post link}"
-date: 2024-05-19 18:00:00.000000000 +01:00 
+date: 2024-05-19 17:00:00 +00:00
 image: "/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png"
 thumbnail: "/assets/images/code_images/asp-net-core-minimal-api-content-negotiation/cover.png"
 keywords:

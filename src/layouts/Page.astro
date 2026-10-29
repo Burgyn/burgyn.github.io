@@ -1,0 +1,21 @@
+---
+// Layout for standalone markdown pages (About).
+import Default from './Default.astro';
+import { site } from '../lib/site';
+
+const { frontmatter } = Astro.props;
+const jsonLd = {
+  '@type': 'WebPage',
+  author: { '@type': 'Person', name: site.author.name, url: site.author.url },
+  description: frontmatter.description,
+  headline: frontmatter.title,
+  ...(frontmatter.image && { image: new URL(frontmatter.image, site.url).href }),
+};
+---
+<Default
+    seo={{ title: frontmatter.title, description: frontmatter.description, image: frontmatter.image, jsonLd }}
+    keywords={frontmatter.keywords}
+    about={frontmatter.about}
+>
+    <slot />
+</Default>

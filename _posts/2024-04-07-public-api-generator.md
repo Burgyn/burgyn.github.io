@@ -5,7 +5,7 @@ tags: [csharp, dotnet, unit tests]
 comments: true
 description: "Find out how to ensure the public API of your .NET library remains consistent and properly versioned."
 linkedin_post_text: "Ensure the consistency and proper versioning of the public API of your .NET library with the PublicApiGenerator and Verify tools. 🧰😊 Learn more in our new blog post. 🔗[link]"
-date: 2024-04-07 18:00:00.000000000 +01:00 2055-02-18 18:00:00.000000000 +01:00
+date: 2024-04-07 17:00:00 +00:00
 image: "/assets/images/code_images/public-api-generator/cover.png"
 thumbnail: "/assets/images/code_images/public-api-generator/cover.png"
 keywords:

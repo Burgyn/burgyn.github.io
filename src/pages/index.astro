@@ -1,0 +1,20 @@
+---
+import Default from '../layouts/Default.astro';
+import Catalogue from '../components/Catalogue.astro';
+import { getPosts } from '../lib/posts';
+import { paginate } from '../lib/pagination';
+import { site } from '../lib/site';
+
+const { posts, prev, next } = paginate(await getPosts(), 1);
+const jsonLd = {
+  '@type': 'WebSite',
+  author: { '@type': 'Person', name: site.author.name, url: site.author.url },
+  description: site.description,
+  headline: site.title,
+  name: site.social.name,
+  sameAs: site.social.links,
+};
+---
+<Default seo={{ jsonLd, prev, next }}>
+    <Catalogue posts={posts} page={1} prev={prev} next={next} />
+</Default>

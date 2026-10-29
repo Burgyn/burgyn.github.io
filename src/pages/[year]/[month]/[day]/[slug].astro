@@ -1,0 +1,62 @@
+---
+import { render } from 'astro:content';
+import Default from '../../../../layouts/Default.astro';
+import Gallery from '../../../../components/Gallery.astro';
+import { excerpt, formatDate, getPosts, isoDate, smartify, titleHtml, titleText, type Post } from '../../../../lib/posts';
+import { site } from '../../../../lib/site';
+
+export async function getStaticPaths() {
+  return (await getPosts()).map((post) => {
+    const [, year, month, day, slug] = post.url.split('/');
+    return { params: { year, month, day, slug }, props: { post } };
+  });
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content } = await render(post);
+const { title, tags, keywords, image, thumbnail, carousel_images } = post.data;
+// jekyll-seo-tag: front matter description, else the excerpt, else the site description.
+const description = smartify((post.data.description ?? excerpt(post)).trim()) || site.description;
+const published = isoDate(post.date);
+const canonical = site.url + post.url;
+const jsonLd = {
+  '@type': 'BlogPosting',
+  author: { '@type': 'Person', name: site.author.name, url: site.author.url },
+  dateModified: published,
+  datePublished: published,
+  description,
+  headline: titleText(title),
+  ...(image && { image: new URL(image, site.url).href }),
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+  url: canonical,
+};
+---
+<Default
+    seo={{ title, description, image, type: 'article', published, jsonLd }}
+    keywords={keywords}
+    mermaid={post.body?.includes('```mermaid')}
+>
+    <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+            <h1 class="post-title p-name" itemprop="name headline"><p set:html={titleHtml(title)} /></h1>
+            <p class="post-meta">
+                <time class="dt-published" datetime={published} itemprop="datePublished">{formatDate(post.date, 'short')}</time><span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name"> | {site.author.name}</span></span>
+                {tags.length > 0 && <> | <span class="fa fa-tags" aria-label="Tags"> </span> <span>{tags.join(', ')}</span></>}
+            </p>
+        </header>
+
+        {thumbnail && (
+            <div class="post-thumbnail">
+                <img src={thumbnail} alt={title} itemprop="image">
+            </div>
+        )}
+
+        <div class="post-content e-content" itemprop="articleBody">
+            <Content />
+        </div>
+
+        {carousel_images ? <Gallery images={carousel_images} /> : <div class="carousel"></div>}
+
+        <a class="u-url" href={post.url} hidden></a>
+    </article>
+</Default>

@@ -5,7 +5,7 @@ tags: [ASP.NET CORE, long read]
 comments: true
 description: ''
 linkedin_post_text: ''
-date: 2024-10-29 18:00:00.000000000 +01:00 2055-02-18 18:00:00.000000000 +01:00
+date: 2024-10-29 17:00:00 +00:00
 image: "/assets/images/junior-developer/1.png"
 thumbnail: "/assets/images/junior-developer/1.png"
 keywords:

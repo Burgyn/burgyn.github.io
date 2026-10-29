@@ -3,7 +3,7 @@ layout: post
 title: C# Puzzles
 tags: [csharp, dotnet, puzzles]
 comments: true
-date: 2024-01-01 8:00:00.000000000 +01:00
+date: 2024-01-01 07:00:00 +00:00
 carousel_images:
 - path: "/assets/images/csharp-puzzles/1.png"
   alt: "C# Puzzles"

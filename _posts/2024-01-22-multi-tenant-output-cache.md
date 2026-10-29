@@ -3,7 +3,7 @@ layout: post
 title: Multi-Tenant Output Cache Policy
 tags: [aspnetcore, outputcache, redis, caching, dotnet, multi-tenant]
 comments: true
-date: 2024-01-22 08:00:00.000000000 +01:00
+date: 2024-01-22 07:00:00 +00:00
 carousel_images:
 - path: "/assets/images/outputcache-multitenant/1.png"
   alt: "Output Cache Multi-Tenant"

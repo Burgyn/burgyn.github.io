@@ -1,0 +1,279 @@
+---
+// Image carousel with a full-screen viewer. Replaces Slick + Lightbox2 (and jQuery).
+interface Props {
+  images: { path: string; alt?: string }[];
+}
+
+const { images } = Astro.props;
+---
+<div class="carousel gallery" data-gallery>
+    <div class="gallery-viewport">
+        <div class="gallery-track">
+            {images.map((image, i) => (
+                <a href={image.path} class="gallery-slide" data-index={i}>
+                    <img src={image.path} alt={image.alt} loading={i === 0 ? 'eager' : 'lazy'} />
+                </a>
+            ))}
+        </div>
+        {images.length > 1 && (
+            <>
+                <button type="button" class="gallery-arrow gallery-prev" aria-label="Previous" disabled>←</button>
+                <button type="button" class="gallery-arrow gallery-next" aria-label="Next">→</button>
+            </>
+        )}
+    </div>
+    {images.length > 1 && (
+        <ul class="gallery-dots">
+            {images.map((_, i) => (
+                <li><button type="button" aria-label={`Go to slide ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}>•</button></li>
+            ))}
+        </ul>
+    )}
+    <dialog class="gallery-lightbox" aria-label="Image viewer">
+        <figure>
+            <img alt="" />
+            <figcaption></figcaption>
+        </figure>
+        <button type="button" class="lightbox-prev" aria-label="Previous image">‹</button>
+        <button type="button" class="lightbox-next" aria-label="Next image">›</button>
+        <button type="button" class="lightbox-close" aria-label="Close">×</button>
+    </dialog>
+</div>
+
+<script>
+    for (const gallery of document.querySelectorAll<HTMLElement>('[data-gallery]')) {
+        const track = gallery.querySelector<HTMLElement>('.gallery-track')!;
+        const slides = [...gallery.querySelectorAll<HTMLAnchorElement>('.gallery-slide')];
+        const dots = [...gallery.querySelectorAll<HTMLButtonElement>('.gallery-dots button')];
+        const prev = gallery.querySelector<HTMLButtonElement>('.gallery-prev');
+        const next = gallery.querySelector<HTMLButtonElement>('.gallery-next');
+        const dialog = gallery.querySelector<HTMLDialogElement>('.gallery-lightbox')!;
+        const dialogImg = dialog.querySelector('img')!;
+        const caption = dialog.querySelector('figcaption')!;
+        const lightboxPrev = dialog.querySelector<HTMLButtonElement>('.lightbox-prev')!;
+        const lightboxNext = dialog.querySelector<HTMLButtonElement>('.lightbox-next')!;
+        let current = 0;
+        let viewing = 0;
+
+        // Track height follows the visible slide (Slick's adaptiveHeight).
+        const fitHeight = () => {
+            const img = slides[current].querySelector('img')!;
+            track.style.height = img.complete && img.offsetHeight ? `${img.offsetHeight}px` : '';
+        };
+
+        const show = (index: number) => {
+            current = Math.max(0, Math.min(slides.length - 1, index));
+            dots.forEach((dot, i) => dot.toggleAttribute('aria-current', i === current));
+            if (prev) prev.disabled = current === 0;
+            if (next) next.disabled = current === slides.length - 1;
+            fitHeight();
+        };
+
+        const goTo = (index: number) => track.scrollTo({ left: slides[index].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+
+        track.addEventListener('scroll', () => {
+            const index = Math.round(track.scrollLeft / track.clientWidth);
+            if (index !== current) show(index);
+        }, { passive: true });
+        prev?.addEventListener('click', () => goTo(current - 1));
+        next?.addEventListener('click', () => goTo(current + 1));
+        dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+        slides.forEach((slide) => slide.querySelector('img')!.addEventListener('load', fitHeight));
+        window.addEventListener('resize', fitHeight);
+        show(0);
+
+        const view = (index: number) => {
+            viewing = index;
+            const img = slides[index].querySelector('img')!;
+            dialogImg.src = slides[index].href;
+            dialogImg.alt = img.alt;
+            caption.textContent = slides.length > 1 ? `Image ${index + 1} of ${slides.length}` : '';
+            lightboxPrev.hidden = index === 0;
+            lightboxNext.hidden = index === slides.length - 1;
+        };
+
+        slides.forEach((slide, i) => slide.addEventListener('click', (e) => {
+            e.preventDefault();
+            view(i);
+            dialog.showModal();
+        }));
+        lightboxPrev.addEventListener('click', () => view(viewing - 1));
+        lightboxNext.addEventListener('click', () => view(viewing + 1));
+        dialog.querySelector('.lightbox-close')!.addEventListener('click', () => dialog.close());
+        dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+        dialog.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && viewing > 0) view(viewing - 1);
+            if (e.key === 'ArrowRight' && viewing < slides.length - 1) view(viewing + 1);
+        });
+    }
+</script>
+
+<style>
+    .gallery-viewport {
+        position: relative;
+    }
+
+    .gallery-track {
+        display: flex;
+        align-items: flex-start;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        transition: height 0.3s;
+    }
+
+    .gallery-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    .gallery-slide {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+    }
+
+    .gallery-slide img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .gallery-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: var(--slick-arrow-color);
+        color: var(--page-background-color);
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .gallery-arrow:hover {
+        background: var(--slick-arrow-hover-color);
+    }
+
+    .gallery-arrow:disabled {
+        opacity: 0.25;
+        cursor: default;
+    }
+
+    .gallery-prev {
+        left: -25px;
+    }
+
+    .gallery-next {
+        right: -25px;
+    }
+
+    .gallery-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0;
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .gallery-dots button {
+        width: 20px;
+        height: 20px;
+        padding: 5px;
+        border: none;
+        background: transparent;
+        color: var(--slick-arrow-color);
+        font-size: 12px;
+        line-height: 1;
+        opacity: 0.25;
+        cursor: pointer;
+    }
+
+    .gallery-dots button[aria-current] {
+        opacity: 0.75;
+    }
+
+    .gallery-lightbox {
+        max-width: 100vw;
+        max-height: 100vh;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+    }
+
+    .gallery-lightbox::backdrop {
+        background: rgba(0, 0, 0, 0.8);
+    }
+
+    .gallery-lightbox figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        margin: 0;
+        pointer-events: none;
+    }
+
+    .gallery-lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border: 4px solid #fff;
+        border-radius: 3px;
+        background: #fff;
+        pointer-events: auto;
+    }
+
+    .gallery-lightbox figcaption {
+        margin-top: 8px;
+        color: #ccc;
+        font-size: 12px;
+    }
+
+    .gallery-lightbox button {
+        position: fixed;
+        border: none;
+        background: transparent;
+        color: #fff;
+        font-size: 48px;
+        line-height: 1;
+        opacity: 0.7;
+        cursor: pointer;
+    }
+
+    .gallery-lightbox button:hover {
+        opacity: 1;
+    }
+
+    .lightbox-prev {
+        left: 2vw;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .lightbox-next {
+        right: 2vw;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .lightbox-close {
+        top: 1vh;
+        right: 2vw;
+    }
+
+    @media (max-width: 768px) {
+        .gallery-arrow {
+            display: none;
+        }
+    }
+</style>

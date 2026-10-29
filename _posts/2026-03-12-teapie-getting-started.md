@@ -191,7 +191,7 @@ The request file uses a **request variable** to read the ID from the create resp
 # @name GetProductRequest
 ## TEST-EXPECT-STATUS: [200]
 ## TEST-HAS-BODY
-GET http://localhost:8080/products/{% raw %}{{NewProductId}{% endraw %}
+GET http://localhost:8080/products/{{NewProductId}
 ```
 
 The post-response script verifies the right product came back:

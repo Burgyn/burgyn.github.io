@@ -5,7 +5,7 @@ tags: [productivity,developerworkflow,continuouslearning]
 comments: true
 description: ''
 linkedin_post_text: ''
-date: 2026-02-05 18:00:00.000000000 +01:00
+date: 2026-02-05 17:00:00 +00:00
 image:
 thumbnail:
 keywords:

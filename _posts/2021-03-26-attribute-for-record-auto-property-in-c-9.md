@@ -2,7 +2,7 @@
 layout: post
 title: Attributes for record auto-property in C#9
 tags: [C#,.NET]
-date: 2021-03-26 30:00:00 +0100
+date: 2021-03-27 05:00:00 +00:00
 comments: true
 ---
 

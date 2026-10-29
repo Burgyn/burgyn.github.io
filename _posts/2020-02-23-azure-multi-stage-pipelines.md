@@ -79,7 +79,6 @@ resources:
 
 Kroky pre samotný build máme definované v súbore `pipelines/build-steps-core.yml`.
 
-{% raw %}
 
 ```yml
 parameters:
@@ -101,7 +100,6 @@ steps:
       arguments: '--configuration ${{ parameters.buildConfiguration }} --verbosity ${{ parameters.buildVerbosity }}'
 ```
 
-{% endraw %}
 
 [DotNetCoreCLI@2](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/dotnet-core-cli?view=azure-devops) je task pre využívanie [dotnet core cli](https://docs.microsoft.com/en-us/dotnet/core/tools/?tabs=netcore2x). V tomto prípade ho využívame na build a spustenie testov.
 
@@ -338,7 +336,6 @@ Pokiaľ sme sa nikde nepomýlili, tak po potvrdení zmien by sa nám prva služb
 Pre nasadzovanie ostatných služieb môžme pridávať rovnakým spôsobom ďalšie kroky. Dá sa to ale aj elegantnejšie. Azure Pipelines podporujú viaceré [expressions](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/expressions?view=azure-devops). Jednou z nich je aj ["Each" Template Expresion](https://github.com/microsoft/azure-pipelines-yaml/blob/master/design/each-expression.md), ktorá sa dá použiť podobne ako bežný `foreach` v ostatých jazykoch.
 Samotné nasadenie služieb extrahujeme do šablóny s názvom `deploy-microservice.yml`.
 
-{% raw %}
 
 ```yml
 parameters:
@@ -357,12 +354,11 @@ steps:
       slotName: $(SlotName)
 ```
 
-{% endraw %}
 Vstupným parametrom pre túto šablónu je zoznam názov jednotlivých mikroslužieb `microservices: []`.
 
 > Pri takejto automatizácií ná vedia veľmi pomôcť konvencie názvoslovia. Pokiaľ máme nejaký vzor pre nazývanie služieb, artefaktov, ..., tak si môžme takýmto spôsobom zjednodušiť život.
 
-Pomocou konštrukcie {% raw %} `${{ each microservice in parameters.microservices }}` {% endraw %} rozkopírujeme dané kroky *(v našom prípade jeden)* pre každý názov mikroslužby. Na názov konkrétnej služby sa referencujeme pomocou konštrukcie {% raw %} `${{microservice}}` {% endraw %}.
+Pomocou konštrukcie `${{ each microservice in parameters.microservices }}` rozkopírujeme dané kroky *(v našom prípade jeden)* pre každý názov mikroslužby. Na názov konkrétnej služby sa referencujeme pomocou konštrukcie `${{microservice}}`.
 
 Šablónu použijeme v našej pipeline nasledovne:
 
@@ -404,7 +400,6 @@ Teraz je načase nasadiť klienta. Tak ako sme spomínali na začiatku, tak Angu
 
 Nasadenie klienta máme definované v šablóne `deploy-client.yml`.
 
-{% raw %}
 
 ```yml
 parameters:
@@ -431,13 +426,12 @@ steps:
         az storage blob upload-batch -d $web --account-name ${{parameters.storageAccount}} -s $(Pipeline.Workspace)/ToDosDemoClient/app/Kros.Angular.BestPractices
 ```
 
-{% endraw %}
 
 V prvom kroku samozrejme musíme stiahnúť artefakty. V tomto prípade z pipeline-y, ktorú si pridáme neskôr a pomenujeme ju `ToDosDemoClient`. Angular generuje súborom náhodne znaky, preto skôr ako upload-neme novú verziu, musíme vymazať starú.
 
 Na volanie Azure CLI príkazov použijeme [`AzureCLI@1`](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops) task. Ktorému nastavíme `azureSubscription` nad ktorou sa príkazy budú spúšťať. Pomocou `scriptLocation` označíme, že script budeme písať priamo v tejto šablóne *(Ak chceme mať script v samostatnom súbore tak to nastavíme na `scriptPath`)*.
 
-Príkazom [`az storage blob delete-batch`](https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-delete-batch) vymažeme všetky súbory `--pattern /*` z kontajnera `$web` v Storage Account-e {% raw %}`--account-name ${{parameters.storageAccount}}`. {% endraw %}
+Príkazom [`az storage blob delete-batch`](https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az-storage-blob-delete-batch) vymažeme všetky súbory `--pattern /*` z kontajnera `$web` v Storage Account-e `--account-name ${{parameters.storageAccount}}`.
 
 Rovnakým spôsobom upload-neme aj nové súbory z artefaktov umiestnených v `$(Pipeline.Workspace)/ToDosDemoClient/app/Kros.Angular.BestPractices`. Na upload súborov do Blob Storage je možné použiť aj [`AzureFileCopy@3`](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-file-copy?view=azure-devops) task, bohužiaľ tento neakceptuje nastavenú sytémovu proxy a preto na on-premise serveroch s tým býva problém.
 
@@ -514,7 +508,6 @@ V tomto kroku by sa patrilo ešte spustiť UI testy. My na to využívame [cypre
 Po otestovaní aplikácie v testovacom prostredí by sme chceli aplikáciu nasadiť do produkcie. V tejto časti si ukážeme ako na to využiť swapovanie. Swap-ovanie nám umožní využiť to, že naša aplikácia je v teste už "zahriata" a tým sa vyhneme studenému štartu. Taktiež nám to umožní spraviť bezodstávkové nasadzovanie.
 
 Swap-nutie si definujeme v šablone `deploy-swap.yml`.
-{% raw %}
 
 ```yml
 parameters:
@@ -531,12 +524,10 @@ steps:
       SourceSlot: $(SlotName)
 ```
 
-{% endraw %}
 
 Pomocou task-u [AzureAppServiceManage@0](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-app-service-manage?view=azure-devops) dokážeme menežovať Azure Web Apps. To čo s danou službou chceme urobiť určíme nastavením vlastnosti `action`. V našom prípade ju ale neuvádzame, pretože default hodnota je práve `Swap Slots`, čo chceme.
 
 Celá deploy pipeline-a môže vyzerať nasledovne:
-{% raw %}
 
 ```yml
 trigger: none
@@ -605,7 +596,6 @@ stages:
               microservices: ['ToDos', 'Authorization', 'Organizations', 'ApiGateway']
 ```
 
-{% endraw %}
 
 Máme hotovú pipelinu-u, ktorá nám nasadí naše služby do testu a následne hneď do produkcie. Málokto z nás má celý proces nasadzovania a automatických testov dotiahnutý tak ďaleko, aby po commit-e do master vetvy mohol nechať automaticky zbehnuť nasadenie až do produkcie. Väčšinou chceme pred nasadením do produkcie nejaký proces schvaľovania. Pri Azure Multi Stage Pipelines na to môžeme využiť [Environments approvals](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/approvals?view=azure-devops&tabs=check-pass). Pri každom stage-y sme definovali vlastnosť `environment:` buďto ako `Testing`, alebo `Production`. Azure DevOps robí audit nad týmtito prostrediami a všetko čo sa nasadzuje potom môžme vidieť pekne prehľadne po jednolivých prostrediach.
 

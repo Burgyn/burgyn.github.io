@@ -6,21 +6,21 @@
         {
             "label": "Create draft",
             "type": "shell",
-            "command": "bundle exec jekyll draft ${input:draftName}"
+            "command": "npm run draft -- ${input:draftName}"
         },
         {
             "label": "Run",
             "type": "shell",
-            "command": "bundle exec jekyll serve --draft",
+            "command": "npm run dev",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         },
         {
-            "label": "Run Future",
+            "label": "Run with drafts and future posts",
             "type": "shell",
-            "command": "bundle exec jekyll serve --draft --future",
+            "command": "npm run dev:drafts",
             "group": {
                 "kind": "build",
                 "isDefault": true

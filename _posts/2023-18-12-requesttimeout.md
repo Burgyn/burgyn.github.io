@@ -3,7 +3,7 @@ layout: post
 title: ASP.NET Core - Request timeout
 tags: [aspnetcore, dotnet]
 comments: true
-date: 2023-12-18 08:00:00.000000000 +01:00
+date: 2023-12-18 07:00:00 +00:00
 carousel_images:
 - path: "/assets/images/requesttimeout/1.png"
   alt: "Request timeout"

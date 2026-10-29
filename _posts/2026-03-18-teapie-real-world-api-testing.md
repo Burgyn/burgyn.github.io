@@ -19,7 +19,7 @@ keywords:
 - dotnet tool
 ---
 
-In the [first article]({% post_url 2026-03-12-teapie-getting-started %}),
+In the [first article](/2026/03/12/teapie-getting-started),
 I showed how to get from zero to passing tests in a few minutes - directives,
 a `POST` with a `.csx` script, and chaining IDs across test cases.
 
@@ -33,7 +33,7 @@ and for work that finishes asynchronously in the background.
 I'm still using
 [MMLib.DummyApi](https://github.com/Burgyn/MMLib.DummyApi) as the demo backend.
 If you haven't read
-[Part 1]({% post_url 2026-03-12-teapie-getting-started %}), start there; spin up
+[Part 1](/2026/03/12/teapie-getting-started), start there; spin up
 the API with
 `docker run -p 8080:8080 ghcr.io/burgyn/mmlib-dummyapi`.
 
@@ -61,7 +61,6 @@ Create `.teapie/env.json` in your project root:
 
 Now update your `.http` files to use the variable:
 
-{% raw %}
 
 ```http
 ## TEST-EXPECT-STATUS: [200]
@@ -69,7 +68,6 @@ Now update your `.http` files to use the variable:
 GET {{ApiBaseUrl}}/products
 ```
 
-{% endraw %}
 
 Run against local (default):
 
@@ -93,7 +91,7 @@ One test collection, multiple environments.
 The DummyApi `orders` endpoints expect an `X-Api-Key` header. Without it, you get
 `401`. For this sample, put the key in **`.teapie/env.json`** (the same file as
 in [Environments](#environments)). The `ApiKey` property becomes variable
-{% raw %}{{ApiKey}}{% endraw %} in `.http` files. That is handy for workshops
+{{ApiKey}} in `.http` files. That is handy for workshops
 and Docker demos, but not how every real API handles identity.
 
 A follow-up post will cover other authentication styles and a **custom auth
@@ -101,10 +99,9 @@ provider** in TeaPie so you don't have to paste secrets into every request by
 hand.
 
 Positive path: use the env value in a header the same way you use
-{% raw %}{{ApiBaseUrl}}{% endraw %}. Create
+{{ApiBaseUrl}}. Create
 `Tests/002-Orders/001-List-Orders-Authorized-req.http`:
 
-{% raw %}
 
 ```http
 ## TEST-EXPECT-STATUS: [200]
@@ -113,21 +110,18 @@ GET {{ApiBaseUrl}}/orders
 X-Api-Key: {{ApiKey}}
 ```
 
-{% endraw %}
 
 `ApiKey` is resolved from `.teapie/env.json` when you run `teapie test`.
 
 Quick negative check - no header, expect rejection. Create
 `Tests/002-Orders/004-Unauthorized-Access-req.http`:
 
-{% raw %}
 
 ```http
 ## TEST-EXPECT-STATUS: [401]
 GET {{ApiBaseUrl}}/orders
 ```
 
-{% endraw %}
 
 ## Pre-request scripts: set variables, keep `.http` readable
 
@@ -144,7 +138,6 @@ tp.SetVariable("OrderCustomerId", Guid.NewGuid().ToString());
 
 Http file: `Tests/002-Orders/002-Create-Order-init.http`:
 
-{% raw %}
 
 ```http
 # @name CreateOrderRequest
@@ -165,7 +158,6 @@ X-Api-Key: {{ApiKey}}
 }
 ```
 
-{% endraw %}
 
 `002-Create-Order-test.csx` (shortened):
 
@@ -189,7 +181,7 @@ await tp.Test("Order status should start as 'pending'.", async () =>
 TeaPie can inject dynamic values **directly** in the request file, without an
 `init` script. You can use build-in functions; names start with
 `$` and use space-separated arguments (no commas), for example
-`{% raw %}{{$randomInt 1 100}}{% endraw %}`.
+`{{$randomInt 1 100}}`.
 
 The defaults today are:
 
@@ -202,7 +194,6 @@ The defaults today are:
 
 You can rewrite preview `.http` file without `-init.csx` file.
 
-{% raw %}
 
 ```http
 # @name CreateOrderRequest
@@ -223,7 +214,6 @@ X-Api-Key: {{ApiKey}}
 }
 ```
 
-{% endraw %}
 
 You can also define **your own functions** and use them from `.http`
 files like the built-ins. How that works is worth its own walkthrough - I'll
@@ -251,7 +241,6 @@ retry until it finally sees `200`:
 
 `Tests/003-Retry/001-Simulate-Flaky-Get-req.http`:
 
-{% raw %}
 
 ```http
 ## TEST-EXPECT-STATUS: [200]
@@ -263,7 +252,6 @@ X-Simulate-Retry: 3
 X-Request-Id: {{$guid}}
 ```
 
-{% endraw %}
 
 Without retries, the first responses would be errors. With `RETRY-UNTIL-STATUS`
 and enough attempts, the run lines up with the 3rd successful response.
@@ -280,7 +268,7 @@ expected state - not that the first HTTP response was OK.
 DummyApi does the same with orders: `status` advances in the background
 (`pending` → `processing` → `completed`). Your `GET /orders/{id}` can keep
 returning **`200`** while the JSON still says `pending`, so
-{% raw %}`## RETRY-UNTIL-STATUS: [200]`{% endraw %} tells you nothing new - you
+`## RETRY-UNTIL-STATUS: [200]` tells you nothing new - you
 already had `200` on the first try.
 
 What you need is **retry until a post-response test passes**. Put the real
@@ -289,7 +277,6 @@ that test's **exact name**:
 
 `Tests/002-Orders/003-Check-Order-Status-req.http`:
 
-{% raw %}
 
 ```http
 # @name CheckOrderStatusRequest
@@ -300,7 +287,6 @@ GET {{ApiBaseUrl}}/orders/{{NewOrderId}}
 X-Api-Key: {{ApiKey}}
 ```
 
-{% endraw %}
 
 `003-Check-Order-Status-test.csx`:
 
@@ -337,4 +323,4 @@ providers, named retry strategies, reporting, and TeaPie's AI-assisted workflows
 - [Retrying](https://www.teapie.fun/docs/retrying.html)
 - [Functions](https://www.teapie.fun/docs/functions.html)
 - [MMLib.DummyApi on GitHub](https://github.com/Burgyn/MMLib.DummyApi)
-- [Part 1 of this series]({% post_url 2026-03-12-teapie-getting-started %})
+- [Part 1 of this series](/2026/03/12/teapie-getting-started)

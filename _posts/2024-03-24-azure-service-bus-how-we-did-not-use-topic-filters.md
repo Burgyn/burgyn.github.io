@@ -3,7 +3,7 @@ layout: post
 title: AZURE Service Bus - How we didn't use Topic filters
 tags: [AZURE, architecture, csharp, dotnet]
 comments: true
-date: 2024-03-24 18:00:00.000000000 +01:00
+date: 2024-03-24 17:00:00 +00:00
 description: "Learn about throttling with AZURE Service Bus in microservices development, its challenges and possible solutions found by KROS a.s team."
 linkedin_post_text: "❓ Ever came across throttling challenges with Azure Service Bus in microservices? We at KROS a.s. did not use the topics filter functionality that we would have liked.\n\r\n\r👉If you want to know more, read on: https://blog.burgyn.online/2024/03/24/azure-service-bus-how-we-did-not-use-topic-filters\n\r\n\r#azure"
 image: "/assets/images/service-bus-topics/cover.png"

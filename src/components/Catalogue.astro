@@ -1,0 +1,33 @@
+---
+import { formatDate, stripHtml, titleHtml, truncateWords, type Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+  page: number;
+  prev?: string;
+  next?: string;
+}
+
+const { posts, page, prev, next } = Astro.props;
+---
+<img src="/assets/images/cover.gif" alt="cover" class="cover" />
+
+<div class="catalogue">
+    {posts.map((post) => (
+        <a href={encodeURI(post.url)} class="catalogue-item">
+            <div>
+                <h1 class="catalogue-title" set:html={titleHtml(post.data.title)} />
+                <time datetime={post.date.toISOString()} class="catalogue-time">{formatDate(post.date, 'long')}</time>
+                <p class="catalogue-description">
+                    {truncateWords(stripHtml(post.rendered?.html ?? ''), 30)}
+                </p>
+            </div>
+        </a>
+    ))}
+</div>
+
+<div class="pagination">
+    {prev && <a href={prev} class="left arrow">preview</a>}
+    <a href="/">{page}</a>
+    {next && <a href={next} class="right arrow">next</a>}
+</div>

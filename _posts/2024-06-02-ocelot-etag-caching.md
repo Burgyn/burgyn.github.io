@@ -5,7 +5,7 @@ tags: [csharp, dotnet, caching, architecture]
 comments: true
 description: "A blog post discussing the use of ETag caching with Kros.Ocelot.ETagCaching library and Ocelot API Gateway."
 linkedin_post_text: "Interested in optimizing your API Gateway performance? Check out our latest blog post that explains how to implement ETag Caching with Kros.Ocelot.ETagCaching library. It saves bandwidth and reduces server load, making your applications more efficient. Check it out! 👉 {placeholder for blog post link}"
-date: 2024-06-02 18:00:00.000000000 +01:00
+date: 2024-06-02 17:00:00 +00:00
 image: "/assets/images/code_images/ocelot-etag-caching/cover.png"
 thumbnail: "/assets/images/code_images/ocelot-etag-caching/cover.png"
 keywords:

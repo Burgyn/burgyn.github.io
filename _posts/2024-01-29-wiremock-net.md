@@ -3,7 +3,7 @@ layout: post
 title: WireMock.NET
 tags: [dotnet, unittesting, csharp, wiremock]
 comments: true
-date: 2024-01-29 08:00:00.000000000 +01:00
+date: 2024-01-29 07:00:00 +00:00
 carousel_images:
 - path: "/assets/images/wiremock/1.png"
   alt: "WireMock.NET"

@@ -3,7 +3,7 @@ layout: post
 title: Output cache with ASP.NET Core
 tags: [aspnetcore, outputcache, redis, caching, dotnet]
 comments: true
-date: 2024-01-15 08:00:00.000000000 +01:00
+date: 2024-01-15 07:00:00 +00:00
 carousel_images:
 - path: "/assets/images/outputcache/1.png"
   alt: "Output cache"
