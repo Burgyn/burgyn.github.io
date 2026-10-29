@@ -20,7 +20,7 @@ keywords:
 - Coding
 ---
 
-This is another article in the "Back to the basics" series. The first part covered [Boxing and UnBoxing](/2024/03/04/boxing-unboxing/), today we'll look at the difference between `throw` and `throw ex`.
+This is another article in the "Back to the basics" series. The first part covered [Boxing and UnBoxing](/2024/03/04/boxing-unboxing), today we'll look at the difference between `throw` and `throw ex`.
 
 > 💁 If you know the difference between `throw` and `throw ex` you don't need to read any further, you won't learn anything new.
 
