@@ -7,8 +7,8 @@ description: "AI agents write backend code fast. With TeaPie and its Claude Code
 linkedin_post_text: ""
 social_post_key: ""
 date: 2026-10-29 12:00:00 +01:00
-image: /assets/images/blog-post-base-cover.png
-thumbnail: /assets/images/blog-post-base-cover.png
+image: "/assets/images/teapie-ai-agent-integration-tests-cover.png"
+thumbnail: "/assets/images/teapie-ai-agent-integration-tests-cover.png"
 keywords:
   - TeaPie
   - AI agent
