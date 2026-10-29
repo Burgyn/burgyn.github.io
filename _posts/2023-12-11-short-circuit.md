@@ -3,7 +3,7 @@ layout: post
 title: ASP.NET Core Short-circuit
 tags: [aspnetcore, dotnet]
 comments: true
-date: 2023-12-11 15:00:00.000000000 +01:00
+date: 2023-12-11 14:00:00 +00:00
 carousel_images:
 - path: "/assets/images/shortcircuit/1.png"
   alt: "Short circuit"

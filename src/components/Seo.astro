@@ -1,0 +1,44 @@
+---
+// Equivalent of the jekyll-seo-tag output.
+import { site } from '../lib/site';
+import { smartify, titleText } from '../lib/posts';
+
+interface Props {
+  title?: string;
+  fullTitle?: string;
+  // Pages with an explicit .html permalink (404, offline) keep it in the canonical URL.
+  keepHtml?: boolean;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  published?: string;
+  next?: string;
+  prev?: string;
+  jsonLd: Record<string, unknown>;
+}
+
+const { title, fullTitle: fullTitleOverride, keepHtml = false, description = site.description, image, type = 'website', published, next, prev, jsonLd } = Astro.props;
+const siteTitle = smartify(site.title);
+const pageTitle = title ? titleText(title) : siteTitle;
+const fullTitle = fullTitleOverride ?? (title ? `${pageTitle} | ${siteTitle}` : `${siteTitle} | ${site.description}`);
+const canonical = new URL((keepHtml ? Astro.url.pathname : Astro.url.pathname.replace(/\.html$/, '')).replace(/\/index$/, '/'), site.url).href;
+const imageUrl = image && new URL(image, site.url).href;
+---
+<title>{fullTitle}</title>
+<meta property="og:title" content={pageTitle} />
+<meta name="author" content={site.author.name} />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content={description} />
+<meta property="og:description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={siteTitle} />
+{imageUrl && <meta property="og:image" content={imageUrl} />}
+<meta property="og:type" content={type} />
+{published && <meta property="article:published_time" content={published} />}
+{prev && <link rel="prev" href={new URL(prev, site.url).href} />}
+{next && <link rel="next" href={new URL(next, site.url).href} />}
+<meta name="twitter:card" content={imageUrl ? 'summary_large_image' : 'summary'} />
+{imageUrl && <meta property="twitter:image" content={imageUrl} />}
+<meta property="twitter:title" content={pageTitle} />
+<script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', ...jsonLd, url: jsonLd.url ?? canonical })} />

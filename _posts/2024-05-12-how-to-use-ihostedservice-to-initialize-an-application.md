@@ -5,7 +5,7 @@ tags: [csharp, asp.net core, architecture]
 comments: true
 description: "Learn how to use IHostedService in ASP.NET Core for tasks like database migrations or local cache loading before the service starts responding."
 linkedin_post_text: "Looking for a clean way to initialize your ASP.NET Core application before it starts handling requests? Check out my latest blog post on using IHostedService for tasks such as database migrations and local cache loading. Master the elegant way of preparing your service for startup! 🔵🚀 #ASPNETCore #IHostedService #Initialization [blog post link]"
-date: 2024-05-12 18:00:00.000000000 +01:00
+date: 2024-05-12 17:00:00 +00:00
 image: "/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png"
 thumbnail: "/assets/images/code_images/how-to-use-ihostedservice-to-initialize-an-application/cover.png"
 keywords:

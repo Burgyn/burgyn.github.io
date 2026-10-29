@@ -3,7 +3,7 @@ layout: post
 title: ASP.NET Core - IExceptionHandler
 tags: [aspnetcore, dotnet]
 comments: true
-date: 2023-11-29 18:00:00.000000000 +01:00
+date: 2023-11-29 17:00:00 +00:00
 carousel_images:
 - path: "/assets/images/iexceptionhandler/1.png"
   alt: "IEceptionHandler"

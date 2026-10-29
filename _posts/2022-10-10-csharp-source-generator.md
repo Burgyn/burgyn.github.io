@@ -222,7 +222,6 @@ private static ClassModel GenerateModel(
 ```
 
 Samotné generovanie je potom už jednoduché:
-{% raw %}
 ```csharp
 private static string Generate(ClassModel model)
 {
@@ -251,7 +250,6 @@ public override string ToString()
     return sb.ToString();
 }
 ```
-{% endraw %}
 
 Generovanie vykonáme v metóde `Execute`.
 

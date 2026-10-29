@@ -6,7 +6,7 @@ comments: true
 description: "Built-in validation for Minimal APIs in .NET 10: AddValidation(), DataAnnotations, and what to watch for."
 linkedin_post_text: ''
 social_post_key: minimal-api-validation
-date: 2026-02-11 18:00:00.000000000 +01:00
+date: 2026-02-11 17:00:00 +00:00
 image: "/assets/images/blog-post-base-cover.png"
 thumbnail: "/assets/images/blog-post-base-cover.png"
 keywords:

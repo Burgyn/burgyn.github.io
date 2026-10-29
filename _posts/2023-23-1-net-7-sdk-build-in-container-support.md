@@ -6,7 +6,7 @@ comments: true
 image: /assets/images/net7-docker-build-in/NET 7 SDK - build-in container support.png
 date: 2023-01-23 22:00:00 +0100
 ---
-![.NET 7 SDK - build-in container support](/assets/images/net7-docker-build-in/NET 7 SDK - build-in container support.png)
+![.NET 7 SDK - build-in container support](</assets/images/net7-docker-build-in/NET 7 SDK - build-in container support.png>)
 
 Či chceme alebo nie tak docker sa stáva už aj pri vývoji dotnet aplikácií štandardom. Väčšina návodov a článkov ukazuje aké je jednoduché kontajnerizovať dotnet aplikáciu.
 

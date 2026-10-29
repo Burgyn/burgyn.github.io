@@ -5,7 +5,7 @@ tags: [tools, architecture]
 comments: true
 description: "The blog outlines how to leverage tools like PlantUML, Mermaid for diagram creation in markdown, storage, and sharing."
 linkedin_post_text: ""
-date: 2024-08-02 18:00:00.000000000 +01:00
+date: 2024-08-02 17:00:00 +00:00
 image: "/assets/images/code_images/creating-uml-graphs-with-mermaid/cover.png"
 thumbnail: "/assets/images/code_images/creating-uml-graphs-with-mermaid/cover.png"
 keywords:
@@ -49,7 +49,7 @@ sequenceDiagram
     Note right of Author: Wait for feedback!
 ```
 
-{% mermaid %}
+```mermaid
 sequenceDiagram
     participant Author
     participant Notion
@@ -68,7 +68,7 @@ sequenceDiagram
     Author->>Author: Create graphic material
     Author->>Social: Share the article from blog.burgyn.online
     Note right of Author: Wait for feedback!
-{% endmermaid %}
+```
 
 Benefits for me:
   - easy to use directly in markdown

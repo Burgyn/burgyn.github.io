@@ -1,0 +1,145 @@
+---
+import Seo from '../components/Seo.astro';
+import { site } from '../lib/site';
+import type { ComponentProps } from 'astro/types';
+
+interface Props {
+  seo: ComponentProps<typeof Seo>;
+  keywords?: string[];
+  about?: boolean;
+  mermaid?: boolean;
+}
+
+const { seo, keywords, about = false, mermaid = false } = Astro.props;
+
+const profile = about && {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  dateCreated: '2024-02-02T12:34:00-05:00',
+  dateModified: '2024-02-02T14:53:00-05:00',
+  mainEntity: {
+    '@context': 'http://schema.org',
+    '@type': 'Person',
+    name: site.author.name,
+    alternateName: site.author.alternativeName,
+    nationality: site.author.nationality,
+    jobTitle: site.author.jobTitle,
+    url: site.url,
+    image: site.url + site.author.image,
+    email: site.author.email,
+    description: site.author.description,
+    gender: 'male',
+    sameAs: site.social.links,
+  },
+};
+---
+<!DOCTYPE html>
+<html lang="en" class="colors theme-dark-2 entities fonts code-style">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+    <script is:inline src="https://use.fontawesome.com/ee196462b9.js"></script>
+
+    {keywords && <meta name="keywords" content={keywords.join(', ')}>}
+
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.googleAnalytics}`}></script>
+    <script is:inline define:vars={{ id: site.googleAnalytics }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', id);
+    </script>
+
+    <Seo {...seo} />
+
+    {profile && <script type="application/ld+json" set:html={JSON.stringify(profile)} />}
+
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png">
+
+    <link rel="manifest" href="/assets/manifest.json">
+    <link type="application/atom+xml" rel="alternate" href={`${site.url}/feed.xml`} title={site.title} />
+
+    {mermaid && (
+        <script is:inline type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+            mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+        </script>
+    )}
+</head>
+<body>
+    <svg width="0" height="0">
+        <defs>
+            <marker id="custom-arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <path d="M0,0 L0,7 L10,3.5 z"></path>
+            </marker>
+        </defs>
+    </svg>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="/">
+                <div class="site-name">
+                    <img src="/assets/android-chrome-192x192.png" alt="Burgyn's logo" class="nav-logo">
+                    <h2 class="nav-title">{site.title}</h2>
+                </div>
+            </a>
+            <ul>
+                <li><a href="/">Posts</a></li>
+                <li><a href="/about/">About me</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <slot />
+
+            <script is:inline data-name="BMC-Widget" data-cfasync="false"
+                src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+                data-id="minomartiniak"
+                data-description="Support me on Buy me a coffee!"
+                data-message=""
+                data-color="#00BF63" data-position="Right"
+                data-x_margin="25"
+                data-y_margin="50">
+            </script>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <span>
+            &copy; <time datetime={new Date().toISOString()}>{new Date().getUTCFullYear()}</time> {site.author.name}
+            <a rel="me" href={`https://github.com/${site.githubUsername}`} title={`GitHub - ${site.githubUsername}`}>
+                <span class="fa fa-github" aria-label="GitHub"></span>
+            </a>
+            <a rel="me" href={`https://twitter.com/${site.twitterUsername}`} title={`Twitter - ${site.twitterUsername}`}>
+                <span class="fa fa-twitter" aria-label="Twitter"></span>
+            </a>
+            <a rel="me" href="https://linkedin.com/in/milanmartiniak" title="LinkedIn - Milan Martiniak">
+                <span class="fa fa-linkedin" aria-label="LinkedIn"></span>
+            </a>
+            <a rel="me" href={`${site.url}/feed.xml`} title="RSS feed">
+                <span class="fa fa-rss" aria-label="RSS"></span>
+            </a>
+        </span>
+    </footer>
+
+    <script is:inline>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+</body>
+</html>

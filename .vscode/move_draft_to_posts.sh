@@ -11,7 +11,7 @@ echo "Enter the date (format YYYY-MM-DD):"
 read date
 
 # Format the date as required
-formatted_date="${date} 18:00:00.000000000 +01:00"
+formatted_date="${date} 18:00:00 +01:00"
 
 # Define the draft and posts directories
 drafts_dir="_drafts"
@@ -26,22 +26,22 @@ echo "New filename: $new_filename"
 # Move the draft to the posts directory and rename it
 mv "$drafts_dir/$draft_file" "$posts_dir/$new_filename"
 
-# Insert the date into the file's front matter
-sed -i "s/date:/date: $formatted_date/" "$posts_dir/$new_filename"
+# Replace the draft date in the front matter
+sed -i '' "s/^date:.*/date: $formatted_date/" "$posts_dir/$new_filename"
 
 # Validation checks
 # Check if 'keywords' contains values
-if ! grep -A1 "keywords:" "$posts_dir/$new_filename" | grep -qP "^\s*-\s+.+"; then
+if ! grep -A1 "keywords:" "$posts_dir/$new_filename" | grep -qE "^[[:space:]]*-[[:space:]]+.+"; then
     echo "Warning: keywords are missing or empty."
 fi
 
 # Check if 'description' contains text
-if ! grep -qP "description:\s*.+\S" "$posts_dir/$new_filename"; then
+if ! grep -qE "^description:[[:space:]]*\"?[^\"[:space:]]" "$posts_dir/$new_filename"; then
     echo "Warning: description is missing or empty."
 fi
 
 # Check if 'tags' contains values
-if ! grep -qP "tags:\s*\[\s*.+\s*\]" "$posts_dir/$new_filename"; then
+if ! grep -qE "tags:[[:space:]]*\[[[:space:]]*[^][:space:]]+" "$posts_dir/$new_filename"; then
     echo "Warning: tags are missing or empty."
 fi
 
@@ -52,7 +52,7 @@ base_address="blog.burgyn.online"
 year=$(echo $date | cut -d'-' -f1)
 month=$(echo $date | cut -d'-' -f2)
 day=$(echo $date | cut -d'-' -f3)
-url="http://$base_address/$year/$month/$day/${title// /-}"
+url="https://$base_address/$year/$month/$day/${draft_file%.*}"
 
 echo "Your post will be located at: $url"
 

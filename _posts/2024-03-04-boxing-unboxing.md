@@ -5,7 +5,7 @@ tags: [csharp, dotnet, architecture]
 comments: true
 description: 'Explore the basics of Boxing and UnBoxing in .NET, their importance, and how to properly use or avoid them.'
 linkedin_post_text: 'Get back to basics with Boxing and UnBoxing in .NET. Understand their role, importance and how to either use them properly or avoid them in your code. Perfect for developers seeking to deepen their knowledge and improve their proficiency. 👩‍💻👨‍💻📚 Read more http://blog.burgyn.online/2024/03/04/'
-date: 2024-03-04 05:00:00.000000000 +01:00 
+date: 2024-03-04 04:00:00 +00:00
 image: "/assets/images/code_images/boxing-unboxing/cover.png"
 thumbnail: "/assets/images/code_images/boxing-unboxing/cover.png"
 keywords:

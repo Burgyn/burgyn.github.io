@@ -5,7 +5,7 @@ tags: [AZURE, csharp, asp.net core, logs]
 comments: true
 description: "Discover how to locate custom logs in Azure's ApplicationInsights and adjust settings so they're visible by default."
 linkedin_post_text: ""
-date: 2024-07-01 18:00:00.000000000 +01:00
+date: 2024-07-01 17:00:00 +00:00
 image: "/assets/images/blog-post-base-cover.png"
 thumbnail: "/assets/images/blog-post-base-cover.png"
 keywords:

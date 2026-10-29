@@ -18,65 +18,65 @@ Projekt [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelo
 ## Ako na to?
 
 1. Nakonfiguruj SwaggerGen vo vaších mikroslužbách.
-> Podľa [SwashbuckleAspNetCore dokumentácie](https://github.com/domaindrivendev/Swashbuckle.AspNetCore#getting-started).
+   > Podľa [SwashbuckleAspNetCore dokumentácie](https://github.com/domaindrivendev/Swashbuckle.AspNetCore#getting-started).
 
 2. Nainštaluj [MMLib.SwaggerForOcelot](https://www.nuget.org/packages/MMLib.SwaggerForOcelot/2.0.0-alpha.2) do vášho Ocelot projektu
-> dotnet add package MMLib.SwaggerForOcelot
+   > dotnet add package MMLib.SwaggerForOcelot
 
 3. Nakonfiguruj *MMLib.SwaggerForOcelot* v `ocelot.json`
-```json
- {
-  "Routes": [
+   ```json
     {
-      "DownstreamPathTemplate": "/api/{everything}",
-      "UpstreamPathTemplate": "/api/contacts/{everything}",
-      "ServiceName": "contacts",
-      "SwaggerKey": "contacts"
-    },
-    {
-      "DownstreamPathTemplate": "/api/{everything}",
-      "UpstreamPathTemplate": "/api/orders/{everything}",
-      "ServiceName": "orders",
-      "SwaggerKey": "orders"
-    }
-  ],
-  "SwaggerEndPoints": [
-    {
-      "Key": "contacts",
-      "Config": [
-        {
-          "Name": "Contacts API",
-          "Version": "v1",
-          "Url": "http://localhost:5100/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "orders",
-      "Config": [
-        {
-          "Name": "Orders API",
-          "Version": "v1",
-          "Url": "http://localhost:5200/swagger/v1/swagger.json"
-        }
-      ]
-    }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost"
-  }
-}
-```
+     "Routes": [
+       {
+         "DownstreamPathTemplate": "/api/{everything}",
+         "UpstreamPathTemplate": "/api/contacts/{everything}",
+         "ServiceName": "contacts",
+         "SwaggerKey": "contacts"
+       },
+       {
+         "DownstreamPathTemplate": "/api/{everything}",
+         "UpstreamPathTemplate": "/api/orders/{everything}",
+         "ServiceName": "orders",
+         "SwaggerKey": "orders"
+       }
+     ],
+     "SwaggerEndPoints": [
+       {
+         "Key": "contacts",
+         "Config": [
+           {
+             "Name": "Contacts API",
+             "Version": "v1",
+             "Url": "http://localhost:5100/swagger/v1/swagger.json"
+           }
+         ]
+       },
+       {
+         "Key": "orders",
+         "Config": [
+           {
+             "Name": "Orders API",
+             "Version": "v1",
+             "Url": "http://localhost:5200/swagger/v1/swagger.json"
+           }
+         ]
+       }
+     ],
+     "GlobalConfiguration": {
+       "BaseUrl": "http://localhost"
+     }
+   }
+   ```
 
 4. V metóde `ConfigureServices` triedy `Startup.cs` registrujte *MMLib.SwaggerForOcelot* generátor.
-```csharp
-services.AddSwaggerForOcelot(Configuration);
-```
+   ```csharp
+   services.AddSwaggerForOcelot(Configuration);
+   ```
 
 5. V metóde `Configure` triedy `Startup.cs` registrujte middleware, ktorý sprístupní dokumentáciu.
-```csharp
-services.UseSwaggerForOcelotUI(Configuration);
-```
+   ```csharp
+   services.UseSwaggerForOcelotUI(Configuration);
+   ```
 
 Sekcia `SwaggerEndPoints` obsahuje konfigurácie potrebné na získanie dokomentácií jednotlivých mikroslužieb. Property `Key` sa používa na párovanie s `ReRoute` konfiguráciou. `Name` sa zobrazuje v combobox-e. `Url` je adresa k dokumentácií danej mikroslužby. Pokiaľ máte viac verzií vášho api, tak v sekcii `Config` to môžete zohľadniť. Napríklad:
 

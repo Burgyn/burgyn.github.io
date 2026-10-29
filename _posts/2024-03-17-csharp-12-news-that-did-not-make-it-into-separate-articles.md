@@ -3,7 +3,7 @@ layout: post
 title: C# 12 news that didn't make it into separate posts
 tags: [csharp, dotnet, news, architecture]
 comments: true
-date: 2024-03-17 18:00:00.000000000 +01:00 2021-05-10 00:00:00 +0200
+date: 2024-03-17 17:00:00 +00:00
 description: "Discover new features of C#12 such as primary constructors, collection expressions, and experimental attributes. Unleash the potential of modern C#."
 linkedin_post_text: ""
 image: "/assets/images/code_images/2024-03-17-csharp-12-news-that-did-not-make-it-into-separate-articles/cover.png"
@@ -23,9 +23,9 @@ keywords:
 
 C# 12 has been released November 2023. I've written separate articles about each of the new features:
 
-- [C# 12 - Primary constructor]({{ site.baseurl }}{% link _posts/2023-10-10-csharp-primary-constructor.md %})
-- [C# 12 - Collection expressions]({{ site.baseurl }}{% link _posts/2023-11-26-collection-expressions.md %})
-- [Simplify tuple types using aliases]({{ site.baseurl }}{% link _posts/2024-02-18-using-alias-types.md %})
+- [C# 12 - Primary constructor](/2023/10/10/csharp-primary-constructor)
+- [C# 12 - Collection expressions](/2023/11/26/collection-expressions)
+- [Simplify tuple types using aliases](/2024/02/18/using-alias-types)
 
 There were a few small things left that didn't make it into separate articles.
 

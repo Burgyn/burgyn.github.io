@@ -5,7 +5,7 @@ tags: [csharp, asp.net core, multi-tenant, architecture]
 comments: true
 description: "Learn how to use HttpContext.Request.Features in ASP.NET Core to store and retrieve information related to individual requests."
 linkedin_post_text: "Discover how to use HttpContext.Request.Features in ASP.NET Core for efficiently managing data for individual requests 🚀 This can add a powerful tool to your .NET developer toolkit! Read more here: [blogpost]"
-date: 2024-04-21 18:00:00.000000000 +01:00
+date: 2024-04-21 17:00:00 +00:00
 image: "/assets/images/code_images/httpcontext-request-features/cover.png"
 thumbnail: "/assets/images/code_images/httpcontext-request-features/cover.png"
 keywords:

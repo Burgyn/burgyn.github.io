@@ -22,59 +22,59 @@ The [MMLib.SwaggerForOcelot](https://github.com/Burgyn/MMLib.SwaggerForOcelot) p
 2. Install Nuget package into yout ASP.NET Core Ocelot project.
    > dotnet add package MMLib.SwaggerForOcelot
 3. Configure SwaggerForOcelot in `ocelot.json`.
-```json
- {
-  "Routes": [
+   ```json
     {
-      "DownstreamPathTemplate": "/api/{everything}",
-      "UpstreamPathTemplate": "/api/contacts/{everything}",
-      "ServiceName": "contacts",
-      "SwaggerKey": "contacts"
-    },
-    {
-      "DownstreamPathTemplate": "/api/{everything}",
-      "UpstreamPathTemplate": "/api/orders/{everything}",
-      "ServiceName": "orders",
-      "SwaggerKey": "orders"
-    }
-  ],
-  "SwaggerEndPoints": [
-    {
-      "Key": "contacts",
-      "Config": [
-        {
-          "Name": "Contacts API",
-          "Version": "v1",
-          "Url": "http://localhost:5100/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "orders",
-      "Config": [
-        {
-          "Name": "Orders API",
-          "Version": "v1",
-          "Url": "http://localhost:5200/swagger/v1/swagger.json"
-        }
-      ]
-    }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost"
-  }
-}
-```
+     "Routes": [
+       {
+         "DownstreamPathTemplate": "/api/{everything}",
+         "UpstreamPathTemplate": "/api/contacts/{everything}",
+         "ServiceName": "contacts",
+         "SwaggerKey": "contacts"
+       },
+       {
+         "DownstreamPathTemplate": "/api/{everything}",
+         "UpstreamPathTemplate": "/api/orders/{everything}",
+         "ServiceName": "orders",
+         "SwaggerKey": "orders"
+       }
+     ],
+     "SwaggerEndPoints": [
+       {
+         "Key": "contacts",
+         "Config": [
+           {
+             "Name": "Contacts API",
+             "Version": "v1",
+             "Url": "http://localhost:5100/swagger/v1/swagger.json"
+           }
+         ]
+       },
+       {
+         "Key": "orders",
+         "Config": [
+           {
+             "Name": "Orders API",
+             "Version": "v1",
+             "Url": "http://localhost:5200/swagger/v1/swagger.json"
+           }
+         ]
+       }
+     ],
+     "GlobalConfiguration": {
+       "BaseUrl": "http://localhost"
+     }
+   }
+   ```
 
 4. In the `ConfigureServices` method of `Startup.cs` register the SwaggerForOcelot generator.
-```c#
-services.AddSwaggerForOcelot(Configuration);
-```
+   ```c#
+   services.AddSwaggerForOcelot(Configuration);
+   ```
 
 5. In `Configure` method insert the `SwaggerForOcelot` middleware to expose interactive documentation.
-```c#
-app.UseSwaggerForOcelotUI(Configuration)
-```
+   ```c#
+   app.UseSwaggerForOcelotUI(Configuration)
+   ```
 
 The `SwaggerEndPoints` section contains the configurations needed to obtain documentation for each microservice. The `Key` property is used to pair with the `ReRoute` configuration. `Name` is displayed in the combobox. `Url` is the address for the microservice documentation. If you have multiple versions of your api, you can take this into account in the `Config` section. For example:
 

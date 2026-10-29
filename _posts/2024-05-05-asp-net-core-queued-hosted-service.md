@@ -5,7 +5,7 @@ tags: [csharp, dotnet, asp.net core, AZURE]
 comments: true
 description: "Discover how to process long-running actions with ASP.NET Core by task queuing, simultaneously improving your application's performance."
 linkedin_post_text: "Improve your application's performance with long-running actions by using a task queue in ASP.NET Core. Check out the techniques in our latest post. 🔗"
-date: 2024-05-05 18:00:00.000000000 +01:00
+date: 2024-05-05 17:00:00 +00:00
 image: "/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png"
 thumbnail: "/assets/images/code_images/asp-net-core-queued-hosted-service/cover.png"
 keywords:

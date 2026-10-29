@@ -5,7 +5,7 @@ tags: [csharp, architecture, unit tests, AZURE]
 comments: true
 description: "The blog post discusses managing project references in WebAPI projects featuring C# codes to perform architectural tests and maintain project independence."
 linkedin_post_text: "🧩Ever struggled with maintaining independence of your WebAPI projects? Our latest blog discusses how to manage project references and perform architectural tests to avoid dependencies. Includes C# code samples. Read it here: [Blog Post Link]👈 #WebAPI #CSharp #Azure #Architecture #UnitTests"
-date: 2024-06-23 18:00:00.000000000 +01:00 
+date: 2024-06-23 17:00:00 +00:00
 image: "/assets/images/code_images/arch-tests-check-project-references/cover.png"
 thumbnail: "/assets/images/code_images/arch-tests-check-project-references/cover.png"
 keywords:

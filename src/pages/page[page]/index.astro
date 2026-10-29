@@ -1,0 +1,24 @@
+---
+import Default from '../../layouts/Default.astro';
+import Catalogue from '../../components/Catalogue.astro';
+import { getPosts, smartify } from '../../lib/posts';
+import { paginate } from '../../lib/pagination';
+import { site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const { pages } = paginate(await getPosts(), 1);
+  return Array.from({ length: pages - 1 }, (_, i) => ({ params: { page: String(i + 2) } }));
+}
+
+const page = Number(Astro.params.page);
+const { posts, pages, prev, next } = paginate(await getPosts(), page);
+const jsonLd = {
+  '@type': 'WebPage',
+  author: { '@type': 'Person', name: site.author.name, url: site.author.url },
+  description: site.description,
+  headline: site.title,
+};
+---
+<Default seo={{ fullTitle: `Page ${page} of ${pages} for ${smartify(site.title)} | ${site.description}`, jsonLd, prev, next }}>
+    <Catalogue posts={posts} page={page} prev={prev} next={next} />
+</Default>

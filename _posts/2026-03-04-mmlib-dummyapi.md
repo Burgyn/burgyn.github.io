@@ -6,7 +6,7 @@ comments: true
 description: "I built a configurable mock API with CRUD and edge-case simulation for UI prototypes, demos, and testing tools."
 linkedin_post_text: ''
 social_post_key: 'mmlib-dummyapi'
-date: 2026-03-04 18:00:00.000000000 +01:00
+date: 2026-03-04 17:00:00 +00:00
 image: "/assets/images/mmlib-dummyapi-cover.png"
 thumbnail: "/assets/images/mmlib-dummyapi-cover.png"
 keywords:

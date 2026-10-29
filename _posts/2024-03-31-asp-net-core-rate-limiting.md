@@ -4,7 +4,7 @@ title: ASP.NET Core - Rate limiting
 tags: [asp.net core, csharp, architecture, multi-tenant]
 comments: true
 description: "Learn how to implement rate limiting in ASP.NET Core using built-in features or custom algorithms. Covers multi-tenant scenarios."
-date: 2024-03-31 18:00:00.000000000 +01:00
+date: 2024-03-31 17:00:00 +00:00
 linkedin_post_text: "🚀 Rate limiting is a technique used mainly with APIs to control and limit the number of requests that clients can make to the API in a defined time. It belongs to the Resiliences family of paterns, which ensure that an API remains stable and available to all users, preventing misuse or overuse that could compromise its performance.\n\r\n\r👉If you want to know more, read on: https://blog.burgyn.online/2024/03/31/asp-net-core-rate-limiting\n\r\n\r#aspnetcore #csharp #dotnet #resiliencepatterns #performance #AspNetCoreRateLimit"
 image: "/assets/images/code_images/2024-03-31-asp-net-core-rate-limiting/cover.png"
 thumbnail: "/assets/images/code_images/2024-03-31-asp-net-core-rate-limiting/cover.png"

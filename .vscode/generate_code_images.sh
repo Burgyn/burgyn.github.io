@@ -15,7 +15,7 @@ dirname="${filename%.*}"
 
 # Create an images directory if it doesn't exist, including a subdirectory for the current file
 outputDir=/assets/images/code_images/$dirname
-mkdir -p ".$outputDir"
+mkdir -p "./public$outputDir"
 
 # Output the new image paths for manual replacement
 new_image_path="$outputDir/cover.png"
@@ -57,7 +57,7 @@ while IFS= read -r line; do
             print lines[i];
     }' temp_code_file > temp_code_file_processed
     # Here, we use the -l option to specify the language and -h for headless mode to avoid opening the browser
-    carbon-now temp_code_file_processed --save-as ".$outputDir/$counter" -l "$language"
+    carbon-now temp_code_file_processed --save-as "./public$outputDir/$counter" -l "$language"
     let counter++
   fi
 done < "$markdownFile"
@@ -65,4 +65,4 @@ done < "$markdownFile"
 # Remove the temporary file containing the code
 rm -f temp_code_file temp_code_file_processed
 
-echo "Code images have been generated in the directory .$outputDir."
+echo "Code images have been generated in the directory ./public$outputDir."

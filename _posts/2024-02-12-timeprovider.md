@@ -3,7 +3,7 @@ layout: post
 title: Time travel with TimeProvider
 tags: [csharp, dotnet, unittests]
 comments: true
-date: 2024-02-10 18:00:00.000000000 +01:00
+date: 2024-02-10 17:00:00 +00:00
 image: /assets/images/cover.png
 ---
 
